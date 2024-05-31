@@ -43,8 +43,8 @@ const IndexPage: React.FC = () => {
                 <link rel="icon" href="/favicon_.ico"/>
             </Head>
             <LeftColumn>
-                <SkillsComponents/>
                 <CertificatesComponents/>
+                <SkillsComponents/>
             </LeftColumn>
 
             <RightColumn>
