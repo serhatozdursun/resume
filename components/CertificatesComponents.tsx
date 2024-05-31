@@ -1,4 +1,4 @@
-// Certificates.js
+// CertificatesComponents.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -44,7 +44,7 @@ const Badge = styled.img`
     margin-right: 5px;
 `;
 
-const Certificates = () => {
+const CertificatesComponents = () => {
     const [clickedCertificates, setClickedCertificates] = useState<string[]>([]);
 
     const handleClick = (certificateName: string) => {
@@ -80,4 +80,4 @@ const Certificates = () => {
     );
 };
 
-export default Certificates;
+export default CertificatesComponents;

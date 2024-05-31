@@ -35,7 +35,7 @@ export const SkillLevelFill = styled.div<{ level: number }>`
   border-radius: 10px;
 `;
 
-export const Skills = () => {
+export const SkillsComponents = () => {
     const skills = [
         {name: 'Test Automation', level: 100},
         {name: 'Selenium', level: 100},

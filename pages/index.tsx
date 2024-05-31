@@ -20,10 +20,10 @@ import {
     AccordionContent,
     BoldText,
     Info
-} from './styles'; // Adjust the path as necessary
-import Certificates from './Certificates';
-import {Skills} from './skills'
-import {experiences} from "./expriences";
+} from '../components/StyledComponents'; // Adjust the path as necessary
+import CertificatesComponents from '../components/CertificatesComponents';
+import {SkillsComponents} from '../components/SkillsComponents'
+import {experiences} from "../components/ExperiencesComponents";
 
 const IndexPage: React.FC = () => {
     const [activeAccordion, SetActiveAccordion] = useState<number | null>(0); // Default to the first accordion
@@ -43,8 +43,8 @@ const IndexPage: React.FC = () => {
                 <link rel="icon" href="/favicon_.ico"/>
             </Head>
             <LeftColumn>
-                <Skills/>
-                <Certificates/>
+                <SkillsComponents/>
+                <CertificatesComponents/>
             </LeftColumn>
 
             <RightColumn>
