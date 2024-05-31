@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Simple Resume Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple resume website design project aimed at practicing TypeScript. The website design does not use a template and is built from scratch.
 
-## Available Scripts
+## About
 
-In the project directory, you can run:
+This project is built with Next.js, React, and Styled Components. It includes basic functionality to showcase a resume and is intended as a learning exercise.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+   git clone https://github.com/serhatozdursun/resume.git
+   cd resume
+```
 
-### `npm test`
+2. Install dependencies:
+```bash
+yarn install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+### Development
+To run the development server:
 
-### `npm run build`
+```bash
+yarn dev
+```
+This will start the Next.js development server.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Building
+To build the project for production:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+yarn build
+```
+### Running in Production
+To start the production server:
+```bash
+yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Additional Information
 
-### `npm run eject`
+### Scripts
+lint: Run ESLint to lint your code.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* **Next.js:** React framework for production.
+* **React:** JavaScript library for building user interfaces.
+* **React DOM:** React package for working with the DOM.
+* **React Icons:** Easily use icons from popular icon sets in your React projects.
+* **Styled Components:** Visual primitives for the component age.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Dev Dependencies
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* **TypeScript:** TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+* **@types/node:** TypeScript definitions for Node.js modules.
+* **@types/react:** TypeScript definitions for React.
+* **@types/styled-components:** TypeScript definitions for Styled Components.
