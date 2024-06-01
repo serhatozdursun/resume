@@ -1,5 +1,6 @@
 [![CI](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
 
+[![CodeQL](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
 # Simple Resume Website
 
 This is a simple resume website design project aimed at practicing TypeScript. The website design does not use a template and is built from scratch.
