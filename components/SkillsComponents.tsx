@@ -49,6 +49,7 @@ export const SkillsComponents = () => {
         { name: 'JMeter', level: 90 },
         { name: 'K6', level: 85 },
         { name: 'Postman', level: 98 },
+        { name: 'WebDriverIO', level: 90 },
         { name: 'Java', level: 90 },
         { name: 'TypeScript', level: 80 },
         { name: 'JavaScript', level: 78 },
