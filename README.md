@@ -1,4 +1,5 @@
 [![CI](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
+
 [![CodeQL](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
 # Simple Resume Website
 
