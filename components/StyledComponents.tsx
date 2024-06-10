@@ -24,8 +24,7 @@ const LeftColumn = styled.div`
 
 const RightColumn = styled.div`
     flex: 2.8;
-    padding: 18px;
-    padding-right: 200px;
+    padding-left: 30px;
     padding-right: 200px;
 `;
 
@@ -49,6 +48,7 @@ const Summary = styled.p`
     line-height: 1.2;
     font-style: italic;
     text-align: justify;
+    padding-top: 80px;
 `;
 
 const Image = styled.img`
@@ -184,6 +184,52 @@ const SeeMoreLink = styled.span`
     cursor: pointer;
 `;
 
+
+const CertificatesContainer = styled.div`
+    margin-top: 30px;
+`;
+
+const CertificateTitle = styled.h3`
+    margin-bottom: 10px;
+    font-size: 1.2em;
+`;
+
+const CertificateList = styled.ul`
+    list-style-type: none;
+    padding: 0;
+`;
+
+const CertificateItem = styled.li`
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+`;
+
+const CertificateLink = styled.a.attrs<{ clicked: boolean }>(props => ({
+    // Ensure clicked is not passed to the DOM
+    clicked: undefined,
+}))<{ clicked: boolean }>`
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: ${props => (props.clicked ? 'black' : 'inherit')};
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+        color: black;
+    }
+`;
+
+const CertificateName = styled.span`
+    margin-left: 10px;
+`;
+
+const Badge = styled.img`
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+`;
+
 export {
     Container,
     LeftColumn,
@@ -212,5 +258,12 @@ export {
     ExperienceCompany,
     ExperienceDateRange,
     ExperienceContent,
-    SeeMoreLink
+    SeeMoreLink,
+    CertificatesContainer,
+    CertificateTitle,
+    CertificateList,
+    CertificateItem,
+    CertificateLink,
+    CertificateName,
+    Badge
 };

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import HtmlParser from 'html-react-parser';
 import {
     ExperienceHeader,
     ExperienceTitle,
@@ -10,9 +11,8 @@ import {
     ExperienceItem,
     CompanyLogo
 } from './StyledComponents';
-import HtmlParser from "html-react-parser";
 
-interface Experience {
+export interface Experience {
     title: string;
     company: string;
     companyLogo: string;
