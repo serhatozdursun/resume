@@ -1,117 +1,53 @@
-// styledComponents.test.tsx
 import React from 'react';
 import { render } from '@testing-library/react';
+import 'jest-styled-components';
 import {
     Container,
     LeftColumn,
     RightColumn,
     Header,
     Name,
-    Title,
-    Summary,
-    Image,
-    IconWrapper,
-    IconLink,
-    IconImage,
-    AccordionWrapper,
-    AccordionItem,
-    AccordionHeader,
-    AccordionTitle,
-    AccordionContent,
-    BoldText,
-    Info,
-} from '../StyledComponents'; // Update the path to your styled components file
-import '@testing-library/jest-dom'
+    SkillLevelFill
+} from '../StyledComponents'
 
-
-describe('Styled Components', () => {
-    it('Container renders correctly', () => {
+describe('StyledComponents', () => {
+    it('renders Container correctly', () => {
         const { container } = render(<Container />);
-        expect(container).toBeInTheDocument();
+        expect(container.firstChild).toHaveStyleRule('display', 'flex');
+        expect(container.firstChild).toHaveStyleRule('max-width', '100%');
+        expect(container.firstChild).toHaveStyleRule('background-color', '#f3fafd');
     });
 
-    it('LeftColumn renders correctly', () => {
+    it('renders LeftColumn correctly', () => {
         const { container } = render(<LeftColumn />);
-        expect(container).toBeInTheDocument();
+        expect(container.firstChild).toHaveStyleRule('flex', '1');
+        expect(container.firstChild).toHaveStyleRule('padding-top', '20px');
+        expect(container.firstChild).toHaveStyleRule('background-color', '#f3fafd');
     });
 
-    it('RightColumn renders correctly', () => {
+    it('renders RightColumn correctly', () => {
         const { container } = render(<RightColumn />);
-        expect(container).toBeInTheDocument();
+        expect(container.firstChild).toHaveStyleRule('flex', '2.8');
+        expect(container.firstChild).toHaveStyleRule('padding', '18px');
     });
 
-    it('Header renders correctly', () => {
+    it('renders Header correctly', () => {
         const { container } = render(<Header />);
-        expect(container).toBeInTheDocument();
+        expect(container.firstChild).toHaveStyleRule('text-align', 'center');
+        expect(container.firstChild).toHaveStyleRule('margin-bottom', '20px');
     });
 
-    it('Name renders correctly', () => {
+    it('renders Name correctly', () => {
         const { container } = render(<Name />);
-        expect(container).toBeInTheDocument();
+        expect(container.firstChild).toHaveStyleRule('font-size', '2.5em');
+        expect(container.firstChild).toHaveStyleRule('margin-bottom', '0.2em');
     });
 
-    it('Title renders correctly', () => {
-        const { container } = render(<Title />);
-        expect(container).toBeInTheDocument();
-    });
+    // Add similar tests for other components as needed
 
-    it('Summary renders correctly', () => {
-        const { container } = render(<Summary />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('Image renders correctly', () => {
-        const { container } = render(<Image />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('IconWrapper renders correctly', () => {
-        const { container } = render(<IconWrapper />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('IconLink renders correctly', () => {
-        const { container } = render(<IconLink />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('IconImage renders correctly', () => {
-        const { container } = render(<IconImage />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('AccordionWrapper renders correctly', () => {
-        const { container } = render(<AccordionWrapper />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('AccordionItem renders correctly', () => {
-        const { container } = render(<AccordionItem />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('AccordionHeader renders correctly', () => {
-        const { container } = render(<AccordionHeader />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('AccordionTitle renders correctly', () => {
-        const { container } = render(<AccordionTitle />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('AccordionContent renders correctly', () => {
-        const { container } = render(<AccordionContent />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('BoldText renders correctly', () => {
-        const { container } = render(<BoldText />);
-        expect(container).toBeInTheDocument();
-    });
-
-    it('Info renders correctly', () => {
-        const { container } = render(<Info />);
-        expect(container).toBeInTheDocument();
+    it('renders SkillLevelFill correctly with level prop', () => {
+        const { container } = render(<SkillLevelFill level={50} />);
+        expect(container.firstChild).toHaveStyleRule('width', '50%');
+        expect(container.firstChild).toHaveStyleRule('background-color', '#4caf50');
     });
 });

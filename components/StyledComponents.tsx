@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const LeftColumn = styled.div`
     flex: 1;
-    padding: 60px 18px 18px 0;
+    padding-top: 20px;
     position: sticky;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,8 @@ const LeftColumn = styled.div`
 const RightColumn = styled.div`
     flex: 2.8;
     padding: 18px;
+    padding-right: 200px;
+    padding-right: 200px;
 `;
 
 const Header = styled.header`
@@ -43,17 +45,21 @@ const Title = styled.h2`
 `;
 
 const Summary = styled.p`
-    font-size: 1.2em;
-    line-height: 1.6;
+    font-size: 1.1em;
+    line-height: 1.2;
     font-style: italic;
-    text-align: center;
+    text-align: justify;
 `;
 
 const Image = styled.img`
     width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    height: 200px; 
+    border-radius: 15px; 
     margin-bottom: 10px;
+    border: 2px solid #7B7B7B; 
+    object-fit: cover; 
+    margin-left: 80px;
+    margin-top: 30px;
 `;
 
 const IconWrapper = styled.div`
@@ -73,34 +79,6 @@ const IconImage = styled.img`
     object-fit: contain;
 `;
 
-const AccordionWrapper = styled.div`
-    margin-top: 20px;
-`;
-
-const AccordionItem = styled.div`
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-`;
-
-const AccordionHeader = styled.div`
-    background-color: #e9effa;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-`;
-
-const AccordionTitle = styled.h3`
-    font-size: 1.2em;
-    margin: 0;
-`;
-
-const AccordionContent = styled.div`
-    padding: 10px;
-`;
-
 const BoldText = styled.span`
     font-weight: bold;
 `;
@@ -109,6 +87,101 @@ const Info = styled.p`
     font-size: 0.98em;
     line-height: 1;
     text-align: center;
+`;
+
+
+const SkillsContainer = styled.div`
+    margin-right: 0;
+    background-color: #f3fafd;
+`;
+
+const Skill = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+`;
+
+const SkillName = styled.span`
+    font-weight: bold;
+    margin-right: 10px;
+    width: 100px;
+`;
+
+const SkillLevel = styled.div`
+    width: 200px;
+    height: 20px;
+    background-color: #f3fafd;
+    border-radius: 10px;
+    overflow: hidden;
+`;
+
+const SkillLevelFill = styled.div<{ level: number }>`
+    height: 100%;
+    width: ${({ level }) => `${level}%`};
+    background-color: #4caf50;
+    border-radius: 10px;
+`;
+
+const SkillsTitle = styled.h3`
+    margin-bottom: 15px;
+    font-size: 1.2em;
+`;
+
+const ExperienceContainer = styled.div`
+    margin-top: 20px;
+`;
+
+const ExperienceItem = styled.div`
+    margin-bottom: 10px;
+`;
+
+const CompanyLogo = styled.img`
+    width: 48px;
+    height: 48px;
+    margin-right: 5px;
+    margin-top: 10px;
+    border: 1px solid #CACACA;
+    border-radius: 5px;
+`;
+
+const ExperienceHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    line-height: 2px;
+`;
+
+const ExperienceTitle = styled.h3`
+    font-style: italic;
+    text-align: left;
+    font-size: 1.1em;
+    margin-left: 10px;
+`;
+
+const ExperienceCompany = styled.h3`
+    font-family: "Times New Roman", Times, serif;
+    text-align: left;
+    font-size: 0.9em;
+    color: #7B7B7B;
+    margin-left: 10px;
+`;
+
+const ExperienceDateRange = styled.h3`
+    font-family: "Times New Roman", Times, serif;
+    text-align: left;
+    font-size: 0.9em;
+    color: #7B7B7B;
+    margin-left: 10px; /* Adjusted margin-left */
+`;
+
+const ExperienceContent = styled.div`
+    padding: 10px;
+`;
+
+const SeeMoreLink = styled.span`
+    color: #868483;
+    cursor: pointer;
 `;
 
 export {
@@ -123,11 +196,21 @@ export {
     IconWrapper,
     IconLink,
     IconImage,
-    AccordionWrapper,
-    AccordionItem,
-    AccordionHeader,
-    AccordionTitle,
-    AccordionContent,
     BoldText,
     Info,
+    SkillsContainer,
+    Skill,
+    SkillName,
+    SkillLevel,
+    SkillLevelFill,
+    SkillsTitle,
+    ExperienceContainer,
+    ExperienceItem,
+    CompanyLogo,
+    ExperienceHeader,
+    ExperienceTitle,
+    ExperienceCompany,
+    ExperienceDateRange,
+    ExperienceContent,
+    SeeMoreLink
 };

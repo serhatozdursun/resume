@@ -1,45 +1,13 @@
-// SkillsComponents.tsx
-import styled from "styled-components";
 import React from "react";
 
-export const SkillsContainer = styled.div`
-    margin-top: 20px;
-    margin-bottom: 10px;
-    margin-right: 0;
-    background-color: #f3fafd;
-`;
-
-export const Skill = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-`;
-
-export const SkillName = styled.span`
-    font-weight: bold;
-    margin-right: 10px;
-    width: 100px;
-`;
-
-export const SkillLevel = styled.div`
-    width: 200px;
-    height: 20px;
-    background-color: #f3fafd;
-    border-radius: 10px;
-    overflow: hidden;
-`;
-
-export const SkillLevelFill = styled.div<{ level: number }>`
-    height: 100%;
-    width: ${({ level }) => `${level}%`};
-    background-color: #4caf50;
-    border-radius: 10px;
-`;
-
-const SkillsTitle = styled.h3`
-    margin-bottom: 15px;
-    font-size: 1.2em;
-`;
+import {
+    SkillsContainer,
+    Skill,
+    SkillName,
+    SkillLevel,
+    SkillLevelFill,
+    SkillsTitle,
+} from "./StyledComponents"
 
 export const SkillsComponents = () => {
     const skills = [
