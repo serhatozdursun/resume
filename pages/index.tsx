@@ -13,27 +13,30 @@ import {
     IconWrapper,
     IconLink,
     IconImage,
-    AccordionWrapper,
-    AccordionItem,
-    AccordionHeader,
-    AccordionTitle,
-    AccordionContent,
-    BoldText,
-    Info
+    ExperienceContainer,
+    Info,
+    BoldText
 } from '../components/StyledComponents'; // Adjust the path as necessary
 import CertificatesComponents from '../components/CertificatesComponents';
-import {SkillsComponents} from '../components/SkillsComponents'
-import {experiences} from "../components/ExperiencesComponents";
+import {SkillsComponents} from '../components/SkillsComponents';
+import ExperienceList from '../components/ExperiencesComponents';
 
 const IndexPage: React.FC = () => {
-    const [activeAccordion, SetActiveAccordion] = useState<number | null>(0); // Default to the first accordion
+    const [activeAccordion, setActiveAccordion] = useState<number | null>(0); // Default to the first accordion
 
     const toggleAccordion = (index: number) => {
         if (activeAccordion === index) {
-            SetActiveAccordion(null); // Close the accordion if it's already open
+            setActiveAccordion(null); // Close the accordion if it's already open
         } else {
-            SetActiveAccordion(index); // Open the clicked accordion
+            setActiveAccordion(index); // Open the clicked accordion
         }
+    };
+
+    const wrapBoldText = (word: string) => {
+        if (word.startsWith("**")) {
+            return <BoldText>{word.replace('**', '')}</BoldText>;
+        }
+        return word;
     };
 
     return (
@@ -43,13 +46,12 @@ const IndexPage: React.FC = () => {
                 <link rel="icon" href="/favicon_.ico"/>
             </Head>
             <LeftColumn>
+                <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
                 <SkillsComponents/>
             </LeftColumn>
-
             <RightColumn>
                 <Header>
-                    <Image src="/image.png" alt="Profile Picture"/>
                     <Name>Mehmet Serhat Özdursun</Name>
                     <Title>QA Automation Engineer</Title>
                     <IconWrapper>
@@ -66,9 +68,16 @@ const IndexPage: React.FC = () => {
                     </IconWrapper>
 
                     <div>
-                        <Info><BoldText>Email</BoldText>: serhat.ozdursun@gmail.com</Info>
-                        <Info><BoldText>Phone</BoldText>: +905368361407</Info>
-                        <Info><BoldText>Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)</Info>
+                        <Info>
+                            <BoldText>Email</BoldText>:
+                            <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
+                        </Info>
+                        <Info>
+                            <BoldText>Phone</BoldText>: +905368361407
+                        </Info>
+                        <Info>
+                            <BoldText>Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
+                        </Info>
                     </div>
                 </Header>
 
@@ -80,39 +89,9 @@ const IndexPage: React.FC = () => {
                     trends and technologies to contribute to the success of software development initiatives.
                 </Summary>
 
-                <AccordionWrapper>
-                    {experiences.map((experience, index) => (
-                        <AccordionItem key={index}>
-                            <AccordionHeader onClick={() => toggleAccordion(index)}>
-                                <AccordionTitle>{experience.title}</AccordionTitle>
-                                {activeAccordion === index ? <span>&#x2212;</span> : <span>+</span>}
-                            </AccordionHeader>
-                            {activeAccordion === index && (
-                                <AccordionContent>
-                                    <ul>
-                                        {experience.points.map((point, pointIndex) => {
-                                            const words = point.split(' ');
-                                            const isFirstWordBold = words[0].startsWith('**');
-
-                                            return (
-                                                <li key={pointIndex}>
-                                                    <span>
-                                                        {isFirstWordBold ? (
-                                                            <BoldText>{words[0].replace('**', '')}</BoldText>
-                                                        ) : (
-                                                            words[0]
-                                                        )}
-                                                        {words.slice(1).join(' ')}
-                                                    </span>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </AccordionContent>
-                            )}
-                        </AccordionItem>
-                    ))}
-                </AccordionWrapper>
+                <ExperienceContainer>
+                        <ExperienceList />
+                </ExperienceContainer>
 
             </RightColumn>
         </Container>

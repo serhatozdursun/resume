@@ -1,7 +1,7 @@
 // SkillsComponents.test.tsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { SkillsComponents } from '../SkillsComponents'; // Update the path
+import { SkillsComponents } from '../SkillsComponents';
 import '@testing-library/jest-dom'
 
 

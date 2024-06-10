@@ -1,5 +1,8 @@
 // next.config.js
 module.exports = {
+    experimental: {
+        forceSwcTransforms: true,
+    },
     webpack(config, { isServer }) {
         if (!isServer) {
             config.resolve.fallback = {
