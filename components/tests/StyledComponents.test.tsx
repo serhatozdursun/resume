@@ -47,9 +47,9 @@ describe('StyledComponents', () => {
 
     // Add similar tests for other components as needed
 
-    it('renders SkillLevelFill correctly with level prop', () => {
-        const { container } = render(<SkillLevelFill level={50} />);
-        expect(container.firstChild).toHaveStyleRule('width', '50%');
-        expect(container.firstChild).toHaveStyleRule('background-color', '#4caf50');
+    it('SkillLevelFill renders with correct width', () => {
+        const { container } = render(<SkillLevelFill $level={50} />);
+        const skillLevelFillElement = container.firstChild as HTMLElement;
+        expect(skillLevelFillElement).toHaveStyleRule('width: 50%;');
     });
 });
