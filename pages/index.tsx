@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
 import Head from 'next/head';
+import React from 'react';
 
 import {
     Container,
@@ -22,23 +22,6 @@ import {SkillsComponents} from '../components/SkillsComponents';
 import ExperienceList from '../components/ExperiencesComponents';
 
 const IndexPage: React.FC = () => {
-    const [activeAccordion, setActiveAccordion] = useState<number | null>(0); // Default to the first accordion
-
-    const toggleAccordion = (index: number) => {
-        if (activeAccordion === index) {
-            setActiveAccordion(null); // Close the accordion if it's already open
-        } else {
-            setActiveAccordion(index); // Open the clicked accordion
-        }
-    };
-
-    const wrapBoldText = (word: string) => {
-        if (word.startsWith("**")) {
-            return <BoldText>{word.replace('**', '')}</BoldText>;
-        }
-        return word;
-    };
-
     return (
         <Container>
             <Head>

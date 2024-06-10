@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface SkillLevelFillProps {
+    $level: number; // Define the custom prop $level
+}
+
 const Container = styled.div`
     display: flex;
     max-width: 100%;
@@ -115,9 +119,9 @@ const SkillLevel = styled.div`
     overflow: hidden;
 `;
 
-const SkillLevelFill = styled.div<{ level: number }>`
+const SkillLevelFill = styled.div<SkillLevelFillProps>`
     height: 100%;
-    width: ${({ level }) => `${level}%`};
+    width: ${({ $level }) => `${$level}%`}; /* Use $level prop here */
     background-color: #4caf50;
     border-radius: 10px;
 `;
@@ -186,7 +190,7 @@ const SeeMoreLink = styled.span`
 
 
 const CertificatesContainer = styled.div`
-    margin-top: 30px;
+    margin-top: 95px;
 `;
 
 const CertificateTitle = styled.h3`
@@ -205,8 +209,7 @@ const CertificateItem = styled.li`
     align-items: center;
 `;
 
-const CertificateLink = styled.a.attrs<{ clicked: boolean }>(props => ({
-    // Ensure clicked is not passed to the DOM
+const CertificateLink = styled.a.attrs<{ clicked: boolean }>(prop => ({
     clicked: undefined,
 }))<{ clicked: boolean }>`
     text-decoration: none;

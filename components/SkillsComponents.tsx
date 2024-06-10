@@ -45,7 +45,7 @@ export const SkillsComponents = () => {
                 <Skill key={index}>
                     <SkillName>{skill.name}</SkillName>
                     <SkillLevel>
-                        <SkillLevelFill data-testid={`${skill.name}-level-fill`} level={skill.level}/>
+                        <SkillLevelFill data-testid={`${skill.name}-level-fill`} $level={skill.level} />
                     </SkillLevel>
                 </Skill>
             ))}
