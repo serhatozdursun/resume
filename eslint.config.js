@@ -1,6 +1,13 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jsx-a11y', 'import', 'next'],
+    plugins: [
+        '@typescript-eslint',
+        'react',
+        'react-hooks',
+        'jsx-a11y',
+        'import',
+        'next'
+    ],
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
@@ -9,24 +16,24 @@ module.exports = {
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:import/typescript',
-        'plugin:next/recommended',
+        'plugin:next/recommended'
     ],
     settings: {
         react: {
-            version: 'detect',
+            version: 'detect'
         },
         next: {
             // Enable eslint-plugin-next to automatically detect Next.js version
             // You can also manually set the version:
             // version: '10.0.0', // Replace with your Next.js version
-        },
+        }
     },
     parserOptions: {
         ecmaVersion: 2023, // Allows for the parsing of modern ECMAScript features
         sourceType: 'module', // Allows for the use of imports
         ecmaFeatures: {
-            jsx: true, // Allows for the parsing of JSX
-        },
+            jsx: true // Allows for the parsing of JSX
+        }
     },
     rules: {
         // Best Practices
@@ -53,8 +60,8 @@ module.exports = {
                 js: 'never',
                 jsx: 'never',
                 ts: 'never',
-                tsx: 'never',
-            },
+                tsx: 'never'
+            }
         ],
         'import/prefer-default-export': 'off', // Allow named exports
 
@@ -69,9 +76,9 @@ module.exports = {
             {
                 components: ['Link'],
                 specialLink: ['hrefLeft', 'hrefRight'],
-                aspects: ['invalidHref', 'preferButton'],
-            },
+                aspects: ['invalidHref', 'preferButton']
+            }
         ],
-        '@typescript-eslint/no-unused-vars' : 'off'
-    },
+        '@typescript-eslint/no-unused-vars': 'off' // Disable the duplicated rule
+    }
 };

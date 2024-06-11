@@ -35,8 +35,8 @@ const IndexPage: React.FC = () => {
             </LeftColumn>
             <RightColumn>
                 <Header>
-                    <Name>Mehmet Serhat Özdursun</Name>
-                    <Title>QA Automation Engineer</Title>
+                    <Name id="name">Mehmet Serhat Özdursun</Name>
+                    <Title id="title">QA Automation Engineer</Title>
                     <IconWrapper>
                         <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank"
                                   rel="noopener noreferrer">
@@ -64,15 +64,14 @@ const IndexPage: React.FC = () => {
                     </div>
                 </Header>
 
-                <Summary>
+                <Summary id="summary">
                     Experienced in software testing across diverse industries for over a decade. Committed to driving
                     excellence in software quality assurance and delivering comprehensive testing solutions aligned with
                     project requirements. Proficient in collaborating with dynamic teams and staying current with
-                    industry
-                    trends and technologies to contribute to the success of software development initiatives.
+                    industry trends and technologies to contribute to the success of software development initiatives.
                 </Summary>
 
-                <ExperienceContainer>
+                <ExperienceContainer id="experienc_container">
                         <ExperienceList />
                 </ExperienceContainer>
 
