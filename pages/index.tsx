@@ -1,4 +1,7 @@
+// pages/index.tsx (or index.js if using JavaScript)
+
 import Head from 'next/head';
+import Script from 'next/script'; // Import Script from next/script
 import React from 'react';
 
 import {
@@ -25,9 +28,29 @@ const IndexPage: React.FC = () => {
     return (
         <Container>
             <Head>
+                <meta name="description"
+                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
                 <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
-                <link rel="icon" href="/favicon_.ico"/>
+                <link rel="icon" href="/favicon.ico"/>
             </Head>
+            {/* Use next/script for Google Analytics */}
+            <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=G-0CSGDMK7CG`}
+                strategy="afterInteractive"
+            />
+            <Script
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+
+                      gtag('config', 'G-0CSGDMK7CG');
+                    `,
+                }}
+            />
+            {/* End Google Analytics */}
             <LeftColumn>
                 <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
@@ -71,8 +94,8 @@ const IndexPage: React.FC = () => {
                     industry trends and technologies to contribute to the success of software development initiatives.
                 </Summary>
 
-                <ExperienceContainer id="experienc_container">
-                        <ExperienceList />
+                <ExperienceContainer id="experience_container">
+                    <ExperienceList />
                 </ExperienceContainer>
 
             </RightColumn>
