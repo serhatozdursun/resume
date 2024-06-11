@@ -24,11 +24,6 @@ const LeftColumn = styled.div`
     align-items: stretch;
     background-color: #f3fafd;
 
-    .inner-content {
-        flex: 1;
-        overflow-y: auto;
-    }
-
     @media (max-width: 768px) {
         position: static;
         padding: 10px;
@@ -74,13 +69,14 @@ const Title = styled.h2`
 `;
 
 const Summary = styled.p`
-    font-size: 1.1em;
+    font-size: 1.2em;
     line-height: 1.2;
     font-style: italic;
     text-align: justify;
     padding-top: 80px;
 
     @media (max-width: 768px) {
+        line-height: 1;
         font-size: 1em;
         padding-top: 20px;
     }
