@@ -263,12 +263,12 @@ const ExperienceDateRange = styled.h3`
 const ExperienceContent = styled.div`
     font-family: "Times New Roman", Times, serif;
     text-align: left;
-    font-size: 0.9em;
+    font-size: 1.2em;
     color: #333;
     line-height: 1.6;
     @media (max-width: 768px) {
         font-size: 0.9em; /* Adjust the font size for smaller screens */
-        line-height: 1.2;
+        line-height: 1;
     }
 `;
 
