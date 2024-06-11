@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import HtmlParser from 'html-react-parser';
 import {
     ExperienceHeader,
     ExperienceTitle,
@@ -11,8 +10,9 @@ import {
     ExperienceItem,
     CompanyLogo
 } from './StyledComponents';
+import HtmlParser from "html-react-parser";
 
-export interface Experience {
+interface Experience {
     title: string;
     company: string;
     companyLogo: string;
@@ -110,7 +110,7 @@ const ExperienceList: React.FC = () => {
     return (
         <ExperienceContainer>
             {experiences.map((experience, index) => (
-                <ExperienceItem key={index}>
+                <ExperienceItem key={index} id={experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}>
                     <Experience
                         title={experience.title}
                         description={experience.description}
@@ -135,7 +135,7 @@ const Experience: React.FC<Experience> = ({ title, description, company, dateRan
     const descriptionToShow = showFullDescription ? description : description.slice(0, lastIndex);
 
     return (
-        <div>
+        <ExperienceItem>
             <ExperienceHeader onClick={toggleDescription}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <a href={companyWebsite} target="_blank" rel="noopener noreferrer">
@@ -156,7 +156,7 @@ const Experience: React.FC<Experience> = ({ title, description, company, dateRan
                     </SeeMoreLink>
                 )}
             </ExperienceContent>
-        </div>
+        </ExperienceItem>
     );
 };
 

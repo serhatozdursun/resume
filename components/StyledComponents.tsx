@@ -9,6 +9,10 @@ const Container = styled.div`
     max-width: 100%;
     margin: 0;
     background-color: #f3fafd;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 const LeftColumn = styled.div`
@@ -24,27 +28,49 @@ const LeftColumn = styled.div`
         flex: 1;
         overflow-y: auto;
     }
+
+    @media (max-width: 768px) {
+        position: static;
+        padding: 10px;
+    }
 `;
 
 const RightColumn = styled.div`
     flex: 2.8;
     padding-left: 30px;
     padding-right: 200px;
+
+    @media (max-width: 768px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 `;
 
 const Header = styled.header`
     text-align: center;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        margin-bottom: 10px;
+    }
 `;
 
 const Name = styled.h1`
     font-size: 2.5em;
     margin-bottom: 0.2em;
+
+    @media (max-width: 768px) {
+        font-size: 2em;
+    }
 `;
 
 const Title = styled.h2`
     font-size: 1.5em;
     color: #333;
+
+    @media (max-width: 768px) {
+        font-size: 1.1em;
+    }
 `;
 
 const Summary = styled.p`
@@ -53,17 +79,29 @@ const Summary = styled.p`
     font-style: italic;
     text-align: justify;
     padding-top: 80px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+        padding-top: 20px;
+    }
 `;
 
 const Image = styled.img`
     width: 150px;
-    height: 200px; 
-    border-radius: 15px; 
+    height: 200px;
+    border-radius: 15px;
     margin-bottom: 10px;
-    border: 2px solid #7B7B7B; 
-    object-fit: cover; 
+    border: 2px solid #7B7B7B;
+    object-fit: cover;
     margin-left: 80px;
     margin-top: 30px;
+
+    @media (max-width: 768px) {
+        width: 100px;
+        height: 150px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
 `;
 
 const IconWrapper = styled.div`
@@ -75,6 +113,11 @@ const IconLink = styled.a`
     width: 40px;
     height: 40px;
     display: inline-block;
+
+    @media (max-width: 768px) {
+        width: 30px;
+        height: 30px;
+    }
 `;
 
 const IconImage = styled.img`
@@ -91,8 +134,11 @@ const Info = styled.p`
     font-size: 0.98em;
     line-height: 1;
     text-align: center;
-`;
 
+    @media (max-width: 768px) {
+        font-size: 0.9em;
+    }
+`;
 
 const SkillsContainer = styled.div`
     margin-right: 0;
@@ -109,6 +155,10 @@ const SkillName = styled.span`
     font-weight: bold;
     margin-right: 10px;
     width: 100px;
+
+    @media (max-width: 768px) {
+        width: 80px;
+    }
 `;
 
 const SkillLevel = styled.div`
@@ -117,6 +167,10 @@ const SkillLevel = styled.div`
     background-color: #f3fafd;
     border-radius: 10px;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        width: 180px;
+    }
 `;
 
 const SkillLevelFill = styled.div<SkillLevelFillProps>`
@@ -124,19 +178,30 @@ const SkillLevelFill = styled.div<SkillLevelFillProps>`
     width: ${({ $level }) => `${$level}%`}; /* Use $level prop here */
     background-color: #4caf50;
     border-radius: 10px;
+
+    @media (max-width: 768px) {
+        height: 80%;
+        border-radius: 5px;
+    }
+    
 `;
 
 const SkillsTitle = styled.h3`
     margin-bottom: 15px;
     font-size: 1.2em;
+    @media (max-width: 768px) {
+        margin-bottom: 10px;
+        line-height:  0.5;
+    }
 `;
 
 const ExperienceContainer = styled.div`
     margin-top: 20px;
+    padding: 20px;
 `;
 
 const ExperienceItem = styled.div`
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 `;
 
 const CompanyLogo = styled.img`
@@ -146,21 +211,30 @@ const CompanyLogo = styled.img`
     margin-top: 10px;
     border: 1px solid #CACACA;
     border-radius: 5px;
+
+    @media (max-width: 768px) {
+        width: 32px;
+        height: 32px;
+    }
 `;
 
 const ExperienceHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    line-height: 2px;
+    margin-bottom: 10px;
 `;
 
 const ExperienceTitle = styled.h3`
-    font-style: italic;
+    font-family: "Times New Roman", Times, serif;
     text-align: left;
-    font-size: 1.1em;
-    margin-left: 10px;
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 5px;
+
+    @media (max-width: 768px) {
+        font-size: 0.6em; /* Adjust the font size for smaller screens */
+    }
 `;
 
 const ExperienceCompany = styled.h3`
@@ -168,7 +242,10 @@ const ExperienceCompany = styled.h3`
     text-align: left;
     font-size: 0.9em;
     color: #7B7B7B;
-    margin-left: 10px;
+
+    @media (max-width: 768px) {
+        font-size: 0.4em; /* Adjust the font size for smaller screens */
+    }
 `;
 
 const ExperienceDateRange = styled.h3`
@@ -176,11 +253,23 @@ const ExperienceDateRange = styled.h3`
     text-align: left;
     font-size: 0.9em;
     color: #7B7B7B;
-    margin-left: 10px; /* Adjusted margin-left */
+    margin-left: 10px;
+    
+    @media (max-width: 768px) {
+        font-size: 0.4em; /* Adjust the font size for smaller screens */
+    }
 `;
 
 const ExperienceContent = styled.div`
-    padding: 10px;
+    font-family: "Times New Roman", Times, serif;
+    text-align: left;
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.6;
+    @media (max-width: 768px) {
+        font-size: 0.9em; /* Adjust the font size for smaller screens */
+        line-height: 1.2;
+    }
 `;
 
 const SeeMoreLink = styled.span`
@@ -188,9 +277,12 @@ const SeeMoreLink = styled.span`
     cursor: pointer;
 `;
 
-
 const CertificatesContainer = styled.div`
     margin-top: 95px;
+
+    @media (max-width: 768px) {
+        margin-top: 30px;
+    }
 `;
 
 const CertificateTitle = styled.h3`
@@ -231,6 +323,11 @@ const Badge = styled.img`
     width: 20px;
     height: 20px;
     margin-right: 5px;
+
+    @media (max-width: 768px) {
+        width: 15px;
+        height: 15px;
+    }
 `;
 
 export {
