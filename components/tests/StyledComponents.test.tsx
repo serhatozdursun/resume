@@ -28,7 +28,7 @@ describe('StyledComponents', () => {
     it('renders RightColumn correctly', () => {
         const { container } = render(<RightColumn />);
         expect(container.firstChild).toHaveStyleRule('flex', '2.8');
-        expect(container.firstChild).toHaveStyleRule('padding-right', '200px');
+        expect(container.firstChild).toHaveStyleRule('padding-right', '100px');
         expect(container.firstChild).toHaveStyleRule('padding-left', '30px');
 
     });
