@@ -94,9 +94,9 @@ const IndexPage: React.FC = () => {
                       "telephone": "+905368361407",
                       "address": {
                         "@type": "PostalAddress",
-                        "addressLocality": "City Name",
-                        "addressRegion": "Region Name",
-                        "addressCountry": "Country"
+                        "addressLocality": "Rize",
+                        "addressRegion": "Findikli",
+                        "addressCountry": "Turkey"
                       }
                     }
                     `,
