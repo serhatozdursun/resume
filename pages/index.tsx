@@ -130,7 +130,7 @@ const IndexPage: React.FC = () => {
                             <BoldText>Email</BoldText>: <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
                         </Info>
                         <Info>
-                            <BoldText>Phone</BoldText>: +905368361407
+                            <BoldText>Phone</BoldText>: <a href="tel:+905368361407">+905368361407</a>
                         </Info>
                         <Info>
                             <BoldText>Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
