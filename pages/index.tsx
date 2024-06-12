@@ -1,7 +1,5 @@
-// pages/index.tsx (or index.js if using JavaScript)
-
 import Head from 'next/head';
-import Script from 'next/script'; // Import Script from next/script
+import Script from 'next/script';
 import React from 'react';
 
 import {
@@ -21,18 +19,39 @@ import {
     BoldText
 } from '../components/StyledComponents'; // Adjust the path as necessary
 import CertificatesComponents from '../components/CertificatesComponents';
-import {SkillsComponents} from '../components/SkillsComponents';
+import { SkillsComponents } from '../components/SkillsComponents';
 import ExperienceList from '../components/ExperiencesComponents';
 
 const IndexPage: React.FC = () => {
     return (
         <Container>
             <Head>
-                <meta name="description"
-                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name="description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
                 <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon_.ico"/>
+
+                <meta property="og:type" content="website"/>
+                <meta property="og:url" content="https://serhatozdursun.com/"/>
+                <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
+                <meta property="og:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="og:image" content="https://serhatozdursun.com/profile.png"/>
+
+                <meta property="twitter:card" content="summary_large_image"/>
+                <meta property="twitter:url" content="https://serhatozdursun.com/"/>
+                <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
+                <meta property="twitter:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="twitter:image" content="https://serhatozdursun.com/profile.png"/>
+
+                <meta name="author" content="Mehmet Serhat Özdursun"/>
+                <meta name="language" content="English"/>
+                <meta name="robots" content="index, follow"/>
+                <meta name="theme-color" content="#ffffff"/>
+                <link rel="canonical" href="https://serhatozdursun.com/"/>
+                <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume"/>
             </Head>
+
             {/* Use next/script for Google Analytics */}
             <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=G-0CSGDMK7CG`}
@@ -51,6 +70,40 @@ const IndexPage: React.FC = () => {
                 }}
             />
             {/* End Google Analytics */}
+
+            {/* Structured Data */}
+            <Script
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                    {
+                      "@context": "https://schema.org",
+                      "@type": "Person",
+                      "name": "Mehmet Serhat Özdursun",
+                      "jobTitle": "QA Automation Engineer",
+                      "url": "https://serhatozdursun.com/",
+                      "sameAs": [
+                        "https://www.linkedin.com/in/serhat-ozdursun/",
+                        "https://github.com/serhatozdursun",
+                        "https://medium.com/@serhat-ozdursun"
+                      ],
+                      "image": "https://serhatozdursun.com/profile.png",
+                      "description": "Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements.",
+                      "email": "serhat.ozdursun@gmail.com",
+                      "telephone": "+905368361407",
+                      "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "City Name",
+                        "addressRegion": "Region Name",
+                        "addressCountry": "Country"
+                      }
+                    }
+                    `,
+                }}
+            />
+            {/* End Structured Data */}
+
             <LeftColumn>
                 <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
@@ -61,8 +114,7 @@ const IndexPage: React.FC = () => {
                     <Name id="name">Mehmet Serhat Özdursun</Name>
                     <Title id="title">QA Automation Engineer</Title>
                     <IconWrapper>
-                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank"
-                                  rel="noopener noreferrer">
+                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer">
                             <IconImage src="/linkedin-icon.png" alt="LinkedIn"/>
                         </IconLink>
                         <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer">
@@ -75,8 +127,7 @@ const IndexPage: React.FC = () => {
 
                     <div>
                         <Info>
-                            <BoldText>Email</BoldText>:
-                            <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
+                            <BoldText>Email</BoldText>: <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
                         </Info>
                         <Info>
                             <BoldText>Phone</BoldText>: +905368361407
@@ -97,7 +148,6 @@ const IndexPage: React.FC = () => {
                 <ExperienceContainer id="experience_container">
                     <ExperienceList />
                 </ExperienceContainer>
-
             </RightColumn>
         </Container>
     );
