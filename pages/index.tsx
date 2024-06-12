@@ -117,6 +117,9 @@ const IndexPage: React.FC = () => {
                         <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer">
                             <IconImage src="/linkedin-icon.png" alt="LinkedIn"/>
                         </IconLink>
+                        <IconLink href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer">
+                            <IconImage src="/upwork.png" alt="upwork"/>
+                        </IconLink>
                         <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer">
                             <IconImage src="/github-icon.png" alt="GitHub"/>
                         </IconLink>
