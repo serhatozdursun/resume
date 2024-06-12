@@ -107,6 +107,7 @@ const IndexPage: React.FC = () => {
             <LeftColumn>
                 <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
+
                 <SkillsComponents/>
             </LeftColumn>
             <RightColumn>
@@ -125,6 +126,9 @@ const IndexPage: React.FC = () => {
                         </IconLink>
                         <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer">
                             <IconImage src="/medium_icon.png" alt="medium"/>
+                        </IconLink>
+                        <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank" rel="noopener noreferrer">
+                            <IconImage src="/hackerrank.png" alt="medium"/>
                         </IconLink>
                     </IconWrapper>
 

@@ -33,6 +33,26 @@ const CertificatesComponents = () => {
             badge: '/Brightest_CTFL.png',
             link: 'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
         },
+        {
+            name: 'HackerRank Problem Solving (Intermediate)',
+            badge: '/hackerrank.png',
+            link: 'https://www.hackerrank.com/certificates/c331e49c22d0',
+        },
+        {
+            name: 'Java (Basic) Certificate',
+            badge: '/hackerrank.png',
+            link: 'https://www.hackerrank.com/certificates/995550878771',
+        },
+        {
+            name: 'Python (Basic) Certificate',
+            badge: '/hackerrank.png',
+            link: 'https://www.hackerrank.com/certificates/2256773c8ba5',
+        },
+        {
+            name: 'C# (Basic) Certificate',
+            badge: '/hackerrank.png',
+            link: 'https://www.hackerrank.com/certificates/957d5fbf06b4',
+        }
     ];
 
     return (
