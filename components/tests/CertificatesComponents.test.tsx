@@ -13,7 +13,7 @@ describe('CertificatesComponents', () => {
         expect(certificateTitles.length).toBe(1);
 
         const certificates = screen.getAllByRole('listitem');
-        expect(certificates.length).toBe(2);
+        expect(certificates.length).toBe(6);
     });
 
     it('handles click events correctly', () => {
