@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://serhatozdursun.com
+
+# Sitemaps
+Sitemap: https://serhatozdursun.com/sitemap.xml

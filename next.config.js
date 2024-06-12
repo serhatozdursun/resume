@@ -3,6 +3,9 @@ module.exports = {
     experimental: {
         forceSwcTransforms: true,
     },
+    images: {
+        domains: ['serhatozdursun.com'],
+    },
     webpack(config, { isServer }) {
         if (!isServer) {
             config.resolve.fallback = {
