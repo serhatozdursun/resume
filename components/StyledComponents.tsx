@@ -33,7 +33,7 @@ const LeftColumn = styled.div`
 const RightColumn = styled.div`
     flex: 2.8;
     padding-left: 30px;
-    padding-right: 200px;
+    padding-right: 100px;
 
     @media (max-width: 768px) {
         padding-left: 10px;
@@ -297,7 +297,7 @@ const CertificateItem = styled.li`
     align-items: center;
 `;
 
-const CertificateLink = styled.a.attrs<{ clicked: boolean }>(prop => ({
+const CertificateLink = styled.a.attrs<{ clicked: boolean }>(() => ({
     clicked: undefined,
 }))<{ clicked: boolean }>`
     text-decoration: none;
