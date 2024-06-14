@@ -114,33 +114,33 @@ const IndexPage: React.FC = () => {
                 <Header>
                     <Name id="name">Mehmet Serhat Özdursun</Name>
                     <Title id="title">QA Automation Engineer</Title>
-                    <IconWrapper>
-                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer">
+                    <IconWrapper id="iconWrapper">
+                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/linkedin-icon.png" alt="LinkedIn"/>
                         </IconLink>
-                        <IconLink href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer">
+                        <IconLink href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/upwork.png" alt="upwork"/>
                         </IconLink>
-                        <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer">
+                        <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/github-icon.png" alt="GitHub"/>
                         </IconLink>
-                        <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer">
+                        <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/medium_icon.png" alt="medium"/>
                         </IconLink>
-                        <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank" rel="noopener noreferrer">
+                        <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/hackerrank.png" alt="medium"/>
                         </IconLink>
                     </IconWrapper>
 
                     <div>
                         <Info>
-                            <BoldText>Email</BoldText>: <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
+                            <BoldText id="email">Email</BoldText>: <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
                         </Info>
                         <Info>
-                            <BoldText>Phone</BoldText>: <a href="tel:+905368361407">+905368361407</a>
+                            <BoldText id="phone">Phone</BoldText>: <a href="tel:+905368361407">+905368361407</a>
                         </Info>
                         <Info>
-                            <BoldText>Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
+                            <BoldText id="Llanguages">Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
                         </Info>
                     </div>
                 </Header>
