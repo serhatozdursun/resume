@@ -108,9 +108,9 @@ const experiences: Experience[] = [
 
 const ExperienceList: React.FC = () => {
     return (
-        <ExperienceContainer>
+        <ExperienceContainer id="experience_container">
             {experiences.map((experience, index) => (
-                <ExperienceItem key={index} id={experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}>
+                <ExperienceItem key={index} id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}>
                     <Experience
                         title={experience.title}
                         description={experience.description}
@@ -136,22 +136,22 @@ const Experience: React.FC<Experience> = ({ title, description, company, dateRan
 
     return (
         <ExperienceItem>
-            <ExperienceHeader onClick={toggleDescription}>
+            <ExperienceHeader onClick={toggleDescription} className="experience-header">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <a href={companyWebsite} target="_blank" rel="noopener noreferrer">
-                        <CompanyLogo src={companyLogo} alt={`${company} logo`} />
+                        <CompanyLogo src={companyLogo} alt={`${company} logo`} className="company-logo" />
                     </a>
                     <div>
-                        <ExperienceTitle>{title}</ExperienceTitle>
-                        <ExperienceCompany>{company}</ExperienceCompany>
+                        <ExperienceTitle id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
+                        <ExperienceCompany id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
                     </div>
                 </div>
-                <ExperienceDateRange>{dateRange}</ExperienceDateRange>
+                <ExperienceDateRange className="experience-date-range">{dateRange}</ExperienceDateRange>
             </ExperienceHeader>
-            <ExperienceContent>
+            <ExperienceContent className="experience-content">
                 {HtmlParser(descriptionToShow)}
                 {description.length > 300 && (
-                    <SeeMoreLink onClick={toggleDescription}>
+                    <SeeMoreLink onClick={toggleDescription} className="see-more-link">
                         {showFullDescription ? ' See less' : 'See more'}
                     </SeeMoreLink>
                 )}
