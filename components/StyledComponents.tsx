@@ -28,9 +28,10 @@ const LeftColumn = styled.div`
     top: 80px; /* Adjust as necessary */
 
     @media (max-width: 768px) {
-        overflow-y: visible; /* Allow content to overflow on smaller screens */
-        height: auto; /* Let the content dictate the height */
+        overflow-y: auto; 
+        height: auto; 
         padding: 10px;
+        position: static; 
     }
 `;
 
@@ -55,8 +56,16 @@ const Header = styled.header`
     padding: 20px; /* Adjust padding as necessary */
     border-bottom: 1px solid #ccc; /* Optional: Add a border at the bottom */
 
+    @media (min-width: 769px) {
+        position: sticky; /* Set the header to be sticky on larger screens */
+        top: 0; /* Stick it to the top of the viewport */
+        z-index: 1000; /* Ensure it's above other content */
+        margin-bottom: 20px; /* Maintain the original margin for larger screens */
+    }
+
     @media (max-width: 768px) {
         margin-bottom: 10px;
+        position: static; /* Disable sticky positioning on smaller screens */
     }
 `;
 
