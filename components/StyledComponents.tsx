@@ -18,14 +18,18 @@ const Container = styled.div`
 const LeftColumn = styled.div`
     flex: 1;
     padding-top: 20px;
-    position: sticky;
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100vh - 100px); /* Adjust the height as necessary */
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background-color: #f3fafd;
+    position: sticky;
+    top: 80px; /* Adjust as necessary */
 
     @media (max-width: 768px) {
-        position: static;
+        overflow-y: visible; /* Allow content to overflow on smaller screens */
+        height: auto; /* Let the content dictate the height */
         padding: 10px;
     }
 `;
@@ -44,6 +48,12 @@ const RightColumn = styled.div`
 const Header = styled.header`
     text-align: center;
     margin-bottom: 20px;
+    position: sticky; /* Set the header to be sticky */
+    top: 0; /* Stick it to the top of the viewport */
+    background-color: white;
+    z-index: 1000; /* Ensure it's above other content */
+    padding: 20px; /* Adjust padding as necessary */
+    border-bottom: 1px solid #ccc; /* Optional: Add a border at the bottom */
 
     @media (max-width: 768px) {
         margin-bottom: 10px;
@@ -184,10 +194,11 @@ const SkillLevelFill = styled.div<SkillLevelFillProps>`
 
 const SkillsTitle = styled.h3`
     margin-bottom: 15px;
-    font-size: 1.2em;
+    font-size: 0.9em;
     @media (max-width: 768px) {
         margin-bottom: 10px;
         line-height:  0.5;
+        font-size: 0.6em;
     }
 `;
 
@@ -283,7 +294,10 @@ const CertificatesContainer = styled.div`
 
 const CertificateTitle = styled.h3`
     margin-bottom: 10px;
-    font-size: 1.2em;
+    font-size: 0.9em;
+    @media (max-width: 768px) {
+        font-size: 0.6em; /* Adjust the font size for smaller screens */
+    }
 `;
 
 const CertificateList = styled.ul`
