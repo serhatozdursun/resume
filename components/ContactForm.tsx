@@ -13,7 +13,7 @@ import {
     ErrorText,
     SendIcon,
     SendLinkContainer,
-    InputContainer, ContactFormDescription,
+    InputContainer, ContactFormDescription, SendText,
 } from './StyledComponents';
 
 interface FormData {
@@ -118,7 +118,7 @@ const ContactForm: React.FC = () => {
             {!formVisible && (
                 <SendLinkContainer onClick={handleSendLinkClick}>
                     <SendIcon src="email.png" alt="Send Icon" />
-                    Send Message
+                    <SendText>Send Message</SendText>
                 </SendLinkContainer>
             )}
 
