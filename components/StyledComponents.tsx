@@ -502,10 +502,8 @@ const CloseButton = styled.button`
     text-decoration: underline;
     background: transparent;
     border: none;
-    padding: 0;
     font-size: 14px;
     display: block; /* Ensures full width on mobile */
-    margin-bottom: 10px; /* Space between button and form */
 
     @media (min-width: 768px) {
         display: inline; /* Inline display on larger screens */
@@ -517,6 +515,17 @@ const CloseButton = styled.button`
     }
 `;
 
+const ContactFormDescription = styled.p`
+    font-size: 1em;
+    line-height: 1;
+    font-style: italic;
+    text-align: justify;
+    
+    @media (max-width: 768px) {
+        line-height: 1;
+        font-size: 1em;
+    }
+`
 export {
     Container,
     LeftColumn,
@@ -564,5 +573,6 @@ export {
     NameInput,
     EmailInput,
     InputContainer,
-    ErrorText
+    ErrorText,
+    ContactFormDescription
 };
