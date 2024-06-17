@@ -517,6 +517,19 @@ const CloseButton = styled.button`
     }
 `;
 
+const ContactFormDescription = styled.p`
+    font-size: 1em;
+    line-height: 1;
+    font-style: italic;
+    text-align: justify;
+    padding-top: 80px;
+
+    @media (max-width: 768px) {
+        line-height: 1;
+        font-size: 1em;
+        padding-top: 20px;
+    }
+`
 export {
     Container,
     LeftColumn,
@@ -564,5 +577,6 @@ export {
     NameInput,
     EmailInput,
     InputContainer,
-    ErrorText
+    ErrorText,
+    ContactFormDescription
 };

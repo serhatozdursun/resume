@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useRef, useEffect } from 'reac
 import emailjs from 'emailjs-com';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import HtmlParser from 'html-react-parser';
 import {
     EmailInput,
     NameInput,
@@ -12,7 +13,7 @@ import {
     ErrorText,
     SendIcon,
     SendLinkContainer,
-    InputContainer,
+    InputContainer, ContactFormDescription,
 } from './StyledComponents';
 
 interface FormData {
@@ -107,6 +108,11 @@ const ContactForm: React.FC = () => {
         });
     };
 
+    const contactFormDescriptionHtml = `
+        <p><strong>Feel free to reach out</strong> if you're interested in collaborating with a seasoned QA engineer. With over a decade of experience in software testing across diverse industries, I bring a proven track record of driving excellence in software quality assurance.</p>
+        <p>I'm dedicated to delivering <strong>comprehensive testing solutions</strong> that align with project requirements. Let's work together to ensure the success of your software development initiatives!</p>
+    `;
+
     return (
         <>
             {!formVisible && (
@@ -119,6 +125,9 @@ const ContactForm: React.FC = () => {
             {formVisible && (
                 <ContactFormStyle ref={formRef} onSubmit={handleSubmit}>
                     <CloseButton onClick={handleFormClose}>Close Contact Form</CloseButton>
+                    <ContactFormDescription>
+                        {HtmlParser(contactFormDescriptionHtml)}
+                    </ContactFormDescription>
                     <InputContainer>
                         <NameInput
                             ref={nameInputRef}
