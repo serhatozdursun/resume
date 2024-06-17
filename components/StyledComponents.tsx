@@ -502,10 +502,8 @@ const CloseButton = styled.button`
     text-decoration: underline;
     background: transparent;
     border: none;
-    padding: 0;
     font-size: 14px;
     display: block; /* Ensures full width on mobile */
-    margin-bottom: 10px; /* Space between button and form */
 
     @media (min-width: 768px) {
         display: inline; /* Inline display on larger screens */
@@ -522,12 +520,10 @@ const ContactFormDescription = styled.p`
     line-height: 1;
     font-style: italic;
     text-align: justify;
-    padding-top: 80px;
-
+    
     @media (max-width: 768px) {
         line-height: 1;
         font-size: 1em;
-        padding-top: 20px;
     }
 `
 export {
