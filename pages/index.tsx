@@ -21,6 +21,7 @@ import {
 import CertificatesComponents from '../components/CertificatesComponents';
 import { SkillsComponents } from '../components/SkillsComponents';
 import ExperienceList from '../components/ExperiencesComponents';
+import ContactForm from "../components/ContactForm";
 
 const IndexPage: React.FC = () => {
     return (
@@ -107,8 +108,8 @@ const IndexPage: React.FC = () => {
             <LeftColumn>
                 <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
-
                 <SkillsComponents/>
+                <ContactForm />
             </LeftColumn>
             <RightColumn>
                 <Header>

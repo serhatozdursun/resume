@@ -291,6 +291,10 @@ const ExperienceContent = styled.div`
 const SeeMoreLink = styled.span`
     color: #868483;
     cursor: pointer;
+    &:hover {
+        text-decoration: none;
+        color: blue;
+    }
 `;
 
 const CertificatesContainer = styled.div`
@@ -349,6 +353,170 @@ const Badge = styled.img`
     }
 `;
 
+const ContactFormStyle = styled.form`
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+    }
+`;
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    hasError?: boolean;
+}
+
+const Input = styled.input<InputProps>`
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: ${props => (props.hasError ? '1px solid red' : '1px solid #ccc')};
+    border-radius: 4px;
+    &:focus {
+        outline: none;
+        border-color: #0070f3;
+        box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+`;
+
+const NameInput = styled(Input)`
+    margin-bottom: 1rem; /* Example additional style */
+`;
+
+const EmailInput = styled(Input)`
+    margin-bottom: 1rem; /* Example additional style */
+`;
+
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+    hasError?: boolean;
+}
+
+
+const Textarea = styled.textarea<TextareaProps>`
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid ${props => (props.hasError ? 'red' : '#ddd')};
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 120px;
+    width: 100%;
+    &:focus {
+        outline: none;
+        border-color: #0070f3;
+        box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+`;
+
+interface TextareaProps {
+    hasError?: boolean;
+}
+
+const InputContainer = styled.div`
+    margin-bottom: 1rem; /* Adjust as needed */
+    width: 90%; /* Ensure inputs take full width */
+`;
+
+const ErrorText = styled.p`
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+`;
+
+const SendButton = styled.button`
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #F8775C;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #FD2B00;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+`;
+
+const SendLinkContainer = styled.a`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+`;
+
+const SendIcon = styled.img`
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+
+    @media (max-width: 768px) {
+        width: 15px;
+        height: 15px;
+    }
+`;
+
+const SendText = styled.span`
+    color: #FC3D16;
+    cursor: pointer;
+    text-decoration: underline;
+    display: block; /* Ensures full width on mobile */
+    text-align: left;
+    margin-right: auto; /* This will align it to the right */
+    margin-left: 10px;
+    @media (min-width: 768px) {
+        display: inline; /* Inline display on larger screens */
+    }
+
+    &:hover {
+        text-decoration: none;
+        color: blue;
+    }
+`;
+
+const CloseButton = styled.button`
+    color: #868483;
+    cursor: pointer;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    display: block; /* Ensures full width on mobile */
+    margin-bottom: 10px; /* Space between button and form */
+
+    @media (min-width: 768px) {
+        display: inline; /* Inline display on larger screens */
+    }
+
+    &:hover {
+        text-decoration: none;
+        color: red;
+    }
+`;
+
 export {
     Container,
     LeftColumn,
@@ -384,5 +552,17 @@ export {
     CertificateItem,
     CertificateLink,
     CertificateName,
-    Badge
+    Badge,
+    ContactFormStyle,
+    Input,
+    Textarea,
+    SendButton,
+    CloseButton,
+    SendLinkContainer,
+    SendIcon,
+    SendText,
+    NameInput,
+    EmailInput,
+    InputContainer,
+    ErrorText
 };
