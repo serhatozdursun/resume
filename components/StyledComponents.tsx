@@ -359,7 +359,7 @@ const ContactFormStyle = styled.form`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-color: #f3fafd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
@@ -448,6 +448,7 @@ const SendButton = styled.button`
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 96%;
     &:hover {
         background-color: #FD2B00;
     }
