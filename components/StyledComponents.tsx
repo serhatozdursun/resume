@@ -87,8 +87,8 @@ const Title = styled.h2`
     }
 `;
 
-const Summary = styled.p`
-    font-size: 1.2em;
+const SummaryContainer = styled.span`
+    font-size: 1.1em;
     line-height: 1.2;
     font-style: italic;
     text-align: justify;
@@ -534,7 +534,7 @@ export {
     Header,
     Name,
     Title,
-    Summary,
+    SummaryContainer,
     Image,
     IconWrapper,
     IconLink,
@@ -575,5 +575,5 @@ export {
     EmailInput,
     InputContainer,
     ErrorText,
-    ContactFormDescription
+    ContactFormDescription,
 };
