@@ -9,7 +9,7 @@ import {
     Header,
     Name,
     Title,
-    Summary,
+    SummaryContainer,
     Image,
     IconWrapper,
     IconLink,
@@ -22,8 +22,15 @@ import CertificatesComponents from '../components/CertificatesComponents';
 import { SkillsComponents } from '../components/SkillsComponents';
 import ExperienceList from '../components/ExperiencesComponents';
 import ContactForm from "../components/ContactForm";
+import HtmlParser from "html-react-parser";
 
 const IndexPage: React.FC = () => {
+    const summary = `
+       <p>With over a decade of experience in <strong>software testing across various industries</strong>, I have honed my skills in ensuring the highest standards of <strong>software quality assurance</strong>. My expertise lies in <strong>delivering comprehensive and innovative testing solutions</strong> that are precisely aligned with project requirements, thereby ensuring robust and reliable software products.</p>
+       <p>I excel in <strong>collaborating with dynamic and cross-functional teams</strong>, fostering a culture of continuous improvement and excellence. My proactive approach to <strong>staying current with industry trends and emerging technologies</strong> enables me to implement cutting-edge testing methodologies, driving the success of <strong>software development initiatives</strong>.</p>
+       <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
+    `;
+
     return (
         <Container>
             <Head>
@@ -146,12 +153,7 @@ const IndexPage: React.FC = () => {
                     </div>
                 </Header>
 
-                <Summary id="summary">
-                    Experienced in software testing across diverse industries for over a decade. Committed to driving
-                    excellence in software quality assurance and delivering comprehensive testing solutions aligned with
-                    project requirements. Proficient in collaborating with dynamic teams and staying current with
-                    industry trends and technologies to contribute to the success of software development initiatives.
-                </Summary>
+                <SummaryContainer id="summary"> {HtmlParser(summary)}</SummaryContainer>
 
                 <ExperienceContainer id="experience_container">
                     <ExperienceList />
