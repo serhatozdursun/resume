@@ -31,15 +31,15 @@ server {
 
     # Custom error pages
     error_page 404 /404.html;
-    error_page 502 /502.html;
+    error_page 500 /500.html;
 
     location = /404.html {
         internal;
-        root /var/www/your-app/build;
+        root /repo/resume/.next/server/pages;
     }
 
     location = /502.html {
         internal;
-        root /var/www/your-app/build;
+        root /repo/resume/.next/server/pages;
     }
 }
