@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Head from 'next/head';
 import {
     Button,
     CheckboxInput,
@@ -113,6 +114,32 @@ const Practice: React.FC = () => {
 
     return (
         <div>
+            <Head>
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name="description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
+                <link rel="icon" href="/favicon_.ico"/>
+
+                <meta property="og:type" content="website"/>
+                <meta property="og:url" content="https://serhatozdursun.com/"/>
+                <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
+                <meta property="og:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="og:image" content="https://serhatozdursun.com/profile.png"/>
+
+                <meta property="twitter:card" content="summary_large_image"/>
+                <meta property="twitter:url" content="https://serhatozdursun.com/"/>
+                <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
+                <meta property="twitter:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="twitter:image" content="https://serhatozdursun.com/profile.png"/>
+
+                <meta name="author" content="Mehmet Serhat Özdursun"/>
+                <meta name="language" content="English"/>
+                <meta name="robots" content="index, follow"/>
+                <meta name="theme-color" content="#ffffff"/>
+                <link rel="canonical" href="https://serhatozdursun.com/"/>
+                <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume"/>
+            </Head>
             <Header>
                 <PageHeader>Test Automation Practice Page</PageHeader>
             </Header>
