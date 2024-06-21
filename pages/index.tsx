@@ -119,7 +119,7 @@ const IndexPage: React.FC = () => {
                 <ContactForm/>
                 <PracticeLinkContainer>
                     <Badge src="/Manual_Testing.png" alt="LinkedIn"/>
-                    <PracticeLink target="_blank" rel="noopener noreferrer" href="/practice">Test Automation Practice Page </PracticeLink>
+                    <PracticeLink href="/practice">Test Automation Practice Page </PracticeLink>
                 </PracticeLinkContainer>
             </LeftColumn>
             <RightColumn>
