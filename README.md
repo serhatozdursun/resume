@@ -12,6 +12,7 @@ This project is built with Next.js, React, and Styled Components. It includes ba
 ## Installation
 
 1. Clone the repository:
+   
 
 ```bash
    git clone https://github.com/serhatozdursun/resume.git
