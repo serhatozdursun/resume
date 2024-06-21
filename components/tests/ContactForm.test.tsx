@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContactForm from '../ContactForm';
-import emailjs from 'emailjs-com';
 
 jest.mock('emailjs-com', () => ({
     send: jest.fn().mockResolvedValue({ text: 'Email sent' }),
@@ -62,7 +61,7 @@ describe('ContactForm', () => {
         fireEvent.click(screen.getByText('Send Message'));
 
         fireEvent.change(screen.getByPlaceholderText('Your Email'), {
-            target: { value: 'test@test.com'.repeat(10) } // Make email longer than 50 characters
+            target: { value: 'test@test.com'.repeat(10) }
         });
 
         expect(screen.getByText('Email cannot exceed 50 characters.')).toBeInTheDocument();

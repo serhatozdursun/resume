@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from "next/link";
 
 interface SkillLevelFillProps {
     $level: number; // Define the custom prop $level
@@ -324,6 +325,30 @@ const CertificateItem = styled.li`
     align-items: center;
 `;
 
+const PracticeLinkContainer = styled.li`
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+`;
+
+const PracticeLink = styled(Link)`
+    color: #FC3D16;
+    cursor: pointer;
+    text-decoration: underline;
+    display: block; /* Ensures full width on mobile */
+    text-align: left;
+    margin-right: auto; /* This will align it to the right */
+    margin-left: 10px;
+    @media (min-width: 768px) {
+        display: inline; /* Inline display on larger screens */
+    }
+
+    &:hover {
+        text-decoration: none;
+        color: blue;
+    }
+`;
+
 const CertificateLink = styled.a.attrs<{ clicked: boolean }>(() => ({
     clicked: undefined,
 }))<{ clicked: boolean }>`
@@ -576,4 +601,6 @@ export {
     InputContainer,
     ErrorText,
     ContactFormDescription,
+    PracticeLinkContainer,
+    PracticeLink
 };
