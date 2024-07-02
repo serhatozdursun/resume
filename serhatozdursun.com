@@ -19,8 +19,18 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-    # Proxy pass configuration
+    # Serve static files directly
+    location /_next/static/ {
+        alias /repo/resume/.next/static/;
+    }
+
+    # Handle all other requests with the index.html file
     location / {
+        try_files $uri /index.html;
+    }
+
+    # Proxy pass configuration for API routes or server-side rendering
+    location /api/ {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
