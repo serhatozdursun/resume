@@ -325,8 +325,8 @@ const CertificateItem = styled.li`
     align-items: center;
 `;
 
-const PracticeLinkContainer = styled.li`
-    margin-bottom: 10px;
+const LeftColumnLinkContainer = styled.li`
+    margin-top: 10px;
     display: flex;
     align-items: center;
 `;
@@ -489,8 +489,8 @@ const SendLinkContainer = styled.a`
     align-items: center;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 `;
 
 const SendIcon = styled.img`
@@ -601,6 +601,6 @@ export {
     InputContainer,
     ErrorText,
     ContactFormDescription,
-    PracticeLinkContainer,
+    LeftColumnLinkContainer,
     PracticeLink
 };

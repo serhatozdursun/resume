@@ -16,7 +16,7 @@ import {
     IconImage,
     ExperienceContainer,
     Info,
-    BoldText, PracticeLink, PracticeLinkContainer, Badge
+    BoldText, PracticeLink, LeftColumnLinkContainer, Badge
 } from '../components/StyledComponents'; // Adjust the path as necessary
 import CertificatesComponents from '../components/CertificatesComponents';
 import { SkillsComponents } from '../components/SkillsComponents';
@@ -116,11 +116,16 @@ const IndexPage: React.FC = () => {
                 <Image src="/profile.png" alt="Profile Picture"/>
                 <CertificatesComponents/>
                 <SkillsComponents/>
-                <ContactForm/>
-                <PracticeLinkContainer>
+                <LeftColumnLinkContainer>
+                    <Badge src="/resume-computer-icons.png" alt="LinkedIn"/>
+                    <PracticeLink href="https://drive.google.com/file/d/1U6K43Do-PdlnHyezrztcAxM5B_-uke5I/view?usp=drive_link"
+                                  target="_blank" rel="noopener noreferrer">Download Resume</PracticeLink>
+                </LeftColumnLinkContainer>
+                <LeftColumnLinkContainer>
                     <Badge src="/Manual_Testing.png" alt="LinkedIn"/>
                     <PracticeLink href="/practice">Test Automation Practice Page </PracticeLink>
-                </PracticeLinkContainer>
+                </LeftColumnLinkContainer>
+                <ContactForm/>
             </LeftColumn>
             <RightColumn>
                 <Header>
