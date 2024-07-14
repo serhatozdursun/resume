@@ -118,7 +118,7 @@ const IndexPage: React.FC = () => {
                 <SkillsComponents/>
                 <LeftColumnLinkContainer>
                     <Badge src="/resume-computer-icons.png" alt="LinkedIn"/>
-                    <PracticeLink href="https://drive.google.com/file/d/1GbEHhDVPVeepUtbI9PWhNszhBCcLK5-o/view?usp=drive_link"
+                    <PracticeLink href="https://drive.google.com/file/d/1U6K43Do-PdlnHyezrztcAxM5B_-uke5I/view?usp=drive_link"
                                   target="_blank" rel="noopener noreferrer">Download Resume</PracticeLink>
                 </LeftColumnLinkContainer>
                 <LeftColumnLinkContainer>
