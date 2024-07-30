@@ -27,24 +27,26 @@ const experiences: Experience[] = [
         company: 'Index, London',
         companyLogo: '/indexdev_logo.jpeg',
         companyWebsite: 'https://www.index.dev/',
-        dateRange: 'Mar 2024 - Present',
+        dateRange: 'Sep 2023 - Present',
         description: '<p>Ever since I embarked on my journey as a <strong>Senior QA Automation Engineer</strong>, I\'ve found myself immersed in a world of innovation and collaboration. Contracted through <strong>index.dev</strong>, I\'ve had the privilege of working with <strong>Poq</strong>, a dynamic company renowned for its cutting-edge mobile commerce solutions.</p><p><strong>Responsibilities:</strong></p><p>My role revolves around ensuring the quality and reliability of mobile applications, predominantly leveraging Java and Appium. However, what truly sets Poq apart is our dedication to seamless integration and comprehensive testing. With Postman at our fingertips, I delve into backend automation testing, while also embracing manual testing methodologies to ensure thorough coverage and precision in our quality assurance efforts.</p><p><strong>Collaboration:</strong></p><p>But it\'s not a solo journey. Collaboration is the beating heart of our success. Daily, I find myself engaging with cross-functional teams, harmonizing our efforts to elevate our testing processes. Together, we navigate challenges and innovate solutions, fostering an environment where every voice is valued.</p>',
     },
     {
-        title: 'Lead QA Automation Engineer',
-        company: 'Payflow, Madrid',
-        companyLogo: '/payflow_es_logo.jpeg',
-        companyWebsite: 'https://www.payflow.es/en/payflow',
-        dateRange: 'Jan 2023 - Feb 2024',
-        description: '<p><strong>Contributed</strong> to the team in guaranteeing the quality of Payflow\'s three products: Payflow Mobile UI app, Dashboard Web UI app, and Public API.</p><p><strong>Actively</strong> participated in the agile development team\'s manual test load during sprints.</p><p><strong>Developed</strong> a Test Automation Project for the Payflow Mobile UI app, using <strong>Webdriver IO</strong> and The <strong>Cucumber</strong> with <strong>Nodejs/TypeScript.</strong> Automated tests were operated on BrowserStack and were compatible with both iOS and Android platforms.</p><p><strong>Actualized</strong> Test Automation Project for the web app, which will employ the Selenium-js npm package and The Cucumber.</p><p>Looking forward to future collaboration with the QA Team in planning and following through a Test Automation Project for the Public API.</p>',
-    },
-    {
-        title: 'QA Automation Engineer',
-        company: 'HUBUC, Barcelona',
-        companyLogo: '/hubuc_logo.jpeg',
-        companyWebsite: 'https://hubuc.com/',
-        dateRange: 'Mar 2022 - Jan 2023',
-        description: '<p><strong>Successfully</strong> resolved all issues in an outdated Golang-based test automation project as part of my role as a QA Automation Engineer</p><p><strong>Spearheaded</strong> the development of a new test automation project using Java, resulting in a regression suite that is now running periodically on Jenkins with a custom job</p> <p><strong>Followed through</strong> plans to integrate the smoke suite into the CI pipeline in the near future</p> <p><strong>Defined and implemented</strong> a sanity test suite for developers to run on their local environments, amending overall testing efficiency</p> <p>Took charge of streamlining all test processes while concurrently expanding test automation coverage and maintaining the existing test automation project</p> <p>Developed two additional projects (modules), including one that generates test data for the Front-End team\'s new environments</p>',
+        title: 'Lead QA Automation Engineer, HUBUC/Payflow',
+        company: 'Barcelona, Catalonia, Spain / Madrid, Spain',
+        companyLogo: '/payflow_es_logo.jpeg', // Replace with appropriate logo
+        companyWebsite: 'https://hubuc.com/', // Add Payflow website if needed
+        dateRange: 'Feb 2022 - Sep 2023',
+        description:  `
+            <p>Initially worked for HUBUC, where I <strong>successfully resolved</strong> issues in an outdated Golang-based test automation project.</p>
+            <p>I <strong>spearheaded</strong> the development of a new test automation project using Java, resulting in a regression suite running periodically on Jenkins with a custom job.</p>
+            <p>I <strong>defined and implemented</strong> a sanity test suite for developers to run locally, improving overall testing efficiency.</p>
+            <p>I <strong>streamlined test processes</strong>, expanded automation coverage, and developed two additional projects, including one for generating test data for the Front-End team.</p>
+            <p>Following HUBUC's reduction, I was transferred to Payflow, where I <strong>contributed</strong> to ensuring the quality of Payflow's three products: Payflow Mobile UI app, Dashboard Web UI app, and Public API.</p>
+            <p>I <strong>actively participated</strong> in the agile development team's manual test load during sprints.</p>
+            <p>I <strong>developed</strong> a Test Automation Project for the Payflow Mobile UI app using Webdriver IO and Cucumber with Node.js/TypeScript, with automated tests run on BrowserStack, compatible with both iOS and Android.</p>
+            <p>I <strong>actualized</strong> the Test Automation Project for the web app, using Selenium-js and Cucumber.</p>
+            <p>I am looking forward to collaborating with the QA Team on a Test Automation Project for the Public API.</p>
+        `,
     },
     {
         title: 'Senior Test Solutions Consultant',
