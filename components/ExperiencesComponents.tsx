@@ -33,8 +33,8 @@ const experiences: Experience[] = [
     {
         title: 'Lead QA Automation Engineer, HUBUC/Payflow',
         company: 'Barcelona, Catalonia, Spain / Madrid, Spain',
-        companyLogo: '/payflow_es_logo.jpeg', // Replace with appropriate logo
-        companyWebsite: 'https://hubuc.com/', // Add Payflow website if needed
+        companyLogo: '/payflow_es_logo.jpeg', 
+        companyWebsite: 'https://www.payflow.es/', 
         dateRange: 'Feb 2022 - Sep 2023',
         description:  `
             <p>Initially worked for HUBUC, where I <strong>successfully resolved</strong> issues in an outdated Golang-based test automation project.</p>
