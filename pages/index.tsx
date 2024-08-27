@@ -114,8 +114,6 @@ const IndexPage: React.FC = () => {
 
             <LeftColumn>
                 <Image src="/profile.png" alt="Profile Picture"/>
-                <CertificatesComponents/>
-                <SkillsComponents/>
                 <LeftColumnLinkContainer>
                     <Badge src="/resume-computer-icons.png" alt="LinkedIn"/>
                     <PracticeLink href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
@@ -126,6 +124,8 @@ const IndexPage: React.FC = () => {
                     <PracticeLink href="/practice">Test Automation Practice Page </PracticeLink>
                 </LeftColumnLinkContainer>
                 <ContactForm/>
+                <CertificatesComponents/>
+                <SkillsComponents/>
             </LeftColumn>
             <RightColumn>
                 <Header>
