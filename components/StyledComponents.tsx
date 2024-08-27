@@ -110,7 +110,6 @@ const Image = styled.img`
     border: 2px solid #7B7B7B;
     object-fit: cover;
     margin-left: 80px;
-    margin-top: 30px;
 
     @media (max-width: 768px) {
         width: 100px;
@@ -299,7 +298,7 @@ const SeeMoreLink = styled.span`
 `;
 
 const CertificatesContainer = styled.div`
-    margin-top: 95px;
+    margin-top: 20px;
 
     @media (max-width: 768px) {
         margin-top: 30px;
@@ -326,7 +325,7 @@ const CertificateItem = styled.li`
 `;
 
 const LeftColumnLinkContainer = styled.li`
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     align-items: center;
 `;
