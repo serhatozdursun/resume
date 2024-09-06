@@ -43,10 +43,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Python dependencies
-        run: |
-          pip install -r serhatozdursun-ui-tests/requirements.txt
-
       - name: Install Chrome
         run: |
           sudo apt update
@@ -65,6 +61,11 @@ jobs:
       - name: Clone the test repository
         run: |
           git clone git@github.com:serhatozdursun/serhatozdursun-ui-tests.git
+
+      - name: Install Python dependencies
+        working-directory: serhatozdursun-ui-tests
+        run: |
+          pip install -r requirements.txt
 
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
