@@ -64,12 +64,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.UI_TEST_TOKEN }}
 
-      - name: Install Python dependencies
-        working-directory: serhatozdursun-ui-tests
-        run: |
-          pip install -r requirements.txt
-
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
         run: |
-          pytest --browser chrome --base_url http://localhost:3000
+          pytest --browser chrome --base_url http://localhost:3000 --html=reports/report.html --junitxml=reports/report.xml
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: html-report
+          path: serhatozdursun-ui-tests/reports/report.html
+
+      - name: Upload XML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: xml-report
+          path: serhatozdursun-ui-tests/reports/report.xml
