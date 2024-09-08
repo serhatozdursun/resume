@@ -36,7 +36,7 @@ jobs:
 
       - name: Wait for the application to be up
         run: |
-          sleep 15
+          sleep 30
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -60,9 +60,14 @@ jobs:
 
       - name: Clone the test repository
         run: |
-          git clone https://github.com/serhatozdursun/serhatozdursun-ui-tests.git
+          git clone git@github.com:serhatozdursun/serhatozdursun-ui-tests.git
         env:
-          GITHUB_TOKEN: ${{ secrets.UI_TEST_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.UI_TEST_TOKEN}}
+
+      - name: Install Python dependencies
+        working-directory: serhatozdursun-ui-tests
+        run: |
+          pip install -r requirements.txt
 
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
