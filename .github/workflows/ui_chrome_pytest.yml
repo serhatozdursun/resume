@@ -8,6 +8,8 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    outputs:
+      test_status: ${{ steps.test_status.outcome }}
 
     steps:
       - name: Checkout resume repository
@@ -66,19 +68,24 @@ jobs:
 
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
+        id: test_status
         run: |
-          pytest --browser chrome --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+          pytest --browser chrome --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml || true
 
+  upload_reports:
+    runs-on: ubuntu-latest
+    needs: build_and_test
+    if: always()  # This ensures that this job runs regardless of the previous job's outcome
+
+    steps:
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
         with:
           name: html-report
           path: serhatozdursun-ui-tests/reports/html
-        continue-on-error: true
 
       - name: Upload XML report
         uses: actions/upload-artifact@v3
         with:
           name: xml-report
           path: serhatozdursun-ui-tests/reports/report.xml
-        continue-on-error: true
