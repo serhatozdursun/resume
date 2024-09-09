@@ -1,4 +1,4 @@
-name: UI Automation Test for ${{ github.event.inputs.variable_name }}
+name: UI Automation Test with Python
 
 on:
   pull_request:
