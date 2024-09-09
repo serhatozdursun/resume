@@ -38,18 +38,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Firefox
-        run: |
-          sudo apt update
-          sudo apt install -y firefox
-
-      - name: Install GeckoDriver
-        run: |
-          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r ".tag_name")
-          wget https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VERSION}/geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
-          tar -xzf geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
-          sudo mv geckodriver /usr/local/bin/geckodriver
-          sudo chmod +x /usr/local/bin/geckodriver
+      - name: Set up Firefox and GeckoDriver
+        uses: browser-actions/setup-firefox@latest
 
       - name: Clone the test repository
         run: |
