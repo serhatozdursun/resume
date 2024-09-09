@@ -29,10 +29,6 @@ jobs:
         env:
           PORT: 3000
 
-      - name: Wait for the application to be up
-        run: |
-          sleep 5
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -54,17 +50,22 @@ jobs:
 
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
+        id: run_tests
         run: |
           pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: html-report
           path: serhatozdursun-ui-tests/reports/html
+        continue-on-error: true
 
       - name: Upload XML report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: xml-report
           path: serhatozdursun-ui-tests/reports/report.xml
+        continue-on-error: true

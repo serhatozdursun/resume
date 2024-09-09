@@ -129,7 +129,7 @@ const IndexPage: React.FC = () => {
             </LeftColumn>
             <RightColumn>
                 <Header>
-                    <Name id="name">Mehmet Serhat Özdursun</Name>
+                    <Name id="name">Mehmet Serhat Ozdursun</Name>
                     <Title id="title">QA Automation Engineer</Title>
                     <IconWrapper id="iconWrapper">
                         <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer" className="iconLink">
