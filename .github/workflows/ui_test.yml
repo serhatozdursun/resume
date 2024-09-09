@@ -70,13 +70,13 @@ jobs:
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
         run: |
-          pytest --browser chrome --base_url http://localhost:3000 --html=reports/report.html --junitxml=reports/report.xml
+          pytest --browser chrome --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
         with:
           name: html-report
-          path: serhatozdursun-ui-tests/reports/report.html
+          path: serhatozdursun-ui-tests/reports/html
 
       - name: Upload XML report
         uses: actions/upload-artifact@v3
