@@ -1,9 +1,6 @@
 name: UI_TEST
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
