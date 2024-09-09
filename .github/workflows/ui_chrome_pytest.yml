@@ -64,7 +64,7 @@ jobs:
         working-directory: serhatozdursun-ui-tests
         id: run_tests
         run: |
-          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml"
+          pytest --browser chrome --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         if: always()
