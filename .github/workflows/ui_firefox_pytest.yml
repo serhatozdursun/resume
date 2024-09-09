@@ -52,10 +52,10 @@ jobs:
         working-directory: serhatozdursun-ui-tests
         id: run_tests
         run: |
-          set -o pipefail
-          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml || echo "Tests failed"
+          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml"
 
       - name: Upload HTML report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: html-report
@@ -63,14 +63,9 @@ jobs:
         continue-on-error: true
 
       - name: Upload XML report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: xml-report
           path: serhatozdursun-ui-tests/reports/report.xml
         continue-on-error: true
-
-      - name: Fail the job if tests failed
-        if: failure()
-        run: |
-          echo "Tests failed. Please check the reports for details."
-          exit 1
