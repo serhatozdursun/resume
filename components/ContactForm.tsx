@@ -116,20 +116,21 @@ const ContactForm: React.FC = () => {
     return (
         <>
             {!formVisible && (
-                <SendLinkContainer onClick={handleSendLinkClick}>
-                    <SendIcon src="email.png" alt="Send Icon" />
-                    <SendText>Send Message</SendText>
+                <SendLinkContainer id="sendLinkContainer" onClick={handleSendLinkClick}>
+                    <SendIcon id="sendIcon" src="email.png" alt="Send Icon" />
+                    <SendText id="sendMessageText">Send Message</SendText>
                 </SendLinkContainer>
             )}
 
             {formVisible && (
                 <ContactFormStyle ref={formRef} onSubmit={handleSubmit}>
                     <CloseButton onClick={handleFormClose}>Close Contact Form</CloseButton>
-                    <ContactFormDescription>
+                    <ContactFormDescription id="contactFormDescription">
                         {HtmlParser(contactFormDescriptionHtml)}
                     </ContactFormDescription>
-                    <InputContainer>
+                    <InputContainer id="contactFormInputContainer">
                         <NameInput
+                            id="name"
                             ref={nameInputRef}
                             type="text"
                             name="name"
@@ -144,6 +145,7 @@ const ContactForm: React.FC = () => {
                     </InputContainer>
                     <InputContainer>
                         <EmailInput
+                            id="email"
                             type="email"
                             name="email"
                             placeholder="Your Email"
@@ -157,6 +159,7 @@ const ContactForm: React.FC = () => {
                     </InputContainer>
                     <InputContainer>
                         <Textarea
+                            id="message"
                             name="message"
                             placeholder="Your Message"
                             value={formData.message}
@@ -169,7 +172,7 @@ const ContactForm: React.FC = () => {
                             <ErrorText>Message cannot exceed 1500 characters.</ErrorText>
                         )}
                     </InputContainer>
-                    <SendButton type="submit" disabled={sending}>
+                    <SendButton id="sendMessageButton" type="submit" disabled={sending}>
                         {sending ? 'Sending...' : 'Send'}
                     </SendButton>
                 </ContactFormStyle>
@@ -177,6 +180,7 @@ const ContactForm: React.FC = () => {
 
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <MuiAlert
+                    id="messageAllert"
                     elevation={6}
                     variant="filled"
                     onClose={handleCloseSnackbar}

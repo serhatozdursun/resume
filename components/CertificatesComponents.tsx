@@ -56,19 +56,20 @@ const CertificatesComponents = () => {
     ];
 
     return (
-        <CertificatesContainer>
-            <CertificateTitle>Certificates</CertificateTitle>
+        <CertificatesContainer id = "certificatesContainer">
+            <CertificateTitle  id = "certificatesContainertitle">Certificates</CertificateTitle>
             <CertificateList>
                 {certificates.map((certificate, index) => (
-                    <CertificateItem key={index}>
+                    <CertificateItem className = "certificate" key={index}>
                         <CertificateLink
+                            className = "certificateLink"
                             href={certificate.link}
                             target="_blank"
                             onClick={() => handleClick(certificate.name)}
                             clicked={clickedCertificates.includes(certificate.name)}
                         >
-                            <Badge src={certificate.badge} alt={`${certificate.name} Badge`} />
-                            <CertificateName>{certificate.name}</CertificateName>
+                            <Badge className = "certificateBadge" src={certificate.badge} alt={`${certificate.name} Badge`} />
+                            <CertificateName className = "certificateName">{certificate.name}</CertificateName>
                         </CertificateLink>
                     </CertificateItem>
                 ))}

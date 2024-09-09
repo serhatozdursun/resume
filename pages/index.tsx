@@ -16,7 +16,7 @@ import {
     IconImage,
     ExperienceContainer,
     Info,
-    BoldText, PracticeLink, LeftColumnLinkContainer, Badge
+    BoldText, CommonLink, LeftColumnLinkContainer, Badge
 } from '../components/StyledComponents'; // Adjust the path as necessary
 import CertificatesComponents from '../components/CertificatesComponents';
 import { SkillsComponents } from '../components/SkillsComponents';
@@ -113,15 +113,15 @@ const IndexPage: React.FC = () => {
             {/* End Structured Data */}
 
             <LeftColumn>
-                <Image src="/profile.png" alt="Profile Picture"/>
-                <LeftColumnLinkContainer>
-                    <Badge src="/resume-computer-icons.png" alt="LinkedIn"/>
-                    <PracticeLink href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
-                                  target="_blank" rel="noopener noreferrer">Download Resume</PracticeLink>
+                <Image id="profile_image" src="/profile.png" alt="Profile Picture"/>
+                <LeftColumnLinkContainer className="leftColumnLinkContainer">
+                    <Badge className="badgeImage" src="/resume-computer-icons.png" alt="LinkedIn"/>
+                    <CommonLink id="downloadResumeLink" href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
+                                target="_blank" rel="noopener noreferrer">Download Resume</CommonLink>
                 </LeftColumnLinkContainer>
-                <LeftColumnLinkContainer>
+                <LeftColumnLinkContainer className="leftColumnLinkContainer">
                     <Badge src="/Manual_Testing.png" alt="LinkedIn"/>
-                    <PracticeLink href="/practice">Test Automation Practice Page </PracticeLink>
+                    <CommonLink id="practicePAge" href="/practice">Test Automation Practice Page </CommonLink>
                 </LeftColumnLinkContainer>
                 <ContactForm/>
                 <CertificatesComponents/>
@@ -133,31 +133,31 @@ const IndexPage: React.FC = () => {
                     <Title id="title">QA Automation Engineer</Title>
                     <IconWrapper id="iconWrapper">
                         <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer" className="iconLink">
-                            <IconImage src="/linkedin-icon.png" alt="LinkedIn"/>
+                            <IconImage className="iconImage" src="/linkedin-icon.png" alt="LinkedIn"/>
                         </IconLink>
-                        <IconLink href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer" className="iconLink">
+                        <IconLink  href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/upwork.png" alt="upwork"/>
                         </IconLink>
                         <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
-                            <IconImage src="/github-icon.png" alt="GitHub"/>
+                            <IconImage className="iconImage" src="/github-icon.png" alt="GitHub"/>
                         </IconLink>
                         <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
-                            <IconImage src="/medium_icon.png" alt="medium"/>
+                            <IconImage className="iconImage" src="/medium_icon.png" alt="medium"/>
                         </IconLink>
                         <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
-                            <IconImage src="/hackerrank.png" alt="medium"/>
+                            <IconImage className="iconImage" src="/hackerrank.png" alt="medium"/>
                         </IconLink>
                     </IconWrapper>
 
                     <div>
                         <Info>
-                            <BoldText id="email">Email</BoldText>: <a href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</a>
+                            <BoldText id="emailLabel">Email</BoldText>: <CommonLink id="email" href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</CommonLink>
                         </Info>
                         <Info>
-                            <BoldText id="phone">Phone</BoldText>: <a href="tel:+905368361407">+905368361407</a>
+                            <BoldText id="phoneLabel">Phone</BoldText>: <CommonLink id="phone" href="tel:+905368361407">+905368361407</CommonLink>
                         </Info>
                         <Info>
-                            <BoldText id="Llanguages">Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
+                            <BoldText id="languages">Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
                         </Info>
                     </div>
                 </Header>

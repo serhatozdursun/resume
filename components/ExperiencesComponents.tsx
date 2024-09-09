@@ -33,8 +33,8 @@ const experiences: Experience[] = [
     {
         title: 'Lead QA Automation Engineer, HUBUC/Payflow',
         company: 'Barcelona, Catalonia, Spain / Madrid, Spain',
-        companyLogo: '/payflow_es_logo.jpeg', 
-        companyWebsite: 'https://www.payflow.es/', 
+        companyLogo: '/payflow_es_logo.jpeg',
+        companyWebsite: 'https://www.payflow.es/',
         dateRange: 'Feb 2022 - Sep 2023',
         description:  `
             <p>Initially worked for HUBUC, where I <strong>successfully resolved</strong> issues in an outdated Golang-based test automation project.</p>
@@ -110,9 +110,9 @@ const experiences: Experience[] = [
 
 const ExperienceList: React.FC = () => {
     return (
-        <ExperienceContainer id="experience_container">
+        <ExperienceContainer>
             {experiences.map((experience, index) => (
-                <ExperienceItem key={index} id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}>
+                <ExperienceItem className="experience" key={index} id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}>
                     <Experience
                         title={experience.title}
                         description={experience.description}
@@ -140,11 +140,11 @@ const Experience: React.FC<Experience> = ({ title, description, company, dateRan
         <ExperienceItem>
             <ExperienceHeader onClick={toggleDescription} className="experience-header">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <a href={companyWebsite} target="_blank" rel="noopener noreferrer">
-                        <CompanyLogo src={companyLogo} alt={`${company} logo`} className="company-logo" />
+                    <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
+                        <CompanyLogo src={companyLogo} alt={`${company} logo`} className="companyLogo" />
                     </a>
                     <div>
-                        <ExperienceTitle id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
+                        <ExperienceTitle className="experienceTitle" id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
                         <ExperienceCompany id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
                     </div>
                 </div>
