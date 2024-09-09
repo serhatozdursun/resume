@@ -1,19 +1,9 @@
-name: UI Automation Test with Python
+name: UI Automation Test for {{browser}}
 
 on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      browser:
-        description: 'Choose browser to run tests'
-        required: true
-        default: 'chrome'
-        type: string
-        options:
-          - chrome
-          - firefox
 
 jobs:
   build_and_test:
@@ -48,38 +38,20 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Browser Installation Logic
-      - name: Install Chrome if selected
-        if: ${{ inputs.browser == 'chrome' || inputs.browser == '' }}
+      - name: Install Chrome
         run: |
           sudo apt update
           sudo apt install -y wget gnupg
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-      - name: Install ChromeDriver if selected
-        if: ${{ inputs.browser == 'chrome' || inputs.browser == '' }}
+      - name: Install ChromeDriver
         run: |
           CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
           wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
-
-      - name: Install Firefox if selected
-        if:  ${{ inputs.browser == 'firefox' }}
-        run: |
-          sudo apt update
-          sudo apt install -y firefox
-
-      - name: Install GeckoDriver if selected
-        if:  ${{ inputs.browser == 'firefox' }}
-        run: |
-          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r ".tag_name")
-          wget https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VERSION}/geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
-          tar -xzf geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
-          sudo mv geckodriver /usr/local/bin/geckodriver
-          sudo chmod +x /usr/local/bin/geckodriver
 
       - name: Clone the test repository
         run: |
@@ -92,11 +64,10 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # Run tests with the selected browser
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
         run: |
-          pytest --browser ${{ github.event.inputs.browser }} --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+          pytest --browser {{browser}} --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
