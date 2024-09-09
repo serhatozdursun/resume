@@ -1,4 +1,4 @@
-name: UI Automation Test for {{browser}}
+name: UI Automation Test for Firefox
 
 on:
   pull_request:
@@ -38,20 +38,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Chrome
+      - name: Install Firefox
         run: |
           sudo apt update
-          sudo apt install -y wget gnupg
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          sudo apt install -y firefox
 
-      - name: Install ChromeDriver
+      - name: Install GeckoDriver
         run: |
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r ".tag_name")
+          wget https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VERSION}/geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
+          tar -xzf geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/geckodriver
+          sudo chmod +x /usr/local/bin/geckodriver
 
       - name: Clone the test repository
         run: |
@@ -67,7 +65,7 @@ jobs:
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
         run: |
-          pytest --browser {{browser}} --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
