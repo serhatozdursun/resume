@@ -1,6 +1,9 @@
-[![CI](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
+[![Unit Tests](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
+[![CodeQL Static Code Analysis](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
 
-[![CodeQL](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
+[![UI Automation Test for Firefox](https://github.com/serhatozdursun/resume/actions/workflows/ui_firefox_pytest.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_firefox_pytest.yml)
+
+[![UI Automation Test for Chrome](https://github.com/serhatozdursun/resume/actions/workflows/ui_chrome_pytest.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_chrome_pytest.yml)
 # Simple Resume Website
 
 This is a simple resume website design project aimed at practicing TypeScript. The website design does not use a template and is built from scratch.

@@ -1,9 +1,6 @@
-name: UI_TEST
+name: UI Automation Test for Firefox
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -41,20 +38,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Chrome
-        run: |
-          sudo apt update
-          sudo apt install -y wget gnupg
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-      - name: Install ChromeDriver
-        run: |
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+      - name: Set up Firefox and GeckoDriver
+        uses: browser-actions/setup-firefox@latest
 
       - name: Clone the test repository
         run: |
@@ -70,13 +55,13 @@ jobs:
       - name: Run tests
         working-directory: serhatozdursun-ui-tests
         run: |
-          pytest --browser chrome --base_url http://localhost:3000 --html=reports/report.html --junitxml=reports/report.xml
+          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
         with:
           name: html-report
-          path: serhatozdursun-ui-tests/reports/report.html
+          path: serhatozdursun-ui-tests/reports/html
 
       - name: Upload XML report
         uses: actions/upload-artifact@v3
