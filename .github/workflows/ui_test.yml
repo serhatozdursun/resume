@@ -50,7 +50,7 @@ jobs:
 
       # Browser Installation Logic
       - name: Install Chrome if selected
-        if: ${{ github.event.inputs.browser == 'chrome' }}
+        if: ${{ inputs.browser == 'chrome' || inputs.browser == '' }}
         run: |
           sudo apt update
           sudo apt install -y wget gnupg
@@ -58,7 +58,7 @@ jobs:
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
       - name: Install ChromeDriver if selected
-        if: ${{ github.event.inputs.browser == 'chrome' }}
+        if: ${{ inputs.browser == 'chrome' || inputs.browser == '' }}
         run: |
           CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
           wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
@@ -67,13 +67,13 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Install Firefox if selected
-        if: ${{ github.event.inputs.browser == 'firefox' }}
+        if:  ${{ inputs.browser == 'firefox' }}
         run: |
           sudo apt update
           sudo apt install -y firefox
 
       - name: Install GeckoDriver if selected
-        if: ${{ github.event.inputs.browser == 'firefox' }}
+        if:  ${{ inputs.browser == 'firefox' }}
         run: |
           GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r ".tag_name")
           wget https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VERSION}/geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
