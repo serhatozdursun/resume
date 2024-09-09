@@ -64,8 +64,7 @@ jobs:
         working-directory: serhatozdursun-ui-tests
         id: run_tests
         run: |
-          set -o pipefail
-          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml || echo "Tests failed"
+          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml"
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
