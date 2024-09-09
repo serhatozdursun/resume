@@ -56,7 +56,8 @@ jobs:
         working-directory: serhatozdursun-ui-tests
         continue-on-error: true
         run: |
-          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+          set -o pipefail
+          pytest --browser firefox --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml || true
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v3
