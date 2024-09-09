@@ -68,7 +68,7 @@ jobs:
 
       - name: Upload HTML report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: html-report
           path: serhatozdursun-ui-tests/reports/html
@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload XML report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: xml-report
           path: serhatozdursun-ui-tests/reports/report.xml

@@ -43,9 +43,9 @@ export const SkillsComponents = () => {
             <SkillsTitle>Skills</SkillsTitle>
             {skills.map((skill, index) => (
                 <Skill key={index}>
-                    <SkillName>{skill.name}</SkillName>
+                    <SkillName id = {`${skill.name.toLowerCase().replace(" ","_")}`}>{skill.name}</SkillName>
                     <SkillLevel>
-                        <SkillLevelFill data-testid={`${skill.name}-level-fill`} $level={skill.level} />
+                        <SkillLevelFill id={`skill_level-${index}`} data-testid={`${skill.name}-level-fill`} $level={skill.level} />
                     </SkillLevel>
                 </Skill>
             ))}

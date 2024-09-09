@@ -330,7 +330,7 @@ const LeftColumnLinkContainer = styled.li`
     align-items: center;
 `;
 
-const PracticeLink = styled(Link)`
+const CommonLink = styled(Link)`
     color: #FC3D16;
     cursor: pointer;
     text-decoration: underline;
@@ -601,5 +601,5 @@ export {
     ErrorText,
     ContactFormDescription,
     LeftColumnLinkContainer,
-    PracticeLink
+    CommonLink
 };
