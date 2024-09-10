@@ -28,7 +28,7 @@ const IndexPage: React.FC = () => {
     const summary = `
        <p>With over a decade of experience in <strong>software testing across various industries</strong>, I have honed my skills in ensuring the highest standards of <strong>software quality assurance</strong>. My expertise lies in <strong>delivering comprehensive and innovative testing solutions</strong> that are precisely aligned with project requirements, thereby ensuring robust and reliable software products.</p>
        <p>I excel in <strong>collaborating with dynamic and cross-functional teams</strong>, fostering a culture of continuous improvement and excellence. My proactive approach to <strong>staying current with industry trends and emerging technologies</strong> enables me to implement cutting-edge testing methodologies, driving the success of <strong>software development initiatives</strong>.</p>
-       <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
+       <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization</p>
     `;
 
     return (
