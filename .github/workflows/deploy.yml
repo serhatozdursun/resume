@@ -40,10 +40,10 @@ jobs:
             export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
             
             # Stop the app managed by pm2, if running
-            if pm2 stop serhatozdursun; then
-              echo "PM2 process 'serhatozdursun' stopped successfully."
+            if pm2 stop serhatozdursun_website; then
+              echo "PM2 process 'serhatozdursun_website' stopped successfully."
             else
-              echo "Failed to stop the pm2 process 'serhatozdursun'. Exiting."
+              echo "Failed to stop the pm2 process 'serhatozdursun_website'. Exiting."
               exit 1
             fi
             
@@ -57,17 +57,48 @@ jobs:
               echo "No process found on port 3000."
             fi
             
+            # Remove node_modules
+            rm -rf node_modules || exit 1
+            
+            # Remove .next directory
+            rm -rf .next || exit 1
+            
             # Pull the latest code from the main branch
-            git pull origin main
+            if git pull origin main; then
+              echo "Code pulled successfully."
+            else
+              echo "Failed to pull code from the repository. Exiting."
+              exit 1
+            fi
             
             # Install any new dependencies
-            yarn install
+            if yarn install; then
+              echo "Dependencies installed successfully."
+            else
+              echo "Failed to install dependencies. Exiting."
+              exit 1
+            fi
             
             # Build the app
-            yarn build
+            if yarn build; then
+              echo "App built successfully."
+            else
+              echo "Failed to build the app. Exiting."
+              exit 1
+            fi
             
             # Start the app with pm2
-            pm2 start yarn --name "serhatozdursun" -- start
+            if pm2 start yarn --name "serhatozdursun_website" -- start; then
+              echo "PM2 process 'serhatozdursun_website' started successfully."
+            else
+              echo "Failed to start the pm2 process 'serhatozdursun_website'. Exiting."
+              exit 1
+            fi
             
             # Save the pm2 process list
-            pm2 save
+            if pm2 save; then
+              echo "PM2 process list saved successfully."
+            else
+              echo "Failed to save the pm2 process list. Exiting."
+              exit 1
+            fi
