@@ -13,15 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # Set Node.js version to 18
-
-      - name: Install PM2
-        run: |
-          npm install -g pm2  # Install PM2 globally
-
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -31,32 +22,43 @@ jobs:
           script: |
             # Define the target directory
             TARGET_DIR="repo/resume"
-            
+            # Print the current directory
+            echo "Current directory: $(pwd)"
             # Check if we are in the correct directory
             CURRENT_DIR=$(basename $(pwd))
             if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
-              echo "Not in the correct directory. Changing to target directory..."
-              # Navigate to the root directory and then to the target directory
+              # Navigate to the parent directory and then to the target directory
               cd ~ || exit 1
               cd $TARGET_DIR || exit 1
             else
               echo "Already in the correct directory."
             fi
-
             # Stop the app managed by pm2, if running
-            pm2 stop serhatozdursun || true
-
+            if pm2 stop serhatozdursun; then
+              echo "PM2 process 'serhatozdursun' stopped successfully."
+            else
+              echo "Failed to stop the pm2 process 'serhatozdursun'. Exiting."
+              exit 1
+            fi
+            
+            # Find and kill the process listening on port 3000
+            PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
+            
+            if [ -n "$PID" ]; then
+            echo "Stopping process with PID $PID on port 3000."
+            sudo kill -9 $PID
+            echo "Process stopped."
+            else
+            echo "No process found on port 3000."
+            fi
+            
             # Pull the latest code from the main branch
             git pull origin main
-
             # Install any new dependencies
             yarn install
-
             # Build the app
             yarn build
-
             # Start the app with pm2
             pm2 start yarn --name "serhatozdursun" -- start
-
             # Save the pm2 process list
             pm2 save
