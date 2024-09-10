@@ -36,8 +36,11 @@ jobs:
               echo "Already in the correct directory."
             fi
             
-            # Export pm2 path
-            export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
+            # Export correct node binary and pm2 path
+            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
+            
+            # set nvm defult
+            nvm alias default 21
             
             # Stop the app managed by pm2, if running
             if pm2 stop serhatozdursun_website; then
