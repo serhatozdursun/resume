@@ -21,8 +21,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Define the target directory
-            TARGET_DIR="root/repo/resume"
-            
+            TARGET_DIR="repo/resume"
+            # Print the current directory
+            echo "Current directory: $(pwd)"
             # Check if we are in the correct directory
             CURRENT_DIR=$(basename $(pwd))
             if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
