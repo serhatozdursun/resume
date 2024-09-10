@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Set Node.js version to 18
+
+      - name: Install PM2
+        run: |
+          npm install -g pm2  # Install PM2 globally
+
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -22,13 +31,12 @@ jobs:
           script: |
             # Define the target directory
             TARGET_DIR="repo/resume"
-            # Print the current directory
-            echo "Current directory: $(pwd)"
+            
             # Check if we are in the correct directory
             CURRENT_DIR=$(basename $(pwd))
             if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
-              # Navigate to the parent directory and then to the target directory
-              echo $CURRENT_DIR
+              echo "Not in the correct directory. Changing to target directory..."
+              # Navigate to the root directory and then to the target directory
               cd ~ || exit 1
               cd $TARGET_DIR || exit 1
             else
