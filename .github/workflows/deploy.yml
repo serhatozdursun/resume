@@ -20,10 +20,33 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.REPO_PATH }} || exit 1 # Navigate to the correct directory
-            pm2 stop my-app || true # Stop the app managed by pm2
-            git pull origin main # Pull the latest code from the main branch
-            yarn install # Install any new dependencies
-            yarn build # Build the app
-            pm2 start yarn --name "my-app" -- start # Start the app with pm2
-            pm2 save # Save the pm2 process list
+            # Define the target directory
+            TARGET_DIR="root/repo/resume"
+            
+            # Check if we are in the correct directory
+            CURRENT_DIR=$(basename $(pwd))
+            if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
+              # Navigate to the parent directory and then to the target directory
+              cd ~ || exit 1
+              cd $TARGET_DIR || exit 1
+            else
+              echo "Already in the correct directory."
+            fi
+
+            # Stop the app managed by pm2, if running
+            pm2 stop my-app || true
+
+            # Pull the latest code from the main branch
+            git pull origin main
+
+            # Install any new dependencies
+            yarn install
+
+            # Build the app
+            yarn build
+
+            # Start the app with pm2
+            pm2 start yarn --name "my-app" -- start
+
+            # Save the pm2 process list
+            pm2 save
