@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Set Node.js version to 18
+
+      - name: Install PM2
+        run: |
+          npm install -g pm2  # Install PM2 globally
+
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -22,13 +31,12 @@ jobs:
           script: |
             # Define the target directory
             TARGET_DIR="repo/resume"
-            # Print the current directory
-            echo "Current directory: $(pwd)"
+            
             # Check if we are in the correct directory
             CURRENT_DIR=$(basename $(pwd))
             if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
-              # Navigate to the parent directory and then to the target directory
-              echo $CURRENT_DIR
+              echo "Not in the correct directory. Changing to target directory..."
+              # Navigate to the root directory and then to the target directory
               cd ~ || exit 1
               cd $TARGET_DIR || exit 1
             else
@@ -36,7 +44,7 @@ jobs:
             fi
 
             # Stop the app managed by pm2, if running
-            pm2 stop my-app || true
+            pm2 stop serhatozdursun || true
 
             # Pull the latest code from the main branch
             git pull origin main
@@ -48,7 +56,7 @@ jobs:
             yarn build
 
             # Start the app with pm2
-            pm2 start yarn --name "my-app" -- start
+            pm2 start yarn --name "serhatozdursun" -- start
 
             # Save the pm2 process list
             pm2 save
