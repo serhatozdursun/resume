@@ -44,7 +44,7 @@ jobs:
             fi
 
             # Stop the app managed by pm2, if running
-            pm2 stop my-app || true
+            pm2 stop serhatozdursun || true
 
             # Pull the latest code from the main branch
             git pull origin main
@@ -56,7 +56,7 @@ jobs:
             yarn build
 
             # Start the app with pm2
-            pm2 start yarn --name "my-app" -- start
+            pm2 start yarn --name "serhatozdursun" -- start
 
             # Save the pm2 process list
             pm2 save
