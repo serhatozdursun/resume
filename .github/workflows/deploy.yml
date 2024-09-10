@@ -20,7 +20,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            pkill -f 'yarn start' || true
-            git pull origin main
-            yarn build
-            yarn start
+            cd ${{ secrets.REPO_PATH }} || exit 1 # Navigate to the correct directory
+            pm2 stop my-app || true # Stop the app managed by pm2
+            git pull origin main # Pull the latest code from the main branch
+            yarn install # Install any new dependencies
+            yarn build # Build the app
+            pm2 start yarn --name "my-app" -- start # Start the app with pm2
+            pm2 save # Save the pm2 process list
