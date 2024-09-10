@@ -13,31 +13,95 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          node-version: '21.6.2'  # Set to the Node.js version used on your server
-
-      - name: Install dependencies
-        run: |
-          yarn install
-
-      - name: Build the app
-        run: |
-          rm -rf .next
-          yarn build
-
-      - name: Stop and Start Application with PM2
-        run: |
-          cd repo/resume || exit 1
-          export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
-          pm2 stop serhatozdursun_website || true
-          pm2 delete serhatozdursun_website || true
-          pm2 start yarn --name "serhatozdursun_website" -- start
-          pm2 save
-
-      - name: Print Node.js version for debugging
-        run: node -v
-
-      - name: Print PM2 version for debugging
-        run: pm2 -v
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Define the target directory
+            TARGET_DIR="repo/resume"
+            
+            # Print the current directory
+            echo "Current directory: $(pwd)"
+            
+            # Check if we are in the correct directory
+            CURRENT_DIR=$(basename $(pwd))
+            if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
+              # Navigate to the parent directory and then to the target directory
+              cd ~ || exit 1
+              cd $TARGET_DIR || exit 1
+            else
+              echo "Already in the correct directory."
+            fi
+            
+            # Export pm2 path
+            export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
+            
+            # set nvm defult
+            nvm alias default 21
+            
+            # Stop the app managed by pm2, if running
+            if pm2 stop serhatozdursun_website; then
+              echo "PM2 process 'serhatozdursun_website' stopped successfully."
+            else
+              echo "Failed to stop the pm2 process 'serhatozdursun_website'. Exiting."
+              exit 1
+            fi
+            
+            # Ensure no other process is running on port 3000
+            PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
+            if [ -n "$PID" ]; then
+              echo "Stopping process with PID $PID on port 3000."
+              sudo kill -9 $PID
+              echo "Process stopped."
+            else
+              echo "No process found on port 3000."
+            fi
+            
+            # Remove node_modules
+            rm -rf node_modules || exit 1
+            
+            # Remove .next directory
+            rm -rf .next || exit 1
+            
+            # Pull the latest code from the main branch
+            if git pull origin main; then
+              echo "Code pulled successfully."
+            else
+              echo "Failed to pull code from the repository. Exiting."
+              exit 1
+            fi
+            
+            # Install any new dependencies
+            if yarn install; then
+              echo "Dependencies installed successfully."
+            else
+              echo "Failed to install dependencies. Exiting."
+              exit 1
+            fi
+            
+            # Build the app
+            if yarn build; then
+              echo "App built successfully."
+            else
+              echo "Failed to build the app. Exiting."
+              exit 1
+            fi
+            
+            # Start the app with pm2
+            if pm2 start yarn --name "serhatozdursun_website" -- start; then
+              echo "PM2 process 'serhatozdursun_website' started successfully."
+            else
+              echo "Failed to start the pm2 process 'serhatozdursun_website'. Exiting."
+              exit 1
+            fi
+            
+            # Save the pm2 process list
+            if pm2 save; then
+              echo "PM2 process list saved successfully."
+            else
+              echo "Failed to save the pm2 process list. Exiting."
+              exit 1
+            fi
