@@ -22,8 +22,10 @@ jobs:
           script: |
             # Define the target directory
             TARGET_DIR="repo/resume"
+            
             # Print the current directory
             echo "Current directory: $(pwd)"
+            
             # Check if we are in the correct directory
             CURRENT_DIR=$(basename $(pwd))
             if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
@@ -33,6 +35,10 @@ jobs:
             else
               echo "Already in the correct directory."
             fi
+            
+            # Export pm2 path
+            export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
+            
             # Stop the app managed by pm2, if running
             if pm2 stop serhatozdursun; then
               echo "PM2 process 'serhatozdursun' stopped successfully."
@@ -41,24 +47,27 @@ jobs:
               exit 1
             fi
             
-            # Find and kill the process listening on port 3000
+            # Ensure no other process is running on port 3000
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
-            
             if [ -n "$PID" ]; then
-            echo "Stopping process with PID $PID on port 3000."
-            sudo kill -9 $PID
-            echo "Process stopped."
+              echo "Stopping process with PID $PID on port 3000."
+              sudo kill -9 $PID
+              echo "Process stopped."
             else
-            echo "No process found on port 3000."
+              echo "No process found on port 3000."
             fi
             
             # Pull the latest code from the main branch
             git pull origin main
+            
             # Install any new dependencies
             yarn install
+            
             # Build the app
             yarn build
+            
             # Start the app with pm2
             pm2 start yarn --name "serhatozdursun" -- start
+            
             # Save the pm2 process list
             pm2 save
