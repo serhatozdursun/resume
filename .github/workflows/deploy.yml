@@ -36,8 +36,8 @@ jobs:
               echo "Already in the correct directory."
             fi
             
-            # Export pm2 path
-            export PATH=$PATH:/root/.nvm/versions/node/v21.6.2/bin
+            # Export correct node binary and pm2 path
+            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
             
             # set nvm defult
             nvm alias default 21
