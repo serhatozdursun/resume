@@ -6,14 +6,14 @@ on:
       - main
 
 jobs:
-  deploy:
+  # Job 1: Stop the server and fetch the latest code
+  stop_server:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to server via SSH
+      - name: Stop the server and fetch the latest code
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -23,32 +23,18 @@ jobs:
             # Define the target directory
             TARGET_DIR="repo/resume"
             
-            # Print the current directory
-            echo "Current directory: $(pwd)"
-            
-            # Check if we are in the correct directory
-            CURRENT_DIR=$(basename $(pwd))
-            if [ "$CURRENT_DIR" != "$(basename $TARGET_DIR)" ]; then
-              # Navigate to the parent directory and then to the target directory
-              cd ~ || exit 1
-              cd $TARGET_DIR || exit 1
-            else
-              echo "Already in the correct directory."
-            fi
+            # Navigate to the parent directory and then to the target directory
+            cd ~ || exit 1
+            cd $TARGET_DIR || exit 1
             
             # Export correct node binary and pm2 path
             export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
             
-            # set nvm defult
+            # Set NVM default
             nvm alias default 21
             
-            # Stop the app managed by pm2, if running
-            if pm2 stop serhatozdursun_website; then
-              echo "PM2 process 'serhatozdursun_website' stopped successfully."
-            else
-              echo "Failed to stop the pm2 process 'serhatozdursun_website'. Exiting."
-              exit 1
-            fi
+            # Stop the app managed by PM2, if running
+            pm2 stop serhatozdursun_website || true # Continue even if stop fails
             
             # Ensure no other process is running on port 3000
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
@@ -60,18 +46,38 @@ jobs:
               echo "No process found on port 3000."
             fi
             
-            # Remove .next directory
-            rm -rf .next || exit 1
+            # Remove the .next directory
+            rm -rf .next || true # Continue even if removal fails
             
             # Pull the latest code from the main branch
-            if git pull origin main; then
-              echo "Code pulled successfully."
-            else
-              echo "Failed to pull code from the repository. Exiting."
-              exit 1
-            fi
+            git pull origin main || exit 1
+
+  # Job 2: Build and restart the server
+  build_and_restart:
+    runs-on: ubuntu-latest
+    needs: stop_server # Job 2 depends on Job 1 completing successfully
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and restart the app
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Define the target directory
+            TARGET_DIR="repo/resume"
             
-            # Install any new dependencies
+            # Navigate to the target directory
+            cd ~ || exit 1
+            cd $TARGET_DIR || exit 1
+            
+            # Export correct node binary and pm2 path
+            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
+            
+            # Install dependencies
             if yarn install; then
               echo "Dependencies installed successfully."
             else
