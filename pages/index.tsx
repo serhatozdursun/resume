@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import React from 'react';
-
+import styles from '../css/IconLink.module.css'
 import {
     Container,
     LeftColumn,
@@ -19,7 +19,7 @@ import {
     BoldText, CommonLink, LeftColumnLinkContainer, Badge
 } from '../components/StyledComponents'; // Adjust the path as necessary
 import CertificatesComponents from '../components/CertificatesComponents';
-import { SkillsComponents } from '../components/SkillsComponents';
+import {SkillsComponents} from '../components/SkillsComponents';
 import ExperienceList from '../components/ExperiencesComponents';
 import ContactForm from "../components/ContactForm";
 import HtmlParser from "html-react-parser";
@@ -36,20 +36,23 @@ const IndexPage: React.FC = () => {
             <Head>
                 <meta charSet="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <meta name="description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta name="description"
+                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
                 <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
                 <link rel="icon" href="/favicon_.ico"/>
 
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content="https://serhatozdursun.com/"/>
                 <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
-                <meta property="og:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="og:description"
+                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
                 <meta property="og:image" content="https://serhatozdursun.com/profile.png"/>
 
                 <meta property="twitter:card" content="summary_large_image"/>
                 <meta property="twitter:url" content="https://serhatozdursun.com/"/>
                 <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
-                <meta property="twitter:description" content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                <meta property="twitter:description"
+                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
                 <meta property="twitter:image" content="https://serhatozdursun.com/profile.png"/>
 
                 <meta name="author" content="Mehmet Serhat Özdursun"/>
@@ -57,7 +60,8 @@ const IndexPage: React.FC = () => {
                 <meta name="robots" content="index, follow"/>
                 <meta name="theme-color" content="#ffffff"/>
                 <link rel="canonical" href="https://serhatozdursun.com/"/>
-                <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume"/>
+                <meta name="keywords"
+                      content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume"/>
             </Head>
 
             {/* Use next/script for Google Analytics */}
@@ -116,7 +120,8 @@ const IndexPage: React.FC = () => {
                 <Image id="profile_image" src="/profile.png" alt="Profile Picture"/>
                 <LeftColumnLinkContainer className="leftColumnLinkContainer">
                     <Badge className="badgeImage" src="/resume-computer-icons.png" alt="LinkedIn"/>
-                    <CommonLink id="downloadResumeLink" href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
+                    <CommonLink id="downloadResumeLink"
+                                href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
                                 target="_blank" rel="noopener noreferrer">Download Resume</CommonLink>
                 </LeftColumnLinkContainer>
                 <LeftColumnLinkContainer className="leftColumnLinkContainer">
@@ -132,29 +137,39 @@ const IndexPage: React.FC = () => {
                     <Name id="name">Mehmet Serhat Ozdursun</Name>
                     <Title id="title">QA Automation Engineer</Title>
                     <IconWrapper id="iconWrapper">
-                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank" rel="noopener noreferrer" className="iconLink">
+                        <IconLink href="https://www.linkedin.com/in/serhat-ozdursun/" target="_blank"
+                                  rel="noopener noreferrer" className="iconLink">
                             <IconImage className="iconImage" src="/linkedin-icon.png" alt="LinkedIn"/>
                         </IconLink>
-                        <IconLink  href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank" rel="noopener noreferrer" className="iconLink">
+                        <IconLink href="https://www.upwork.com/freelancers/~012512aef2eaee40a9" target="_blank"
+                                  rel="noopener noreferrer" className="iconLink">
                             <IconImage src="/upwork.png" alt="upwork"/>
                         </IconLink>
-                        <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
+                        <IconLink href="https://github.com/serhatozdursun" target="_blank" rel="noopener noreferrer"
+                                  className="iconLink">
                             <IconImage className="iconImage" src="/github-icon.png" alt="GitHub"/>
                         </IconLink>
-                        <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
-                            <IconImage className="iconImage" src="/medium_icon.png" alt="medium"/>
+                        <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer"
+                                  className="iconLink">
+                            <div className={styles.iconWrapper}>
+                                <IconImage className={styles.iconImage} src="/medium_icon.png" alt="medium"/>
+                                <div className={styles.flashingCross}></div>
+                            </div>
                         </IconLink>
-                        <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank" rel="noopener noreferrer" className="iconLink">
+                        <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank"
+                                  rel="noopener noreferrer" className="iconLink">
                             <IconImage className="iconImage" src="/hackerrank.png" alt="medium"/>
                         </IconLink>
                     </IconWrapper>
 
                     <div>
                         <Info>
-                            <BoldText id="emailLabel">Email</BoldText>: <CommonLink id="email" href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</CommonLink>
+                            <BoldText id="emailLabel">Email</BoldText>: <CommonLink id="email"
+                                                                                    href="mailto:serhat.ozdursun@gmail.com">serhat.ozdursun@gmail.com</CommonLink>
                         </Info>
                         <Info>
-                            <BoldText id="phoneLabel">Phone</BoldText>: <CommonLink id="phone" href="tel:+905368361407">+905368361407</CommonLink>
+                            <BoldText id="phoneLabel">Phone</BoldText>: <CommonLink id="phone"
+                                                                                    href="tel:+905368361407">+905368361407</CommonLink>
                         </Info>
                         <Info>
                             <BoldText id="languages">Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
@@ -165,11 +180,11 @@ const IndexPage: React.FC = () => {
                 <SummaryContainer id="summary"> {HtmlParser(summary)}</SummaryContainer>
 
                 <ExperienceContainer id="experience_container">
-                    <ExperienceList />
+                    <ExperienceList/>
                 </ExperienceContainer>
             </RightColumn>
         </Container>
-    );
+);
 };
 
 export default IndexPage;
