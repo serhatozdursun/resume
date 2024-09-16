@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import React from 'react';
-import styles from '../css/IconLink.module.css'
+/*import styles from '../css/IconLink.module.css'*/
 import {
     Container,
     LeftColumn,
@@ -151,10 +151,10 @@ const IndexPage: React.FC = () => {
                         </IconLink>
                         <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer"
                                   className="iconLink">
-                            <div className={styles.iconWrapper}>
-                                <IconImage className={styles.iconImage} src="/medium_icon.png" alt="medium"/>
-                                <div className={styles.flashingCross}></div>
-                            </div>
+                         {/*<div className={styles.iconWrapper}>*/}
+                                <IconImage className="iconImage" src="/medium_icon.png" alt="medium"/>
+                                {/*<div className={styles.flashingCross}></div>*/}
+                           {/* </div>*/}
                         </IconLink>
                         <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank"
                                   rel="noopener noreferrer" className="iconLink">
