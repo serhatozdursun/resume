@@ -9,6 +9,9 @@ jobs:
   # Job 1: Stop the server and fetch the latest code
   stop_server:
     runs-on: ubuntu-latest
+    env:
+      # Force Node.js 20 usage (Optional, remove if not needed)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -61,6 +64,9 @@ jobs:
   build_and_restart:
     runs-on: ubuntu-latest
     needs: stop_server # Job 2 depends on Job 1 completing successfully
+    env:
+      # Force Node.js 20 usage (Optional, remove if not needed)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
