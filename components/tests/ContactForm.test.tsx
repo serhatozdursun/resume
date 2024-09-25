@@ -58,7 +58,7 @@ describe('ContactForm', () => {
     });*/
 
     test('displays error message when email exceeds max length', () => {
-        fireEvent.click(screen.getByText('Send Message'));
+        fireEvent.click(screen.getByText('Send a message'));
 
         fireEvent.change(screen.getByPlaceholderText('Your Email'), {
             target: { value: 'test@test.com'.repeat(10) }
@@ -68,7 +68,7 @@ describe('ContactForm', () => {
     });
 
     test('displays error message when message exceeds max length', () => {
-        fireEvent.click(screen.getByText('Send Message'));
+        fireEvent.click(screen.getByText('Send a message'));
 
         fireEvent.change(screen.getByPlaceholderText('Your Message'), {
             target: { value: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'.repeat(50) }
