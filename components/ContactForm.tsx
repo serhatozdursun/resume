@@ -118,7 +118,7 @@ const ContactForm: React.FC = () => {
             {!formVisible && (
                 <SendLinkContainer id="sendLinkContainer" onClick={handleSendLinkClick}>
                     <SendIcon id="sendIcon" src="email.png" alt="Send Icon" />
-                    <SendText id="sendMessageText">Send Message</SendText>
+                    <SendText id="sendMessageText">Send a message</SendText>
                 </SendLinkContainer>
             )}
 
