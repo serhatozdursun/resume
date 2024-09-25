@@ -86,6 +86,7 @@ jobs:
               exit 1
             fi
 
+
   # Job 2: Build and restart the server
   build_and_restart:
     runs-on: ubuntu-latest
