@@ -67,9 +67,6 @@ jobs:
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
             
-            # Export correct node binary and pm2 path
-            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
-            
             # Install dependencies
             if yarn install; then
               echo "Dependencies installed successfully."
@@ -88,7 +85,7 @@ jobs:
 
 
   # Job 2: Build and restart the server
-  build_and_restart:
+  restart:
     runs-on: ubuntu-latest
     needs: stop_server # Job 2 depends on Job 1 completing successfully
     env:
@@ -110,6 +107,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Export correct node binary and pm2 path
+            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
             # Start the app with pm2
             if pm2 start yarn --name "serhatozdursun_website" -- start; then
               echo "PM2 process 'serhatozdursun_website' started successfully."
