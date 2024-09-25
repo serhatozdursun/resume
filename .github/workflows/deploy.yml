@@ -82,8 +82,6 @@ jobs:
               echo "Failed to build the app. Exiting."
               exit 1
             fi
-
-
   # Job 2: Build and restart the server
   restart:
     runs-on: ubuntu-latest
