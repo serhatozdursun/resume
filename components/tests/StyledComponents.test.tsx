@@ -15,14 +15,14 @@ describe('StyledComponents', () => {
         const { container } = render(<Container />);
         expect(container.firstChild).toHaveStyleRule('display', 'flex');
         expect(container.firstChild).toHaveStyleRule('max-width', '100%');
-        expect(container.firstChild).toHaveStyleRule('background-color', '#f3fafd');
+        expect(container.firstChild).toHaveStyleRule('background-color', '#f2d273');
     });
 
     it('renders LeftColumn correctly', () => {
         const { container } = render(<LeftColumn />);
         expect(container.firstChild).toHaveStyleRule('flex', '1');
         expect(container.firstChild).toHaveStyleRule('padding-top', '20px');
-        expect(container.firstChild).toHaveStyleRule('background-color', '#f3fafd');
+        expect(container.firstChild).toHaveStyleRule('background-color', '#f2d273');
     });
 
     it('renders RightColumn correctly', () => {
