@@ -9,7 +9,7 @@ const Container = styled.div`
     display: flex;
     max-width: 100%;
     margin: 0;
-    background-color: #f3fafd;
+    background-color: #f2d273;
 
     @media (max-width: 768px) {
         flex-direction: column;
@@ -24,7 +24,7 @@ const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    background-color: #f3fafd;
+    background-color: #f2d273;
     position: sticky;
     top: 80px; /* Adjust as necessary */
 
@@ -52,7 +52,7 @@ const Header = styled.header`
     margin-bottom: 20px;
     position: sticky; /* Set the header to be sticky */
     top: 0; /* Stick it to the top of the viewport */
-    background-color: white;
+    background-color: #f4d98b;
     z-index: 1000; /* Ensure it's above other content */
     padding: 20px; /* Adjust padding as necessary */
     border-bottom: 1px solid #ccc; /* Optional: Add a border at the bottom */
@@ -110,6 +110,7 @@ const Image = styled.img`
     border: 2px solid #7B7B7B;
     object-fit: cover;
     margin-left: 80px;
+    background-color: #f4d98b;
 
     @media (max-width: 768px) {
         width: 100px;
@@ -157,7 +158,7 @@ const Info = styled.p`
 
 const SkillsContainer = styled.div`
     margin-right: 0;
-    background-color: #f3fafd;
+    background-color: #f2d273;
 `;
 
 const Skill = styled.div`
@@ -179,7 +180,7 @@ const SkillName = styled.span`
 const SkillLevel = styled.div`
     width: 200px;
     height: 20px;
-    background-color: #f3fafd;
+    background-color: #f4da8a;
     border-radius: 10px;
     overflow: hidden;
 

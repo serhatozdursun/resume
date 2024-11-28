@@ -151,10 +151,10 @@ const IndexPage: React.FC = () => {
                         </IconLink>
                         <IconLink href="https://medium.com/@serhat-ozdursun" target="_blank" rel="noopener noreferrer"
                                   className="iconLink">
-                         {/*<div className={styles.iconWrapper}>*/}
-                                <IconImage className="iconImage" src="/medium_icon.png" alt="medium"/>
-                                {/*<div className={styles.flashingCross}></div>*/}
-                           {/* </div>*/}
+                            {/*<div className={styles.iconWrapper}>*/}
+                            <IconImage className="iconImage" src="/medium_icon.png" alt="medium"/>
+                            {/*<div className={styles.flashingCross}></div>*/}
+                            {/* </div>*/}
                         </IconLink>
                         <IconLink href="https://www.hackerrank.com/profile/serhat_ozdursun" target="_blank"
                                   rel="noopener noreferrer" className="iconLink">
@@ -184,7 +184,7 @@ const IndexPage: React.FC = () => {
                 </ExperienceContainer>
             </RightColumn>
         </Container>
-);
+    );
 };
 
 export default IndexPage;
