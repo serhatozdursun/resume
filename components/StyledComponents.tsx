@@ -158,6 +158,7 @@ const Info = styled.p`
 
 const SkillsContainer = styled.div`
     margin-right: 0;
+    margin-left: 10px;
     background-color: #f2d273;
 `;
 
@@ -300,7 +301,7 @@ const SeeMoreLink = styled.span`
 
 const CertificatesContainer = styled.div`
     margin-top: 20px;
-
+    margin-left: 10px;
     @media (max-width: 768px) {
         margin-top: 30px;
     }
@@ -328,6 +329,7 @@ const CertificateItem = styled.li`
 const LeftColumnLinkContainer = styled.li`
     margin-top: 10px;
     display: flex;
+    margin-left: 10px;
     align-items: center;
 `;
 
@@ -497,7 +499,7 @@ const SendIcon = styled.img`
     width: 20px;
     height: 20px;
     margin-right: 5px;
-
+    margin-left: 10px;
     @media (max-width: 768px) {
         width: 15px;
         height: 15px;
