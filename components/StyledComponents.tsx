@@ -386,7 +386,7 @@ const ContactFormStyle = styled.form`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    background-color: #f3fafd;
+    background-color:  #f2d273;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
