@@ -20,104 +20,81 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Define the target directory
             TARGET_DIR="repo/resume"
-            
-            # Navigate to the parent directory and then to the target directory
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            
-            # Export correct node binary and pm2 path
             export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
-            
-            # Set NVM default
             nvm alias default 21
-            
-            # Stop the app managed by PM2, if running
-            pm2 stop serhatozdursun_website || true # Continue even if stop fails
-            
-            # Ensure no other process is running on port 3000
+            pm2 stop serhatozdursun_website || true
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
             if [ -n "$PID" ]; then
-              echo "Stopping process with PID $PID on port 3000."
               sudo kill -9 $PID
-              echo "Process stopped."
-            else
-              echo "No process found on port 3000."
             fi
-            
-            # Remove the .next directory
-            rm -rf .next || true # Continue even if removal fails
-            
-            # Pull the latest code from the main branch
+            rm -rf .next || true
             git pull origin main || exit 1
 
-  # Job 2: Build and restart the server
+  # Job 2: Build the app
   build:
     runs-on: ubuntu-latest
-    needs: stop_server # Job 2 depends on Job 1 completing successfully
+    needs: stop_server
+    if: always() # Ensure this job runs regardless of the result of stop_server
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and restart the app
+      - name: Build the app
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Define the target directory
             TARGET_DIR="repo/resume"
-            
-            # Navigate to the target directory
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            
-            # Export correct node binary and pm2 path
             export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
-            
-            # Install dependencies
             if yarn install; then
               echo "Dependencies installed successfully."
             else
-              echo "Failed to install dependencies. Exiting."
+              echo "Failed to install dependencies."
               exit 1
             fi
-            
-            # Build the app
             if yarn build; then
               echo "App built successfully."
             else
-              echo "Failed to build the app. Exiting."
+              echo "Failed to build the app."
               exit 1
             fi
+
+  # Job 3: Start the server
   start_the_server:
     runs-on: ubuntu-latest
-    needs: stop_server # Job 2 depends on Job 1 completing successfully
+    needs: build
+    if: always() # Ensure this job runs regardless of the result of build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and restart the app
+      - name: Start the app
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Start the app with pm2
+            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
+            TARGET_DIR="repo/resume"
+            cd ~ || exit 1
+            cd $TARGET_DIR || exit 1
             if pm2 start yarn --name "serhatozdursun_website" -- start; then
               echo "PM2 process 'serhatozdursun_website' started successfully."
             else
-              echo "Failed to start the pm2 process 'serhatozdursun_website'. Exiting."
+              echo "Failed to start the pm2 process."
               exit 1
             fi
-
-            # Save the pm2 process list
             if pm2 save; then
               echo "PM2 process list saved successfully."
             else
-              echo "Failed to save the pm2 process list. Exiting."
+              echo "Failed to save the PM2 process list."
               exit 1
             fi
