@@ -26,7 +26,7 @@ const CertificatesComponents = () => {
         {
             name: 'Professional Scrum Developer™ I (PSD I)',
             badge: '/psd1.png',
-            link: 'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url',
+            link: 'https://www.scrum.org/certificates/1079124',
         },
         {
             name: 'ISTQB® Certified Tester Foundation Level (CTFL)',
