@@ -36,7 +36,7 @@ const experiences: Experience[] = [
         companyLogo: '/payflow_es_logo.jpeg',
         companyWebsite: 'https://www.payflow.es/',
         dateRange: 'Feb 2022 - Sep 2023',
-        description:  `
+        description: `
             <p>Initially worked for HUBUC, where I <strong>successfully resolved</strong> issues in an outdated Golang-based test automation project.</p>
             <p>I <strong>spearheaded</strong> the development of a new test automation project using Java, resulting in a regression suite running periodically on Jenkins with a custom job.</p>
             <p>I <strong>defined and implemented</strong> a sanity test suite for developers to run locally, improving overall testing efficiency.</p>
@@ -107,12 +107,12 @@ const experiences: Experience[] = [
 ];
 
 
-
 const ExperienceList: React.FC = () => {
     return (
         <ExperienceContainer>
             {experiences.map((experience, index) => (
-                <ExperienceItem className="experience" key={index} id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}>
+                <ExperienceItem className="experience" key={index}
+                                id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}>
                     <Experience
                         title={experience.title}
                         description={experience.description}
@@ -127,25 +127,30 @@ const ExperienceList: React.FC = () => {
     );
 };
 
-const Experience: React.FC<Experience> = ({ title, description, company, dateRange, companyLogo, companyWebsite }) => {
+const Experience: React.FC<Experience> = ({title, description, company, dateRange, companyLogo, companyWebsite}) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
 
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
     };
-    const lastIndex:number = description.indexOf('</p>', 200);
+    const lastIndex: number = description.indexOf('</p>', 200);
     const descriptionToShow = showFullDescription ? description : description.slice(0, lastIndex);
 
     return (
         <ExperienceItem>
             <ExperienceHeader onClick={toggleDescription} className="experience-header">
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{display: 'flex', alignItems: 'center'}}>
                     <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
-                        <CompanyLogo src={companyLogo} alt={`${company} logo`} className="companyLogo" />
+                        <CompanyLogo src={companyLogo} alt={`${company} logo`} className="companyLogo"/>
                     </a>
                     <div>
-                        <ExperienceTitle className="experienceTitle" id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
-                        <ExperienceCompany id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
+                        <ExperienceTitle className="experienceTitle"
+                                         id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
+                        <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
+                            <ExperienceCompany
+                                id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
+                        </a>
+
                     </div>
                 </div>
                 <ExperienceDateRange className="experience-date-range">{dateRange}</ExperienceDateRange>
