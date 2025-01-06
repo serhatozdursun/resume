@@ -4,13 +4,11 @@ const Container = styled.div`
     display: flex;
     gap: 20px;
     padding: 20px;
-    background-color: #f3fafd;
 `;
 
 const Header = styled.header`
     position: sticky;
     top: 0;
-    background-color: #f3fafd;
     padding: 20px;
     z-index: 1000;
     width: 100%;
