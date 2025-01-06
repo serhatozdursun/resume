@@ -429,11 +429,14 @@ const Input = styled.input<InputProps>`
 `;
 
 const NameInput = styled(Input)`
-    margin-bottom: 1rem; /* Example additional style */
+    margin-bottom: 1rem;
+    border: ${(props) => (props.hasError ? '1px solid red' : '1px solid black')};
+    border-color: ${(props) => (props.hasError ? 'red' : 'black')};
 `;
 
 const EmailInput = styled(Input)`
     margin-bottom: 1rem; /* Example additional style */
+    border: ${(props) => `1px solid ${props.hasError ? 'red' : 'black'}`};
 `;
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

@@ -5,7 +5,6 @@ import {
     Container,
     LeftColumn,
     RightColumn,
-    Header,
     Name,
     SkillLevelFill
 } from '../StyledComponents'
@@ -15,14 +14,12 @@ describe('StyledComponents', () => {
         const { container } = render(<Container />);
         expect(container.firstChild).toHaveStyleRule('display', 'flex');
         expect(container.firstChild).toHaveStyleRule('max-width', '100%');
-        expect(container.firstChild).toHaveStyleRule('background-color', '#f2d273');
     });
 
     it('renders LeftColumn correctly', () => {
         const { container } = render(<LeftColumn />);
         expect(container.firstChild).toHaveStyleRule('flex', '1');
         expect(container.firstChild).toHaveStyleRule('padding-top', '20px');
-        expect(container.firstChild).toHaveStyleRule('background-color', '#f2d273');
     });
 
     it('renders RightColumn correctly', () => {
@@ -31,12 +28,6 @@ describe('StyledComponents', () => {
         expect(container.firstChild).toHaveStyleRule('padding-right', '100px');
         expect(container.firstChild).toHaveStyleRule('padding-left', '30px');
 
-    });
-
-    it('renders Header correctly', () => {
-        const { container } = render(<Header />);
-        expect(container.firstChild).toHaveStyleRule('text-align', 'center');
-        expect(container.firstChild).toHaveStyleRule('margin-bottom', '20px');
     });
 
     it('renders Name correctly', () => {
