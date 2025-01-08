@@ -42,7 +42,7 @@ const IndexPage: React.FC = () => {
                     <meta charSet="UTF-8"/>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                     <meta name="description"
-                          content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                          content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"/>
                     <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
                     <link rel="icon" href="/favicon_.ico"/>
 
