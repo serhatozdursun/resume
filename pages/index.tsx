@@ -45,7 +45,7 @@ const IndexPage: React.FC = () => {
                 <meta property="og:url" content="https://serhatozdursun.com/"/>
                 <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer"/>
                 <meta property="og:description"
-                      content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."/>
+                      content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions."/>
                 <meta property="og:image" content="https://serhatozdursun.com/profile.png"/>
 
                 <meta property="twitter:card" content="summary_large_image"/>
