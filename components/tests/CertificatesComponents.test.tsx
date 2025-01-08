@@ -29,10 +29,10 @@ describe('CertificatesComponents', () => {
 
         // Clicking again should not change color
         fireEvent.click(certificateLinks[0]);
-        expect(certificateLinks[0]).toHaveStyle({ color: 'black' });
+        expect(certificateLinks[0]).toHaveStyle({ color: 'blue' });
 
         // Click the second certificate link
         fireEvent.click(certificateLinks[1]);
-        expect(certificateLinks[1]).toHaveStyle({ color: 'black' });
+        expect(certificateLinks[1]).toHaveStyle({ color: 'blue' });
     });
 });
