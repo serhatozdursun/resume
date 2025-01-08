@@ -133,6 +133,10 @@ const IndexPage: React.FC = () => {
                         <Badge src="/Manual_Testing.png" alt="LinkedIn"/>
                         <CommonLink id="practicePAge" href="/practice">Test Automation Practice Page </CommonLink>
                     </LeftColumnLinkContainer>
+                    <LeftColumnLinkContainer className="leftColumnLinkContainer">
+                        <Badge src="/recommandation.png" alt="recommandation"/>
+                        <CommonLink id="recomandarion" href="https://www.linkedin.com/in/serhat-ozdursun/details/recommendations/" target="_blank">Recommendations</CommonLink>
+                    </LeftColumnLinkContainer>
                     <ContactForm/>
                     <CertificatesComponents/>
                     <SkillsComponents/>
