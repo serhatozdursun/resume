@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import Link from "next/link";
 
+import { ThemeType } from './theme';
+
+declare module 'styled-components' {
+    export interface DefaultTheme extends ThemeType {}
+}
+
 interface SkillLevelFillProps {
     $level: number; // Define the custom prop $level
 }
@@ -9,7 +15,6 @@ const Container = styled.div`
     display: flex;
     max-width: 100%;
     margin: 0;
-    background-color: #f2d273;
 
     @media (max-width: 768px) {
         flex-direction: column;
@@ -24,7 +29,7 @@ const LeftColumn = styled.div`
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    background-color: #f2d273;
+
     position: sticky;
     top: 80px; /* Adjust as necessary */
 
@@ -52,7 +57,7 @@ const Header = styled.header`
     margin-bottom: 20px;
     position: sticky; /* Set the header to be sticky */
     top: 0; /* Stick it to the top of the viewport */
-    background-color: #f4d98b;
+    background-color: ${(props) => props.theme.colors.secondary};
     z-index: 1000; /* Ensure it's above other content */
     padding: 20px; /* Adjust padding as necessary */
     border-bottom: 1px solid #ccc; /* Optional: Add a border at the bottom */
@@ -110,7 +115,7 @@ const Image = styled.img`
     border: 2px solid #7B7B7B;
     object-fit: cover;
     margin-left: 80px;
-    background-color: #f4d98b;
+    background-color: ${(props) => props.theme.colors.secondary};
 
     @media (max-width: 768px) {
         width: 100px;
@@ -159,7 +164,7 @@ const Info = styled.p`
 const SkillsContainer = styled.div`
     margin-right: 0;
     margin-left: 10px;
-    background-color: #f2d273;
+
 `;
 
 const Skill = styled.div`
@@ -181,7 +186,7 @@ const SkillName = styled.span`
 const SkillLevel = styled.div`
     width: 200px;
     height: 20px;
-    background-color: #f4da8a;
+    background-color: #bae0ba;
     border-radius: 10px;
     overflow: hidden;
 
@@ -247,11 +252,16 @@ const ExperienceTitle = styled.h3`
     font-family: "Times New Roman", Times, serif;
     text-align: left;
     font-size: 1em;
-    color: #333;
+    color: ${(props) => props.theme.colors.text};
     margin-bottom: 5px;
 
     @media (max-width: 768px) {
         font-size: 0.6em; /* Adjust the font size for smaller screens */
+    }
+
+    a {
+        color: inherit; /* Inherit color from the parent */
+        text-decoration: none; /* Remove underline from anchor tag */
     }
 `;
 
@@ -281,8 +291,8 @@ const ExperienceDateRange = styled.h3`
 const ExperienceContent = styled.div`
     font-family: "Times New Roman", Times, serif;
     text-align: left;
-    font-size: 1.2em;
-    color: #333;
+    font-size: 1em;
+    color: ${(props) => props.theme.colors.text};
     line-height: 1.6;
     @media (max-width: 768px) {
         font-size: 0.9em; /* Adjust the font size for smaller screens */
@@ -386,7 +396,7 @@ const ContactFormStyle = styled.form`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    background-color:  #f2d273;
+    background-color:  ${(props) => props.theme.colors.primary}
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
@@ -419,11 +429,14 @@ const Input = styled.input<InputProps>`
 `;
 
 const NameInput = styled(Input)`
-    margin-bottom: 1rem; /* Example additional style */
+    margin-bottom: 1rem;
+    border: ${(props) => (props.hasError ? '1px solid red' : '1px solid black')};
+    border-color: ${(props) => (props.hasError ? 'red' : 'black')};
 `;
 
 const EmailInput = styled(Input)`
     margin-bottom: 1rem; /* Example additional style */
+    border: ${(props) => `1px solid ${props.hasError ? 'red' : 'black'}`};
 `;
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

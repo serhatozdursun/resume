@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useRef, useEffect } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useRef, useEffect, useCallback } from 'react';
 import emailjs from 'emailjs-com';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -13,8 +13,12 @@ import {
     ErrorText,
     SendIcon,
     SendLinkContainer,
-    InputContainer, ContactFormDescription, SendText,
-} from './StyledComponents';
+    InputContainer,
+    ContactFormDescription,
+    SendText,} from './StyledComponents';
+import { theme } from './theme'; // Import your theme
+import {ThemeProvider} from 'styled-components';
+
 
 interface FormData {
     name: string;
@@ -68,9 +72,9 @@ const ContactForm: React.FC = () => {
         setOpenSnackbar(false);
     };
 
-    const handleSendLinkClick = () => {
+    const handleSendLinkClick = useCallback(() => {
         setFormVisible(true);
-    };
+    }, []);
 
     const handleFormClose = () => {
         setFormVisible(false);
@@ -78,6 +82,8 @@ const ContactForm: React.FC = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        console.log('Submitting form with data:', formData); // Debug form data
 
         try {
             setSending(true);
@@ -109,12 +115,16 @@ const ContactForm: React.FC = () => {
     };
 
     const contactFormDescriptionHtml = `
-        <p><strong>Feel free to reach out</strong> if you're interested in collaborating with a seasoned QA engineer. With over a decade of experience in software testing across diverse industries, I bring a proven track record of driving excellence in software quality assurance.</p>
-        <p>I'm dedicated to delivering <strong>comprehensive testing solutions</strong> that align with project requirements. Let's work together to ensure the success of your software development initiatives!</p>
+        <div>
+            <strong>Feel free to reach out</strong> if you're interested in collaborating with a seasoned QA engineer. With over a decade of experience in software testing across diverse industries, I bring a proven track record of driving excellence in software quality assurance.
+            <br />
+            I'm dedicated to delivering <strong>comprehensive testing solutions</strong> that align with project requirements. Let's work together to ensure the success of your software development initiatives!
+        </div>
     `;
 
     return (
         <>
+            <ThemeProvider theme={theme}>
             {!formVisible && (
                 <SendLinkContainer id="sendLinkContainer" onClick={handleSendLinkClick}>
                     <SendIcon id="sendIcon" src="email.png" alt="Send Icon" />
@@ -126,7 +136,9 @@ const ContactForm: React.FC = () => {
                 <ContactFormStyle ref={formRef} onSubmit={handleSubmit}>
                     <CloseButton onClick={handleFormClose}>Close Contact Form</CloseButton>
                     <ContactFormDescription id="contactFormDescription">
-                        {HtmlParser(contactFormDescriptionHtml)}
+                        <>
+                            {HtmlParser(contactFormDescriptionHtml)}
+                        </>
                     </ContactFormDescription>
                     <InputContainer id="contactFormInputContainer">
                         <NameInput
@@ -180,7 +192,7 @@ const ContactForm: React.FC = () => {
 
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <MuiAlert
-                    id="messageAllert"
+                    id="messageAlert"
                     elevation={6}
                     variant="filled"
                     onClose={handleCloseSnackbar}
@@ -189,6 +201,7 @@ const ContactForm: React.FC = () => {
                     Message sent successfully!
                 </MuiAlert>
             </Snackbar>
+            </ThemeProvider>
         </>
     );
 };
