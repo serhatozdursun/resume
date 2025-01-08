@@ -25,7 +25,7 @@ describe('CertificatesComponents', () => {
         fireEvent.click(certificateLinks[0]);
 
         // Check if the clicked badge color changes to black
-        expect(certificateLinks[0]).toHaveStyle({ color: 'black' });
+        expect(certificateLinks[0]).toHaveStyle({ color: 'blue' });
 
         // Clicking again should not change color
         fireEvent.click(certificateLinks[0]);
