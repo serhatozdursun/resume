@@ -148,7 +148,9 @@ const Experience: React.FC<Experience> = ({title, description, company, dateRang
                                          id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>{title}</ExperienceTitle>
                         <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
                             <ExperienceCompany
-                                id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
+                                id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}
+                            </ExperienceCompany>
+
                         </a>
 
                     </div>

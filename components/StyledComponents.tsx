@@ -116,6 +116,7 @@ const Image = styled.img`
     object-fit: cover;
     margin-left: 80px;
     background-color: ${(props) => props.theme.colors.secondary};
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 
     @media (max-width: 768px) {
         width: 100px;
@@ -123,7 +124,13 @@ const Image = styled.img`
         margin-left: 0;
         margin-top: 10px;
     }
+
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
 `;
+
 
 const IconWrapper = styled.div`
     margin-top: 10px;
@@ -145,6 +152,12 @@ const IconImage = styled.img`
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
 `;
 
 const BoldText = styled.span`
@@ -239,6 +252,11 @@ const CompanyLogo = styled.img`
         width: 32px;
         height: 32px;
     }
+
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
+    }
 `;
 
 const ExperienceHeader = styled.div`
@@ -270,9 +288,15 @@ const ExperienceCompany = styled.h3`
     text-align: left;
     font-size: 0.9em;
     color: #7B7B7B;
+    text-decoration: none;
 
     @media (max-width: 768px) {
-        font-size: 0.4em; /* Adjust the font size for smaller screens */
+        font-size: 0.4em;
+    }
+
+    &:hover {
+        text-decoration: none; 
+        color: blue;
     }
 `;
 
@@ -371,7 +395,8 @@ const CertificateLink = styled.a.attrs<{ clicked: boolean }>(() => ({
     transition: color 0.2s ease-in-out;
 
     &:hover {
-        color: black;
+        text-decoration: none;
+        color: blue;
     }
 `;
 
@@ -387,6 +412,10 @@ const Badge = styled.img`
     @media (max-width: 768px) {
         width: 15px;
         height: 15px;
+    }
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
     }
 `;
 
