@@ -361,7 +361,8 @@ const CertificateLink = styled.a.attrs<{ clicked: boolean }>(() => ({
     transition: color 0.2s ease-in-out;
 
     &:hover {
-        color: black;
+        text-decoration: none;
+        color: blue;
     }
 `;
 
