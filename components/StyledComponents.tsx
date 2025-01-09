@@ -184,6 +184,10 @@ const Skill = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.01);
+    }
 `;
 
 const SkillName = styled.span`
@@ -358,6 +362,10 @@ const CertificateItem = styled.li`
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.01);
+    }
 `;
 
 const LeftColumnLinkContainer = styled.li`
@@ -365,6 +373,10 @@ const LeftColumnLinkContainer = styled.li`
     display: flex;
     margin-left: 10px;
     align-items: center;
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.01);
+    }
 `;
 
 const CommonLink = styled(Link)`
@@ -412,10 +424,6 @@ const Badge = styled.img`
     @media (max-width: 768px) {
         width: 15px;
         height: 15px;
-    }
-    &:hover {
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        transform: scale(1.1);
     }
 `;
 
@@ -535,6 +543,10 @@ const SendLinkContainer = styled.a`
     text-decoration: none;
     margin-top: 10px;
     margin-bottom: 10px;
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.01);
+    }
 `;
 
 const SendIcon = styled.img`
@@ -545,6 +557,10 @@ const SendIcon = styled.img`
     @media (max-width: 768px) {
         width: 15px;
         height: 15px;
+    }
+    &:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
     }
 `;
 
