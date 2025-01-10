@@ -16,8 +16,8 @@ import {
     Label,
     PageHeader
 } from "../components/PracticePageStyl";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import {theme} from '../components/theme';
 import {ThemeProvider} from 'styled-components';
 
@@ -114,6 +114,7 @@ const Practice: React.FC = () => {
         setSnackbarOpen(true);
     };
 
+    // @ts-ignore
     return (
         <ThemeProvider theme={theme}>
             <div>
@@ -322,14 +323,14 @@ const Practice: React.FC = () => {
                                 autoHideDuration={6000}
                                 onClose={handleSnackbarClose}
                             >
-                                <MuiAlert
+                                <Alert
                                     elevation={6}
                                     variant="filled"
                                     onClose={handleSnackbarClose}
                                     severity={snackbarType}
                                 >
                                     {snackbarMessage}
-                                </MuiAlert>
+                                </Alert>
                             </Snackbar>
                         </Example>
                     </Column>
