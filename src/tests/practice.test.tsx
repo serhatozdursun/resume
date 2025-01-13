@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { act } from 'react';
-import Practice from "./practice";
+import Practice from "../pages/practice";
 
 
 describe('Practice Component', () => {
