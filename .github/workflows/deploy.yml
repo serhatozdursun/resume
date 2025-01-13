@@ -23,9 +23,9 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
-            nvm alias default 21
-            pm2 stop serhatozdursun_website || true
+            export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH            
+            nvm alias default 23
+            pm2 stop so-website || true
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
             if [ -n "$PID" ]; then
               sudo kill -9 $PID
@@ -53,6 +53,8 @@ jobs:
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
+            nvm alias default 23
+
             if yarn install; then
               echo "Dependencies installed successfully."
             else
@@ -84,10 +86,12 @@ jobs:
           script: |
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             export PATH=/root/.nvm/versions/node/v23.6.0/bin/pm2:$PATH
+            nvm alias default 23
+
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            if pm2 start yarn --name "serhatozdursun_website" -- start; then
+            if pm2 start yarn --name "so-website" -- start; then
               echo "PM2 process 'serhatozdursun_website' started successfully."
             else
               echo "Failed to start the pm2 process."
