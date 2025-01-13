@@ -52,7 +52,7 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            export PATH=/root/.nvm/versions/node/v21.6.2/bin:$PATH
+            export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             if yarn install; then
               echo "Dependencies installed successfully."
             else
