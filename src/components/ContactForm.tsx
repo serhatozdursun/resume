@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent, useRef, useEffect, useCallback } from 'react';
 import emailjs from 'emailjs-com';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import HtmlParser from 'html-react-parser';
 import {
     EmailInput,
@@ -191,7 +191,7 @@ const ContactForm: React.FC = () => {
             )}
 
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-                <MuiAlert
+                <Alert
                     id="messageAlert"
                     elevation={6}
                     variant="filled"
@@ -199,7 +199,7 @@ const ContactForm: React.FC = () => {
                     severity="success"
                 >
                     Message sent successfully!
-                </MuiAlert>
+                </Alert>
             </Snackbar>
             </ThemeProvider>
         </>

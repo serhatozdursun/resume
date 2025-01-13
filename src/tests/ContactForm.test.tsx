@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ContactForm from '../ContactForm';
+import ContactForm from '../components/ContactForm';
 
 jest.mock('emailjs-com', () => ({
     send: jest.fn().mockResolvedValue({ text: 'Email sent' }),

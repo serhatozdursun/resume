@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import Head from 'next/head';
 import {
     Button,
@@ -16,8 +16,8 @@ import {
     Label,
     PageHeader
 } from "../components/PracticePageStyl";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import {theme} from '../components/theme';
 import {ThemeProvider} from 'styled-components';
 
@@ -33,6 +33,7 @@ const Practice: React.FC = () => {
     const [alertInput, setAlertInput] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploadMessage, setUploadMessage] = useState('');
+    const fileInputRef = useRef<HTMLInputElement | null>(null); // Create a reference for the file input
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarType, setSnackbarType] = useState<'success' | 'error'>('success');
     const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -61,26 +62,60 @@ const Practice: React.FC = () => {
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const file = event.target.files[0];
-            setSelectedFile(file);
-        }
+        const file = event.target.files ? event.target.files[0] : null;
+        setSelectedFile(file);
     };
 
     const handleFileUpload = () => {
-        if (selectedFile) {
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-            // Simulating file upload delay
-            setTimeout(() => {
-                setUploadMessage(`File "${selectedFile.name}" uploaded successfully!`);
-                setSelectedFile(null); // Clear selected file
-                setTimeout(() => {
-                    setUploadMessage(''); // Clear success message after 3 seconds
-                }, 3000);
-            }, 1000);
-        } else {
+        if (!selectedFile) {
             alert('Please select a file to upload.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        // Simulate the file upload process with a delay
+        uploadFile(formData)
+            .then(() => {
+                setUploadMessage(`File "${selectedFile.name}" uploaded successfully!`);
+                clearUploadMessageAfterDelay();
+                resetFileInput(); // Reset file input after upload
+            })
+            .catch((error) => {
+                alert('File upload failed.');
+                console.error(error);
+            });
+
+        setSelectedFile(null); // Clear the selected file state
+    };
+
+    // Function to simulate file upload with delay
+    const uploadFile = (formData: FormData) => {
+        return new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                const uploadSuccessful = true; // Simulating success
+
+                if (uploadSuccessful) {
+                    resolve();
+                } else {
+                    reject(new Error('Upload failed.'));
+                }
+            }, 1000); // Simulating file upload delay
+        });
+    };
+
+    // Function to clear the upload message after 3 seconds
+    const clearUploadMessageAfterDelay = () => {
+        setTimeout(() => {
+            setUploadMessage('');
+        }, 3000);
+    };
+
+    // Function to reset the file input after successful upload
+    const resetFileInput = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Clear the file input's value
         }
     };
 
@@ -100,7 +135,10 @@ const Practice: React.FC = () => {
         }
     };
 
-    const handleSnackbarClose = (event?: React.SyntheticEvent, reason?: string) => {
+    const handleSnackbarClose = (
+        event: React.SyntheticEvent<any> | Event, // Matches the expected type
+        reason?: string
+    ) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -114,6 +152,8 @@ const Practice: React.FC = () => {
         setSnackbarOpen(true);
     };
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <ThemeProvider theme={theme}>
             <div>
@@ -285,12 +325,16 @@ const Practice: React.FC = () => {
                                     id="fileUpload"
                                     name="fileUpload"
                                     onChange={handleFileChange}
+                                    data-testid="fileUpload_input"
+                                    ref={fileInputRef} // Set the ref on the input element
                                 />
-                                <Button type="button" onClick={handleFileUpload}>
+                                <Button data-testid="fileUpload_button" type="button" onClick={handleFileUpload}>
                                     Upload File
                                 </Button>
                                 {uploadMessage && (
-                                    <div style={{marginTop: 10, color: 'green'}}>{uploadMessage}</div>
+                                    <div data-testid="file_uploaded" style={{ marginTop: 10, color: 'green' }}>
+                                        {uploadMessage}
+                                    </div>
                                 )}
                             </FormGroup>
                         </Example>
@@ -301,6 +345,7 @@ const Practice: React.FC = () => {
                                     type="text"
                                     id="message"
                                     name="message"
+                                    data-testid="message"
                                     value={snackbarMessage}
                                     onChange={(e) => setSnackbarMessage(e.target.value)}
                                 />
@@ -320,16 +365,16 @@ const Practice: React.FC = () => {
                             <Snackbar
                                 open={snackbarOpen}
                                 autoHideDuration={6000}
-                                onClose={handleSnackbarClose}
+                                onClose={handleSnackbarClose} // Updated function
                             >
-                                <MuiAlert
+                                <Alert
                                     elevation={6}
                                     variant="filled"
-                                    onClose={handleSnackbarClose}
+                                    onClose={handleSnackbarClose} // Same function reused
                                     severity={snackbarType}
                                 >
                                     {snackbarMessage}
-                                </MuiAlert>
+                                </Alert>
                             </Snackbar>
                         </Example>
                     </Column>
