@@ -7,7 +7,7 @@ import {
     RightColumn,
     Name,
     SkillLevelFill
-} from '../StyledComponents'
+} from '../components/StyledComponents'
 
 describe('StyledComponents', () => {
     it('renders Container correctly', () => {

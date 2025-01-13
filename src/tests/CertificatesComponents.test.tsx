@@ -1,7 +1,7 @@
 // CertificatesComponents.test.tsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import CertificatesComponents from '../CertificatesComponents';
+import CertificatesComponents from '../components/CertificatesComponents';
 import '@testing-library/jest-dom'
 
 
