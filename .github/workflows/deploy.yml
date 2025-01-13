@@ -83,6 +83,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
+            export PATH=/root/.nvm/versions/node/v23.6.0/bin/pm2:$PATH
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
