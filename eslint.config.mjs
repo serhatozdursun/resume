@@ -22,4 +22,11 @@ export default [
       'next.config.js',
     ],
   },
+  {
+    settings: {
+      react: {
+        version: 'detect', // Automatically detect the React version
+      },
+    },
+  },
 ];

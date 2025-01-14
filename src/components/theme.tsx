@@ -5,6 +5,7 @@ export const theme = {
     secondary: '#F3F1EC', // Example secondary color
     background: '#ffffff', // Background color
     text: '#000000', // Text color
+    link: '#fc3d16',
   },
   spacing: {
     small: '8px',

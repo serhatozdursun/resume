@@ -92,7 +92,7 @@ jobs:
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
             if pm2 start yarn --name "so-website" -- start; then
-              echo "PM2 process 'serhatozdursun_website' started successfully."
+              echo "PM2 process 'so-website' started successfully."
             else
               echo "Failed to start the pm2 process."
               exit 1
