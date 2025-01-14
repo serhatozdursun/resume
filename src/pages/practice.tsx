@@ -159,7 +159,7 @@ const Practice: React.FC = () => {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta
             name="description"
-            content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."
+            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
           />
           <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
           <link rel="icon" href="/favicon_.ico" />
@@ -169,7 +169,7 @@ const Practice: React.FC = () => {
           <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
           <meta
             property="og:description"
-            content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."
+            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
           />
           <meta property="og:image" content="https://serhatozdursun.com/profile.png" />
 
@@ -178,7 +178,7 @@ const Practice: React.FC = () => {
           <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
           <meta
             property="twitter:description"
-            content="Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements."
+            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
           />
           <meta property="twitter:image" content="https://serhatozdursun.com/profile.png" />
 

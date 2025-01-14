@@ -109,7 +109,7 @@ const IndexPage: React.FC = () => {
                         "https://medium.com/@serhat-ozdursun"
                       ],
                       "image": "https://serhatozdursun.com/profile.png",
-                      "description": "Experienced QA Automation Engineer with over a decade of experience in software testing. Committed to delivering comprehensive testing solutions aligned with project requirements.",
+                      "description": "Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions",
                       "email": "serhat.ozdursun@gmail.com",
                       "telephone": "+905368361407",
                       "address": {
