@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://serhatozdursun.com',
-    generateRobotsTxt: true,
+  siteUrl: 'https://serhatozdursun.com',
+  generateRobotsTxt: true,
 };
