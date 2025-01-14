@@ -324,7 +324,7 @@ const ExperienceContent = styled.div`
 `;
 
 const SeeMoreLink = styled.span`
-  color: #868483;
+  color: ${props => props.theme.colors.link};
   cursor: pointer;
   &:hover {
     text-decoration: none;
@@ -375,7 +375,7 @@ const LeftColumnLinkContainer = styled.li`
 `;
 
 const CommonLink = styled(Link)`
-  color: #fc3d16;
+  color: ${props => props.theme.colors.link};
   cursor: pointer;
   text-decoration: underline;
   display: block; /* Ensures full width on mobile */
@@ -559,7 +559,7 @@ const SendIcon = styled.img`
 `;
 
 const SendText = styled.span`
-  color: #fc3d16;
+  color: ${props => props.theme.colors.link};
   cursor: pointer;
   text-decoration: underline;
   display: block; /* Ensures full width on mobile */
