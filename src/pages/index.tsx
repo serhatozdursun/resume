@@ -36,10 +36,21 @@ const IndexPage: React.FC = () => {
        <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
     `;
 
+  const trackDownloadEvent = () => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'download_resume', {
+        event_category: 'resume',
+        event_label: 'Download Resume',
+        value: 1,
+      });
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Head>
+          <html lang="en" />
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta
@@ -133,6 +144,7 @@ const IndexPage: React.FC = () => {
               href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackDownloadEvent}
             >
               Download Resume
             </CommonLink>
