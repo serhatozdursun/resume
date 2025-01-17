@@ -134,10 +134,7 @@ const Practice: React.FC = () => {
     }
   };
 
-  const handleSnackbarClose = (
-      event: Event | React.SyntheticEvent<Element, Event>,
-      reason?: string
-  ) => {
+  const handleSnackbarClose = (event: Event | React.SyntheticEvent<Element, Event>, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -147,7 +144,6 @@ const Practice: React.FC = () => {
       setSnackbarOpen(false);
     }
   };
-
 
   const handleSnackbar = (type: 'success' | 'error', message: string) => {
     setSnackbarType(type);
