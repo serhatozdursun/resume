@@ -108,16 +108,15 @@ describe('ContactForm', () => {
     const send_message = screen.getByText('Send a message');
     fireEvent.click(send_message);
 
-    const emailInput = screen.getByPlaceholderText('Your Email')
+    const emailInput = screen.getByPlaceholderText('Your Email');
 
     userEvent.type(emailInput, 'invalid-email');
     fireEvent.blur(emailInput);
 
     fireEvent.click(screen.getByText('Send'));
-    fireEvent.blur(emailInput)
+    fireEvent.blur(emailInput);
 
     expect(emailInput).toBeInvalid();
-
   });
 
   afterAll(() => {
