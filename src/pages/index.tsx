@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Script from 'next/script';
 import React from 'react';
 import {
@@ -35,16 +34,6 @@ const IndexPage: React.FC = () => {
        <p>I excel in <strong>collaborating with dynamic and cross-functional teams</strong>, fostering a culture of continuous improvement and excellence. My proactive approach to <strong>staying current with industry trends and emerging technologies</strong> enables me to implement cutting-edge testing methodologies, driving the success of <strong>software development initiatives</strong>.</p>
        <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
     `;
-
-  const trackDownloadEvent = (event:string, eventCategory: string, eventLabel:string) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'download_resume', {
-        event_category: 'resume',
-        event_label: 'Download Resume',
-        value: 1,
-      });
-    }
-  };
 
   const trackEvent = (event:string, eventCategory: string, eventLabel:string) => {
     if (typeof window !== 'undefined' && window.gtag) {

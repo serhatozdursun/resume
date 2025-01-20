@@ -1,10 +1,14 @@
-// next.config.js
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
   images: {
     domains: ['serhatozdursun.com'],
+  },
+  compiler: {
+    // Enable styled-components support
+    styledComponents: true,
   },
   webpack(config, { isServer }) {
     if (!isServer) {
@@ -16,3 +20,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = nextConfig;
