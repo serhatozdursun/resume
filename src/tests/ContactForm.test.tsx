@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContactForm from '../components/ContactForm';
+import userEvent from '@testing-library/user-event';
 
 beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -38,6 +39,85 @@ describe('ContactForm', () => {
 
     // Check if the error message is shown
     expect(screen.getByText('Message cannot exceed 1500 characters.')).toBeInTheDocument();
+  });
+
+  test('displays the contact form when "Send a message" is clicked', () => {
+    render(<ContactForm />);
+    expect(screen.queryByPlaceholderText('Your Name')).not.toBeInTheDocument();
+
+    const sendLink = screen.getByText('Send a message');
+    fireEvent.click(sendLink);
+
+    expect(screen.getByPlaceholderText('Your Name')).toBeInTheDocument();
+  });
+
+  test('shows success message on form submission', async () => {
+    render(<ContactForm />);
+
+    fireEvent.click(screen.getByText('Send a message'));
+
+    fireEvent.change(screen.getByPlaceholderText('Your Name'), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Your Email'), {
+      target: { value: 'johndoe@example.com' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Your Message'), {
+      target: { value: 'Hello, this is a test message.' },
+    });
+
+    fireEvent.click(screen.getByText('Send'));
+
+    const snackbar = await screen.findByText('Message sent successfully!');
+    expect(snackbar).toBeInTheDocument();
+  });
+
+  test('trims input values to maxLength', () => {
+    render(<ContactForm />);
+    const send_message = screen.getByText('Send a message');
+    fireEvent.click(send_message);
+
+    fireEvent.change(screen.getByPlaceholderText('Your Name'), {
+      target: { value: 'a'.repeat(110) },
+    });
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('a'.repeat(100));
+  });
+
+  test('Successful submission', async () => {
+    render(<ContactForm />);
+
+    fireEvent.click(screen.getByText('Send a message'));
+
+    fireEvent.change(screen.getByPlaceholderText('Your Name'), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Your Email'), {
+      target: { value: 'johndoe@example.com' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Your Message'), {
+      target: { value: 'Test message' },
+    });
+
+    fireEvent.click(screen.getByText('Send'));
+
+    await screen.findByText('Message sent successfully!');
+  });
+
+  test('handles errors during form submission', async () => {
+    render(<ContactForm />);
+    const send_message = screen.getByText('Send a message');
+    fireEvent.click(send_message);
+
+    const emailInput = screen.getByPlaceholderText('Your Email')
+
+    userEvent.type(emailInput, 'invalid-email');
+    fireEvent.blur(emailInput);
+
+    fireEvent.click(screen.getByText('Send'));
+    fireEvent.blur(emailInput)
+
+    expect(emailInput).toBeInvalid();
+
   });
 
   afterAll(() => {
