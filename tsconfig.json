@@ -17,7 +17,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["src/*.*"],
-  "exclude": ["node_modules"],
-  "types": ["jest", "node"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/global.d.ts"],
+  "exclude": ["node_modules"]
 }

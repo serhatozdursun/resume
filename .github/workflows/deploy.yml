@@ -6,13 +6,29 @@ on:
       - main
 
 jobs:
-  # Job 1: Stop the server and fetch the latest code
-  stop_server:
+  # Job 1: Set Maintenance Mode
+  set_maintenance:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Set maintenance mode
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Navigate to the /var/www directory
+            cd ~ || exit 1
+            cd .. || exit 1
+            # Create the maintenance flag
+            touch /var/www/maintenance.flag
+            echo "Maintenance mode enabled."
 
+  # Job 2: Stop the server and fetch the latest code
+  stop_server:
+    runs-on: ubuntu-latest
+    needs: set_maintenance
+    steps:
       - name: Stop the server and fetch the latest code
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -23,8 +39,10 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH            
+            
+            export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             nvm alias default 23
+            
             pm2 stop so-website || true
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
             if [ -n "$PID" ]; then
@@ -33,15 +51,11 @@ jobs:
             rm -rf .next || true
             git pull origin main || exit 1
 
-  # Job 2: Build the app
+  # Job 3: Build the app
   build:
     runs-on: ubuntu-latest
     needs: stop_server
-    if: always() # Ensure this job runs regardless of the result of stop_server
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Build the app
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -52,6 +66,7 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
+            
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             nvm alias default 23
 
@@ -68,15 +83,11 @@ jobs:
               exit 1
             fi
 
-  # Job 3: Start the server
-  start_the_server:
+  # Job 4: Start the server
+  start_server:
     runs-on: ubuntu-latest
     needs: build
-    if: always() # Ensure this job runs regardless of the result of build
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Start the app
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -87,7 +98,7 @@ jobs:
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             export PATH=/root/.nvm/versions/node/v23.6.0/bin/pm2:$PATH
             nvm alias default 23
-
+            
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
@@ -96,7 +107,7 @@ jobs:
             if ! command -v pm2 &> /dev/null; then
               npm install -g pm2
             fi
-            
+
             # Start the app with PM2
             if pm2 start yarn --name "so-website" -- start; then
               echo "PM2 process 'so-website' started successfully."
@@ -110,3 +121,22 @@ jobs:
               echo "Failed to save the PM2 process list."
               exit 1
             fi
+
+  # Job 5: Disable Maintenance Mode
+  disable_maintenance:
+    runs-on: ubuntu-latest
+    needs: start_server
+    steps:
+      - name: Disable maintenance mode
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Navigate to the /var/www directory
+            cd ~ || exit 1
+            cd .. || exit 1
+            # Remove the maintenance flag
+            rm -f /var/www/maintenance.flag
+            echo "Maintenance mode disabled."

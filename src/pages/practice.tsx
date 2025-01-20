@@ -134,15 +134,15 @@ const Practice: React.FC = () => {
     }
   };
 
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent<HTMLElement> | Event, // Matches the expected type
-    reason?: string
-  ) => {
+  const handleSnackbarClose = (event: Event | React.SyntheticEvent<Element, Event>, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setSnackbarOpen(false);
+    // Ensure compatibility with the expected type
+    if (event && 'nativeEvent' in event) {
+      setSnackbarOpen(false);
+    }
   };
 
   const handleSnackbar = (type: 'success' | 'error', message: string) => {
