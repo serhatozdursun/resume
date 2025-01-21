@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Head from 'next/head';
 import {
   Button,
   CheckboxInput,
@@ -20,6 +19,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
+import {Helmet} from "react-helmet";
 
 const Practice: React.FC = () => {
   const [, setNewWindow] = useState<Window | null>(null);
@@ -154,31 +154,32 @@ const Practice: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Head>
+        <Helmet>
+          <html lang="en" />
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta
-            name="description"
-            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+              name="description"
+              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
           />
-          <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
+          <title>Mehmet Serhat Ozdursun - Automation Practice</title>
           <link rel="icon" href="/favicon_.ico" />
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://serhatozdursun.com/" />
-          <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
+          <meta property="og:title" content="Mehmet Serhat Ozdursun - Automation Practice" />
           <meta
-            property="og:description"
-            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+              property="og:description"
+              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions."
           />
           <meta property="og:image" content="https://serhatozdursun.com/profile.png" />
 
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content="https://serhatozdursun.com/" />
-          <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
+          <meta property="twitter:title" content="Mehmet Serhat Ozdursun - Automation Practice" />
           <meta
-            property="twitter:description"
-            content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+              property="twitter:description"
+              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
           />
           <meta property="twitter:image" content="https://serhatozdursun.com/profile.png" />
 
@@ -188,7 +189,7 @@ const Practice: React.FC = () => {
           <meta name="theme-color" content="#ffffff" />
           <link rel="canonical" href="https://serhatozdursun.com/" />
           <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume" />
-        </Head>
+        </Helmet>
         <Header>
           <PageHeader>Test Automation Practice Page</PageHeader>
         </Header>
