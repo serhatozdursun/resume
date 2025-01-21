@@ -35,7 +35,7 @@ const IndexPage: React.FC = () => {
        <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
     `;
 
-  const trackEvent = (event:string, eventCategory: string, eventLabel:string) => {
+  const trackEvent = (event: string, eventCategory: string, eventLabel: string) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', event, {
         event_category: eventCategory,
@@ -144,7 +144,7 @@ const IndexPage: React.FC = () => {
                 href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() =>trackEvent('download_resume', 'resume', 'Download Resume')}
+                onClick={() => trackEvent('download_resume', 'resume', 'Download Resume')}
               >
                 Download Resume
               </CommonLink>
@@ -161,7 +161,7 @@ const IndexPage: React.FC = () => {
                 id="recomandarion"
                 href="https://www.linkedin.com/in/serhat-ozdursun/details/recommendations/"
                 target="_blank"
-                onClick={() =>trackEvent('recommendations', 'linkedin', 'Linkedin Recommendations')}
+                onClick={() => trackEvent('recommendations', 'linkedin', 'Linkedin Recommendations')}
               >
                 Recommendations
               </CommonLink>
@@ -180,7 +180,7 @@ const IndexPage: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="iconLink"
-                  onClick={() =>trackEvent('navigate_linkedin', 'linkedin', 'Linkedin')}
+                  onClick={() => trackEvent('navigate_linkedin', 'linkedin', 'Linkedin')}
                 >
                   <IconImage className="iconImage" src="/linkedin-icon.png" alt="LinkedIn" />
                 </IconLink>
@@ -197,7 +197,7 @@ const IndexPage: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="iconLink"
-                  onClick={() =>trackEvent('navigate_github', 'github', 'Github')}
+                  onClick={() => trackEvent('navigate_github', 'github', 'Github')}
                 >
                   <IconImage className="iconImage" src="/github-icon.png" alt="GitHub" />
                 </IconLink>
