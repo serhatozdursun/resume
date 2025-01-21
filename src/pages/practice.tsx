@@ -291,7 +291,7 @@ const Practice: React.FC = () => {
             <Example>
               <FormGroup>
                 <Label>Login Example</Label>
-                <Description>You can use `&apos;Qwerty1234!&apos; as valid password</Description>
+                <Description>You can use &apos;Qwerty1234!&apos; as valid password</Description>
                 <Label htmlFor="loginEmail">Email:</Label>
                 <Input
                   type="email"

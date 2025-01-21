@@ -77,7 +77,7 @@ const NotFoundPage: React.FC = () => {
             <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume" />
         </Helmet>
       <Title>404</Title>
-      <Subtitle>Oops! The page you're looking for doesn't exist.</Subtitle>
+      <Subtitle>Oops! The page you&#39;re looking for doesn&#39;t exist.</Subtitle>
       <StyledLink href="/">Go Back Home</StyledLink>
     </Container>
   );
