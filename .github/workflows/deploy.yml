@@ -39,10 +39,10 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            
+
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             nvm alias default 23
-            
+
             pm2 stop so-website || true
             PID=$(sudo netstat -tulnp | grep :3000 | awk '{print $7}' | cut -d'/' -f1)
             if [ -n "$PID" ]; then
@@ -66,7 +66,7 @@ jobs:
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            
+
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             nvm alias default 23
 
@@ -98,11 +98,11 @@ jobs:
             export PATH=/root/.nvm/versions/node/v23.6.0/bin:$PATH
             export PATH=/root/.nvm/versions/node/v23.6.0/bin/pm2:$PATH
             nvm alias default 23
-            
+
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd $TARGET_DIR || exit 1
-            
+
             # Ensure PM2 is installed
             if ! command -v pm2 &> /dev/null; then
               npm install -g pm2

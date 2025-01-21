@@ -215,7 +215,6 @@ const SkillLevelFill = styled.div<SkillLevelFillProps>`
   border-radius: 10px;
 
   @media (max-width: 768px) {
-    height: 80%;
     border-radius: 5px;
   }
 `;
