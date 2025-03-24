@@ -81,3 +81,10 @@ jobs:
           name: xml-report
           path: serhatozdursun-ui-tests/reports/report.xml
         continue-on-error: true
+
+  cleanup:
+    - uses: actions/stale@v1
+      with:
+        days: 2
+        repository: ${{ github.repository }}
+        repo-token: ${{ secrets.TOKEN }}
