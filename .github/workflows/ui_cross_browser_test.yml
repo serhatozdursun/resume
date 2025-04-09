@@ -1,4 +1,4 @@
-name: UI Automation Test for Chrome
+name: UI Automation Tests
 
 on:
   pull_request:
@@ -8,13 +8,16 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
 
     steps:
       - name: Checkout resume repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
 
@@ -30,24 +33,26 @@ jobs:
           PORT: 3000
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install Chrome
+      - name: Install ${{ matrix.browser }} and driver
+        if: matrix.browser == 'chrome'
         run: |
           sudo apt update
           sudo apt install -y wget gnupg
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-      - name: Install ChromeDriver
-        run: |
           CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
           wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
+
+      - name: Set up Firefox and GeckoDriver
+        if: matrix.browser == 'firefox'
+        uses: browser-actions/setup-firefox@latest
 
       - name: Clone the test repository
         run: |
@@ -60,24 +65,26 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Run tests on ${{ matrix.browser }}
         working-directory: serhatozdursun-ui-tests
         id: run_tests
         run: |
-          pytest --browser chrome --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+          pytest --browser ${{ matrix.browser }} --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
 
       - name: Upload HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: html-report
+          name: html-report-${{ matrix.browser }}
           path: serhatozdursun-ui-tests/reports/html
+          retention-days: 5
         continue-on-error: true
 
       - name: Upload XML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: xml-report
+          name: xml-report-${{ matrix.browser }}
           path: serhatozdursun-ui-tests/reports/report.xml
+          retention-days: 5
         continue-on-error: true
