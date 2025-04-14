@@ -104,21 +104,19 @@ jobs:
             "template_id": "${EMAILJS_TEMPLATE_ID}",
             "user_id": "${EMAILJS_USER_ID}",
             "template_params": {
-              "title": "❌ UI Test Failed"
-              "result": "failed"
-              "browser": ${{ matrix.browser }}
-              "commit": ${{ github.sha }}
-              "artifacts_link": ${ARTIFACTS_LINK}
+              "title": "❌ UI Test Failed",
+              "result": "failed",
+              "browser": "${{ matrix.browser }}",
+              "commit": "${{ github.sha }}",
+              "artifacts_link": "${ARTIFACTS_LINK}"
             }
-          }
+            }
           EOF
-              
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-              -H 'origin: http://localhost' \
-              -H 'Content-Type: application/json' \
-                -d @email-payload-failure.json
+            -H 'origin: http://localhost' \
+            -H 'Content-Type: application/json' \
+            -d @email-payload-failure.json
 
-      # ✅ Send success email (if tests passed)
       - name: Send Success Email for ${{ matrix.browser }}
         if: success()
         env:
@@ -134,16 +132,15 @@ jobs:
             "template_id": "${EMAILJS_TEMPLATE_ID}",
             "user_id": "${EMAILJS_USER_ID}",
             "template_params": {
-              "title": "✅ UI Test Passed"
-              "result": "passed successfully"
-              "browser": ${{ matrix.browser }}
-              "commit": ${{ github.sha }}
-              "artifacts_link": ${ARTIFACTS_LINK}
+              "title": "✅ UI Test Passed",
+              "result": "passed successfully",
+              "browser": "${{ matrix.browser }}",
+              "commit": "${{ github.sha }}",
+              "artifacts_link": "${ARTIFACTS_LINK}"
             }
           }
           EOF
-          
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-          -H 'origin: http://localhost' \
-          -H 'Content-Type: application/json' \
+            -H 'origin: http://localhost' \
+            -H 'Content-Type: application/json' \
             -d @email-payload-success.json
