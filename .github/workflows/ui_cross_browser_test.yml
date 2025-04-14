@@ -104,8 +104,11 @@ jobs:
             "template_id": "${EMAILJS_TEMPLATE_ID}",
             "user_id": "${EMAILJS_USER_ID}",
             "template_params": {
-              "subject": "❌ UI Test Failed - ${{ matrix.browser }}",
-              "message": "Tests failed on browser: ${{ matrix.browser }}\n\nCommit: ${{ github.sha }}\nArtifacts: ${ARTIFACTS_LINK}"
+              "title": "❌ UI Test Failed"
+              "result": "failed"
+              "browser": ${{ matrix.browser }}
+              "commit": ${{ github.sha }}
+              "artifacts_link": ${ARTIFACTS_LINK}
             }
           }
           EOF
@@ -131,8 +134,11 @@ jobs:
             "template_id": "${EMAILJS_TEMPLATE_ID}",
             "user_id": "${EMAILJS_USER_ID}",
             "template_params": {
-              "subject": "✅ UI Test Passed - ${{ matrix.browser }}",
-              "message": "Tests passed successfully on browser: ${{ matrix.browser }} 🎉\n\nCommit: ${{ github.sha }}\nArtifacts: ${ARTIFACTS_LINK}"
+              "title": "✅ UI Test Passed"
+              "result": "passed successfully"
+              "browser": ${{ matrix.browser }}
+              "commit": ${{ github.sha }}
+              "artifacts_link": ${ARTIFACTS_LINK}
             }
           }
           EOF
