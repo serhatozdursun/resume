@@ -115,19 +115,25 @@ jobs:
           EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
           EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
-          ENCODED=$(cat "encoded-report-${{ matrix.browser }}.txt" 2>/dev/null || echo "Report not available")
+          ENCODED=$(awk '{printf "%s", $0}' encoded-report-${{ matrix.browser }}.txt 2>/dev/null || echo "Report not available")
+
+          cat <<EOF > email-payload-failure.json
+          {
+            "service_id": "${EMAILJS_SERVICE_ID}",
+            "template_id": "${EMAILJS_TEMPLATE_ID}",
+            "user_id": "${EMAILJS_USER_ID}",
+            "template_params": {
+              "subject": "❌ UI Test Failed - ${{ matrix.browser }}",
+              "message": "Tests failed on browser: ${{ matrix.browser }}\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n${ENCODED:0:500}..."
+            }
+          }
+          EOF
+          
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-            -H 'origin: http://localhost' \
-            -H 'Content-Type: application/json' \
-            -d '{
-              "service_id": "'"$EMAILJS_SERVICE_ID"'",
-              "template_id": "'"$EMAILJS_TEMPLATE_ID"'",
-              "user_id": "'"$EMAILJS_USER_ID"'",
-              "template_params": {
-                "subject": "❌ UI Test Failed - ${{ matrix.browser }}",
-                "message": "Tests failed on browser: ${{ matrix.browser }}\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n'"${ENCODED:0:500}"'..."
-              }
-            }'
+          -H 'origin: http://localhost' \
+          -H 'Content-Type: application/json' \
+          -d @email-payload-failure.json
+
 
       # ✅ Send success email (if tests passed)
       - name: Send Success Email for ${{ matrix.browser }}
@@ -137,16 +143,21 @@ jobs:
           EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
           EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
-          ENCODED=$(cat "encoded-report-${{ matrix.browser }}.txt" 2>/dev/null || echo "Report not available")
+          ENCODED=$(awk '{printf "%s", $0}' encoded-report-${{ matrix.browser }}.txt 2>/dev/null || echo "Report not available")
+        
+          cat <<EOF > email-payload.json
+          {
+            "service_id": "${EMAILJS_SERVICE_ID}",
+            "template_id": "${EMAILJS_TEMPLATE_ID}",
+            "user_id": "${EMAILJS_USER_ID}",
+            "template_params": {
+              "subject": "✅ UI Test Passed - ${{ matrix.browser }}",
+              "message": "Tests passed on browser: ${{ matrix.browser }} 🎉\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n${ENCODED:0:500}..."
+            }
+          }
+          EOF
+          
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-            -H 'origin: http://localhost' \
-            -H 'Content-Type: application/json' \
-            -d '{
-              "service_id": "'"$EMAILJS_SERVICE_ID"'",
-              "template_id": "'"$EMAILJS_TEMPLATE_ID"'",
-              "user_id": "'"$EMAILJS_USER_ID"'",
-              "template_params": {
-                "subject": "✅ UI Test Passed - ${{ matrix.browser }}",
-                "message": "Tests passed successfully on browser: ${{ matrix.browser }} 🎉\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n'"${ENCODED:0:500}"'..."
-              }
-            }'
+          -H 'origin: http://localhost' \
+          -H 'Content-Type: application/json' \
+            -d @email-payload.json
