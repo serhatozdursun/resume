@@ -88,3 +88,65 @@ jobs:
           path: serhatozdursun-ui-tests/reports/report.xml
           retention-days: 5
         continue-on-error: true
+      # ✅ Always zip HTML report
+      - name: Zip HTML Report for ${{ matrix.browser }}
+        run: |
+          REPORT_DIR="serhatozdursun-ui-tests/reports/html"
+          if [ -d "$REPORT_DIR" ]; then
+            zip -r "report-${{ matrix.browser }}.zip" "$REPORT_DIR"
+          else
+            echo "No HTML report directory found for ${{ matrix.browser }}"
+          fi
+
+      # ✅ Always encode it to base64
+      - name: Encode Zipped Report for ${{ matrix.browser }}
+        run: |
+          if [ -f "report-${{ matrix.browser }}.zip" ]; then
+            base64 "report-${{ matrix.browser }}.zip" > "encoded-report-${{ matrix.browser }}.txt"
+          else
+            echo "No report zip found to encode for ${{ matrix.browser }}"
+          fi
+
+      # ❌ Send failure email (if tests failed)
+      - name: Send Failure Email for ${{ matrix.browser }}
+        if: failure()
+        env:
+          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
+        run: |
+          ENCODED=$(cat "encoded-report-${{ matrix.browser }}.txt" 2>/dev/null || echo "Report not available")
+          curl -X POST https://api.emailjs.com/api/v1.0/email/send \
+            -H 'origin: http://localhost' \
+            -H 'Content-Type: application/json' \
+            -d '{
+              "service_id": "'"$EMAILJS_SERVICE_ID"'",
+              "template_id": "'"$EMAILJS_TEMPLATE_ID"'",
+              "user_id": "'"$EMAILJS_USER_ID"'",
+              "template_params": {
+                "subject": "❌ UI Test Failed - ${{ matrix.browser }}",
+                "message": "Tests failed on browser: ${{ matrix.browser }}\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n'"${ENCODED:0:500}"'..."
+              }
+            }'
+
+      # ✅ Send success email (if tests passed)
+      - name: Send Success Email for ${{ matrix.browser }}
+        if: success()
+        env:
+          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
+        run: |
+          ENCODED=$(cat "encoded-report-${{ matrix.browser }}.txt" 2>/dev/null || echo "Report not available")
+          curl -X POST https://api.emailjs.com/api/v1.0/email/send \
+            -H 'origin: http://localhost' \
+            -H 'Content-Type: application/json' \
+            -d '{
+              "service_id": "'"$EMAILJS_SERVICE_ID"'",
+              "template_id": "'"$EMAILJS_TEMPLATE_ID"'",
+              "user_id": "'"$EMAILJS_USER_ID"'",
+              "template_params": {
+                "subject": "✅ UI Test Passed - ${{ matrix.browser }}",
+                "message": "Tests passed successfully on browser: ${{ matrix.browser }} 🎉\nCommit: ${{ github.sha }}\nRun: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nBase64 encoded report (truncated):\n'"${ENCODED:0:500}"'..."
+              }
+            }'
