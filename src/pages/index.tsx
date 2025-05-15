@@ -217,6 +217,14 @@ const IndexPage: React.FC = () => {
                 >
                   <IconImage className="iconImage" src="/hackerrank.png" alt="medium" />
                 </IconLink>
+                <IconLink
+                    href="https://dev.to/serhat_ozdursun_03644ef56"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="iconLink"
+                >
+                  <IconImage className="iconImage" src="/dev.webp" alt="dev" />
+                </IconLink>
               </IconWrapper>
 
               <div>
