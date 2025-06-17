@@ -141,7 +141,7 @@ const IndexPage: React.FC = () => {
               <Badge className="badgeImage" src="/resume-computer-icons.png" alt="LinkedIn" />
               <CommonLink
                 id="downloadResumeLink"
-                href="https://drive.google.com/file/d/12tXqmOQ2upo19wUYsBtBt3EXroThfM9m/view"
+                href="https://drive.google.com/file/d/13tPHHCoU_FsTQH9fIjwcX7TO6EbAXYdE/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('download_resume', 'resume', 'Download Resume')}
