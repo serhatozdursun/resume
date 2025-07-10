@@ -1,7 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import 'jest-styled-components';
-import { Container, LeftColumn, RightColumn, Name, SkillLevelFill } from '../components/StyledComponents';
+import {
+  Container,
+  LeftColumn,
+  RightColumn,
+  Name,
+  SkillLevelFill,
+  ProfileImage,
+} from '../components/StyledComponents';
+import { theme } from '../components/theme';
+import { ThemeProvider } from 'styled-components';
 
 describe('StyledComponents', () => {
   it('renders Container correctly', () => {
@@ -13,7 +22,7 @@ describe('StyledComponents', () => {
   it('renders LeftColumn correctly', () => {
     const { container } = render(<LeftColumn />);
     expect(container.firstChild).toHaveStyleRule('flex', '1');
-    expect(container.firstChild).toHaveStyleRule('padding-top', '20px');
+    expect(container.firstChild).toHaveStyleRule('padding-top', '40px');
   });
 
   it('renders RightColumn correctly', () => {
@@ -35,5 +44,16 @@ describe('StyledComponents', () => {
     const { container } = render(<SkillLevelFill $level={50} />);
     const skillLevelFillElement = container.firstChild as HTMLElement;
     expect(skillLevelFillElement).toHaveStyleRule('width: 50%;');
+  });
+
+  it('renders ProfileImage correctly', () => {
+    const { container } = render(
+      <ThemeProvider theme={theme}>
+        <ProfileImage src='/profile.png' alt='Profile' />
+      </ThemeProvider>
+    );
+    expect(container.firstChild).toHaveStyleRule('width', '150px');
+    expect(container.firstChild).toHaveStyleRule('height', '200px');
+    expect(container.firstChild).toHaveStyleRule('border-radius', '15px');
   });
 });

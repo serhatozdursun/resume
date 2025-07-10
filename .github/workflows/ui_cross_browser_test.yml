@@ -97,7 +97,7 @@ jobs:
           EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
           ARTIFACTS_LINK="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          
+
           cat <<EOF > email-payload-failure.json
           {
             "service_id": "${EMAILJS_SERVICE_ID}",
@@ -125,7 +125,7 @@ jobs:
           EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
           ARTIFACTS_LINK="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          
+
           cat <<EOF > email-payload-success.json
           {
             "service_id": "${EMAILJS_SERVICE_ID}",

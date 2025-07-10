@@ -8,25 +8,50 @@ import {
   Name,
   Title,
   SummaryContainer,
-  Image,
+  ProfileImage,
   IconWrapper,
   IconLink,
-  IconImage,
+  IconImageWrapper,
   ExperienceContainer,
   Info,
   BoldText,
   CommonLink,
   LeftColumnLinkContainer,
-  Badge,
-} from '../components/StyledComponents'; // Adjust the path as necessary
-import CertificatesComponents from '../components/CertificatesComponents';
-import { SkillsComponents } from '../components/SkillsComponents';
-import ExperienceList from '../components/ExperiencesComponents';
-import ContactForm from '../components/ContactForm';
+  BadgeWrapper,
+} from '../components/StyledComponents';
+import dynamic from 'next/dynamic';
 import HtmlParser from 'html-react-parser';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import { env } from '../utils/env';
+
+const ExperienceList = dynamic(
+  () => import('../components/ExperiencesComponents'),
+  {
+    ssr: false,
+    loading: () => <div>Loading...</div>,
+  }
+);
+const CertificatesComponents = dynamic(
+  () => import('../components/CertificatesComponents'),
+  {
+    ssr: false,
+    loading: () => <div>Loading...</div>,
+  }
+);
+const SkillsComponents = dynamic(
+  () =>
+    import('../components/SkillsComponents').then(mod => mod.SkillsComponents),
+  {
+    ssr: false,
+    loading: () => <div>Loading...</div>,
+  }
+);
+const ContactForm = dynamic(() => import('../components/ContactForm'), {
+  ssr: false,
+  loading: () => <div>Loading...</div>,
+});
 
 const IndexPage: React.FC = () => {
   const summary = `
@@ -35,7 +60,11 @@ const IndexPage: React.FC = () => {
        <p>Passionate about quality and detail-oriented, I am committed to making a tangible difference in every project I undertake, contributing to the overall success and efficiency of the organization.</p>
     `;
 
-  const trackEvent = (event: string, eventCategory: string, eventLabel: string) => {
+  const trackEvent = (
+    event: string,
+    eventCategory: string,
+    eventLabel: string
+  ) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', event, {
         event_category: eventCategory,
@@ -50,53 +79,78 @@ const IndexPage: React.FC = () => {
       <ThemeProvider theme={theme}>
         <Container>
           <Helmet>
-            <html lang="en" />
-            <meta charSet="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <html lang='en' />
+            <meta charSet='UTF-8' />
             <meta
-              name="description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+              name='viewport'
+              content='width=device-width, initial-scale=1.0'
+            />
+            <meta
+              name='description'
+              content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
             />
             <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
-            <link rel="icon" href="/favicon_.ico" />
+            <link rel='icon' href='/favicon_.ico' />
 
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://serhatozdursun.com/" />
-            <meta property="og:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
+            <meta property='og:type' content='website' />
+            <meta property='og:url' content='https://serhatozdursun.com/' />
             <meta
-              property="og:description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions."
+              property='og:title'
+              content='Mehmet Serhat Özdursun - QA Automation Engineer'
             />
-            <meta property="og:image" content="https://serhatozdursun.com/profile.png" />
-
-            <meta property="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content="https://serhatozdursun.com/" />
-            <meta property="twitter:title" content="Mehmet Serhat Özdursun - QA Automation Engineer" />
             <meta
-              property="twitter:description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+              property='og:description'
+              content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions.'
             />
-            <meta property="twitter:image" content="https://serhatozdursun.com/profile.png" />
+            <meta
+              property='og:image'
+              content='https://serhatozdursun.com/profile.png'
+            />
 
-            <meta name="author" content="Mehmet Serhat Özdursun" />
-            <meta name="language" content="English" />
-            <meta name="robots" content="index, follow" />
-            <meta name="theme-color" content="#ffffff" />
-            <link rel="canonical" href="https://serhatozdursun.com/" />
-            <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume" />
+            <meta property='twitter:card' content='summary_large_image' />
+            <meta
+              property='twitter:url'
+              content='https://serhatozdursun.com/'
+            />
+            <meta
+              property='twitter:title'
+              content='Mehmet Serhat Özdursun - QA Automation Engineer'
+            />
+            <meta
+              property='twitter:description'
+              content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
+            />
+            <meta
+              property='twitter:image'
+              content='https://serhatozdursun.com/profile.png'
+            />
+
+            <meta name='author' content='Mehmet Serhat Özdursun' />
+            <meta name='language' content='English' />
+            <meta name='robots' content='index, follow' />
+            <meta name='theme-color' content='#ffffff' />
+            <link rel='canonical' href='https://serhatozdursun.com/' />
+            <meta
+              name='keywords'
+              content='QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume'
+            />
           </Helmet>
 
           {/* Use next/script for Google Analytics */}
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=G-0CSGDMK7CG`} strategy="afterInteractive" />
           <Script
-            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${env.GA_TRACKING_ID}`}
+            strategy='afterInteractive'
+          />
+          <Script
+            id='gtag-init'
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
                       window.dataLayer = window.dataLayer || [];
                       function gtag(){dataLayer.push(arguments);}
                       gtag('js', new Date());
 
-                      gtag('config', 'G-0CSGDMK7CG');
+                      gtag('config', '${env.GA_TRACKING_ID}');
                     `,
             }}
           />
@@ -104,8 +158,9 @@ const IndexPage: React.FC = () => {
 
           {/* Structured Data */}
           <Script
-            type="application/ld+json"
-            strategy="afterInteractive"
+            id='ldjson-schema'
+            type='application/ld+json'
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
                     {
@@ -136,32 +191,65 @@ const IndexPage: React.FC = () => {
           {/* End Structured Data */}
 
           <LeftColumn>
-            <Image id="profile_image" src="/profile.png" alt="Profile Picture" />
-            <LeftColumnLinkContainer className="leftColumnLinkContainer">
-              <Badge className="badgeImage" src="/resume-computer-icons.png" alt="LinkedIn" />
+            <ProfileImage
+              id='profile_image'
+              src='/profile.png'
+              alt='Profile Picture'
+            />
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper className='badgeImage'>
+                <img
+                  src='/resume-computer-icons.png'
+                  alt='LinkedIn'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
               <CommonLink
-                id="downloadResumeLink"
-                href="https://drive.google.com/file/d/1wQuZyIB8PJnpUnjRJPlQJs8u_hEITzc6/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent('download_resume', 'resume', 'Download Resume')}
+                id='downloadResumeLink'
+                href='https://drive.google.com/file/d/1wQuZyIB8PJnpUnjRJPlQJs8u_hEITzc6/view?usp=sharing'
+                target='_blank'
+                rel='noopener noreferrer'
+                onClick={() =>
+                  trackEvent('download_resume', 'resume', 'Download Resume')
+                }
               >
                 Download Resume
               </CommonLink>
             </LeftColumnLinkContainer>
-            <LeftColumnLinkContainer className="leftColumnLinkContainer">
-              <Badge src="/Manual_Testing.png" alt="LinkedIn" />
-              <CommonLink id="practicePAge" href="/practice">
-                Test Automation Practice Page{' '}
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/Manual_Testing.png'
+                  alt='LinkedIn'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
+              <CommonLink id='practicePAge' href='/practice'>
+                Practice Page
               </CommonLink>
             </LeftColumnLinkContainer>
-            <LeftColumnLinkContainer className="leftColumnLinkContainer">
-              <Badge src="/recommandation.png" alt="recommandation" />
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/recommandation.png'
+                  alt='recommandation'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
               <CommonLink
-                id="recomandarion"
-                href="https://www.linkedin.com/in/serhat-ozdursun/details/recommendations/"
-                target="_blank"
-                onClick={() => trackEvent('recommendations', 'linkedin', 'Linkedin Recommendations')}
+                id='recomandarion'
+                href='https://www.linkedin.com/in/serhat-ozdursun/details/recommendations/'
+                target='_blank'
+                onClick={() =>
+                  trackEvent(
+                    'recommendations',
+                    'linkedin',
+                    'Linkedin Recommendations'
+                  )
+                }
               >
                 Recommendations
               </CommonLink>
@@ -172,83 +260,142 @@ const IndexPage: React.FC = () => {
           </LeftColumn>
           <RightColumn>
             <Header>
-              <Name id="name">Mehmet Serhat Ozdursun</Name>
-              <Title id="title">QA Automation Engineer</Title>
-              <IconWrapper id="iconWrapper">
+              <Name id='name'>Mehmet Serhat Ozdursun</Name>
+              <Title id='title'>QA Automation Engineer</Title>
+              <IconWrapper id='iconWrapper'>
                 <IconLink
-                  href="https://www.linkedin.com/in/serhat-ozdursun/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="iconLink"
-                  onClick={() => trackEvent('navigate_linkedin', 'linkedin', 'Linkedin')}
+                  href='https://www.linkedin.com/in/serhat-ozdursun/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
+                  onClick={() =>
+                    trackEvent('navigate_linkedin', 'linkedin', 'Linkedin')
+                  }
                 >
-                  <IconImage className="iconImage" src="/linkedin-icon.png" alt="LinkedIn" />
+                  <IconImageWrapper className='iconImage'>
+                    <img
+                      src='/linkedin-icon.png'
+                      alt='LinkedIn'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
                 <IconLink
-                  href="https://www.upwork.com/freelancers/~012512aef2eaee40a9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="iconLink"
+                  href='https://www.upwork.com/freelancers/~012512aef2eaee40a9'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
                 >
-                  <IconImage src="/upwork.png" alt="upwork" />
+                  <IconImageWrapper>
+                    <img
+                      src='/upwork.png'
+                      alt='upwork'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
                 <IconLink
-                  href="https://github.com/serhatozdursun"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="iconLink"
-                  onClick={() => trackEvent('navigate_github', 'github', 'Github')}
+                  href='https://github.com/serhatozdursun'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
+                  onClick={() =>
+                    trackEvent('navigate_github', 'github', 'Github')
+                  }
                 >
-                  <IconImage className="iconImage" src="/github-icon.png" alt="GitHub" />
+                  <IconImageWrapper className='iconImage'>
+                    <img
+                      src='/github-icon.png'
+                      alt='GitHub'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
                 <IconLink
-                  href="https://medium.com/@serhat-ozdursun"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="iconLink"
+                  href='https://medium.com/@serhat-ozdursun'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
                 >
-                  <IconImage className="iconImage" src="/medium_icon.png" alt="medium" />
+                  <IconImageWrapper className='iconImage'>
+                    <img
+                      src='/medium_icon.png'
+                      alt='medium'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
                 <IconLink
-                  href="https://www.hackerrank.com/profile/serhat_ozdursun"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="iconLink"
+                  href='https://www.hackerrank.com/profile/serhat_ozdursun'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
                 >
-                  <IconImage className="iconImage" src="/hackerrank.png" alt="medium" />
+                  <IconImageWrapper className='iconImage'>
+                    <img
+                      src='/hackerrank.png'
+                      alt='medium'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
                 <IconLink
-                    href="https://dev.to/serhat_ozdursun_03644ef56"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="iconLink"
+                  href='https://dev.to/serhat_ozdursun_03644ef56'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
                 >
-                  <IconImage className="iconImage" src="/dev.webp" alt="dev" />
+                  <IconImageWrapper className='iconImage'>
+                    <img
+                      src='/dev.webp'
+                      alt='dev'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
                 </IconLink>
               </IconWrapper>
 
               <div>
                 <Info>
-                  <BoldText id="emailLabel">Email</BoldText>:{' '}
-                  <CommonLink id="email" href="mailto:serhat.ozdursun@gmail.com">
+                  <BoldText id='emailLabel'>Email</BoldText>:{' '}
+                  <CommonLink
+                    id='email'
+                    href='mailto:serhat.ozdursun@gmail.com'
+                  >
                     serhat.ozdursun@gmail.com
                   </CommonLink>
                 </Info>
                 <Info>
-                  <BoldText id="phoneLabel">Phone</BoldText>:{' '}
-                  <CommonLink id="phone" href="tel:+905368361407">
+                  <BoldText id='phoneLabel'>Phone</BoldText>:{' '}
+                  <CommonLink id='phone' href='tel:+905368361407'>
                     +905368361407
                   </CommonLink>
                 </Info>
                 <Info>
-                  <BoldText id="languages">Languages</BoldText>: Turkish (Native), English (C1), Spanish (B)
+                  <BoldText id='languages'>Languages</BoldText>: Turkish
+                  (Native), English (C1), Spanish (B)
                 </Info>
               </div>
             </Header>
 
-            <SummaryContainer id="summary"> {HtmlParser(summary)}</SummaryContainer>
+            <SummaryContainer id='summary'>
+              {' '}
+              {HtmlParser(summary)}
+            </SummaryContainer>
 
-            <ExperienceContainer id="experience_container">
+            <ExperienceContainer id='experience_container'>
               <ExperienceList />
             </ExperienceContainer>
           </RightColumn>

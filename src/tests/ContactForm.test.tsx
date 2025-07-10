@@ -3,6 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContactForm from '../components/ContactForm';
 import userEvent from '@testing-library/user-event';
+import { axe, toHaveNoViolations } from 'jest-axe';
+expect.extend(toHaveNoViolations);
 
 beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -22,7 +24,9 @@ describe('ContactForm', () => {
       target: { value: 'test@test.com'.repeat(10) },
     });
 
-    expect(screen.getByText('Email cannot exceed 50 characters.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Email cannot exceed 50 characters.')
+    ).toBeInTheDocument();
   });
 
   test('displays error message when message exceeds max length', () => {
@@ -33,12 +37,17 @@ describe('ContactForm', () => {
     // Simulate typing a long message
     fireEvent.change(screen.getByPlaceholderText('Your Message'), {
       target: {
-        value: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'.repeat(50),
+        value:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'.repeat(
+            50
+          ),
       },
     });
 
     // Check if the error message is shown
-    expect(screen.getByText('Message cannot exceed 1500 characters.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Message cannot exceed 1500 characters.')
+    ).toBeInTheDocument();
   });
 
   test('displays the contact form when "Send a message" is clicked', () => {
@@ -80,7 +89,9 @@ describe('ContactForm', () => {
     fireEvent.change(screen.getByPlaceholderText('Your Name'), {
       target: { value: 'a'.repeat(110) },
     });
-    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('a'.repeat(100));
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue(
+      'a'.repeat(100)
+    );
   });
 
   test('Successful submission', async () => {
@@ -117,6 +128,12 @@ describe('ContactForm', () => {
     fireEvent.blur(emailInput);
 
     expect(emailInput).toBeInvalid();
+  });
+
+  test('is accessible according to jest-axe', async () => {
+    const { container } = render(<ContactForm />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   afterAll(() => {

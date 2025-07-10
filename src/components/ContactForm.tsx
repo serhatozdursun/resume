@@ -1,4 +1,11 @@
-import React, { useState, ChangeEvent, FormEvent, useRef, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import emailjs from 'emailjs-com';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -11,14 +18,16 @@ import {
   SendButton,
   CloseButton,
   ErrorText,
-  SendIcon,
+  SendIconWrapper,
   SendLinkContainer,
   InputContainer,
   ContactFormDescription,
   SendText,
 } from './StyledComponents';
+import Image from 'next/image';
 import { theme } from './theme'; // Import your theme
 import { ThemeProvider } from 'styled-components';
+import { env } from '../utils/env';
 
 interface FormData {
   name: string;
@@ -36,6 +45,10 @@ const ContactForm: React.FC = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [sending, setSending] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>(
+    'success'
+  );
   const [inputErrors, setInputErrors] = useState<{ [key: string]: boolean }>({
     name: false,
     email: false,
@@ -51,7 +64,9 @@ const ContactForm: React.FC = () => {
     }
   }, [formVisible]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value, maxLength } = e.target;
     const currentLength = value.length;
     const maxAllowedLength = Number(maxLength);
@@ -83,26 +98,32 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log('Submitting form with data:', formData); // Debug form data
-
     try {
       setSending(true);
 
       await emailjs.send(
-        'service_4b17pak',
-        'template_1j6765f',
+        env.EMAILJS_SERVICE_ID!,
+        env.EMAILJS_TEMPLATE_ID!,
         { ...formData, reply_to: formData.email, from_name: formData.name },
-        'Ao0bC-yVyrn132JbF'
+        env.EMAILJS_PUBLIC_KEY!
       );
 
+      setSnackbarMessage('Message sent successfully!');
+      setSnackbarSeverity('success');
       setOpenSnackbar(true);
       setFormVisible(false);
 
-      if (formRef.current && typeof formRef.current.scrollIntoView === 'function') {
+      if (
+        formRef.current &&
+        typeof formRef.current.scrollIntoView === 'function'
+      ) {
         formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      setSnackbarMessage('Failed to send message. Please try again.');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
     } finally {
       setSending(false);
     }
@@ -126,77 +147,105 @@ const ContactForm: React.FC = () => {
     <>
       <ThemeProvider theme={theme}>
         {!formVisible && (
-          <SendLinkContainer id="sendLinkContainer" onClick={handleSendLinkClick}>
-            <SendIcon id="sendIcon" src="email.png" alt="Send Icon" />
-            <SendText id="sendMessageText">Send a message</SendText>
+          <SendLinkContainer
+            id='sendLinkContainer'
+            onClick={handleSendLinkClick}
+          >
+            <SendIconWrapper id='sendIcon'>
+              <Image
+                src='/email.png'
+                alt='Send Icon'
+                width={20}
+                height={20}
+                style={{ objectFit: 'contain' }}
+              />
+            </SendIconWrapper>
+            <SendText id='sendMessageText'>Send a message</SendText>
           </SendLinkContainer>
         )}
 
         {formVisible && (
           <ContactFormStyle ref={formRef} onSubmit={handleSubmit}>
-            <CloseButton onClick={handleFormClose}>Close Contact Form</CloseButton>
-            <ContactFormDescription id="contactFormDescription">
+            <CloseButton onClick={handleFormClose}>
+              Close Contact Form
+            </CloseButton>
+            <ContactFormDescription id='contactFormDescription'>
               <>{HtmlParser(contactFormDescriptionHtml)}</>
             </ContactFormDescription>
-            <InputContainer id="contactFormInputContainer">
+            <InputContainer id='contactFormInputContainer'>
               <NameInput
-                id="name"
+                id='name'
                 ref={nameInputRef}
-                type="text"
-                name="name"
+                type='text'
+                name='name'
                 maxLength={100}
-                placeholder="Your Name"
-                data-testid="testyourname"
+                placeholder='Your Name'
+                data-testid='testyourname'
                 value={formData.name}
                 onChange={handleChange}
                 required
                 hasError={inputErrors.name || formData.name.length >= 100}
               />
-              {inputErrors.name && <ErrorText>Name cannot exceed 100 characters.</ErrorText>}
+              {inputErrors.name && (
+                <ErrorText>Name cannot exceed 100 characters.</ErrorText>
+              )}
             </InputContainer>
             <InputContainer>
               <EmailInput
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Your Email"
+                id='email'
+                type='email'
+                name='email'
+                placeholder='Your Email'
                 value={formData.email}
                 onChange={handleChange}
                 required
                 maxLength={50}
                 hasError={inputErrors.email || formData.email.length >= 50}
               />
-              {inputErrors.email && <ErrorText>Email cannot exceed 50 characters.</ErrorText>}
+              {inputErrors.email && (
+                <ErrorText>Email cannot exceed 50 characters.</ErrorText>
+              )}
             </InputContainer>
             <InputContainer>
               <Textarea
-                id="message"
-                name="message"
-                placeholder="Your Message"
+                id='message'
+                name='message'
+                placeholder='Your Message'
                 value={formData.message}
                 onChange={handleChange}
                 required
                 maxLength={1500}
                 hasError={formData.message.length >= 1500}
               />
-              {inputErrors.message && <ErrorText>Message cannot exceed 1500 characters.</ErrorText>}
+              {inputErrors.message && (
+                <ErrorText>Message cannot exceed 1500 characters.</ErrorText>
+              )}
             </InputContainer>
-            <SendButton data-testid="send" id="sendMessageButton" type="submit" disabled={sending}>
+            <SendButton
+              data-testid='send'
+              id='sendMessageButton'
+              type='submit'
+              disabled={sending}
+            >
               {sending ? 'Sending...' : 'Send'}
             </SendButton>
           </ContactFormStyle>
         )}
 
-        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
           <Alert
-            id="messageAlert"
+            id='messageAlert'
             elevation={6}
-            variant="filled"
-            data-testid="messageAlert"
+            variant='filled'
+            data-testid='messageAlert'
             onClose={handleCloseSnackbar}
-            severity="success"
+            severity={snackbarSeverity}
           >
-            Message sent successfully!
+            {snackbarMessage}
           </Alert>
         </Snackbar>
       </ThemeProvider>

@@ -9,15 +9,13 @@ const Container = styled.div`
   display: flex;
   max-width: 100%;
   margin: 0;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  font-family: ${props => props.theme.font.main};
+  background: ${props => props.theme.colors.background};
 `;
 
 const LeftColumn = styled.div`
   flex: 1;
-  padding-top: 20px;
+  padding-top: 40px;
   overflow-y: auto; /* Enable vertical scrolling */
   height: calc(100vh - 100px); /* Adjust the height as necessary */
   display: flex;
@@ -49,59 +47,39 @@ const RightColumn = styled.div`
 const Header = styled.header`
   text-align: center;
   margin-bottom: 20px;
-  position: sticky; /* Set the header to be sticky */
-  top: 0; /* Stick it to the top of the viewport */
-  background-color: ${props => props.theme.colors.secondary};
-  z-index: 1000; /* Ensure it's above other content */
-  padding: 20px; /* Adjust padding as necessary */
-  border-bottom: 1px solid #ccc; /* Optional: Add a border at the bottom */
-
-  @media (min-width: 769px) {
-    position: sticky; /* Set the header to be sticky on larger screens */
-    top: 0; /* Stick it to the top of the viewport */
-    z-index: 1000; /* Ensure it's above other content */
-    margin-bottom: 20px; /* Maintain the original margin for larger screens */
-  }
-
-  @media (max-width: 768px) {
-    margin-bottom: 10px;
-    position: static; /* Disable sticky positioning on smaller screens */
-  }
+  position: sticky;
+  top: 0;
+  background: ${props => props.theme.colors.headerBg};
+  z-index: 1000;
+  padding: 20px;
+  border-bottom: 1px solid ${props => props.theme.colors.secondary};
+  color: ${props => props.theme.colors.text};
+  font-family: ${props => props.theme.font.heading};
 `;
 
 const Name = styled.h1`
-  font-size: 2.5em;
+  font-size: 1.5em;
   margin-bottom: 0.2em;
-
-  @media (max-width: 768px) {
-    font-size: 2em;
-  }
+  font-family: ${props => props.theme.font.heading};
+  color: ${props => props.theme.colors.accent};
 `;
 
 const Title = styled.h2`
-  font-size: 1.5em;
-  color: #333;
-
-  @media (max-width: 768px) {
-    font-size: 1.1em;
-  }
+  font-size: 1.3em;
+  color: ${props => props.theme.colors.text};
+  font-family: ${props => props.theme.font.heading};
 `;
 
 const SummaryContainer = styled.span`
   font-size: 1.1em;
-  line-height: 1.2;
+  line-height: 1.5;
   font-style: italic;
   text-align: justify;
   padding-top: 80px;
-
-  @media (max-width: 768px) {
-    line-height: 1;
-    font-size: 1em;
-    padding-top: 20px;
-  }
+  color: ${props => props.theme.colors.text};
 `;
 
-const Image = styled.img`
+export const ProfileImage = styled.img`
   width: 150px;
   height: 200px;
   border-radius: 15px;
@@ -116,14 +94,14 @@ const Image = styled.img`
 
   @media (max-width: 768px) {
     width: 100px;
-    height: 150px;
+    height: 120px;
     margin-left: 0;
     margin-top: 10px;
   }
 
   &:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.18);
+    transform: scale(1.04);
   }
 `;
 
@@ -143,10 +121,9 @@ const IconLink = styled.a`
   }
 `;
 
-const IconImage = styled.img`
+const IconImageWrapper = styled.div`
   width: 100%;
   height: 100%;
-  object-fit: contain;
   transition:
     box-shadow 0.3s ease,
     transform 0.3s ease;
@@ -232,19 +209,23 @@ const SkillsTitle = styled.h3`
 const ExperienceContainer = styled.div`
   margin-top: 20px;
   padding: 20px;
+  background: ${props => props.theme.colors.card};
+  border-radius: 16px;
+  box-shadow: 0 4px 24px ${props => props.theme.colors.shadow};
 `;
 
 const ExperienceItem = styled.div`
   margin-bottom: 30px;
 `;
 
-const CompanyLogo = styled.img`
+const CompanyLogoWrapper = styled.div`
   width: 48px;
   height: 48px;
   margin-right: 5px;
   margin-top: 10px;
   border: 1px solid #cacaca;
   border-radius: 5px;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     width: 32px;
@@ -265,10 +246,10 @@ const ExperienceHeader = styled.div`
 `;
 
 const ExperienceTitle = styled.h3`
-  font-family: 'Times New Roman', Times, serif;
+  font-family: ${props => props.theme.font.heading};
   text-align: left;
-  font-size: 1em;
-  color: ${props => props.theme.colors.text};
+  font-size: 1.1em;
+  color: ${props => props.theme.colors.accent};
   margin-bottom: 5px;
 
   @media (max-width: 768px) {
@@ -311,11 +292,11 @@ const ExperienceDateRange = styled.h3`
 `;
 
 const ExperienceContent = styled.div`
-  font-family: 'Times New Roman', Times, serif;
+  font-family: ${props => props.theme.font.main};
   text-align: left;
   font-size: 1em;
   color: ${props => props.theme.colors.text};
-  line-height: 1.6;
+  line-height: 1.7;
   @media (max-width: 768px) {
     font-size: 0.9em; /* Adjust the font size for smaller screens */
     line-height: 1;
@@ -381,13 +362,14 @@ const CommonLink = styled(Link)`
   text-align: left;
   margin-right: auto; /* This will align it to the right */
   margin-left: 10px;
+  font-weight: 500;
   @media (min-width: 768px) {
     display: inline; /* Inline display on larger screens */
   }
 
   &:hover {
     text-decoration: none;
-    color: blue;
+    color: ${props => props.theme.colors.highlight};
   }
 `;
 
@@ -410,7 +392,7 @@ const CertificateName = styled.span`
   margin-left: 10px;
 `;
 
-const Badge = styled.img`
+const BadgeWrapper = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 5px;
@@ -470,7 +452,8 @@ const EmailInput = styled(Input)`
   border: ${props => `1px solid ${props.hasError ? 'red' : 'black'}`};
 `;
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   hasError?: boolean;
 }
 
@@ -513,14 +496,20 @@ const SendButton = styled.button`
   padding: 0.75rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #f8775c;
+  background: ${props => props.theme.colors.accent};
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition:
+    background 0.3s,
+    transform 0.2s;
   width: 96%;
+  font-family: ${props => props.theme.font.heading};
+  box-shadow: 0 2px 8px ${props => props.theme.colors.shadow};
   &:hover {
-    background-color: #fd2b00;
+    background: ${props => props.theme.colors.highlight};
+    color: ${props => props.theme.colors.text};
+    transform: scale(1.03);
   }
 
   @media (max-width: 768px) {
@@ -542,7 +531,7 @@ const SendLinkContainer = styled.a`
   }
 `;
 
-const SendIcon = styled.img`
+const SendIconWrapper = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 5px;
@@ -613,10 +602,9 @@ export {
   Name,
   Title,
   SummaryContainer,
-  Image,
   IconWrapper,
   IconLink,
-  IconImage,
+  IconImageWrapper,
   BoldText,
   Info,
   SkillsContainer,
@@ -627,7 +615,7 @@ export {
   SkillsTitle,
   ExperienceContainer,
   ExperienceItem,
-  CompanyLogo,
+  CompanyLogoWrapper,
   ExperienceHeader,
   ExperienceTitle,
   ExperienceCompany,
@@ -640,14 +628,14 @@ export {
   CertificateItem,
   CertificateLink,
   CertificateName,
-  Badge,
+  BadgeWrapper,
   ContactFormStyle,
   Input,
   Textarea,
   SendButton,
   CloseButton,
   SendLinkContainer,
-  SendIcon,
+  SendIconWrapper,
   SendText,
   NameInput,
   EmailInput,
