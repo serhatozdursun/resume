@@ -128,3 +128,36 @@ yarn start
 - **@types/node:** TypeScript definitions for Node.js modules
 - **@types/react:** TypeScript definitions for React
 - **@types/styled-components:** TypeScript definitions for Styled Components
+
+## Docker
+
+You can run this app in a production-like environment using Docker and Docker Compose.
+
+### 1. Build and Run with Docker Compose
+
+```bash
+docker compose up --build
+```
+
+This will build the Next.js app, serve it with Nginx, and expose it on [http://localhost:3000](http://localhost:3000).
+
+### 2. Environment Variables
+
+Copy the example env file and fill in your values:
+
+```bash
+cp env.example .env.local
+```
+
+The `.env.local` file will be used at build time. If you change environment variables, rebuild the image.
+
+### 3. Stopping the App
+
+```bash
+docker compose down
+```
+
+### 4. Production Notes
+- The app is served by Nginx in the container.
+- The default Nginx config is used; you can customize it in the `default` file.
+- Healthchecks are enabled for orchestration.
