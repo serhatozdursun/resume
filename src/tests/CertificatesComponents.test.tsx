@@ -3,6 +3,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CertificatesComponents from '../components/CertificatesComponents';
 import '@testing-library/jest-dom';
+import { axe, toHaveNoViolations } from 'jest-axe';
+expect.extend(toHaveNoViolations);
 
 describe('CertificatesComponents', () => {
   it('renders certificate items correctly', () => {
@@ -35,5 +37,11 @@ describe('CertificatesComponents', () => {
     // Click the second certificate link
     fireEvent.click(certificateLinks[1]);
     expect(certificateLinks[1]).toHaveStyle({ color: 'blue' });
+  });
+
+  it('is accessible according to jest-axe', async () => {
+    const { container } = render(<CertificatesComponents />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

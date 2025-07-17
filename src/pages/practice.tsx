@@ -19,7 +19,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 const Practice: React.FC = () => {
   const [, setNewWindow] = useState<Window | null>(null);
@@ -34,15 +34,25 @@ const Practice: React.FC = () => {
   const [uploadMessage, setUploadMessage] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Create a reference for the file input
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarType, setSnackbarType] = useState<'success' | 'error'>('success');
+  const [snackbarType, setSnackbarType] = useState<'success' | 'error'>(
+    'success'
+  );
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const openNewTab = () => {
-    const newTab = window.open('https://serhatozdursun.com', '_blank');
+    const newTab = window.open(
+      'https://serhatozdursun.com',
+      '_blank',
+      'noopener,noreferrer'
+    );
     setNewWindow(newTab);
   };
 
   const openNewWindow = () => {
-    const newWin = window.open('https://serhatozdursun.com', '_blank', 'width=800,height=600');
+    const newWin = window.open(
+      'https://serhatozdursun.com',
+      '_blank',
+      'width=800,height=600,noopener,noreferrer'
+    );
     setNewWindow(newWin);
   };
 
@@ -134,7 +144,10 @@ const Practice: React.FC = () => {
     }
   };
 
-  const handleSnackbarClose = (event: Event | React.SyntheticEvent<Element, Event>, reason?: string) => {
+  const handleSnackbarClose = (
+    event: Event | React.SyntheticEvent<Element, Event>,
+    reason?: string
+  ) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -155,40 +168,58 @@ const Practice: React.FC = () => {
     <ThemeProvider theme={theme}>
       <div>
         <Helmet>
-          <html lang="en" />
-          <meta charSet="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <html lang='en' />
+          <meta charSet='UTF-8' />
           <meta
-              name="description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+            name='viewport'
+            content='width=device-width, initial-scale=1.0'
+          />
+          <meta
+            name='description'
+            content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
           />
           <title>Mehmet Serhat Ozdursun - Automation Practice</title>
-          <link rel="icon" href="/favicon_.ico" />
+          <link rel='icon' href='/favicon_.ico' />
 
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://serhatozdursun.com/" />
-          <meta property="og:title" content="Mehmet Serhat Ozdursun - Automation Practice" />
+          <meta property='og:type' content='website' />
+          <meta property='og:url' content='https://serhatozdursun.com/' />
           <meta
-              property="og:description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions."
+            property='og:title'
+            content='Mehmet Serhat Ozdursun - Automation Practice'
           />
-          <meta property="og:image" content="https://serhatozdursun.com/profile.png" />
-
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content="https://serhatozdursun.com/" />
-          <meta property="twitter:title" content="Mehmet Serhat Ozdursun - Automation Practice" />
           <meta
-              property="twitter:description"
-              content="Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions"
+            property='og:description'
+            content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions.'
           />
-          <meta property="twitter:image" content="https://serhatozdursun.com/profile.png" />
+          <meta
+            property='og:image'
+            content='https://serhatozdursun.com/profile.png'
+          />
 
-          <meta name="author" content="Mehmet Serhat Özdursun" />
-          <meta name="language" content="English" />
-          <meta name="robots" content="index, follow" />
-          <meta name="theme-color" content="#ffffff" />
-          <link rel="canonical" href="https://serhatozdursun.com/" />
-          <meta name="keywords" content="QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume" />
+          <meta property='twitter:card' content='summary_large_image' />
+          <meta property='twitter:url' content='https://serhatozdursun.com/' />
+          <meta
+            property='twitter:title'
+            content='Mehmet Serhat Ozdursun - Automation Practice'
+          />
+          <meta
+            property='twitter:description'
+            content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
+          />
+          <meta
+            property='twitter:image'
+            content='https://serhatozdursun.com/profile.png'
+          />
+
+          <meta name='author' content='Mehmet Serhat Özdursun' />
+          <meta name='language' content='English' />
+          <meta name='robots' content='index, follow' />
+          <meta name='theme-color' content='#ffffff' />
+          <link rel='canonical' href='https://serhatozdursun.com/' />
+          <meta
+            name='keywords'
+            content='QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume'
+          />
         </Helmet>
         <Header>
           <PageHeader>Test Automation Practice Page</PageHeader>
@@ -198,16 +229,16 @@ const Practice: React.FC = () => {
             <Form>
               <Example>
                 <FormGroup>
-                  <Label htmlFor="alertInput">Alert Input:</Label>
+                  <Label htmlFor='alertInput'>Alert Input:</Label>
                   <Input
-                    type="text"
-                    id="alertInput"
-                    name="alertInput"
+                    type='text'
+                    id='alertInput'
+                    name='alertInput'
                     value={alertInput}
                     onChange={e => setAlertInput(e.target.value)}
                   />
                 </FormGroup>
-                <Button type="button" onClick={handleAlert}>
+                <Button type='button' onClick={handleAlert}>
                   Show Alert
                 </Button>
               </Example>
@@ -215,12 +246,22 @@ const Practice: React.FC = () => {
                 <FormGroup>
                   <Label>Radio Buttons:</Label>
                   <div>
-                    <CheckboxLabel htmlFor="option1">Option 1</CheckboxLabel>
-                    <CheckboxInput type="radio" id="option1" name="radioGroup" value="1" />
+                    <CheckboxLabel htmlFor='option1'>Option 1</CheckboxLabel>
+                    <CheckboxInput
+                      type='radio'
+                      id='option1'
+                      name='radioGroup'
+                      value='1'
+                    />
                   </div>
                   <div>
-                    <CheckboxLabel htmlFor="option2">Option 2</CheckboxLabel>
-                    <CheckboxInput type="radio" id="option2" name="radioGroup" value="2" />
+                    <CheckboxLabel htmlFor='option2'>Option 2</CheckboxLabel>
+                    <CheckboxInput
+                      type='radio'
+                      id='option2'
+                      name='radioGroup'
+                      value='2'
+                    />
                   </div>
                 </FormGroup>
               </Example>
@@ -228,21 +269,25 @@ const Practice: React.FC = () => {
                 <FormGroup>
                   <Label>Checkbox:</Label>
                   <div>
-                    <CheckboxLabel htmlFor="checkbox1">Checkbox 1</CheckboxLabel>
+                    <CheckboxLabel htmlFor='checkbox1'>
+                      Checkbox 1
+                    </CheckboxLabel>
                     <CheckboxInput
-                      type="checkbox"
-                      id="checkbox1"
-                      name="checkboxGroup"
+                      type='checkbox'
+                      id='checkbox1'
+                      name='checkboxGroup'
                       checked={checkboxes.checkbox1}
                       onChange={handleCheckboxChange}
                     />
                   </div>
                   <div>
-                    <CheckboxLabel htmlFor="checkbox2">Checkbox 2</CheckboxLabel>
+                    <CheckboxLabel htmlFor='checkbox2'>
+                      Checkbox 2
+                    </CheckboxLabel>
                     <CheckboxInput
-                      type="checkbox"
-                      id="checkbox2"
-                      name="checkboxGroup"
+                      type='checkbox'
+                      id='checkbox2'
+                      name='checkboxGroup'
                       checked={checkboxes.checkbox2}
                       onChange={handleCheckboxChange}
                     />
@@ -251,29 +296,33 @@ const Practice: React.FC = () => {
               </Example>
               <Example>
                 <FormGroup>
-                  <Label htmlFor="select">Select:</Label>
-                  <select id="select" name="select">
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                  <Label htmlFor='select'>Select:</Label>
+                  <select id='select' name='select'>
+                    <option value='option1'>Option 1</option>
+                    <option value='option2'>Option 2</option>
+                    <option value='option3'>Option 3</option>
                   </select>
                 </FormGroup>
               </Example>
               <Example>
                 <FormGroup>
-                  <Label htmlFor="listBox">List Box:</Label>
-                  <select id="listBox" name="listBox" size={4} multiple>
-                    <option value="item1">Item 1</option>
-                    <option value="item2">Item 2</option>
-                    <option value="item3">Item 3</option>
-                    <option value="item4">Item 4</option>
+                  <Label htmlFor='listBox'>List Box:</Label>
+                  <select id='listBox' name='listBox' size={4} multiple>
+                    <option value='item1'>Item 1</option>
+                    <option value='item2'>Item 2</option>
+                    <option value='item3'>Item 3</option>
+                    <option value='item4'>Item 4</option>
                   </select>
                 </FormGroup>
               </Example>
               <Example>
                 <FormGroup>
-                  <Label htmlFor="iframe">Iframe:</Label>
-                  <Iframe id="iframe" src="https://serhatozdursun.com" title="Example Iframe"></Iframe>
+                  <Label htmlFor='iframe'>Iframe:</Label>
+                  <Iframe
+                    id='iframe'
+                    src='https://serhatozdursun.com'
+                    title='Example Iframe'
+                  ></Iframe>
                 </FormGroup>
               </Example>
             </Form>
@@ -281,58 +330,67 @@ const Practice: React.FC = () => {
           <Column>
             <Example>
               <Label>New Window:</Label>
-              <Button type="button" onClick={openNewTab}>
+              <Button type='button' onClick={openNewTab}>
                 Open New Browser Tab
               </Button>
-              <Button type="button" onClick={openNewWindow}>
+              <Button type='button' onClick={openNewWindow}>
                 Open New Browser Window
               </Button>
             </Example>
             <Example>
               <FormGroup>
                 <Label>Login Example</Label>
-                <Description>You can use &apos;Qwerty1234!&apos; as valid password</Description>
-                <Label htmlFor="loginEmail">Email:</Label>
+                <Description>
+                  You can use &apos;Qwerty1234!&apos; as valid password
+                </Description>
+                <Label htmlFor='loginEmail'>Email:</Label>
                 <Input
-                  type="email"
-                  id="loginEmail"
-                  name="loginEmail"
-                  placeholder="Enter email"
+                  type='email'
+                  id='loginEmail'
+                  name='loginEmail'
+                  placeholder='Enter email'
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="loginPassword">Password:</Label>
+                <Label htmlFor='loginPassword'>Password:</Label>
                 <Input
-                  type="password"
-                  id="loginPassword"
-                  name="loginPassword"
-                  placeholder="Enter password"
+                  type='password'
+                  id='loginPassword'
+                  name='loginPassword'
+                  placeholder='Enter password'
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
-                <Button type="button" onClick={handleLogin}>
+                <Button type='button' onClick={handleLogin}>
                   Login
                 </Button>
               </FormGroup>
             </Example>
             <Example>
               <FormGroup>
-                <Label htmlFor="fileUpload">File Upload:</Label>
+                <Label htmlFor='fileUpload'>File Upload:</Label>
                 <Input
-                  type="file"
-                  id="fileUpload"
-                  name="fileUpload"
+                  type='file'
+                  id='fileUpload'
+                  name='fileUpload'
                   onChange={handleFileChange}
-                  data-testid="fileUpload_input"
+                  data-testid='fileUpload_input'
                   ref={fileInputRef} // Set the ref on the input element
                 />
-                <Button data-testid="fileUpload_button" type="button" onClick={handleFileUpload}>
+                <Button
+                  data-testid='fileUpload_button'
+                  type='button'
+                  onClick={handleFileUpload}
+                >
                   Upload File
                 </Button>
                 {uploadMessage && (
-                  <div data-testid="file_uploaded" style={{ marginTop: 10, color: 'green' }}>
+                  <div
+                    data-testid='file_uploaded'
+                    style={{ marginTop: 10, color: 'green' }}
+                  >
                     {uploadMessage}
                   </div>
                 )}
@@ -340,20 +398,26 @@ const Practice: React.FC = () => {
             </Example>
             <Example>
               <FormGroup>
-                <Label htmlFor="message">Snackbar Message:</Label>
+                <Label htmlFor='message'>Snackbar Message:</Label>
                 <Input
-                  type="text"
-                  id="message"
-                  name="message"
-                  data-testid="message"
+                  type='text'
+                  id='message'
+                  name='message'
+                  data-testid='message'
                   value={snackbarMessage}
                   onChange={e => setSnackbarMessage(e.target.value)}
                 />
               </FormGroup>
-              <Button type="button" onClick={() => handleSnackbar('success', snackbarMessage)}>
+              <Button
+                type='button'
+                onClick={() => handleSnackbar('success', snackbarMessage)}
+              >
                 Show Success Snackbar
               </Button>
-              <Button type="button" onClick={() => handleSnackbar('error', snackbarMessage)}>
+              <Button
+                type='button'
+                onClick={() => handleSnackbar('error', snackbarMessage)}
+              >
                 Show Error Snackbar
               </Button>
               <Snackbar
@@ -363,7 +427,7 @@ const Practice: React.FC = () => {
               >
                 <Alert
                   elevation={6}
-                  variant="filled"
+                  variant='filled'
                   onClose={handleSnackbarClose} // Same function reused
                   severity={snackbarType}
                 >

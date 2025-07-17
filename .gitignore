@@ -13,6 +13,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 # yarn
 yarn-error.log
@@ -28,5 +29,10 @@ yarn-error.log
 
 .idea
 
-sitemap-0.xml
-*.xml
+# Sitemaps
+sitemap*.xml
+sitemap.xml
+
+# Test coverage
+coverage/
+coverage/clover.xml

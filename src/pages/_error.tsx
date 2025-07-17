@@ -17,7 +17,13 @@ const CustomErrorPage = ({ statusCode }: { statusCode: number }) => {
   return ''; // No need to render anything here, just redirect
 };
 
-CustomErrorPage.getInitialProps = async ({ res, err }: { res: any; err: any }) => {
+CustomErrorPage.getInitialProps = async ({
+  res,
+  err,
+}: {
+  res: { statusCode: number } | null;
+  err: { statusCode: number } | null;
+}) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   return { statusCode };
 };

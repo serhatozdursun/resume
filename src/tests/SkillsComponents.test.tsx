@@ -3,6 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { SkillsComponents } from '../components/SkillsComponents';
 import '@testing-library/jest-dom';
+import { axe, toHaveNoViolations } from 'jest-axe';
+expect.extend(toHaveNoViolations);
 
 describe('SkillsComponents', () => {
   it('renders skills correctly', () => {
@@ -45,5 +47,11 @@ describe('SkillsComponents', () => {
       const skillLevelFill = screen.getByTestId(`${skill.name}-level-fill`);
       expect(skillLevelFill).toHaveStyle(`width: ${skill.level}%`);
     });
+  });
+
+  it('is accessible according to jest-axe', async () => {
+    const { container } = render(<SkillsComponents />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

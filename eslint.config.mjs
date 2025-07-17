@@ -2,6 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
+import nextPlugin from '@next/eslint-plugin-next';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -12,6 +13,14 @@ export default [
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
+    plugins: {
+      '@next/next': nextPlugin,
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+    },
+  },
+  {
     ignores: [
       'node_modules/',
       'build/',
@@ -20,6 +29,8 @@ export default [
       'jest.config.js',
       'next-sitemap.config.js',
       'next.config.js',
+      'scripts/',
+      '.lintstagedrc.js',
     ],
   },
   {

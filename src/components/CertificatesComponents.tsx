@@ -6,8 +6,9 @@ import {
   CertificateItem,
   CertificateLink,
   CertificateName,
-  Badge,
+  BadgeWrapper,
 } from './StyledComponents';
+import Image from 'next/image';
 
 const CertificatesComponents = () => {
   const [clickedCertificates, setClickedCertificates] = useState<string[]>([]);
@@ -23,17 +24,17 @@ const CertificatesComponents = () => {
 
   const certificates = [
     {
-      name: 'Professional Scrum Developer™ I (PSD I)',
+      name: 'PSD I',
       badge: '/psd1.png',
       link: 'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url',
     },
     {
-      name: 'ISTQB® Certified Tester Foundation Level (CTFL)',
+      name: 'ISTQB® CTFL',
       badge: '/Brightest_CTFL.png',
       link: 'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
     },
     {
-      name: 'HackerRank Problem Solving (Intermediate)',
+      name: 'Problem Solving (Int.)',
       badge: '/hackerrank.png',
       link: 'https://www.hackerrank.com/certificates/c331e49c22d0',
     },
@@ -55,20 +56,32 @@ const CertificatesComponents = () => {
   ];
 
   return (
-    <CertificatesContainer id="certificatesContainer">
-      <CertificateTitle id="certificatesContainertitle">Certificates</CertificateTitle>
+    <CertificatesContainer id='certificatesContainer'>
+      <CertificateTitle id='certificatesContainertitle'>
+        Certificates
+      </CertificateTitle>
       <CertificateList>
         {certificates.map((certificate, index) => (
-          <CertificateItem className="certificate" key={index}>
+          <CertificateItem className='certificate' key={index}>
             <CertificateLink
-              className="certificateLink"
+              className='certificateLink'
               href={certificate.link}
-              target="_blank"
+              target='_blank'
               onClick={() => handleClick(certificate.name)}
               clicked={clickedCertificates.includes(certificate.name)}
             >
-              <Badge className="certificateBadge" src={certificate.badge} alt={`${certificate.name} Badge`} />
-              <CertificateName className="certificateName">{certificate.name}</CertificateName>
+              <BadgeWrapper className='certificateBadge'>
+                <Image
+                  src={certificate.badge}
+                  alt={`${certificate.name} Badge`}
+                  width={20}
+                  height={20}
+                  style={{ objectFit: 'contain' }}
+                />
+              </BadgeWrapper>
+              <CertificateName className='certificateName'>
+                {certificate.name}
+              </CertificateName>
             </CertificateLink>
           </CertificateItem>
         ))}

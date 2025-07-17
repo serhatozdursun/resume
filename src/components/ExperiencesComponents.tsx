@@ -8,8 +8,9 @@ import {
   SeeMoreLink,
   ExperienceContainer,
   ExperienceItem,
-  CompanyLogo,
+  CompanyLogoWrapper,
 } from './StyledComponents';
+import Image from 'next/image';
 import HtmlParser from 'html-react-parser';
 
 interface Experience {
@@ -87,7 +88,8 @@ const experiences: Experience[] = [
     title: 'Software Test Engineer',
     company: 'Bimsa, İstanbul',
     companyLogo: '/bimsa.png',
-    companyWebsite: 'https://www.linkedin.com/company/bimsa/?originalSubdomain=tr',
+    companyWebsite:
+      'https://www.linkedin.com/company/bimsa/?originalSubdomain=tr',
     dateRange: 'Nov 2014 - Dec 2016',
     description: `<p><strong>Conducted</strong> static tests on test bases during the initial phase of teknosa.com projects</p> <p><strong>Prepared</strong> test case scenarios for functional testing and shared them with developers</p> <p><strong>Performed</strong> smoke testing after running test cases to guarantee system stability</p> <p><strong>Executed</strong> functional test scenarios and generated comprehensive reports on the results</p> <p>Reported issues based on test results using <strong>Jira</strong> and actively tracked and retested those issues after bug fixing</p> <p>Supported <strong>user acceptance testing (UAT)</strong> and supplied valuable data to product teams for UAT analysis</p> <p><strong>Conducted</strong> regression testing following UAT completion and live release to secure system integrity</p> <p><strong>Performed</strong> maintenance testing post live deployment to identify and rectify any potential issues</p> <p>Automated <strong>test cases</strong> using Selenium Webdriver for improved efficiency and accuracy.</p>`,
   },
@@ -116,7 +118,7 @@ const ExperienceList: React.FC = () => {
     <ExperienceContainer>
       {experiences.map((experience, index) => (
         <ExperienceItem
-          className="experience"
+          className='experience'
           key={index}
           id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}
         >
@@ -134,37 +136,76 @@ const ExperienceList: React.FC = () => {
   );
 };
 
-const Experience: React.FC<Experience> = ({ title, description, company, dateRange, companyLogo, companyWebsite }) => {
+const Experience: React.FC<Experience> = ({
+  title,
+  description,
+  company,
+  dateRange,
+  companyLogo,
+  companyWebsite,
+}) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
   const lastIndex: number = description.indexOf('</p>', 200);
-  const descriptionToShow = showFullDescription ? description : description.slice(0, lastIndex);
+  const descriptionToShow = showFullDescription
+    ? description
+    : description.slice(0, lastIndex);
 
   return (
     <ExperienceItem>
-      <ExperienceHeader onClick={toggleDescription} className="experience-header">
+      <ExperienceHeader
+        onClick={toggleDescription}
+        className='experience-header'
+      >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
-            <CompanyLogo src={companyLogo} alt={`${company} logo`} className="companyLogo" />
+          <a
+            href={companyWebsite}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='companyWebsite'
+          >
+            <CompanyLogoWrapper className='companyLogo'>
+              <Image
+                src={companyLogo}
+                alt={`${company} logo`}
+                width={48}
+                height={48}
+                style={{ objectFit: 'contain' }}
+              />
+            </CompanyLogoWrapper>
           </a>
           <div>
-            <ExperienceTitle className="experienceTitle" id={title.replace(/[\s,._]+/g, '_').toLowerCase()}>
+            <ExperienceTitle
+              className='experienceTitle'
+              id={title.replace(/[\s,._]+/g, '_').toLowerCase()}
+            >
               {title}
             </ExperienceTitle>
-            <a href={companyWebsite} target="_blank" rel="noopener noreferrer" className="companyWebsite">
-              <ExperienceCompany id={company.replace(/[\s,._]+/g, '_').toLowerCase()}>{company}</ExperienceCompany>
+            <a
+              href={companyWebsite}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='companyWebsite'
+            >
+              <ExperienceCompany
+                id={company.replace(/[\s,._]+/g, '_').toLowerCase()}
+              >
+                {company}
+              </ExperienceCompany>
             </a>
           </div>
         </div>
-        <ExperienceDateRange className="experience-date-range">{dateRange}</ExperienceDateRange>
+        <ExperienceDateRange className='experience-date-range'>
+          {dateRange}
+        </ExperienceDateRange>
       </ExperienceHeader>
-      <ExperienceContent className="experience-content">
+      <ExperienceContent className='experience-content'>
         {HtmlParser(descriptionToShow)}
         {description.length > 300 && (
-          <SeeMoreLink onClick={toggleDescription} className="see-more-link">
+          <SeeMoreLink onClick={toggleDescription} className='see-more-link'>
             {showFullDescription ? ' See less' : 'See more'}
           </SeeMoreLink>
         )}

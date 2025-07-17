@@ -1,11 +1,15 @@
 // theme.ts
 export const theme = {
   colors: {
-    primary: '#F5F5F5', // Main color
-    secondary: '#F3F1EC', // Example secondary color
-    background: '#ffffff', // Background color
-    text: '#000000', // Text color
-    link: '#fc3d16',
+    primary: '#f3f4f6', // Soft gray
+    secondary: '#e5e7eb', // Lighter gray
+    accent: '#2563eb', // Blue accent
+    background: '#ffffff',
+    text: '#222222',
+    link: '#e11d48', // Rose for links
+    card: '#f9f9fb',
+    shadow: 'rgba(80, 80, 80, 0.08)',
+    headerBg: '#f3f4f6', // Header background matches page
   },
   spacing: {
     small: '8px',
@@ -15,7 +19,10 @@ export const theme = {
   breakpoints: {
     mobile: '768px',
   },
+  font: {
+    main: "'Inter', 'Roboto', Arial, sans-serif",
+    heading: "'Montserrat', Arial, sans-serif",
+  },
 };
 
-// Define the theme's TypeScript type
 export type ThemeType = typeof theme;

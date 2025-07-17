@@ -1,11 +1,13 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withBundleAnalyzer({
   experimental: {
     forceSwcTransforms: true,
   },
-  images: {
-    domains: ['serhatozdursun.com'],
-  },
+  // Removed images.domains config as only local images are used
   compiler: {
     // Enable styled-components support
     styledComponents: true,
@@ -19,6 +21,6 @@ const nextConfig = {
     }
     return config;
   },
-};
+});
 
 module.exports = nextConfig;

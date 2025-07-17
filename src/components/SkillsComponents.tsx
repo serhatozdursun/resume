@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { SkillsContainer, Skill, SkillName, SkillLevel, SkillLevelFill, SkillsTitle } from './StyledComponents';
+import {
+  SkillsContainer,
+  Skill,
+  SkillName,
+  SkillLevel,
+  SkillLevelFill,
+  SkillsTitle,
+} from './StyledComponents';
 
 export const SkillsComponents = () => {
   const skills = [
@@ -36,9 +43,15 @@ export const SkillsComponents = () => {
       <SkillsTitle>Skills</SkillsTitle>
       {skills.map((skill, index) => (
         <Skill key={index}>
-          <SkillName id={`${skill.name.toLowerCase().replace(' ', '_')}`}>{skill.name}</SkillName>
+          <SkillName id={`${skill.name.toLowerCase().replace(' ', '_')}`}>
+            {skill.name}
+          </SkillName>
           <SkillLevel>
-            <SkillLevelFill id={`skill_level-${index}`} data-testid={`${skill.name}-level-fill`} $level={skill.level} />
+            <SkillLevelFill
+              id={`skill_level-${index}`}
+              data-testid={`${skill.name}-level-fill`}
+              $level={skill.level}
+            />
           </SkillLevel>
         </Skill>
       ))}
