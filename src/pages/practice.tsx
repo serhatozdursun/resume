@@ -39,7 +39,11 @@ const Practice: React.FC = () => {
   );
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const openNewTab = () => {
-    const newTab = window.open('https://serhatozdursun.com', '_blank');
+    const newTab = window.open(
+      'https://serhatozdursun.com',
+      '_blank',
+      'noopener,noreferrer'
+    );
     setNewWindow(newTab);
   };
 
@@ -47,7 +51,7 @@ const Practice: React.FC = () => {
     const newWin = window.open(
       'https://serhatozdursun.com',
       '_blank',
-      'width=800,height=600'
+      'width=800,height=600,noopener,noreferrer'
     );
     setNewWindow(newWin);
   };
