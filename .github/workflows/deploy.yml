@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set maintenance mode
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -30,7 +30,7 @@ jobs:
     needs: set_maintenance
     steps:
       - name: Stop the server and fetch the latest code
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -57,7 +57,7 @@ jobs:
     needs: stop_server
     steps:
       - name: Build the app
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -89,7 +89,7 @@ jobs:
     needs: build
     steps:
       - name: Start the app
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -128,7 +128,7 @@ jobs:
     needs: start_server
     steps:
       - name: Disable maintenance mode
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
