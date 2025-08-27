@@ -3,6 +3,8 @@
 
 [![UI Automation Tests (Chrome|Firefox)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=serhatozdursun_resume&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=serhatozdursun_resume)
+
 # Simple Resume Website
 
 A modern, accessible, and performant resume website built with Next.js, React, and Styled Components. This project is designed for learning, portfolio, and as a best-practice reference for TypeScript-based React apps.
