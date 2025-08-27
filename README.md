@@ -1,8 +1,7 @@
 [![Unit Tests](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
 [![CodeQL Static Code Analysis](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
 
-[![UI Automation Test for Firefox](https://github.com/serhatozdursun/resume/actions/workflows/ui_firefox_pytest.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_firefox_pytest.yml)
-[![UI Automation Test for Chrome](https://github.com/serhatozdursun/resume/actions/workflows/ui_chrome_pytest.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_chrome_pytest.yml)
+[![UI Automation Tests (Chrome|Firefox)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml)
 
 # Simple Resume Website
 
