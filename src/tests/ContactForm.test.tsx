@@ -5,6 +5,12 @@ import '@testing-library/jest-dom';
 import ContactForm from '../components/ContactForm';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/theme';
+import {
+  renderWithTheme,
+  openContactForm,
+  fillContactForm,
+  clickSendMessage,
+} from './test-utils';
 import emailjs, { type EmailJSResponseStatus } from 'emailjs-com';
 
 // Mock emailjs
@@ -25,25 +31,15 @@ describe('ContactForm', () => {
   });
 
   it('renders send link initially', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
+    renderWithTheme(<ContactForm />);
 
     expect(screen.getByText('Send a message')).toBeInTheDocument();
     expect(screen.getByAltText('Send Icon')).toBeInTheDocument();
   });
 
   it('shows contact form when send link is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
-
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
     expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Your Name')).toBeInTheDocument();
@@ -53,14 +49,8 @@ describe('ContactForm', () => {
   });
 
   it('closes form when close button is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
-
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
     expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
 
@@ -87,18 +77,8 @@ describe('ContactForm', () => {
     const sendLink = screen.getByText('Send a message');
     fireEvent.click(sendLink);
 
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
-    const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
-    fireEvent.click(sendButton);
+    fillContactForm();
+    clickSendMessage();
 
     await waitFor(() => {
       expect(mockSend).toHaveBeenCalledWith(
@@ -131,27 +111,11 @@ describe('ContactForm', () => {
       .mockImplementation(() => {});
     mockSend.mockRejectedValueOnce(new Error('Email service error'));
 
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
-
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
-    const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
-    fireEvent.click(sendButton);
+    fillContactForm();
+    clickSendMessage();
 
     await waitFor(() => {
       expect(
@@ -174,26 +138,11 @@ describe('ContactForm', () => {
     });
     mockSend.mockReturnValueOnce(promise);
 
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
-
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
+    fillContactForm();
     const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
     fireEvent.click(sendButton);
 
     // Check loading state
@@ -216,27 +165,11 @@ describe('ContactForm', () => {
       text: 'OK',
     } as EmailJSResponseStatus);
 
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
-
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
-    const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
-    fireEvent.click(sendButton);
+    fillContactForm();
+    clickSendMessage();
 
     await waitFor(() => {
       expect(
@@ -266,14 +199,8 @@ describe('ContactForm', () => {
   });
 
   it('handles input length validation', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
-
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
     const nameInput = screen.getByPlaceholderText('Your Name');
     const emailInput = screen.getByPlaceholderText('Your Email');
@@ -311,18 +238,8 @@ describe('ContactForm', () => {
     const sendLink = screen.getByText('Send a message');
     fireEvent.click(sendLink);
 
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
-    const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
-    fireEvent.click(sendButton);
+    fillContactForm();
+    clickSendMessage();
 
     await waitFor(() => {
       expect(
@@ -349,14 +266,8 @@ describe('ContactForm', () => {
       text: 'OK',
     } as EmailJSResponseStatus);
 
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
-
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
+    renderWithTheme(<ContactForm />);
+    openContactForm();
 
     const sendButton = screen.getByText('Send');
 
@@ -387,18 +298,8 @@ describe('ContactForm', () => {
     const sendLink = screen.getByText('Send a message');
     fireEvent.click(sendLink);
 
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
-    const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
-    fireEvent.click(sendButton);
+    fillContactForm();
+    clickSendMessage();
 
     await waitFor(() => {
       expect(
@@ -419,26 +320,10 @@ describe('ContactForm', () => {
       text: 'OK',
     } as EmailJSResponseStatus);
 
-    render(
-      <ThemeProvider theme={theme}>
-        <ContactForm />
-      </ThemeProvider>
-    );
-
-    const sendLink = screen.getByText('Send a message');
-    fireEvent.click(sendLink);
-
-    const nameInput = screen.getByPlaceholderText('Your Name');
-    const emailInput = screen.getByPlaceholderText('Your Email');
-    const messageInput = screen.getByPlaceholderText('Your Message');
+    renderWithTheme(<ContactForm />);
+    openContactForm();
     const sendButton = screen.getByText('Send');
-
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(messageInput, {
-      target: { value: 'Hello, this is a test message!' },
-    });
-
+    fillContactForm();
     fireEvent.click(sendButton);
 
     // Should not throw error when form ref is null
