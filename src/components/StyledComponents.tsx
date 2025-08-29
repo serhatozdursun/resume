@@ -373,13 +373,14 @@ const CommonLink = styled(Link)`
   }
 `;
 
-const CertificateLink = styled.a.attrs<{ clicked: boolean }>(() => ({
+const CertificateLink = styled.a.attrs<{ clicked: boolean }>(props => ({
   clicked: undefined,
+  style: props.clicked ? { color: 'blue' } : undefined,
 }))<{ clicked: boolean }>`
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: ${props => (props.clicked ? 'black' : 'inherit')};
+  color: ${props => (props.clicked ? 'blue' : 'inherit')};
   transition: color 0.2s ease-in-out;
 
   &:hover {
