@@ -33,5 +33,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }} # for PR decoration
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # for PR decoration
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # create in SonarCloud and add as repo secret
