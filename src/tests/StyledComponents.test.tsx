@@ -51,7 +51,7 @@ import {
   ContactFormDescription,
   LeftColumnLinkContainer,
   CommonLink,
-} from '../components/StyledComponents';
+} from '../types/StyledComponents';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/theme';
 import type { ComponentProps } from 'react';
@@ -627,9 +627,9 @@ describe('StyledComponents', () => {
 
   describe('ProfileImage', () => {
     it('renders with correct styles', async () => {
-      const mod = await import('../components/StyledComponents');
+      const mod = await import('../types/StyledComponents');
       const { ProfileImage } =
-        mod as typeof import('../components/StyledComponents');
+        mod as typeof import('../types/StyledComponents');
       renderWithTheme(
         <ProfileImage
           data-testid='profile-image'

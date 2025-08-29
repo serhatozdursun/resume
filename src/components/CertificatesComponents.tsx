@@ -7,7 +7,7 @@ import {
   CertificateLink,
   CertificateName,
   BadgeWrapper,
-} from './StyledComponents';
+} from '../types/StyledComponents';
 import Image from 'next/image';
 
 const CertificatesComponents = () => {
