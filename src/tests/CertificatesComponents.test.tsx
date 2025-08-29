@@ -27,16 +27,16 @@ describe('CertificatesComponents', () => {
     // Click the first certificate link
     fireEvent.click(certificateLinks[0]);
 
-    // Check if the clicked badge color changes to black
-    expect(certificateLinks[0]).toHaveStyle({ color: 'blue' });
+    // Check if the clicked badge color changes to blue
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
 
     // Clicking again should not change color
     fireEvent.click(certificateLinks[0]);
-    expect(certificateLinks[0]).toHaveStyle({ color: 'blue' });
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
 
     // Click the second certificate link
     fireEvent.click(certificateLinks[1]);
-    expect(certificateLinks[1]).toHaveStyle({ color: 'blue' });
+    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
   });
 
   it('is accessible according to jest-axe', async () => {
