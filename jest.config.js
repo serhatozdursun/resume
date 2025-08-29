@@ -18,6 +18,13 @@ const config = {
   collectCoverage: true,
   coverageReporters: ['lcov', 'text-summary'],
   coverageDirectory: 'coverage',
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}', // include only TS/TSX source files
+    '!src/**/*.d.ts', // ignore type declarations
+    '!src/tests/**', // ignore test files
+    '!src/**/*.test.{ts,tsx}', // ignore unit test files
+    '!src/**/*.spec.{ts,tsx}', // ignore spec files
+  ],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/.next/',
@@ -33,6 +40,7 @@ const config = {
     'next-sitemap.config.js',
     'eslint.config.mjs',
     'src/tests/',
+    'scripts',
   ],
 };
 module.exports = config;
