@@ -23,7 +23,7 @@ import {
   InputContainer,
   ContactFormDescription,
   SendText,
-} from './StyledComponents';
+} from '../types/StyledComponents';
 import Image from 'next/image';
 import { theme } from './theme'; // Import your theme
 import { ThemeProvider } from 'styled-components';

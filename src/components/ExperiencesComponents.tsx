@@ -9,7 +9,7 @@ import {
   ExperienceContainer,
   ExperienceItem,
   CompanyLogoWrapper,
-} from './StyledComponents';
+} from '../types/StyledComponents';
 import Image from 'next/image';
 import HtmlParser from 'html-react-parser';
 

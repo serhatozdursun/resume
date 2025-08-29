@@ -7,7 +7,7 @@ import {
   SkillLevel,
   SkillLevelFill,
   SkillsTitle,
-} from './StyledComponents';
+} from '../types/StyledComponents';
 
 export const SkillsComponents = () => {
   const skills = [
