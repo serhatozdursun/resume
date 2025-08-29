@@ -4,6 +4,12 @@ import '@testing-library/jest-dom';
 import { act } from 'react';
 import Practice from '../pages/practice';
 import { toHaveNoViolations } from 'jest-axe';
+import {
+  setSnackbarMessageAndClick,
+  selectFile,
+  clickUpload,
+  performLogin,
+} from './test-utils';
 expect.extend(toHaveNoViolations);
 
 describe('Practice Component', () => {
@@ -71,36 +77,14 @@ describe('Practice Component', () => {
 
   it('shows a snackbar with the correct message and type', async () => {
     render(<Practice />);
-
-    const snackBarMessageInput = screen.getByTestId('message');
-    fireEvent.change(snackBarMessageInput, {
-      target: { value: 'Operation successful!' },
-    });
-    const successButton = screen.getByText('Show Success Snackbar');
-    fireEvent.click(successButton);
-
-    await waitFor(() => {
-      expect(screen.getByText('Operation successful!')).toBeInTheDocument();
-    });
-
+    await setSnackbarMessageAndClick('success', 'Operation successful!');
     const snackbar = screen.getByRole('alert');
     expect(snackbar).toHaveClass('MuiAlert-filledSuccess');
   });
 
   it('shows error snackbar when error button is clicked', async () => {
     render(<Practice />);
-
-    const snackBarMessageInput = screen.getByTestId('message');
-    fireEvent.change(snackBarMessageInput, {
-      target: { value: 'Operation failed!' },
-    });
-    const errorButton = screen.getByText('Show Error Snackbar');
-    fireEvent.click(errorButton);
-
-    await waitFor(() => {
-      expect(screen.getByText('Operation failed!')).toBeInTheDocument();
-    });
-
+    await setSnackbarMessageAndClick('error', 'Operation failed!');
     const snackbar = screen.getByRole('alert');
     expect(snackbar).toHaveClass('MuiAlert-filledError');
   });
@@ -150,15 +134,11 @@ describe('Practice Component', () => {
     render(<Practice />);
 
     // Select elements
-    const fileInput = screen.getByTestId('fileUpload_input');
-    const uploadButton = screen.getByTestId('fileUpload_button');
-
-    // Simulate file selection
-    fireEvent.change(fileInput, { target: { files: [file] } });
+    selectFile(file);
 
     // Use act to wrap the file upload and the timer-based state updates
     await act(async () => {
-      fireEvent.click(uploadButton);
+      clickUpload();
 
       // Run all timers to fast-forward through setTimeouts
       jest.runAllTimers();
@@ -194,13 +174,10 @@ describe('Practice Component', () => {
 
     render(<Practice />);
 
-    const fileInput = screen.getByTestId('fileUpload_input');
-    const uploadButton = screen.getByTestId('fileUpload_button');
-
-    fireEvent.change(fileInput, { target: { files: [file] } });
+    selectFile(file);
 
     await act(async () => {
-      fireEvent.click(uploadButton);
+      clickUpload();
       jest.runAllTimers();
     });
 
@@ -213,13 +190,7 @@ describe('Practice Component', () => {
 
     render(<Practice />);
 
-    const emailInput = screen.getByLabelText('Email:');
-    const passwordInput = screen.getByLabelText('Password:');
-    const loginButton = screen.getByText('Login');
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'Qwerty1234!' } });
-    fireEvent.click(loginButton);
+    performLogin('test@example.com', 'Qwerty1234!');
 
     expect(window.alert).toHaveBeenCalledWith('Successful login!');
   });
@@ -229,13 +200,7 @@ describe('Practice Component', () => {
 
     render(<Practice />);
 
-    const emailInput = screen.getByLabelText('Email:');
-    const passwordInput = screen.getByLabelText('Password:');
-    const loginButton = screen.getByText('Login');
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
-    fireEvent.click(loginButton);
+    performLogin('test@example.com', 'wrongpassword');
 
     expect(window.alert).toHaveBeenCalledWith(
       'Invalid password, login failed.'
@@ -247,13 +212,7 @@ describe('Practice Component', () => {
 
     render(<Practice />);
 
-    const emailInput = screen.getByLabelText('Email:');
-    const passwordInput = screen.getByLabelText('Password:');
-    const loginButton = screen.getByText('Login');
-
-    fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
-    fireEvent.change(passwordInput, { target: { value: 'Qwerty1234!' } });
-    fireEvent.click(loginButton);
+    performLogin('invalid-email', 'Qwerty1234!');
 
     expect(window.alert).toHaveBeenCalledWith(
       'Please enter a valid email address.'
@@ -307,13 +266,10 @@ describe('Practice Component', () => {
 
     render(<Practice />);
 
-    const fileInput = screen.getByTestId('fileUpload_input');
-    const uploadButton = screen.getByTestId('fileUpload_button');
-
-    fireEvent.change(fileInput, { target: { files: [file] } });
+    selectFile(file);
 
     await act(async () => {
-      fireEvent.click(uploadButton);
+      clickUpload();
       jest.runAllTimers();
     });
 
