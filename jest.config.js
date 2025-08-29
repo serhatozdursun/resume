@@ -18,5 +18,21 @@ const config = {
   collectCoverage: true,
   coverageReporters: ['lcov', 'text-summary'],
   coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/.next/',
+    '/coverage/',
+    'jest.config.js',
+    'jest.setup.ts',
+    'next.config.js',
+    'babel.config.js',
+    'docker-compose.yml',
+    'Dockerfile',
+    'lintstagedrc.js',
+    'setupTests.js',
+    'next-sitemap.config.js',
+    'eslint.config.mjs',
+    'src/tests/',
+  ],
 };
 module.exports = config;
