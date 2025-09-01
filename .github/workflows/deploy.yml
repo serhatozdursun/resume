@@ -115,16 +115,19 @@ jobs:
 
             # Ensure PM2 installed
             if ! command -v pm2 >/dev/null 2>&1; then
-              npm install -g pm2
+            npm install -g pm2
             fi
 
-            if pm2 describe so-website >/dev/null 2>&1; then
-              pm2 reload so-website --update-env
-            else
-              pm2 start yarn --name "so-website" -- start -p 3000
-            fi
+            # Eski süreci temizle (varsa)
+            pm2 delete so-website || true
+
+            # Tek string ile başlat → argüman parsing sorunu yaşamaz
+            pm2 start "yarn start -p 3000" --name so-website --time
+
+            # Dump kaydet ki reboot sonrası aynı şekilde ayağa kalksın
             pm2 save
-            echo "PM2 process 'so-website' running."
+
+            echo "PM2 process 'so-website' restarted cleanly."
 
   # Job 5: Disable Maintenance Mode (always runs)
   disable_maintenance:
