@@ -90,6 +90,13 @@ jobs:
             export NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=$NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
             export NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=$NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
 
+            set -euo pipefail
+            for v in NEXT_PUBLIC_EMAILJS_SERVICE_ID NEXT_PUBLIC_EMAILJS_TEMPLATE_ID NEXT_PUBLIC_EMAILJS_PUBLIC_KEY; do
+              if [ -z "${!v:-}" ]; then echo "ERROR: $v is empty"; exit 1; fi
+            done
+            case "$NEXT_PUBLIC_EMAILJS_TEMPLATE_ID" in template_*) :;; *) echo "Bad template id"; exit 1;; esac
+
+
             yarn install --frozen-lockfile
             yarn build
             echo "App built successfully."
@@ -105,6 +112,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -euo pipefail
             TARGET_DIR="repo/resume"
             cd ~ || exit 1
             cd "$TARGET_DIR" || exit 1
@@ -113,21 +121,20 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             nvm use 22
 
-            # Ensure PM2 installed
-            if ! command -v pm2 >/dev/null 2>&1; then
-            npm install -g pm2
-            fi
+            corepack enable
 
-            # Eski süreci temizle (varsa)
-            pm2 delete so-website || true
+            export NEXT_PUBLIC_EMAILJS_SERVICE_ID="$NEXT_PUBLIC_EMAILJS_SERVICE_ID"
+            export NEXT_PUBLIC_EMAILJS_TEMPLATE_ID="$NEXT_PUBLIC_EMAILJS_TEMPLATE_ID"
+            export NEXT_PUBLIC_EMAILJS_PUBLIC_KEY="$NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"
 
-            # Tek string ile başlat → argüman parsing sorunu yaşamaz
-            pm2 start "yarn start -p 3000" --name so-website --time
+            for v in NEXT_PUBLIC_EMAILJS_SERVICE_ID NEXT_PUBLIC_EMAILJS_TEMPLATE_ID NEXT_PUBLIC_EMAILJS_PUBLIC_KEY; do
+              if [ -z "${!v:-}" ]; then echo "ERROR: $v is empty"; exit 1; fi
+            done
+            case "$NEXT_PUBLIC_EMAILJS_TEMPLATE_ID" in template_*) :;; *) echo "Bad template id"; exit 1;; esac
 
-            # Dump kaydet ki reboot sonrası aynı şekilde ayağa kalksın
-            pm2 save
-
-            echo "PM2 process 'so-website' restarted cleanly."
+            yarn install --frozen-lockfile
+            yarn build
+            echo "App built successfully."
 
   # Job 5: Disable Maintenance Mode (always runs)
   disable_maintenance:
