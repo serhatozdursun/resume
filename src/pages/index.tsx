@@ -18,7 +18,7 @@ import {
   CommonLink,
   LeftColumnLinkContainer,
   BadgeWrapper,
-} from '../components/StyledComponents';
+} from '../types/StyledComponents';
 import dynamic from 'next/dynamic';
 import HtmlParser from 'html-react-parser';
 import { theme } from '../components/theme';

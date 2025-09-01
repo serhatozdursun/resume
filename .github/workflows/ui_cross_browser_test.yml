@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build_and_test:
+  browser_e2e_tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -52,7 +52,7 @@ jobs:
 
       - name: Set up Firefox and GeckoDriver
         if: matrix.browser == 'firefox'
-        uses: browser-actions/setup-firefox@latest
+        uses: browser-actions/setup-firefox@5914774dda97099441f02628f8d46411fcfbd208 # v1.7.0
 
       - name: Clone the test repository
         run: |
