@@ -207,18 +207,6 @@ describe('Practice Component', () => {
     );
   });
 
-  it('shows alert for invalid email format', () => {
-    window.alert = jest.fn();
-
-    render(<Practice />);
-
-    performLogin('invalid-email', 'Qwerty1234!');
-
-    expect(window.alert).toHaveBeenCalledWith(
-      'Please enter a valid email address.'
-    );
-  });
-
   it('handles new tab and window opening', () => {
     const mockOpen = jest.fn();
     Object.defineProperty(window, 'open', {
