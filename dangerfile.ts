@@ -69,20 +69,26 @@ interface FileCoverage {
   newPct: number | null;
 }
 
+type AISeverity = 'info' | 'warn' | 'fail';
+
+interface AddedLine {
+  index: number; // 0..N-1 across *added* lines only
+  line: number; // absolute new-file line number
+  text: string; // code on that added line (without '+')
+}
+
 interface ReviewDiff {
   file: string;
   diff: string;
-  changedLines: number[]; // new-file line numbers included in this PR
+  added: AddedLine[]; // enumerated added lines (for exact mapping)
 }
 
-type AISeverity = 'info' | 'warn' | 'fail';
-
-interface AIReviewFinding {
-  file: string;
-  line: number; // must be a changed line in this PR
+interface AIReviewFindingIdx {
+  file: string; // path like "src/pages/index.tsx"
+  index: number; // index into the ADDED lines list (0-based)
   severity: AISeverity; // "info" | "warn" | "fail"
-  title: string; // short headline
-  body: string; // actionable explanation + suggestion
+  title: string;
+  body: string;
 }
 
 /* =======================
@@ -138,12 +144,38 @@ function extractChangedLineNumbers(diffText: string): Set<number> {
       newLine++;
       continue;
     }
-    if (l.startsWith('-')) continue; // old-file deletion; don't advance newLine
+    if (l.startsWith('-')) continue; // deletion in old file → do not advance
     newLine++; // context
   }
   return out;
 }
 
+// Enumerate only ADDED lines with their new-file numbers & text
+function enumerateAddedLines(diffText: string): AddedLine[] {
+  const out: AddedLine[] = [];
+  let newLine = 0;
+  let idx = 0;
+  const rows = diffText.split('\n');
+  for (const row of rows) {
+    const h = /^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/.exec(row);
+    if (h) {
+      newLine = parseInt(h[1], 10);
+      continue;
+    }
+    if (row.startsWith('+++') || row.startsWith('---')) continue;
+    if (row.startsWith('+')) {
+      out.push({ index: idx, line: newLine, text: row.slice(1) });
+      idx++;
+      newLine++;
+      continue;
+    }
+    if (row.startsWith('-')) continue;
+    newLine++;
+  }
+  return out;
+}
+
+// Fresh comment per push (if enabled) or sticky comment update by default
 async function post(md: string): Promise<void> {
   if (DANGER_ALWAYS_NEW_COMMENT) {
     const owner = danger.github.pr.base.repo.owner.login;
@@ -203,60 +235,23 @@ ${trimmed || 'N/A'}`,
   }
 }
 
-/* ---------- AI: Structured code review with inline mapping ---------- */
+/* ---------- AI: Structured code review (index → exact line) ---------- */
 
-function extractJSONFromMarkdown(md: string): string | null {
-  const codeBlock = /```(?:json)?\s*([\s\S]*?)```/m.exec(md);
-  if (codeBlock && codeBlock[1]) return codeBlock[1].trim();
-  const trimmed = md.trim();
-  if (trimmed.startsWith('[') && trimmed.endsWith(']')) return trimmed;
-  return null;
-}
-
-function isAIReviewFinding(x: unknown): x is AIReviewFinding {
-  if (typeof x !== 'object' || x === null) return false;
-  const o = x as {
-    file?: unknown;
-    line?: unknown;
-    severity?: unknown;
-    title?: unknown;
-    body?: unknown;
-  };
-  const fileOk = typeof o.file === 'string' && o.file.length > 0;
-  const lineOk =
-    typeof o.line === 'number' && Number.isFinite(o.line) && o.line > 0;
-  const sevOk =
-    o.severity === 'info' || o.severity === 'warn' || o.severity === 'fail';
-  const titleOk = typeof o.title === 'string' && o.title.length > 0;
-  const bodyOk = typeof o.body === 'string' && o.body.length > 0;
-  return fileOk && lineOk && sevOk && titleOk && bodyOk;
-}
-
-function nearestLine(target: number, candidates: number[]): number | null {
-  if (candidates.length === 0) return null;
-  let best = candidates[0];
-  let bestDiff = Math.abs(candidates[0] - target);
-  for (let i = 1; i < candidates.length; i++) {
-    const d = Math.abs(candidates[i] - target);
-    if (d < bestDiff) {
-      best = candidates[i];
-      bestDiff = d;
-    }
-  }
-  return best;
-}
-
-async function aiCodeReview(diffs: ReviewDiff[]): Promise<AIReviewFinding[]> {
+async function aiCodeReview(
+  diffs: ReviewDiff[]
+): Promise<AIReviewFindingIdx[]> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return [];
   const client = new OpenAI({ apiKey: key });
 
-  // Build prompt: include file name, changed lines, and the diff for precision
+  // Build prompt: one section per file listing added lines as index:newLine:code
   const joined = diffs
-    .map(
-      d =>
-        `# FILE: ${d.file}\nCHANGED_LINES: ${d.changedLines.slice(0, 200).join(',')}\n${d.diff}`
-    )
+    .map(d => {
+      const listing = d.added
+        .map(a => `${a.index}:${a.line}:${a.text.slice(0, 140)}`)
+        .join('\n');
+      return `# FILE: ${d.file}\nADDED_LINES (index:newLine:code):\n${listing || '(none)'}`;
+    })
     .join('\n\n');
   const trimmed = joined.slice(0, AI_REVIEW_MAX_CHARS);
 
@@ -265,16 +260,13 @@ async function aiCodeReview(diffs: ReviewDiff[]): Promise<AIReviewFinding[]> {
       role: 'system',
       content:
         'You are a senior Software Developer engineer (React + TypeScript expert). ' +
-        'Return ONLY a single JSON array of findings; no prose, no backticks. ' +
-        'Each finding must be an object with: ' +
-        '{ "file": string, "line": number, "severity": "info"|"warn"|"fail", "title": string, "body": string }. ' +
-        'The "line" must be one of the CHANGED_LINES for that file. ' +
-        'Prefer at most 8 high-signal findings.',
+        'Return ONLY a single JSON array. No prose, no backticks. ' +
+        'Each element MUST be: ' +
+        '{ "file": string, "index": number, "severity": "info"|"warn"|"fail", "title": string, "body": string }. ' +
+        'The "index" MUST be one of the integers shown for that file in ADDED_LINES. ' +
+        `Pick at most ${AI_REVIEW_MAX_FINDINGS} high-signal findings.`,
     },
-    {
-      role: 'user',
-      content: trimmed || 'N/A',
-    },
+    { role: 'user', content: trimmed || 'N/A' },
   ];
 
   try {
@@ -284,12 +276,31 @@ async function aiCodeReview(diffs: ReviewDiff[]): Promise<AIReviewFinding[]> {
       messages,
     });
     const raw = res.choices[0]?.message?.content ?? '[]';
-    const jsonText = extractJSONFromMarkdown(raw) ?? '[]';
+    const jsonText = (() => {
+      const m = /```(?:json)?\s*([\s\S]*?)```/m.exec(raw);
+      return m && m[1] ? m[1] : raw;
+    })();
     const parsed: unknown = JSON.parse(jsonText);
     if (!Array.isArray(parsed)) return [];
-    // Type-guard and limit
-    const findings: AIReviewFinding[] = parsed
-      .filter(isAIReviewFinding)
+    // type guard
+    const findings: AIReviewFindingIdx[] = parsed
+      .filter((x: unknown): x is AIReviewFindingIdx => {
+        if (typeof x !== 'object' || x === null) return false;
+        const o = x as Record<string, unknown>;
+        const fileOk =
+          typeof o.file === 'string' && (o.file as string).length > 0;
+        const idxOk =
+          typeof o.index === 'number' &&
+          Number.isInteger(o.index) &&
+          (o.index as number) >= 0;
+        const sev = o.severity;
+        const sevOk = sev === 'info' || sev === 'warn' || sev === 'fail';
+        const titleOk =
+          typeof o.title === 'string' && (o.title as string).length > 0;
+        const bodyOk =
+          typeof o.body === 'string' && (o.body as string).length > 0;
+        return fileOk && idxOk && sevOk && titleOk && bodyOk;
+      })
       .slice(0, AI_REVIEW_MAX_FINDINGS);
     return findings;
   } catch {
@@ -301,7 +312,7 @@ async function aiCodeReview(diffs: ReviewDiff[]): Promise<AIReviewFinding[]> {
    Main
    ======================= */
 export default async function run(): Promise<void> {
-  // Changed source files (ignore tests and .d.ts)
+  // Which source files changed? (ignore tests and .d.ts)
   const changed = Array.from(
     new Set([...danger.git.modified_files, ...danger.git.created_files])
   ).filter(
@@ -350,7 +361,7 @@ export default async function run(): Promise<void> {
   const lcov = await parseLCOV(LCOV_PATH);
   const lcovIndex = new Map<string, LcovFileNorm>(lcov.map(r => [r.file, r]));
 
-  // Build coverage stats + offenders
+  // Coverage stats + offenders
   const stats: FileCoverage[] = [];
   const offenders: string[] = [];
   const suggested = new Set<string>();
@@ -441,64 +452,53 @@ export default async function run(): Promise<void> {
     await post(`#### AI test ideas for \`${f}\`\n${ideas}`);
   }
 
-  // ---------- AI Code Review with inline comments ----------
+  // ---------- AI Code Review with correct inline mapping ----------
   if (AI_REVIEW_ENABLED) {
-    // Collect file diffs + changed lines
-    const diffs: ReviewDiff[] = [];
+    const diffsForReview: ReviewDiff[] = [];
     for (const f of changed) {
       const d = await danger.git.diffForFile(f);
       if (d?.diff && d.diff.length > 0) {
-        const changedLines = Array.from(extractChangedLineNumbers(d.diff)).sort(
-          (a, b) => a - b
-        );
-        diffs.push({ file: f, diff: d.diff, changedLines });
+        diffsForReview.push({
+          file: f,
+          diff: d.diff,
+          added: enumerateAddedLines(d.diff),
+        });
       }
     }
 
-    if (diffs.length) {
-      const findings = await aiCodeReview(diffs); // structured JSON findings
+    if (diffsForReview.length) {
+      const findings = await aiCodeReview(diffsForReview);
 
-      // Inline comments (exact lines). Adjust to nearest changed line if needed.
-      const summaryLines: string[] = [];
-      let blockingFindings = 0;
+      const summary: string[] = [];
+      let blocking = 0;
 
-      for (const f of findings) {
-        const rec = diffs.find(d => d.file === f.file);
+      for (const finding of findings) {
+        const rec = diffsForReview.find(d => d.file === finding.file);
         if (!rec) continue;
-        const allowed = rec.changedLines;
-        let targetLine = f.line;
-        if (!allowed.includes(targetLine)) {
-          const nearest = nearestLine(targetLine, allowed);
-          if (nearest === null) continue;
-          targetLine = nearest;
-        }
+        const chosen = rec.added.find(a => a.index === finding.index);
+        if (!chosen) continue; // model returned an index we didn't expose
 
-        const short = `${f.title} — ${f.body}`;
+        const msg = `${finding.title} — ${finding.body}`;
         if (AI_REVIEW_INLINE) {
-          if (f.severity === 'fail') {
-            fail(short, f.file, targetLine);
-            blockingFindings++;
-          } else if (f.severity === 'warn') {
-            warn(short, f.file, targetLine);
+          if (finding.severity === 'fail') {
+            fail(msg, finding.file, chosen.line);
+            blocking++;
+          } else if (finding.severity === 'warn') {
+            warn(msg, finding.file, chosen.line);
           } else {
-            message(short, f.file, targetLine);
+            message(msg, finding.file, chosen.line);
           }
         }
-
-        summaryLines.push(
-          `- **${f.severity.toUpperCase()}** \`${f.file}:${targetLine}\` — ${f.title}\n  - ${f.body}`
+        summary.push(
+          `- **${finding.severity.toUpperCase()}** \`${finding.file}:${chosen.line}\` — ${finding.title}\n  - ${finding.body}`
         );
       }
 
-      if (summaryLines.length) {
-        await post(
-          `### AI Code Review (inline summary)\n${summaryLines.join('\n')}`
-        );
-      }
-
-      if (AI_REVIEW_BLOCK_ON_FINDINGS && blockingFindings > 0) {
+      if (summary.length)
+        await post(`### AI Code Review\n${summary.join('\n')}`);
+      if (AI_REVIEW_BLOCK_ON_FINDINGS && blocking > 0) {
         fail(
-          `AI code review reported **${blockingFindings}** blocking finding(s). Please address or justify.`
+          `AI code review reported **${blocking}** blocking finding(s). Please address or justify.`
         );
       }
     }
