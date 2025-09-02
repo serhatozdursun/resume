@@ -33,6 +33,8 @@ const AI_REVIEW_MAX_FINDINGS: number = parseInt(
 const AI_REVIEW_BLOCK_ON_FINDINGS: boolean =
   process.env.AI_REVIEW_BLOCK_ON_FINDINGS === '1';
 
+const HUNK_RE = /@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/;
+
 /* =======================
    Constants
    ======================= */
@@ -131,21 +133,29 @@ function parseLCOV(path: string): Promise<LcovFileNorm[]> {
 function extractChangedLineNumbers(diffText: string): Set<number> {
   const out = new Set<number>();
   let newLine = 0;
-  const lines = diffText.split('\n');
-  for (const l of lines) {
-    const h = /^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/.exec(l);
+  for (const raw of diffText.split('\n')) {
+    const line = raw.replace(/\r$/, '');
+    const h = HUNK_RE.exec(line); // <-- no ^ anchor anymore
     if (h) {
       newLine = parseInt(h[1], 10);
       continue;
     }
-    if (l.startsWith('+++') || l.startsWith('---')) continue;
-    if (l.startsWith('+')) {
+    if (line.startsWith('+++') || line.startsWith('---')) continue;
+
+    const first = line[0];
+    if (first === '+') {
+      // added line in new file
+      if (line.startsWith('+++')) continue; // skip header
       out.add(newLine);
       newLine++;
       continue;
     }
-    if (l.startsWith('-')) continue; // deletion in old file → do not advance
-    newLine++; // context
+    if (first === '-') {
+      // deletion in old file
+      continue; // don't advance newLine
+    }
+    // context (or blank) line
+    newLine++;
   }
   return out;
 }
@@ -155,22 +165,25 @@ function enumerateAddedLines(diffText: string): AddedLine[] {
   const out: AddedLine[] = [];
   let newLine = 0;
   let idx = 0;
-  const rows = diffText.split('\n');
-  for (const row of rows) {
-    const h = /^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/.exec(row);
+
+  for (const raw of diffText.split('\n')) {
+    const line = raw.replace(/\r$/, '');
+    const h = HUNK_RE.exec(line); // <-- no ^ anchor anymore
     if (h) {
       newLine = parseInt(h[1], 10);
       continue;
     }
-    if (row.startsWith('+++') || row.startsWith('---')) continue;
-    if (row.startsWith('+')) {
-      out.push({ index: idx, line: newLine, text: row.slice(1) });
-      idx++;
+    if (line.startsWith('+++') || line.startsWith('---')) continue;
+
+    const first = line[0];
+    if (first === '+') {
+      if (line.startsWith('+++')) continue; // skip header
+      out.push({ index: idx++, line: newLine, text: line.slice(1) });
       newLine++;
       continue;
     }
-    if (row.startsWith('-')) continue;
-    newLine++;
+    if (first === '-') continue; // old file deletion
+    newLine++; // context/blank
   }
   return out;
 }
