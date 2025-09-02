@@ -20,6 +20,7 @@ import Alert from '@mui/material/Alert';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import { validateEmail } from '../utils/validators';
 
 const Practice: React.FC = () => {
   const [, setNewWindow] = useState<Window | null>(null);
@@ -130,8 +131,7 @@ const Practice: React.FC = () => {
 
   const handleLogin = () => {
     // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
+    if (!validateEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
