@@ -35,3 +35,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # for PR decoration
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # create in SonarCloud and add as repo secret
+
+  ai-review:
+    needs: test-and-analyze
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install AI reviewer deps
+        run: |
+          yarn add -D danger lcov-parse openai
+
+      - name: Run AI coverage-aware review
+        env:
+          # Danger needs a GitHub token with PR write perms
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Your OpenAI key
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # Tweak these as you like
+          MIN_FILE_COVERAGE: ${{ secrets.MIN_FILE_COVERAGE }}
+          MAX_FILES_TO_ANALYZE: ${{ secrets.MAX_FILES_TO_ANALYZE }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+        run: npx danger ci --dangerfile dangerfile.ts
