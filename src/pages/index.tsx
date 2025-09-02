@@ -118,7 +118,7 @@ const IndexPage: React.FC = () => {
             />
             <meta
               property='twitter:description'
-              content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
+              content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive  and efficient testing solutions'
             />
             <meta
               property='twitter:image'
@@ -401,6 +401,7 @@ const IndexPage: React.FC = () => {
           </RightColumn>
         </Container>
       </ThemeProvider>
+      <div></div>
     </div>
   );
 };
