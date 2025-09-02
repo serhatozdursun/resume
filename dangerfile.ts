@@ -82,12 +82,12 @@ interface AddedLine {
 interface ReviewDiff {
   file: string;
   diff: string;
-  added: AddedLine[]; // enumerated added lines (for exact mapping)
+  added: AddedLine[];
 }
 
 interface AIReviewFindingIdx {
-  file: string; // path like "src/pages/index.tsx"
-  index: number; // index into the ADDED lines list (0-based)
+  file: string;
+  index: number; // index into ADDED lines
   severity: AISeverity; // "info" | "warn" | "fail"
   title: string;
   body: string;
@@ -97,7 +97,6 @@ interface AIReviewFindingIdx {
    Helpers
    ======================= */
 
-// Normalize LCOV to a strict shape with details present
 function normalizeLCOV(data: LcovFile[]): LcovFileNorm[] {
   return data.map(rec => {
     const r = rec as unknown as {
@@ -122,10 +121,9 @@ function normalizeLCOV(data: LcovFile[]): LcovFileNorm[] {
 function parseLCOV(path: string): Promise<LcovFileNorm[]> {
   return new Promise<LcovFileNorm[]>((resolve, reject) => {
     if (!fs.existsSync(path)) return resolve([]);
-    lcovParse(path, (err: Error | null, data: LcovFile[]) => {
-      if (err) return reject(err);
-      resolve(normalizeLCOV(data || []));
-    });
+    lcovParse(path, (err: Error | null, data: LcovFile[]) =>
+      err ? reject(err) : resolve(normalizeLCOV(data || []))
+    );
   });
 }
 
@@ -135,7 +133,7 @@ function extractChangedLineNumbers(diffText: string): Set<number> {
   let newLine = 0;
   for (const raw of diffText.split('\n')) {
     const line = raw.replace(/\r$/, '');
-    const h = HUNK_RE.exec(line); // <-- no ^ anchor anymore
+    const h = HUNK_RE.exec(line);
     if (h) {
       newLine = parseInt(h[1], 10);
       continue;
@@ -144,18 +142,13 @@ function extractChangedLineNumbers(diffText: string): Set<number> {
 
     const first = line[0];
     if (first === '+') {
-      // added line in new file
-      if (line.startsWith('+++')) continue; // skip header
+      if (line.startsWith('+++')) continue;
       out.add(newLine);
       newLine++;
       continue;
     }
-    if (first === '-') {
-      // deletion in old file
-      continue; // don't advance newLine
-    }
-    // context (or blank) line
-    newLine++;
+    if (first === '-') continue; // deletion in old file
+    newLine++; // context/blank
   }
   return out;
 }
@@ -165,10 +158,9 @@ function enumerateAddedLines(diffText: string): AddedLine[] {
   const out: AddedLine[] = [];
   let newLine = 0;
   let idx = 0;
-
   for (const raw of diffText.split('\n')) {
     const line = raw.replace(/\r$/, '');
-    const h = HUNK_RE.exec(line); // <-- no ^ anchor anymore
+    const h = HUNK_RE.exec(line);
     if (h) {
       newLine = parseInt(h[1], 10);
       continue;
@@ -177,15 +169,55 @@ function enumerateAddedLines(diffText: string): AddedLine[] {
 
     const first = line[0];
     if (first === '+') {
-      if (line.startsWith('+++')) continue; // skip header
+      if (line.startsWith('+++')) continue;
       out.push({ index: idx++, line: newLine, text: line.slice(1) });
       newLine++;
       continue;
     }
-    if (first === '-') continue; // old file deletion
-    newLine++; // context/blank
+    if (first === '-') continue;
+    newLine++;
   }
   return out;
+}
+
+// Build a compact diff snippet centered around the Nth added line (index-based)
+function diffSnippetAroundAddedIndex(
+  diffText: string,
+  targetIndex: number,
+  context = 3
+): string {
+  const lines = diffText.split('\n');
+  let lastHeader = '';
+  let addedSeen = -1;
+  let hitAt = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].replace(/\r$/, '');
+    const h = HUNK_RE.exec(raw);
+    if (h) lastHeader = raw;
+    if (raw.startsWith('+++') || raw.startsWith('---')) continue;
+
+    const first = raw[0];
+    if (first === '+') {
+      if (raw.startsWith('+++')) continue;
+      addedSeen++;
+      if (addedSeen === targetIndex) {
+        hitAt = i;
+        break;
+      }
+    }
+  }
+
+  if (hitAt === -1) {
+    const fallback = lines.slice(0, Math.min(20, lines.length)).join('\n');
+    return '```diff\n' + fallback + '\n```';
+  }
+
+  const start = Math.max(0, hitAt - context);
+  const end = Math.min(lines.length, hitAt + context + 1);
+  const body = lines.slice(start, end).join('\n');
+  const snippet = (lastHeader ? lastHeader + '\n' : '') + body;
+  return '```diff\n' + snippet + '\n```';
 }
 
 // Fresh comment per push (if enabled) or sticky comment update by default
@@ -217,8 +249,7 @@ async function aiTestIdeas(file: string, diffText: string): Promise<string> {
     {
       role: 'system',
       content:
-        'You are a senior Software Developer engineer and expert on React and Typescript. ' +
-        'Output only one Markdown code block with a runnable Jest test file in TypeScript.',
+        'You are a senior Software Developer engineer and expert on React and Typescript. Output only one Markdown code block with a runnable Jest test file in TypeScript.',
     },
     {
       role: 'user',
@@ -248,7 +279,7 @@ ${trimmed || 'N/A'}`,
   }
 }
 
-/* ---------- AI: Structured code review (index → exact line) ---------- */
+/* ---------- AI: Structured code review (index → snippet; inline optional) ---------- */
 
 async function aiCodeReview(
   diffs: ReviewDiff[]
@@ -257,7 +288,6 @@ async function aiCodeReview(
   if (!key) return [];
   const client = new OpenAI({ apiKey: key });
 
-  // Build prompt: one section per file listing added lines as index:newLine:code
   const joined = diffs
     .map(d => {
       const listing = d.added
@@ -274,8 +304,7 @@ async function aiCodeReview(
       content:
         'You are a senior Software Developer engineer (React + TypeScript expert). ' +
         'Return ONLY a single JSON array. No prose, no backticks. ' +
-        'Each element MUST be: ' +
-        '{ "file": string, "index": number, "severity": "info"|"warn"|"fail", "title": string, "body": string }. ' +
+        'Each element MUST be: { "file": string, "index": number, "severity": "info"|"warn"|"fail", "title": string, "body": string }. ' +
         'The "index" MUST be one of the integers shown for that file in ADDED_LINES. ' +
         `Pick at most ${AI_REVIEW_MAX_FINDINGS} high-signal findings.`,
     },
@@ -295,7 +324,6 @@ async function aiCodeReview(
     })();
     const parsed: unknown = JSON.parse(jsonText);
     if (!Array.isArray(parsed)) return [];
-    // type guard
     const findings: AIReviewFindingIdx[] = parsed
       .filter((x: unknown): x is AIReviewFindingIdx => {
         if (typeof x !== 'object' || x === null) return false;
@@ -333,36 +361,6 @@ export default async function run(): Promise<void> {
       f.startsWith('src/') &&
       !/(\.spec|\.test)\.[jt]sx?$/.test(f) &&
       !/\.d\.ts$/.test(f)
-  );
-
-  // Debug
-  console.log('DEBUG', {
-    MIN_FILE_COVERAGE,
-    MAX_FILES_TO_ANALYZE,
-    OPENAI_MODEL,
-    LCOV_PATH,
-    DANGER_ALWAYS_NEW_COMMENT,
-    AI_REVIEW_ENABLED,
-    AI_REVIEW_INLINE,
-    AI_REVIEW_MAX_CHARS,
-    AI_REVIEW_MAX_FINDINGS,
-    AI_REVIEW_BLOCK_ON_FINDINGS,
-    changed,
-  });
-  await post(
-    [
-      '### Debug',
-      '',
-      `- \`MIN_FILE_COVERAGE\`: **${MIN_FILE_COVERAGE}%**`,
-      `- \`MAX_FILES_TO_ANALYZE\`: **${MAX_FILES_TO_ANALYZE}**`,
-      `- \`OPENAI_MODEL\`: \`${OPENAI_MODEL}\``,
-      `- \`LCOV_PATH\`: \`${LCOV_PATH}\``,
-      `- \`AI_REVIEW_ENABLED\`: \`${AI_REVIEW_ENABLED}\``,
-      `- \`AI_REVIEW_INLINE\`: \`${AI_REVIEW_INLINE}\``,
-      `- \`AI_REVIEW_BLOCK_ON_FINDINGS\`: \`${AI_REVIEW_BLOCK_ON_FINDINGS}\``,
-      `- Changed files considered: ${changed.length ? changed.map(f => `\`${f}\``).join(', ') : '_(none)_'}`,
-      '',
-    ].join('\n')
   );
 
   if (changed.length === 0) {
@@ -465,7 +463,7 @@ export default async function run(): Promise<void> {
     await post(`#### AI test ideas for \`${f}\`\n${ideas}`);
   }
 
-  // ---------- AI Code Review with correct inline mapping ----------
+  // ---------- AI Code Review: snippet-first (inline optional) ----------
   if (AI_REVIEW_ENABLED) {
     const diffsForReview: ReviewDiff[] = [];
     for (const f of changed) {
@@ -488,27 +486,41 @@ export default async function run(): Promise<void> {
       for (const finding of findings) {
         const rec = diffsForReview.find(d => d.file === finding.file);
         if (!rec) continue;
-        const chosen = rec.added.find(a => a.index === finding.index);
-        if (!chosen) continue; // model returned an index we didn't expose
 
-        const msg = `${finding.title} — ${finding.body}`;
-        if (AI_REVIEW_INLINE) {
-          if (finding.severity === 'fail') {
-            fail(msg, finding.file, chosen.line);
-            blocking++;
-          } else if (finding.severity === 'warn') {
-            warn(msg, finding.file, chosen.line);
-          } else {
-            message(msg, finding.file, chosen.line);
-          }
+        const snippet = diffSnippetAroundAddedIndex(rec.diff, finding.index, 3);
+
+        // File-scoped review comment (no line numbers, shows exact change)
+        await post(
+          [
+            `#### AI Code Review — \`${finding.file}\``,
+            `**${finding.severity.toUpperCase()}** ${finding.title}`,
+            '',
+            snippet,
+            '',
+            finding.body,
+          ].join('\n')
+        );
+
+        // Optional: also try inline when mapping is available
+        const chosen = rec.added.find(a => a.index === finding.index);
+        if (AI_REVIEW_INLINE && chosen) {
+          const short = `${finding.title} — ${finding.body}`;
+          if (finding.severity === 'fail')
+            fail(short, finding.file, chosen.line);
+          else if (finding.severity === 'warn')
+            warn(short, finding.file, chosen.line);
+          else message(short, finding.file, chosen.line);
         }
+
+        if (finding.severity === 'fail') blocking++;
         summary.push(
-          `- **${finding.severity.toUpperCase()}** \`${finding.file}:${chosen.line}\` — ${finding.title}\n  - ${finding.body}`
+          `- **${finding.severity.toUpperCase()}** \`${finding.file}\` — ${finding.title}`
         );
       }
 
       if (summary.length)
-        await post(`### AI Code Review\n${summary.join('\n')}`);
+        await post(`### AI Code Review (summary)\n${summary.join('\n')}`);
+
       if (AI_REVIEW_BLOCK_ON_FINDINGS && blocking > 0) {
         fail(
           `AI code review reported **${blocking}** blocking finding(s). Please address or justify.`
