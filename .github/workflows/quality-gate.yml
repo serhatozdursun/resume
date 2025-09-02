@@ -60,4 +60,6 @@ jobs:
           AI_REVIEW_ENABLED: ${{ secrets.AI_REVIEW_ENABLED }}
           AI_REVIEW_BLOCK_ON_FINDINGS: ${{ secrets.AI_REVIEW_BLOCK_ON_FINDINGS }}
           AI_REVIEW_MAX_CHARS: ${{ secrets.AI_REVIEW_MAX_CHARS }}
+          AI_REVIEW_MAX_FINDINGS: ${{ secrets.AI_REVIEW_MAX_FINDINGS }}
+          AI_REVIEW_INLINE: ${{ secrets.AI_REVIEW_INLINE }}
         run: npx danger ci --dangerfile dangerfile.ts
