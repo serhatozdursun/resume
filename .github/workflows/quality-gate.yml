@@ -56,4 +56,5 @@ jobs:
           MIN_FILE_COVERAGE: ${{ secrets.MIN_FILE_COVERAGE }}
           MAX_FILES_TO_ANALYZE: ${{ secrets.MAX_FILES_TO_ANALYZE }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          DANGER_ALWAYS_NEW_COMMENT: '1'
         run: npx danger ci --dangerfile dangerfile.ts
