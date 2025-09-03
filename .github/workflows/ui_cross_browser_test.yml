@@ -1,124 +1,102 @@
-name: UI Tests
+name: UI Automation Tests
 
 on:
   pull_request:
+    branches:
+      - main
 
 jobs:
-  ui-tests:
+  browser_e2e_tests:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         browser: [chrome, firefox]
 
     steps:
-      - name: Checkout
+      - name: Checkout resume repository
         uses: actions/checkout@v4
 
-      # --- Web app (Next.js) ---
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn'
 
-      - name: Install web dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build web
-        run: yarn build
-
-      - name: Start web (port 3000)
+      - name: Install dependencies and build
         run: |
-          PORT=3000 yarn start >/dev/null 2>&1 &
-          echo $! > web.pid
+          yarn install
+          yarn build
 
-      - name: Wait for app to be ready
+      - name: Start the application
         run: |
-          for i in {1..60}; do
-            if curl -fsS http://localhost:3000 >/dev/null; then
-              echo "App is up"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "App did not become ready in time"
-          exit 1
+          yarn start &
+        env:
+          PORT: 3000
 
-      # --- Python + Selenium tests ---
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install Python dependencies
-        working-directory: serhatozdursun-ui-tests
-        run: pip install -r requirements.txt
-
-      # Browsers
-      - name: Set up Chrome
+      - name: Install ${{ matrix.browser }} and driver
         if: matrix.browser == 'chrome'
         uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
-
-      - name: Set up Firefox
-        if: matrix.browser == 'firefox'
-        uses: browser-actions/setup-firefox@5914774dda97099441f02628f8d46411fcfbd208
-
-      - name: Install GeckoDriver
-        if: matrix.browser == 'firefox'
-        uses: browser-actions/setup-geckodriver@eb8b0670366f719ca31703766a8cb7e3ea2c56ed
-        with:
-          geckodriver-version: latest
-
-      # Cache webdriver_manager downloads (avoids repeated fetches)
-      - name: Cache WebDriver binaries
+      - name: Cache WebDriver binaries  
+        if: matrix.browser == 'chrome'
         uses: actions/cache@v4
         with:
           path: ~/.wdm
-          key: wdm-${{ runner.os }}-${{ matrix.browser }}
+          key: wdm-${{ runner.os }}-chrome
           restore-keys: |
             wdm-${{ runner.os }}-
 
-      - name: Run tests on ${{ matrix.browser }}
-        id: run_tests
-        working-directory: serhatozdursun-ui-tests
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # avoids GH API rate limits if wdm is used
-          WDM_LOCAL: '1' # prefer cache if present
-        run: |
-          mkdir -p reports/html
-          pytest \
-            --browser ${{ matrix.browser }} \
-            --base_url http://localhost:3000 \
-            --html=reports/html/report.html \
-            --junitxml=reports/report.xml
+      - name: Set up Firefox and GeckoDriver
+        if: matrix.browser == 'firefox'
+        uses: browser-actions/setup-firefox@5914774dda97099441f02628f8d46411fcfbd208 # v1.7.0
 
-      # Single, combined artifact upload (HTML + XML), with retention
-      - name: Upload reports (${{ matrix.browser }})
+      - name: Clone the test repository
+        run: |
+          git clone https://github.com/serhatozdursun/serhatozdursun-ui-tests.git
+        env:
+          GITHUB_TOKEN: ${{ secrets.UI_TEST_TOKEN }}
+
+      - name: Install Python dependencies
+        working-directory: serhatozdursun-ui-tests
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests on ${{ matrix.browser }}
+        working-directory: serhatozdursun-ui-tests
+        id: run_tests
+        run: |
+          pytest --browser ${{ matrix.browser }} --base_url http://localhost:3000 --html=reports/html/report.html --junitxml=reports/report.xml
+
+      - name: Upload HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ui-test-reports-${{ matrix.browser }}
-          path: |
-            serhatozdursun-ui-tests/reports/html/report.html
-            serhatozdursun-ui-tests/reports/report.xml
+          name: html-report-${{ matrix.browser }}
+          path: serhatozdursun-ui-tests/reports/html
           retention-days: 5
+        continue-on-error: true
 
-      - name: Stop web
+      - name: Upload XML report
         if: always()
-        run: |
-          if [ -f web.pid ]; then
-            kill "$(cat web.pid)" || true
-          fi
+        uses: actions/upload-artifact@v4
+        with:
+          name: xml-report-${{ matrix.browser }}
+          path: serhatozdursun-ui-tests/reports/report.xml
+          retention-days: 5
+        continue-on-error: true
 
       - name: Send Failure Email for ${{ matrix.browser }}
         if: failure()
         env:
           EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
-          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }} # or EMAILJS_PUBLIC_KEY with 'publicKey'
+          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
           ARTIFACTS_LINK="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
           cat <<EOF > email-payload-failure.json
           {
             "service_id": "${EMAILJS_SERVICE_ID}",
@@ -131,7 +109,7 @@ jobs:
               "commit": "${{ github.sha }}",
               "artifacts_link": "${ARTIFACTS_LINK}"
             }
-          }
+            }
           EOF
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
             -H 'origin: http://localhost' \
@@ -143,9 +121,10 @@ jobs:
         env:
           EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
           EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
-          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }} # or EMAILJS_PUBLIC_KEY with 'publicKey'
+          EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
         run: |
           ARTIFACTS_LINK="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
           cat <<EOF > email-payload-success.json
           {
             "service_id": "${EMAILJS_SERVICE_ID}",
@@ -161,4 +140,6 @@ jobs:
           }
           EOF
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-            -H 'origin: http://localhos
+            -H 'origin: http://localhost' \
+            -H 'Content-Type: application/json' \
+            -d @email-payload-success.json
