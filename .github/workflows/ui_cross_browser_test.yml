@@ -58,19 +58,19 @@ jobs:
       # Browsers
       - name: Set up Chrome
         if: matrix.browser == 'chrome'
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
 
       - name: Set up Firefox
         if: matrix.browser == 'firefox'
-        uses: browser-actions/setup-firefox@v1
+        uses: browser-actions/setup-firefox@5914774dda97099441f02628f8d46411fcfbd208
 
       - name: Install GeckoDriver
         if: matrix.browser == 'firefox'
-        uses: browser-actions/setup-geckodriver@v1
+        uses: browser-actions/setup-geckodriver@eb8b0670366f719ca31703766a8cb7e3ea2c56ed
         with:
           geckodriver-version: latest
 
-      # Cache webdriver_manager downloads (avoids re-hitting GitHub API)
+      # Cache webdriver_manager downloads (avoids repeated fetches)
       - name: Cache WebDriver binaries
         uses: actions/cache@v4
         with:
@@ -83,8 +83,8 @@ jobs:
         id: run_tests
         working-directory: serhatozdursun-ui-tests
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # avoid GitHub API rate limit
-          WDM_LOCAL: '1' # prefer cache if available
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # avoids GH API rate limits if wdm is used
+          WDM_LOCAL: '1' # prefer cache if present
         run: |
           mkdir -p reports/html
           pytest \
@@ -161,6 +161,4 @@ jobs:
           }
           EOF
           curl -X POST https://api.emailjs.com/api/v1.0/email/send \
-            -H 'origin: http://localhost' \
-            -H 'Content-Type: application/json' \
-            -d @email-payload-success.json
+            -H 'origin: http://localhos
