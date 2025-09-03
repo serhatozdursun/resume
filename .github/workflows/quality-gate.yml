@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  statuses: write
+
+concurrency:
+  group: qg-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test-and-analyze:
@@ -56,7 +61,7 @@ jobs:
           MIN_FILE_COVERAGE: ${{ secrets.MIN_FILE_COVERAGE }}
           MAX_FILES_TO_ANALYZE: ${{ secrets.MAX_FILES_TO_ANALYZE }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          DANGER_ALWAYS_NEW_COMMENT: ${{ secrets.OPENAI_MODEL }}
+          DANGER_ALWAYS_NEW_COMMENT: ${{ secrets.DANGER_ALWAYS_NEW_COMMENT }}
           AI_REVIEW_ENABLED: ${{ secrets.AI_REVIEW_ENABLED }}
           AI_REVIEW_BLOCK_ON_FINDINGS: ${{ secrets.AI_REVIEW_BLOCK_ON_FINDINGS }}
           AI_REVIEW_MAX_CHARS: ${{ secrets.AI_REVIEW_MAX_CHARS }}
