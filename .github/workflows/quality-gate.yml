@@ -56,5 +56,10 @@ jobs:
           MIN_FILE_COVERAGE: ${{ secrets.MIN_FILE_COVERAGE }}
           MAX_FILES_TO_ANALYZE: ${{ secrets.MAX_FILES_TO_ANALYZE }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          DANGER_ALWAYS_NEW_COMMENT: '1'
+          DANGER_ALWAYS_NEW_COMMENT: ${{ secrets.OPENAI_MODEL }}
+          AI_REVIEW_ENABLED: ${{ secrets.AI_REVIEW_ENABLED }}
+          AI_REVIEW_BLOCK_ON_FINDINGS: ${{ secrets.AI_REVIEW_BLOCK_ON_FINDINGS }}
+          AI_REVIEW_MAX_CHARS: ${{ secrets.AI_REVIEW_MAX_CHARS }}
+          AI_REVIEW_MAX_FINDINGS: ${{ secrets.AI_REVIEW_MAX_FINDINGS }}
+          AI_REVIEW_INLINE: ${{ secrets.AI_REVIEW_INLINE }}
         run: npx danger ci --dangerfile dangerfile.ts

@@ -1,5 +1,5 @@
 // dangerfile.ts
-import { message, fail, markdown, danger } from 'danger';
+import { message, warn, fail, markdown, danger } from 'danger';
 import lcovParse, { LcovFile } from 'lcov-parse';
 import fs from 'fs';
 import OpenAI from 'openai';
@@ -18,6 +18,22 @@ const MAX_FILES_TO_ANALYZE: number = parseInt(
 const OPENAI_MODEL: string = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 const DANGER_ALWAYS_NEW_COMMENT: boolean =
   process.env.DANGER_ALWAYS_NEW_COMMENT === '1';
+
+const AI_REVIEW_ENABLED: boolean =
+  (process.env.AI_REVIEW_ENABLED ?? '1') === '1';
+const AI_REVIEW_INLINE: boolean = (process.env.AI_REVIEW_INLINE ?? '1') === '1';
+const AI_REVIEW_MAX_CHARS: number = parseInt(
+  process.env.AI_REVIEW_MAX_CHARS || '100000',
+  10
+);
+const AI_REVIEW_MAX_FINDINGS: number = parseInt(
+  process.env.AI_REVIEW_MAX_FINDINGS || '8',
+  10
+);
+const AI_REVIEW_BLOCK_ON_FINDINGS: boolean =
+  process.env.AI_REVIEW_BLOCK_ON_FINDINGS === '1';
+
+const HUNK_RE = /@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/;
 
 /* =======================
    Constants
@@ -50,35 +66,54 @@ interface FileCoverage {
   linesFound: number;
   linesHit: number;
   filePct: number;
-  newExecLines: number; // instrumentable changed lines
-  newCoveredLines: number; // covered among instrumentable changed lines
-  newPct: number | null; // % on changed lines (null when none instrumentable)
+  newExecLines: number;
+  newCoveredLines: number;
+  newPct: number | null;
+}
+
+type AISeverity = 'info' | 'warn' | 'fail';
+
+interface AddedLine {
+  index: number; // 0..N-1 across *added* lines only
+  line: number; // absolute new-file line number
+  text: string; // code on that added line (without '+')
+}
+
+interface ReviewDiff {
+  file: string;
+  diff: string;
+  added: AddedLine[];
+}
+
+interface AIReviewFindingIdx {
+  file: string;
+  index: number; // index into ADDED lines
+  severity: AISeverity; // "info" | "warn" | "fail"
+  title: string;
+  body: string;
 }
 
 /* =======================
    Helpers
    ======================= */
 
-// Normalize LCOV to a strict shape with details array present
 function normalizeLCOV(data: LcovFile[]): LcovFileNorm[] {
   return data.map(rec => {
-    const linesFound =
-      (rec as unknown as { lines?: { found?: number } }).lines?.found ?? 0;
-    const linesHit =
-      (rec as unknown as { lines?: { hit?: number } }).lines?.hit ?? 0;
-    const detailsRaw =
-      (
-        rec as unknown as {
-          lines?: { details?: Array<{ line: number; hit: number }> };
-        }
-      ).lines?.details ?? [];
-    const details: LcovLineDetail[] = detailsRaw.map(d => ({
+    const r = rec as unknown as {
+      file?: string;
+      lines?: {
+        found?: number;
+        hit?: number;
+        details?: Array<{ line: number; hit: number }>;
+      };
+    };
+    const details = (r.lines?.details ?? []).map(d => ({
       line: typeof d.line === 'number' ? d.line : 0,
       hit: typeof d.hit === 'number' ? d.hit : 0,
     }));
     return {
-      file: (rec as unknown as { file?: string }).file ?? '',
-      lines: { found: linesFound, hit: linesHit, details },
+      file: r.file ?? '',
+      lines: { found: r.lines?.found ?? 0, hit: r.lines?.hit ?? 0, details },
     };
   });
 }
@@ -86,37 +121,103 @@ function normalizeLCOV(data: LcovFile[]): LcovFileNorm[] {
 function parseLCOV(path: string): Promise<LcovFileNorm[]> {
   return new Promise<LcovFileNorm[]>((resolve, reject) => {
     if (!fs.existsSync(path)) return resolve([]);
-    lcovParse(path, (err: Error | null, data: LcovFile[]) => {
-      if (err) return reject(err);
-      resolve(normalizeLCOV(data || []));
-    });
+    lcovParse(path, (err: Error | null, data: LcovFile[]) =>
+      err ? reject(err) : resolve(normalizeLCOV(data || []))
+    );
   });
 }
 
-// Parse unified diff -> set of line numbers (in NEW file) that are added/modified
+// unified-diff -> set of line numbers (in NEW file) that were added/modified
 function extractChangedLineNumbers(diffText: string): Set<number> {
   const out = new Set<number>();
   let newLine = 0;
-  const lines = diffText.split('\n');
-  for (const l of lines) {
-    const hunk = /^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/.exec(l);
-    if (hunk) {
-      newLine = parseInt(hunk[1], 10);
+  for (const raw of diffText.split('\n')) {
+    const line = raw.replace(/\r$/, '');
+    const h = HUNK_RE.exec(line);
+    if (h) {
+      newLine = parseInt(h[1], 10);
       continue;
     }
-    if (l.startsWith('+++') || l.startsWith('---')) continue; // headers
-    if (l.startsWith('+')) {
+    if (line.startsWith('+++') || line.startsWith('---')) continue;
+
+    const first = line[0];
+    if (first === '+') {
+      if (line.startsWith('+++')) continue;
       out.add(newLine);
       newLine++;
       continue;
     }
-    if (l.startsWith('-')) {
-      /* deletion in old file */ continue;
+    if (first === '-') continue; // deletion in old file
+    newLine++; // context/blank
+  }
+  return out;
+}
+
+// Enumerate only ADDED lines with their new-file numbers & text
+function enumerateAddedLines(diffText: string): AddedLine[] {
+  const out: AddedLine[] = [];
+  let newLine = 0;
+  let idx = 0;
+  for (const raw of diffText.split('\n')) {
+    const line = raw.replace(/\r$/, '');
+    const h = HUNK_RE.exec(line);
+    if (h) {
+      newLine = parseInt(h[1], 10);
+      continue;
     }
-    // context
+    if (line.startsWith('+++') || line.startsWith('---')) continue;
+
+    const first = line[0];
+    if (first === '+') {
+      if (line.startsWith('+++')) continue;
+      out.push({ index: idx++, line: newLine, text: line.slice(1) });
+      newLine++;
+      continue;
+    }
+    if (first === '-') continue;
     newLine++;
   }
   return out;
+}
+
+// Build a compact diff snippet centered around the Nth added line (index-based)
+function diffSnippetAroundAddedIndex(
+  diffText: string,
+  targetIndex: number,
+  context = 3
+): string {
+  const lines = diffText.split('\n');
+  let lastHeader = '';
+  let addedSeen = -1;
+  let hitAt = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].replace(/\r$/, '');
+    const h = HUNK_RE.exec(raw);
+    if (h) lastHeader = raw;
+    if (raw.startsWith('+++') || raw.startsWith('---')) continue;
+
+    const first = raw[0];
+    if (first === '+') {
+      if (raw.startsWith('+++')) continue;
+      addedSeen++;
+      if (addedSeen === targetIndex) {
+        hitAt = i;
+        break;
+      }
+    }
+  }
+
+  if (hitAt === -1) {
+    const fallback = lines.slice(0, Math.min(20, lines.length)).join('\n');
+    return '```diff\n' + fallback + '\n```';
+  }
+
+  const start = Math.max(0, hitAt - context);
+  const end = Math.min(lines.length, hitAt + context + 1);
+  const body = lines.slice(start, end).join('\n');
+  const snippet = (lastHeader ? lastHeader + '\n' : '') + body;
+  return '```diff\n' + snippet + '\n```';
 }
 
 // Fresh comment per push (if enabled) or sticky comment update by default
@@ -136,11 +237,11 @@ async function post(md: string): Promise<void> {
   }
 }
 
-// Call OpenAI to propose a copy-paste-ready Jest test file (with your prompt style)
+/* ---------- AI: Test ideas ---------- */
+
 async function aiTestIdeas(file: string, diffText: string): Promise<string> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return '_AI suggestions skipped: missing OPENAI_API_KEY._';
-
   const client = new OpenAI({ apiKey: key });
   const trimmed = diffText.slice(0, MAX_DIFF_CHARS);
 
@@ -148,8 +249,7 @@ async function aiTestIdeas(file: string, diffText: string): Promise<string> {
     {
       role: 'system',
       content:
-        'You are a senior Software Developer engineer and expert on React and Typescript. ' +
-        'Output only one Markdown code block with a runnable Jest test file in TypeScript.',
+        'You are a senior Software Developer engineer and expert on React and Typescript. Output only one Markdown code block with a runnable Jest test file in TypeScript.',
     },
     {
       role: 'user',
@@ -173,10 +273,79 @@ ${trimmed || 'N/A'}`,
       temperature: 0.2,
       messages,
     });
-    const content = res.choices[0]?.message?.content;
-    return content ?? '_No AI output._';
+    return res.choices[0]?.message?.content ?? '_No AI output._';
   } catch {
     return '_AI suggestions skipped due to API error._';
+  }
+}
+
+/* ---------- AI: Structured code review (index → snippet; inline optional) ---------- */
+
+async function aiCodeReview(
+  diffs: ReviewDiff[]
+): Promise<AIReviewFindingIdx[]> {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return [];
+  const client = new OpenAI({ apiKey: key });
+
+  const joined = diffs
+    .map(d => {
+      const listing = d.added
+        .map(a => `${a.index}:${a.line}:${a.text.slice(0, 140)}`)
+        .join('\n');
+      return `# FILE: ${d.file}\nADDED_LINES (index:newLine:code):\n${listing || '(none)'}`;
+    })
+    .join('\n\n');
+  const trimmed = joined.slice(0, AI_REVIEW_MAX_CHARS);
+
+  const messages: Array<{ role: 'system' | 'user'; content: string }> = [
+    {
+      role: 'system',
+      content:
+        'You are a senior Software Developer engineer (React + TypeScript expert). ' +
+        'Return ONLY a single JSON array. No prose, no backticks. ' +
+        'Each element MUST be: { "file": string, "index": number, "severity": "info"|"warn"|"fail", "title": string, "body": string }. ' +
+        'The "index" MUST be one of the integers shown for that file in ADDED_LINES. ' +
+        `Pick at most ${AI_REVIEW_MAX_FINDINGS} high-signal findings.`,
+    },
+    { role: 'user', content: trimmed || 'N/A' },
+  ];
+
+  try {
+    const res = await client.chat.completions.create({
+      model: OPENAI_MODEL,
+      temperature: 0.1,
+      messages,
+    });
+    const raw = res.choices[0]?.message?.content ?? '[]';
+    const jsonText = (() => {
+      const m = /```(?:json)?\s*([\s\S]*?)```/m.exec(raw);
+      return m && m[1] ? m[1] : raw;
+    })();
+    const parsed: unknown = JSON.parse(jsonText);
+    if (!Array.isArray(parsed)) return [];
+    const findings: AIReviewFindingIdx[] = parsed
+      .filter((x: unknown): x is AIReviewFindingIdx => {
+        if (typeof x !== 'object' || x === null) return false;
+        const o = x as Record<string, unknown>;
+        const fileOk =
+          typeof o.file === 'string' && (o.file as string).length > 0;
+        const idxOk =
+          typeof o.index === 'number' &&
+          Number.isInteger(o.index) &&
+          (o.index as number) >= 0;
+        const sev = o.severity;
+        const sevOk = sev === 'info' || sev === 'warn' || sev === 'fail';
+        const titleOk =
+          typeof o.title === 'string' && (o.title as string).length > 0;
+        const bodyOk =
+          typeof o.body === 'string' && (o.body as string).length > 0;
+        return fileOk && idxOk && sevOk && titleOk && bodyOk;
+      })
+      .slice(0, AI_REVIEW_MAX_FINDINGS);
+    return findings;
+  } catch {
+    return [];
   }
 }
 
@@ -194,27 +363,6 @@ export default async function run(): Promise<void> {
       !/\.d\.ts$/.test(f)
   );
 
-  // Debug section in PR + build log
-  console.log('DEBUG', {
-    MIN_FILE_COVERAGE,
-    MAX_FILES_TO_ANALYZE,
-    OPENAI_MODEL,
-    LCOV_PATH,
-    changed,
-  });
-  await post(
-    [
-      '### Debug',
-      '',
-      `- \`MIN_FILE_COVERAGE\`: **${MIN_FILE_COVERAGE}%**`,
-      `- \`MAX_FILES_TO_ANALYZE\`: **${MAX_FILES_TO_ANALYZE}**`,
-      `- \`OPENAI_MODEL\`: \`${OPENAI_MODEL}\``,
-      `- \`LCOV_PATH\`: \`${LCOV_PATH}\``,
-      `- Changed files considered: ${changed.length ? changed.map(f => `\`${f}\``).join(', ') : '_(none)_'}`,
-      '',
-    ].join('\n')
-  );
-
   if (changed.length === 0) {
     message('No source files changed under `src/`.');
     return;
@@ -224,9 +372,10 @@ export default async function run(): Promise<void> {
   const lcov = await parseLCOV(LCOV_PATH);
   const lcovIndex = new Map<string, LcovFileNorm>(lcov.map(r => [r.file, r]));
 
+  // Coverage stats + offenders
   const stats: FileCoverage[] = [];
   const offenders: string[] = [];
-  const suggested = new Set<string>(); // to avoid duplicate AI sections
+  const suggested = new Set<string>();
 
   for (const file of changed) {
     const diff = await danger.git.diffForFile(file);
@@ -235,7 +384,6 @@ export default async function run(): Promise<void> {
 
     const entry = lcovIndex.get(file);
     if (!entry) {
-      // Treat as offender for "new code" gate (no LCOV → effectively unknown coverage)
       stats.push({
         file,
         linesFound: 0,
@@ -254,7 +402,6 @@ export default async function run(): Promise<void> {
     const linesHit = entry.lines.hit || 0;
     const filePct = linesFound ? Math.round((linesHit / linesFound) * 100) : 0;
 
-    // new-lines coverage = intersection of changed lines with instrumented lines
     const instrumentable = new Set<number>(details.map(d => d.line));
     const newLinesInstr = [...touched].filter(n => instrumentable.has(n));
     const newCovered = details.filter(
@@ -274,11 +421,11 @@ export default async function run(): Promise<void> {
       newPct,
     });
 
-    const effective = newPct ?? filePct; // prefer new-lines %, fallback to file %
+    const effective = newPct ?? filePct;
     if (effective < MIN_FILE_COVERAGE) offenders.push(file);
   }
 
-  // Coverage table (new-lines first, then whole-file)
+  // Coverage table
   const table = [
     '### Coverage on changed files',
     '',
@@ -293,7 +440,7 @@ export default async function run(): Promise<void> {
   ].join('\n');
   await post(table);
 
-  // Gate: fail PR if any offender (blocks merge when Danger check is required)
+  // Gate: fail PR if any offender
   if (offenders.length > 0) {
     fail(
       `Coverage below **${MIN_FILE_COVERAGE}%** on new/changed code for ${offenders.length} file(s). Suggestions below.`
@@ -308,12 +455,78 @@ export default async function run(): Promise<void> {
     message(`All changed code meets the ${MIN_FILE_COVERAGE}% gate ✅`);
   }
 
-  // Always add suggestions for top N changed files (even when passing)
+  // Always add test suggestions (top N) even when passing
   for (const f of changed.slice(0, MAX_FILES_TO_ANALYZE)) {
     if (suggested.has(f)) continue;
     const diff = await danger.git.diffForFile(f);
     const ideas = await aiTestIdeas(f, diff?.diff ?? '');
     await post(`#### AI test ideas for \`${f}\`\n${ideas}`);
+  }
+
+  // ---------- AI Code Review: snippet-first (inline optional) ----------
+  if (AI_REVIEW_ENABLED) {
+    const diffsForReview: ReviewDiff[] = [];
+    for (const f of changed) {
+      const d = await danger.git.diffForFile(f);
+      if (d?.diff && d.diff.length > 0) {
+        diffsForReview.push({
+          file: f,
+          diff: d.diff,
+          added: enumerateAddedLines(d.diff),
+        });
+      }
+    }
+
+    if (diffsForReview.length) {
+      const findings = await aiCodeReview(diffsForReview);
+
+      const summary: string[] = [];
+      let blocking = 0;
+
+      for (const finding of findings) {
+        const rec = diffsForReview.find(d => d.file === finding.file);
+        if (!rec) continue;
+
+        const snippet = diffSnippetAroundAddedIndex(rec.diff, finding.index, 3);
+
+        // File-scoped review comment (no line numbers, shows exact change)
+        await post(
+          [
+            `#### AI Code Review — \`${finding.file}\``,
+            `**${finding.severity.toUpperCase()}** ${finding.title}`,
+            '',
+            snippet,
+            '',
+            finding.body,
+          ].join('\n')
+        );
+
+        // Optional: also try inline when mapping is available
+        const chosen = rec.added.find(a => a.index === finding.index);
+        if (AI_REVIEW_INLINE && chosen) {
+          const short = `${finding.title} — ${finding.body}`;
+          if (finding.severity === 'fail')
+            fail(short, finding.file, chosen.line);
+          else if (finding.severity === 'warn')
+            warn(short, finding.file, chosen.line);
+          else message(short, finding.file, chosen.line);
+        }
+
+        if (finding.severity === 'fail') blocking++;
+        summary.push(
+          `- **${finding.severity.toUpperCase()}** \`${finding.file}\` — ${finding.title}`
+        );
+      }
+
+      if (summary.length)
+        await post(`### AI Code Review (summary)\n${summary.join('\n')}`);
+
+      if (AI_REVIEW_BLOCK_ON_FINDINGS && blocking > 0) {
+        fail(
+          `AI code review reported **${blocking}** blocking finding(s). Please address or justify.`
+        );
+      }
+    }
   }
 }
 
