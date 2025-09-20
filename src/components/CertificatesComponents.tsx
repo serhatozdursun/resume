@@ -24,14 +24,19 @@ const CertificatesComponents = () => {
 
   const certificates = [
     {
-      name: 'PSD I',
-      badge: '/psd1.png',
-      link: 'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url',
+      name: 'ISTQB® CTAL-TAE',
+      badge: '/CTAL-TAE-badge.png',
+      link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
     },
     {
       name: 'ISTQB® CTFL',
       badge: '/Brightest_CTFL.png',
       link: 'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
+    },
+    {
+      name: 'PSD I',
+      badge: '/psd1.png',
+      link: 'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url',
     },
     {
       name: 'Problem Solving (Int.)',
