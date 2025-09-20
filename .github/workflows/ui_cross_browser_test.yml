@@ -39,16 +39,15 @@ jobs:
 
       - name: Install ${{ matrix.browser }} and driver
         if: matrix.browser == 'chrome'
-        run: |
-          sudo apt update
-          sudo apt install -y wget gnupg
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+        uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
+      - name: Cache WebDriver binaries  
+        if: matrix.browser == 'chrome'
+        uses: actions/cache@v4
+        with:
+          path: ~/.wdm
+          key: wdm-${{ runner.os }}-chrome
+          restore-keys: |
+            wdm-${{ runner.os }}-
 
       - name: Set up Firefox and GeckoDriver
         if: matrix.browser == 'firefox'

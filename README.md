@@ -1,4 +1,4 @@
-[![Unit Tests](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ci.yml)
+[![Code Quality (Tests + SonarCloud + AI Review)](https://github.com/serhatozdursun/resume/actions/workflows/quality-gate.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/quality-gate.yml)
 [![CodeQL Static Code Analysis](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/codeql.yml)
 
 [![UI Automation Tests (Chrome|Firefox)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml/badge.svg)](https://github.com/serhatozdursun/resume/actions/workflows/ui_cross_browser_test.yml)

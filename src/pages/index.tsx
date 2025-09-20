@@ -366,7 +366,6 @@ const IndexPage: React.FC = () => {
                   </IconImageWrapper>
                 </IconLink>
               </IconWrapper>
-
               <div>
                 <Info>
                   <BoldText id='emailLabel'>Email</BoldText>:{' '}
