@@ -273,12 +273,19 @@ const CTALExam: React.FC = () => {
     loadExamData();
   }, []);
 
-  // Function to get random questions
+  // Function to get random questions using Fisher-Yates shuffle
   const getRandomQuestions = (
     questions: Question[],
     count: number
   ): Question[] => {
-    const shuffled = [...questions].sort(() => 0.5 - Math.random());
+    const shuffled = [...questions];
+
+    // Fisher-Yates shuffle algorithm
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
     return shuffled.slice(0, count);
   };
 
