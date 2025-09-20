@@ -337,4 +337,157 @@ describe('ContactForm', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
+
+  it('handles input change with character limit validation', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    const nameInput = screen.getByPlaceholderText('Your Name');
+    const emailInput = screen.getByPlaceholderText('Your Email');
+    const messageInput = screen.getByPlaceholderText('Your Message');
+
+    // Test normal input
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    expect(nameInput).toHaveValue('John Doe');
+
+    // Test input with maxLength constraint
+    fireEvent.change(nameInput, {
+      target: { value: 'A'.repeat(100), maxLength: 50 },
+    });
+    expect(nameInput).toHaveValue('A'.repeat(50));
+
+    // Test email input
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    expect(emailInput).toHaveValue('john@example.com');
+
+    // Test message input
+    fireEvent.change(messageInput, {
+      target: { value: 'Test message content' },
+    });
+    expect(messageInput).toHaveValue('Test message content');
+  });
+
+  it('handles snackbar close functionality', async () => {
+    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
+    mockSend.mockResolvedValue({
+      status: 200,
+      text: 'OK',
+    } as EmailJSResponseStatus);
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    fillContactForm({
+      name: 'John Doe',
+      email: 'john@example.com',
+      message: 'Test message',
+    });
+
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Message sent successfully!')
+      ).toBeInTheDocument();
+    });
+
+    // Close snackbar
+    const closeButton = screen.getByRole('button', { name: /close/i });
+    fireEvent.click(closeButton);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Message sent successfully!')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('handles form close functionality', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
+
+    const closeButton = screen.getByText('Close Contact Form');
+    fireEvent.click(closeButton);
+
+    expect(screen.queryByText('Close Contact Form')).not.toBeInTheDocument();
+    expect(screen.getByText('Send a message')).toBeInTheDocument();
+  });
+
+  it('handles input errors correctly', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    const nameInput = screen.getByPlaceholderText('Your Name');
+
+    // Test input that exceeds maxLength
+    fireEvent.change(nameInput, {
+      target: {
+        value: 'A'.repeat(100),
+        maxLength: 50,
+        name: 'name',
+      },
+    });
+
+    // The input should be truncated to maxLength
+    expect(nameInput).toHaveValue('A'.repeat(50));
+  });
+
+  it('handles multiple form submissions', async () => {
+    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
+    mockSend.mockResolvedValue({
+      status: 200,
+      text: 'OK',
+    } as EmailJSResponseStatus);
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    // First submission
+    fillContactForm({
+      name: 'John Doe',
+      email: 'john@example.com',
+      message: 'First message',
+    });
+
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Message sent successfully!')
+      ).toBeInTheDocument();
+    });
+
+    // Close snackbar
+    const closeButton = screen.getByRole('button', { name: /close/i });
+    fireEvent.click(closeButton);
+
+    // Wait for snackbar to close and form to reset
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Message sent successfully!')
+      ).not.toBeInTheDocument();
+    });
+
+    // Open form again for second submission
+    openContactForm();
+
+    // Second submission
+    fillContactForm({
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+      message: 'Second message',
+    });
+
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Message sent successfully!')
+      ).toBeInTheDocument();
+    });
+
+    expect(mockSend).toHaveBeenCalledTimes(2);
+  });
 });

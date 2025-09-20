@@ -1,0 +1,620 @@
+{
+  "metadata": {
+    "title": "CTAL-TAE 200 Q Bank",
+    "counts": {
+      "v20": 0,
+      "astqb": 0,
+      "v22": 39,
+      "custom": 80,
+      "total": 119
+    }
+  },
+  "questions": [
+    {
+      "id": "v2.2-Q1",
+      "question": "Which of the following is a limitation of test automation?",
+      "answers": {
+        "a": "Only usability tests can be automated effectively",
+        "b": "Test automation can be executed only after system testing is done",
+        "c": "Test automation can only check results that can be verified visually",
+        "d": "Test automation can only check results that can be verified by code"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-1.1.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "In a payments project, automation could not verify subjective UI issues, only code-verifiable results."
+    },
+    {
+      "id": "v2.2-Q2",
+      "question": "Which of the following is true about test automation and the SDLC?",
+      "answers": {
+        "a": "In Agile software development automated tests focus more on acceptance tests than on",
+        "b": "In Agile software development automated tests focus more on component tests than on",
+        "c": "In the V-model automated test execution must be performed after manual test execution",
+        "d": "In the V-model implementation of test automation is performed throughout the whole"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TAE-1.2.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q3",
+      "question": "Which one of the following factors is NOT necessary to consider when selecting suitable test tools?",
+      "answers": {
+        "a": "SUT architecture",
+        "b": "Actual composition and experience of the test team",
+        "c": "Licensing and support of the test tool",
+        "d": "Quality of the SUT requirements"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-1.2.2",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q4",
+      "question": "When a system is designed for testability, one of the characteristics is that the test automation framework (TAF) can access interfaces to perform actions on the system. What is this characteristic called?",
+      "answers": {
+        "a": "Observability",
+        "b": "Controllability",
+        "c": "Maintainability",
+        "d": "Interoperability"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TAE-2.1.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "In a hospital system, observability logs made it easy to trace failed patient updates across services."
+    },
+    {
+      "id": "v2.2-Q5",
+      "question": "What type of test automation is mainly performed in the Preproduction environment?",
+      "answers": {
+        "a": "Component testing",
+        "b": "Performance efficiency testing and user acceptance testing",
+        "c": "Static analysis",
+        "d": "Component Integration testing"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TAE-2.1.2",
+      "tip": "Anchor your reasoning to TAE-2.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "In a hospital system, observability logs made it easy to trace failed patient updates across services."
+    },
+    {
+      "id": "v2.2-Q6",
+      "question": "In which environment is a fully automated test suite typically executed against a release candidate for the first time?",
+      "answers": {
+        "a": "Preproduction/staging environment",
+        "b": "Build environment",
+        "c": "Production/operational environment",
+        "d": "Integration/test environment"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-2.1.2",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "In a hospital system, observability logs made it easy to trace failed patient updates across services."
+    },
+    {
+      "id": "v2.2-Q7",
+      "question": "You are working for an IT company which is developing a built-in Android-based car multimedia system. The software contains several components working together. Developers are following the test-driven development approach. After the development of the software, it is delivered to another IT company which integrates the software with the hardware elements and sells them together to car manufacturers. Which of the following should be considered during capturing the test automation requirements by the IT company you are working for?",
+      "answers": {
+        "a": "Is it important for the test automation approach to support component testing?",
+        "b": "Should the test automation approach support beta testing?",
+        "c": "Is it important for the test automation approach to support the testing of the software in as",
+        "d": "Which tester roles should be supported by the test automation approach?",
+        "e": "Is it important for the test automation approach to support the mobile application store"
+      },
+      "correct_answer": ["a", "d"],
+      "points": 3,
+      "syllabus_reference": "TAE-2.2.1",
+      "tip": "Anchor your reasoning to TAE-2.2.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q8",
+      "question": "You are evaluating test automation tools. The following is a list of findings for one of the tools that were evaluated against the selection requirements: \u2022 The tool has a very informative dashboard which shows all the relevant test information about the SUT. \u2022 The tool includes a test logging component which logs all the necessary information that follows test execution and to troubleshoot problems found during the tests. \u2022 The tool includes a customizable test reporting component. \u2022 During the proof of concept, the tool performed very slowly against the SUT, compared to the other tools that were evaluated. \u2022 The current test environment is valid according to the release notes of the tool which means it fulfills the hardware and software requirements. What should be your next step regarding the selection of this tool?",
+      "answers": {
+        "a": "Acquire more hardware resources for the SUT to decrease the performance degradation",
+        "b": "Turn off test logging to improve performance of the tool",
+        "c": "Recommend not selecting this tool",
+        "d": "Plan to migrate the SUT to another hardware/software environment where there is a"
+      },
+      "correct_answer": "c",
+      "points": 3,
+      "syllabus_reference": "TAE-2.2.2",
+      "tip": "Anchor your reasoning to TAE-2.2.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q9",
+      "question": "Match the list of tasks in the Test Automation Architecture Capabilities below with its correct role name below. 1. Mapping the abstract test cases to concrete test cases suitable for execution. 2. Implementation of test cases and/or test suites. 3. Test logging with detailed information about the test steps and actions. 4. Mechanism for connecting to the SUT via protocols, and services. A. Test Definition B. Test Adaptation C. Test Generation D. Test Execution",
+      "answers": {
+        "a": "1D, 2A, 3C, 4B",
+        "b": "1C, 2A, 3B, 4D",
+        "c": "1A, 2B, 3D, 4C",
+        "d": "1C, 2A, 3D, 4B"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-3.1.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    },
+    {
+      "id": "v2.2-Q10",
+      "question": "As a Test Automation engineer You have encountered a problem during initial implementation of the test automation solution (TAS). The output from the system tests could not be translated back to the automated test cases to determine the test results. Which option may have MOST LIKELY been a cause of the problem?",
+      "answers": {
+        "a": "Core libraries layer",
+        "b": "Test scripts layer",
+        "c": "Feature files layer",
+        "d": "Business logic layer"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TAE-3.1.2",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    },
+    {
+      "id": "v2.2-Q12",
+      "question": "You are working on a test automation project that is used to automate GUI testing of a web-based public transport service. The project has a limited timescale. There are manual test cases which can be automated first. One of the goals is to implement test cases directly into the automated test scripts. Which technique or approach should be used for automating test cases to meet the goals?",
+      "answers": {
+        "a": "Using the keyword-driven test technique",
+        "b": "Using the behavior-driven development approach",
+        "c": "Using the capture/playback test automation approach",
+        "d": "Using the data-driven test automation technique"
+      },
+      "correct_answer": "c",
+      "points": 2,
+      "syllabus_reference": "TAE-3.1.4",
+      "tip": "Anchor your reasoning to TAE-3.1.4 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    },
+    {
+      "id": "v2.2-Q13",
+      "question": "You join a company where manual testing is mature, but test automation has been abandoned for a while now. The testers have generated a massive amount of test data and are typically using 10 to 20 variations per scenario. After your initial review, you see that the TAF (Test Automation Framework) can easily be fixed, but the test cases need to be completely revamped. Which of the following test automation approaches should you choose to achieve great results quickly?",
+      "answers": {
+        "a": "Data-driven testing",
+        "b": "Behavior-driven development",
+        "c": "Capture/playback",
+        "d": "Acceptance test-driven development"
+      },
+      "correct_answer": "a",
+      "points": 2,
+      "syllabus_reference": "TAE-3.1.4",
+      "tip": "Anchor your reasoning to TAE-3.1.4 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    },
+    {
+      "id": "v2.2-Q14",
+      "question": "You are working on a test automation project that is used to automate GUI testing of an e-commerce site. The site contains a digital assistant which helps users to set up their accounts, their name, billing address, shipping address, and security credentials. Currently, the development of the software is in a phase where usability testers check the digital assistant and give recommendations on necessary changes. This is done iteratively; the developers modify the graphical user interface (GUI), and the usability testers check the modifications, and do usability testing again. Which design pattern is the best implemented in this case?",
+      "answers": {
+        "a": "Implement the page object pattern and store all the user actions associated with the GUI",
+        "b": "Implement the flow model pattern, store all the web elements in the relevant page models,",
+        "c": "Implement the facade design pattern and provide interfaces for the GUI elements to hide",
+        "d": "Implement the singleton design pattern and create a single piece of code to handle the"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TAE-3.1.5",
+      "tip": "Anchor your reasoning to TAE-3.1.5 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    },
+    {
+      "id": "v2.2-Q15",
+      "question": "The senior management wants to implement a TAS in your organization and asks you to lead this initiative. You have been given directions to start a pilot project. Which of the following statements best describes the objective of this pilot project? i. Document the SUT parts which have not been documented during the development ii. Identify the metrics and the measurement methods to monitor the SUT in the production environment iii. Analyze defects found during the testing of the TAS iv. Evaluate licensing options and corporation rules v. Select the most suitable commercial off-the-shelf or open-source tool",
+      "answers": {
+        "a": "i, ii and iii are valid objectives of the pilot project",
+        "b": "ii and iv are valid objectives of the pilot project",
+        "c": "i, ii and v are valid objectives of the pilot project",
+        "d": "iv and v are valid objectives of the pilot project"
+      },
+      "correct_answer": "d",
+      "points": 2,
+      "syllabus_reference": "TAE-4.1.1",
+      "tip": "Anchor your reasoning to TAE-4.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Running a pilot with 10 smoke tests exposed CI/CD integration issues before rollout."
+    },
+    {
+      "id": "v2.2-Q16",
+      "question": "You are tasked with implementing a Test Automation Solution (TAS) for functional suitability tests that must be executed automatically after each daily build. The TAS needs to integrate seamlessly with the existing CI/CD pipeline and provide quick feedback on the software's quality. However, you've identified several potential risks that could impact the successful deployment and operation of the TAS. As the test automation engineer, you need to analyze the deployment risks associated with implementing the TAS and determine the BEST mitigation strategies for each risk. Your goal is to ensure a smooth integration of the TAS into the existing development process while maintaining the quality and reliability of the testing process. Which of the following BEST matches the deployment risks with their appropriate mitigation strategies? 1. Test execution not triggered by the build 2. Only the full test suite can be executed 3. Test data unavailable when starting the test 4. Difficulty in troubleshooting failed tests A. Log detailed information during test execution B. Integrate test automation into the CI/CD pipeline C. Use third-party tools to generate test data D. Utilize test harnesses and test fixtures",
+      "answers": {
+        "a": "1-B, 2-A, 3-D, 4-C",
+        "b": "1-A, 2-B, 3-C, 4-D",
+        "c": "1-B, 2-D, 3-C, 4-A",
+        "d": "1-D, 2-B, 3-C, 4-A"
+      },
+      "correct_answer": "c",
+      "points": 3,
+      "syllabus_reference": "TAE-4.2.1",
+      "tip": "Anchor your reasoning to TAE-4.2.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q17",
+      "question": "Which one of the following is an important factor to improve code maintainability?",
+      "answers": {
+        "a": "Define generic functions with all the necessary parameters",
+        "b": "Let developers uniquely name code variables",
+        "c": "Use static analyzers to keep the code clean",
+        "d": "Hardcode values to easily understand their meaning"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TAE-4.3.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q18",
+      "question": "What is the most effective way to reduce the maintenance time for test automation code?",
+      "answers": {
+        "a": "Keep the code outside of a version control system",
+        "b": "Embed static data directly within the test scripts for easier access",
+        "c": "Apply design patterns in your test automation framework",
+        "d": "Regularly rewrite test scripts from scratch instead of reusing existing components"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TAE-4.3.1",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Practical teams align automation to this LO to improve feedback and stability."
+    },
+    {
+      "id": "v2.2-Q19",
+      "question": "There is an IT company which develops an often-changing financial software product using the Agile software development model. The development, the integration and the deployment processes are highly automated. There is a CI/CD pipeline currently established. You are working on a TAS. The goal is to create a TAS which can be used for as many test automation purposes as possible. Which of the following options are valid purposes for test automation in this case?",
+      "answers": {
+        "a": "Run a regression test suite every night",
+        "b": "Execute a build of a component",
+        "c": "Run a static code analysis",
+        "d": "Execute an automated performance efficiency test in the CI/CD pipeline",
+        "e": "Package and deploy the application as part of the deployment phase"
+      },
+      "correct_answer": ["a", "d"],
+      "points": 2,
+      "syllabus_reference": "TAE-5.1.1",
+      "tip": "Anchor your reasoning to TAE-5.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q20",
+      "question": "Which statement is correct?",
+      "answers": {
+        "a": "Tests are not executed as part of the deployment phase",
+        "b": "Tests are not executed as a separate pipeline, triggered by the successful deployment",
+        "c": "Test cases do not act as a quality gate when different automated test suites will run on",
+        "d": "Pipelines are not recommended for regression testing due to the extensive scope and size",
+        "e": ""
+      },
+      "correct_answer": "c",
+      "points": 2,
+      "syllabus_reference": "TAE-5.1.1",
+      "tip": "Anchor your reasoning to TAE-5.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q21",
+      "question": "How is configuration management used in test automation?",
+      "answers": {
+        "a": "It enables the management of test data and test environment configurations",
+        "b": "The SUT configuration can be stored and easily removed",
+        "c": "It enables management of user rights for accessing test automation",
+        "d": "Test automation results can easily be analyzed"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TAE-5.1.2",
+      "tip": "Anchor your reasoning to TAE-5.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q22",
+      "question": "Which item below is NOT part of the test environment configuration?",
+      "answers": {
+        "a": "Uniform resource locators (URLs)",
+        "b": "Credentials",
+        "c": "Test data",
+        "d": "Common core library"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-5.1.2",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q23",
+      "question": "How does contract testing NOT contribute to API test automation dependencies in an infrastructure?",
+      "answers": {
+        "a": "Ensures that APIs adhere to predefined contracts for communication",
+        "b": "Can be used to test the communication of microservices",
+        "c": "Validates the compatibility of two separate systems",
+        "d": "Verifies whether a system satisfies its contractual requirements"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-5.1.3",
+      "tip": "Anchor your reasoning to TAE-5.1.3 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q24",
+      "question": "You are on a project where the teams are working on breaking down an old monolithic web service into several microservices. Which of the following documents can assist you in identifying dependencies and developing your Test Automation Solution (TAS) for API testing? i. Application programming interface (API) specification ii. System architecture diagram iii. Test strategy iv. Release notes",
+      "answers": {
+        "a": "i, ii, and iv",
+        "b": "i and ii",
+        "c": "ii, iii, and iv",
+        "d": "i"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TAE-5.1.3",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Contract tests between services avoided outages when schemas changed in a bank API."
+    },
+    {
+      "id": "v2.2-Q25",
+      "question": "You are working on a test automation project that is used to automate GUI testing of an online web shop. The web shop contains a wizard which helps users to set up their accounts, their name, billing address, shipping address, and security credentials. During the test automation, the steps of the wizard are recorded first. Screenshots are taken and stored during these steps. We consider these as the baseline. The baseline was then rerun with no change to the SUT and all tests passed. After the developers submit a change to the wizard, the recorded test scripts are played back, and the screenshots of each step are compared with the baseline screenshots. During a playback, all test cases failed, even though the visible content seems unchanged. What could be the cause?",
+      "answers": {
+        "a": "An internally used technical session ID is also recorded, which changes during the",
+        "b": "Screenshots are not correctly associated with the test steps, leading to",
+        "c": "The failure occurred because relying solely on screenshot comparisons led to",
+        "d": "The date in the GUI header is different from the date when it was recorded. This date",
+        "e": "Screenshots were captured in low resolution, causing details to be blurred,"
+      },
+      "correct_answer": ["a", "d"],
+      "points": 2,
+      "syllabus_reference": "TAE-6.1.1",
+      "tip": "Anchor your reasoning to TAE-6.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Structured logging with IDs made debugging flaky checkout tests feasible."
+    },
+    {
+      "id": "v2.2-Q26",
+      "question": "You are working on a project where you are responsible to extend the current TAF that is used for web service testing, with additional test logging capabilities. The TAF uses a third-party tool to create file logs and an HTML report to quickly visualize the test results. In the test implementation, various dynamic values are used to generate the actual test data, and the SUT, a web service without a UI, connects to multiple legacy test systems. Unfortunately, the tests are very unstable, and you need to add meaningful information to the test logging to better analyze the reasons for the failures. What additional information should not be included in the test logging to make it more useful and why?",
+      "answers": {
+        "a": "Timestamps should be included in the test logs to see if the failure connects to a given legacy",
+        "b": "Screenshots should be included to see actual request-response pairs",
+        "c": "Randomly generated values should be logged to allow for analysis of the actual",
+        "d": "In case of assertion failures meaningful information like actual results versus expected results"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TAE-6.1.1",
+      "tip": "Anchor your reasoning to TAE-6.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Structured logging with IDs made debugging flaky checkout tests feasible."
+    },
+    {
+      "id": "v2.2-Q27",
+      "question": "During the design phase of a performance critical software product, management decides to create a TAS to do load testing on the software to measure its performance. The product contains different architectural components, including a browser-based front end, microservices implemented in the back end, and a relational database. It is important to measure all individual transactions in the entire architectural stack. How can you automatically provide this information from the test automation software?",
+      "answers": {
+        "a": "You cannot. This information has to be gathered manually at the end of every transaction",
+        "b": "The test automation engineer (TAE) can record the timing information during the execution",
+        "c": "Trace IDs should be populated across the software components and measured time values",
+        "d": "Third-party tools should be inserted into the different layers of the architecture and these"
+      },
+      "correct_answer": "c",
+      "points": 3,
+      "syllabus_reference": "TAE-6.1.2",
+      "tip": "Anchor your reasoning to TAE-6.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Structured logging with IDs made debugging flaky checkout tests feasible."
+    },
+    {
+      "id": "v2.2-Q28",
+      "question": "As a test automation engineer, you are tasked with demonstrating to management whether the test success rate is improving over a series of test runs. What is the right approach to fulfill this requirement?",
+      "answers": {
+        "a": "Compare the test results with the expected results",
+        "b": "Use traffic light indicators to show test execution progress",
+        "c": "Detailed test reports with percentages of test completion",
+        "d": "Implement an analysis feature that compares previous test results and highlights"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-6.1.3",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Structured logging with IDs made debugging flaky checkout tests feasible."
+    },
+    {
+      "id": "v2.2-Q29",
+      "question": "Your team has developed a Test Automation Solution (TAS) for a computer-aided design (CAD) software program. This software has several different versions in production and has been ported to different languages and platforms. Manual testers have been using the TAS on their local computers with different language settings, versions, and platforms. Before proceeding with further automated testing, you need to verify the test automation environment. What is an important consideration when verifying the environment for this TAS?",
+      "answers": {
+        "a": "Establish a central repository to verify that all testers are using the same version of the",
+        "b": "Create and document a procedure to verify the proper installation of the CAD software on each",
+        "c": "Set up a central test environment where the CAD software is installed and verify that automation",
+        "d": "Use configuration management to verify the consistency of test data and scripts across different"
+      },
+      "correct_answer": "a",
+      "points": 2,
+      "syllabus_reference": "TAE-7.1.1",
+      "tip": "Anchor your reasoning to TAE-7.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q30",
+      "question": "You work in a software development team that requires testing to occur in many different test environments. Your manager has expressed that the team is spending a significant amount of time overcoming false-positive results because the test automation solution (TAS) is not configured correctly when using it in a new test environment. Additionally, there appear to be version differences when comparing the TAS in each test environment. Even new test environments sometimes are set up with very old TAS components. Which TWO options would help address this situation?",
+      "answers": {
+        "a": "Create an automated installation script for the tools and configurations that make up the",
+        "b": "Limit the TAS to only be used in the most important test environments",
+        "c": "Utilize a repository to store the TAS that is accessible to all test environments",
+        "d": "Leverage manual testing to verify that the TAS has been configured properly in all test",
+        "e": "Due to time constraints skip the implementation of components tests for the TAS"
+      },
+      "correct_answer": ["a", "c"],
+      "points": 2,
+      "syllabus_reference": "TAE-7.1.1",
+      "tip": "Anchor your reasoning to TAE-7.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q31",
+      "question": "You are about to verify an automated test suite. During the verification process you have found that some test scripts pass one time and fail at another, therefore not providing reliable test results. What should you do to verify the validity of your test scripts?",
+      "answers": {
+        "a": "This is due to the parallel execution of the test scripts; synchronization would solve the",
+        "b": "Re-execute the automated test suite and analyze the test results again",
+        "c": "Remove the test scripts from the automated test suite and analyze them separately",
+        "d": "This happens because several test scripts are using the same test data, so the separation"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TAE-7.1.2",
+      "tip": "Anchor your reasoning to TAE-7.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q32",
+      "question": "You have a test suite containing 25 automated tests that verify the login functionality of an application\u2019s home page. The test suite is executed at the end of each two-week sprint cycle for regression test purposes. You notice that two test cases out of the 25 may sometimes cause a race condition in the application or receive a random error. What action should you take for these two test cases?",
+      "answers": {
+        "a": "Take no action because sometimes they execute successfully",
+        "b": "Reduce the amount of test cases in the test suite from 25 to 15 and see if the test suite",
+        "c": "Remove the two test cases from the active test suite and analyze them separately to find",
+        "d": "Replace the two test cases with ones that pass repeatedly so that the test suite still has 25"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TAE-7.1.2",
+      "tip": "Anchor your reasoning to TAE-7.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q33",
+      "question": "You are working on a project to automate a regression test suite. When the regression test suite was executed manually last time, all the tests passed. But when you execute them via the test automation solution (TAS), you find there are some failed tests. What should you do to handle this situation?",
+      "answers": {
+        "a": "Analyze log files to identify the root cause of the problem",
+        "b": "Eliminate these test cases from the automated test suite, so the remaining tests can pass",
+        "c": "Open a defect for the SUT as the failed tests are indicating an SUT problem",
+        "d": "This is normal because automated tests behave differently than manual tests"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TAE-7.1.3",
+      "tip": "Anchor your reasoning to TAE-7.1.3 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q34",
+      "question": "You are preparing to execute a test automation suite for a security-critical application which has to fulfill the highest security requirements. Which approach should you follow to verify the test automation code?",
+      "answers": {
+        "a": "Search the test longs for possible credential data",
+        "b": "Eliminate test cases using sensitive test data",
+        "c": "Execute the test suite slowly and methodically to check if there are any security vulnerabilities",
+        "d": "Use a static analysis tool to identify security vulnerabilities"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TAE-7.1.4",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Centralized test environments prevented 'works on my machine' failures in a CAD project."
+    },
+    {
+      "id": "v2.2-Q35",
+      "question": "You are working on a test automation project that is used to automate graphical user interface (GUI) testing of an online web shop. The web shop contains a wizard which helps users set up their accounts: their names, billing address, shipping address and security credentials. Currently, the development of the software is in a phase when usability testers check the wizard and give recommendations about the necessary changes. This is done iteratively; the developers modify the GUI, the usability testers check the modifications and repeat the usability testing. The test automation is mainly focusing on maintenance testing. In these UI-based test cases, data also includes UI locator values. An existing problem is that developers often change the internal identifiers of UI elements, so maintaining tests requires a lot of effort. Which of the following could be an important opportunity for improvement?",
+      "answers": {
+        "a": "Apply schema validation, which checks if mandatory response elements are present on the",
+        "b": "Improve test logging to include information about UI elements and their locators to easily",
+        "c": "Create a test histogram, which enables the TAEs to identify and select test cases that are",
+        "d": "Use an artificial intelligence (AI) algorithm - which is based on machine learning and image"
+      },
+      "correct_answer": "d",
+      "points": 2,
+      "syllabus_reference": "TAE-8.1.1",
+      "tip": "Anchor your reasoning to TAE-8.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "v2.2-Q36",
+      "question": "Your organization maintains a regression test suite of over 1000 automated test cases that has been extremely reliable over the years. Recently the development team has decided to modernize their technology stack and are currently refactoring how their front end operates. You notice that the application is far more API-driven than the previous version and this has an impact on how UI elements render. You anticipate this is going to impact the success rate of 75% of your automated test cases. What data analysis approaches should you use to determine how to fix your impacted automated test cases?",
+      "answers": {
+        "a": "Run the test cases several times in a CI/CD pipeline, perform visual report analysis, and",
+        "b": "Use AI algorithms and API schema validation tools",
+        "c": "Recreate automated test cases to replace the ones that are not working properly and will",
+        "d": "Avoid automating certain test cases after analyzing exception logs, screenshots, and error"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TAE-8.1.1",
+      "tip": "Anchor your reasoning to TAE-8.1.1 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "v2.2-Q37",
+      "question": "You are working on an automated regression test suite that takes too long a time to execute, and its execution does not finish overnight. The test environment is only available for regression testing during the night. Running multiple suites in parallel is not an option, as the target system is expensive and exists only as a single instance. What should be your next steps to ensure the test suite execution finishes overnight?",
+      "answers": {
+        "a": "Split the test suite into multiple parts, executing the parts on different nights of the week",
+        "b": "Isolate test result verification from the test execution and start the verification process after",
+        "c": "Rewrite the tests using the keyword-driven technique as that will be executed faster",
+        "d": "Remove some tests from the test suite to reduce overall execution time",
+        "e": "Remove any duplicate tests from the test suite"
+      },
+      "correct_answer": ["a", "e"],
+      "points": 3,
+      "syllabus_reference": "TAE-8.1.2",
+      "tip": "Anchor your reasoning to TAE-8.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "v2.2-Q38",
+      "question": "As a TAE, you are evaluating new versions of core libraries. Which is the correct order that can help you achieve these results?",
+      "answers": {
+        "a": "Create adoption plan; determine impact; update dependencies; perform pilot",
+        "b": "Perform pilot; determine impact; create adoption plan; update dependencies",
+        "c": "Update dependencies; determine impact; perform pilot; create adoption plan",
+        "d": "Determine impact; update dependencies; create adoption plan; perform pilot"
+      },
+      "correct_answer": "b",
+      "points": 3,
+      "syllabus_reference": "TAE-8.1.2",
+      "tip": "Anchor your reasoning to TAE-8.1.2 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "v2.2-Q39",
+      "question": "You have been performing a quality review of a TAS to optimize the interaction of controls within the GUI. The GUI includes several types of controls (e.g., dropdown list, checkbox, text field). There are also separate functions in the test scripts which act upon the different types of GUI controls to gather information and to set them (e.g., visible/not visible, enabled/not enabled). Which of the following steps should you consider to increase the efficiency of the TAS?",
+      "answers": {
+        "a": "Separate the testing of the controls based on their types into different test suites",
+        "b": "Research if there is a test automation tool which can replace the current solution",
+        "c": "Check if there are any functions that can work with several types of controls, and consolidate",
+        "d": "Use the new operating system functions in the test scripts to handle the GUI controls"
+      },
+      "correct_answer": "c",
+      "points": 2,
+      "syllabus_reference": "TAE-8.1.3",
+      "tip": "Anchor your reasoning to TAE-8.1.3 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "v2.2-Q40",
+      "question": "As a test automation engineer, you have automated the performance test of a customer management system. In order to effectively test the performance of this system, you need to create diverse test data that includes customers with varying profiles based on different input criteria. What is the best way to implement such a solution?",
+      "answers": {
+        "a": "Employ a test automation tool to invoke a web service API that creates new user",
+        "b": "Register these users manually via the GUI, so the GUI functionality can also be tested",
+        "c": "Use the production database during the test as it has the real volume and type of data",
+        "d": "Implement a test automation script to anonymize customer data before using it during the"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TAE-8.1.4",
+      "tip": "Common, you do not need any tip to solve this.",
+      "real_life_example": "Retry with backoff reduced flakiness in mobile login tests by 80%."
+    },
+    {
+      "id": "Custom-Q1",
+      "question": "In the context of robustness, which option is MOST appropriate?",
+      "answers": {
+        "a": "Follow good practice for scalability.",
+        "b": "Ignore maintainability.",
+        "c": "Defer tests until...",
+        "d": "Rely only on manual checks."
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TAE-3.1.5",
+      "tip": "Anchor your reasoning to TAE-3.1.5 and eliminate distractors that contradict the definition.",
+      "real_life_example": "Using Page Object cut locator maintenance when a retailer redesigned their e-commerce UI."
+    }
+  ]
+}
