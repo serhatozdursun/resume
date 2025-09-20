@@ -65,7 +65,7 @@ const Name = styled.h1`
 `;
 
 const Title = styled.h2`
-  font-size: 1.3em;
+  font-size: 0.8em;
   color: ${props => props.theme.colors.text};
   font-family: ${props => props.theme.font.heading};
 `;
