@@ -40,7 +40,7 @@ jobs:
       - name: Install ${{ matrix.browser }} and driver
         if: matrix.browser == 'chrome'
         uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
-      - name: Cache WebDriver binaries  
+      - name: Cache WebDriver binaries
         if: matrix.browser == 'chrome'
         uses: actions/cache@v4
         with:

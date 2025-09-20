@@ -89,7 +89,10 @@ const IndexPage: React.FC = () => {
               name='description'
               content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
             />
-            <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
+            <title>
+              Mehmet Serhat Özdursun - QA Automation Leader | ISTQB CTAL-TAE
+              Certified | Driving Test Automation Excellence for 13+ Years
+            </title>
             <link rel='icon' href='/favicon_.ico' />
 
             <meta property='og:type' content='website' />
@@ -261,7 +264,13 @@ const IndexPage: React.FC = () => {
           <RightColumn>
             <Header>
               <Name id='name'>Mehmet Serhat Ozdursun</Name>
-              <Title id='title'>QA Automation Engineer</Title>
+              <Title id='title'>
+                QA Leader | Senior SDET | ISTQB CTAL-TAE | CTFL | Scrum.org PSD
+                I <br />
+                Driving Test Automation Excellence with Selenium, Appium,
+                WebDriverIO <br />
+                TypeScript, Java & Python | 13+ Years in QA
+              </Title>
               <IconWrapper id='iconWrapper'>
                 <IconLink
                   href='https://www.linkedin.com/in/serhat-ozdursun/'
