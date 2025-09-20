@@ -136,7 +136,7 @@ describe('IndexPage Component', () => {
 
       const title = document.querySelector('title');
       expect(title).toHaveTextContent(
-        'Mehmet Serhat Özdursun - QA Automation Engineer'
+        'Mehmet Serhat Özdursun - QA Automation Leader | ISTQB CTAL-TAE Certified | Driving Test Automation Excellence for 13+ Years'
       );
     });
 
