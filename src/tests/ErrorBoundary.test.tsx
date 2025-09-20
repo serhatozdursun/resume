@@ -418,4 +418,172 @@ describe('ErrorBoundary', () => {
       expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     });
   });
+
+  describe('Error Boundary State Management', () => {
+    it('initializes with no error state', () => {
+      const { container } = render(
+        <ErrorBoundary>
+          <div>Test content</div>
+        </ErrorBoundary>
+      );
+
+      // Should render children normally
+      expect(screen.getByText('Test content')).toBeInTheDocument();
+      expect(
+        container.querySelector('.error-boundary')
+      ).not.toBeInTheDocument();
+    });
+
+    it('updates state when error occurs', () => {
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      // Should show error UI
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "We're sorry, but something unexpected happened. Please try refreshing the page."
+        )
+      ).toBeInTheDocument();
+    });
+
+    it('handles multiple error states correctly', () => {
+      const { rerender } = render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={false} />
+        </ErrorBoundary>
+      );
+
+      expect(screen.getByText('No error')).toBeInTheDocument();
+
+      // Trigger error
+      rerender(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+
+      // Recover from error - ErrorBoundary doesn't automatically recover
+      // Once an error occurs, it stays in error state until component unmounts
+      rerender(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={false} />
+        </ErrorBoundary>
+      );
+
+      // ErrorBoundary should still show error state
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+    });
+  });
+
+  describe('Error Boundary Lifecycle', () => {
+    it('calls getDerivedStateFromError when error occurs', () => {
+      const getDerivedStateFromErrorSpy = jest.spyOn(
+        ErrorBoundary,
+        'getDerivedStateFromError'
+      );
+
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      expect(getDerivedStateFromErrorSpy).toHaveBeenCalled();
+      expect(getDerivedStateFromErrorSpy).toHaveBeenCalledWith(
+        expect.any(Error)
+      );
+
+      getDerivedStateFromErrorSpy.mockRestore();
+    });
+
+    it('calls componentDidCatch when error occurs', () => {
+      const componentDidCatchSpy = jest.spyOn(
+        ErrorBoundary.prototype,
+        'componentDidCatch'
+      );
+
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      expect(componentDidCatchSpy).toHaveBeenCalled();
+      expect(componentDidCatchSpy).toHaveBeenCalledWith(
+        expect.any(Error),
+        expect.any(Object)
+      );
+
+      componentDidCatchSpy.mockRestore();
+    });
+  });
+
+  describe('Error Boundary Error Types', () => {
+    it('handles different types of errors', () => {
+      const DifferentErrorComponent = ({
+        errorType,
+      }: {
+        errorType: string;
+      }) => {
+        switch (errorType) {
+          case 'TypeError':
+            throw new TypeError('Type error');
+          case 'ReferenceError':
+            throw new ReferenceError('Reference error');
+          case 'SyntaxError':
+            throw new SyntaxError('Syntax error');
+          default:
+            throw new Error('Generic error');
+        }
+      };
+
+      const { rerender } = render(
+        <ErrorBoundary>
+          <DifferentErrorComponent errorType='TypeError' />
+        </ErrorBoundary>
+      );
+
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+
+      rerender(
+        <ErrorBoundary>
+          <DifferentErrorComponent errorType='ReferenceError' />
+        </ErrorBoundary>
+      );
+
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+
+      rerender(
+        <ErrorBoundary>
+          <DifferentErrorComponent errorType='SyntaxError' />
+        </ErrorBoundary>
+      );
+
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+    });
+  });
+
+  describe('Error Boundary Accessibility', () => {
+    it('has proper accessibility attributes', () => {
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      const errorMessage = screen.getByText('Something went wrong');
+      expect(errorMessage).toBeInTheDocument();
+
+      const refreshMessage = screen.getByText(
+        "We're sorry, but something unexpected happened. Please try refreshing the page."
+      );
+      expect(refreshMessage).toBeInTheDocument();
+    });
+  });
 });

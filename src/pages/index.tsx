@@ -223,19 +223,6 @@ const IndexPage: React.FC = () => {
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
                 <img
-                  src='/Manual_Testing.png'
-                  alt='LinkedIn'
-                  width={20}
-                  height={20}
-                />
-              </BadgeWrapper>
-              <CommonLink id='practicePAge' href='/practice'>
-                Practice Page
-              </CommonLink>
-            </LeftColumnLinkContainer>
-            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
-              <BadgeWrapper>
-                <img
                   src='/recommandation.png'
                   alt='recommandation'
                   width={20}
@@ -255,6 +242,32 @@ const IndexPage: React.FC = () => {
                 }
               >
                 Recommendations
+              </CommonLink>
+            </LeftColumnLinkContainer>
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/Manual_Testing.png'
+                  alt='LinkedIn'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
+              <CommonLink id='practicePAge' href='/practice'>
+                Practice Page
+              </CommonLink>
+            </LeftColumnLinkContainer>
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/CTAL-TAE-EXAMpng.png'
+                  alt='CTAL-TAE Exam'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
+              <CommonLink id='ctalExamPage' href='/ctal-exam'>
+                CTAL-TAE Sample Exam
               </CommonLink>
             </LeftColumnLinkContainer>
             <ContactForm />
