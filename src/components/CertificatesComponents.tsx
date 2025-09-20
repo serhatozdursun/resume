@@ -30,7 +30,7 @@ const CertificatesComponents = () => {
     },
     {
       name: 'ISTQB® CTFL',
-      badge: '/Brightest_CTFL.png',
+      badge: '/Foundation-Level-Exam-2022.png',
       link: 'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
     },
     {
@@ -79,8 +79,8 @@ const CertificatesComponents = () => {
                 <Image
                   src={certificate.badge}
                   alt={`${certificate.name} Badge`}
-                  width={20}
-                  height={20}
+                  width={28}
+                  height={28}
                   style={{ objectFit: 'contain' }}
                 />
               </BadgeWrapper>
