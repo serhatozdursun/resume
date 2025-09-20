@@ -16,7 +16,7 @@ describe('CertificatesComponents', () => {
     expect(certificateTitles.length).toBe(1);
 
     const certificates = screen.getAllByRole('listitem');
-    expect(certificates.length).toBe(6);
+    expect(certificates.length).toBe(7);
   });
 
   it('handles click events correctly', () => {
