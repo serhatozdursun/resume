@@ -278,8 +278,8 @@ const IndexPage: React.FC = () => {
             <Header>
               <Name id='name'>Mehmet Serhat Ozdursun</Name>
               <Title id='title'>
-                QA Leader | Senior SDET | ISTQB CTAL-TAE | CTFL | Scrum.org PSD
-                I <br />
+                QA Leader | Senior SDET | ISTQB® CTAL-TAE - CTFL | Scrum.org
+                PSD I <br />
                 Driving Test Automation Excellence with Selenium, Appium,
                 WebDriverIO <br />
                 TypeScript, Java & Python | 13+ Years in QA

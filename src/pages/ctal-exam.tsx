@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
+import parse from 'html-react-parser';
 
 // Styled components for the exam page
 const ExamContainer = styled.div`
@@ -420,7 +421,7 @@ const CTALExam: React.FC = () => {
           {currentQuestions.map((question, index) => (
             <QuestionContainer key={question.id}>
               <QuestionNumber>{index + 1}</QuestionNumber>
-              <QuestionText>{question.question}</QuestionText>
+              <QuestionText>{parse(question.question)}</QuestionText>
 
               {Object.entries(question.answers).map(([key, value]) => (
                 <AnswerOption key={key}>
