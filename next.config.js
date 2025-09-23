@@ -7,6 +7,7 @@ const nextConfig = withBundleAnalyzer({
   experimental: {
     forceSwcTransforms: true,
   },
+  allowedDevOrigins: ['192.168.0.197', 'localhost', '127.0.0.1'],
   typescript: {
     ignoreBuildErrors: true,
   },

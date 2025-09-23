@@ -18,6 +18,7 @@ import {
   CommonLink,
   LeftColumnLinkContainer,
   BadgeWrapper,
+  CertificateTitle,
 } from '../types/StyledComponents';
 import dynamic from 'next/dynamic';
 import HtmlParser from 'html-react-parser';
@@ -89,7 +90,10 @@ const IndexPage: React.FC = () => {
               name='description'
               content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
             />
-            <title>Mehmet Serhat Özdursun - QA Automation Engineer</title>
+            <title>
+              Mehmet Serhat Özdursun - QA Automation Leader | ISTQB CTAL-TAE
+              Certified | Driving Test Automation Excellence for 13+ Years
+            </title>
             <link rel='icon' href='/favicon_.ico' />
 
             <meta property='og:type' content='website' />
@@ -193,7 +197,7 @@ const IndexPage: React.FC = () => {
           <LeftColumn>
             <ProfileImage
               id='profile_image'
-              src='/profile.png'
+              src='/IMG_9219.png'
               alt='Profile Picture'
             />
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
@@ -215,19 +219,6 @@ const IndexPage: React.FC = () => {
                 }
               >
                 Download Resume
-              </CommonLink>
-            </LeftColumnLinkContainer>
-            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
-              <BadgeWrapper>
-                <img
-                  src='/Manual_Testing.png'
-                  alt='LinkedIn'
-                  width={20}
-                  height={20}
-                />
-              </BadgeWrapper>
-              <CommonLink id='practicePAge' href='/practice'>
-                Practice Page
               </CommonLink>
             </LeftColumnLinkContainer>
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
@@ -255,13 +246,48 @@ const IndexPage: React.FC = () => {
               </CommonLink>
             </LeftColumnLinkContainer>
             <ContactForm />
+            <CertificateTitle id='qaHelpLabel'>QA Help</CertificateTitle>
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/Manual_Testing.png'
+                  alt='Practice Page'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
+              <CommonLink id='practicePAge' href='/practice'>
+                Practice Page
+              </CommonLink>
+            </LeftColumnLinkContainer>
+
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/CTAL-TAE-EXAMpng.png'
+                  alt='CTAL-TAE Exam'
+                  width={20}
+                  height={20}
+                />
+              </BadgeWrapper>
+              <CommonLink id='ctalExamPage' href='/ctal-exam'>
+                CTAL-TAE Sample Exam
+              </CommonLink>
+            </LeftColumnLinkContainer>
+
             <CertificatesComponents />
             <SkillsComponents />
           </LeftColumn>
           <RightColumn>
             <Header>
               <Name id='name'>Mehmet Serhat Ozdursun</Name>
-              <Title id='title'>QA Automation Engineer</Title>
+              <Title id='title'>
+                QA Leader | Senior SDET | ISTQB® CTAL-TAE - CTFL | Scrum.org
+                PSD I <br />
+                Driving Test Automation Excellence with Selenium, Appium,
+                WebDriverIO <br />
+                TypeScript, Java & Python | 13+ Years in QA
+              </Title>
               <IconWrapper id='iconWrapper'>
                 <IconLink
                   href='https://www.linkedin.com/in/serhat-ozdursun/'
