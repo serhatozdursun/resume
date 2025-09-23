@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Script from 'next/script';
 import { Helmet } from 'react-helmet';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
+import { env } from '../utils/env';
 
 // Styled components for the exam page
 const ExamContainer = styled.div`
@@ -22,6 +24,17 @@ const ExamHeader = styled.div`
   background-color: ${props => props.theme.colors.card};
   border-radius: 8px;
   box-shadow: 0 2px 4px ${props => props.theme.colors.shadow};
+`;
+
+const HomeLink = styled.a`
+  display: inline-block;
+  margin-bottom: 12px;
+  color: ${props => props.theme.colors.accent};
+  text-decoration: none;
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const ExamTitle = styled.h1`
@@ -351,6 +364,24 @@ const CTALExam: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${env.GA_TRACKING_ID}`}
+          strategy='afterInteractive'
+        />
+        <Script
+          id='gtag-init-ctal'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);} 
+              gtag('js', new Date());
+              gtag('config', '${env.GA_TRACKING_ID}', { page_path: '/ctal-exam' });
+            `,
+          }}
+        />
+        {/* End Google Analytics */}
         <Helmet>
           <html lang='en' />
           <meta charSet='UTF-8' />
@@ -360,10 +391,15 @@ const CTALExam: React.FC = () => {
           />
           <meta
             name='description'
-            content='ISTQB CTAL-TAE Sample Exam - Practice with real exam questions and test your knowledge'
+            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
+          />
+          <meta
+            name='keywords'
+            content='ISTQB, CTAL-TAE, Certified Tester Advanced Level, Test Automation Engineering, sample exam, practice questions, exam preparation, ISTQB Advanced Level'
           />
           <title>Mehmet Serhat Özdursun - CTAL-TAE Sample Exam</title>
           <link rel='icon' href='/favicon_.ico' />
+          <link rel='canonical' href='https://serhatozdursun.com/ctal-exam' />
 
           <meta property='og:type' content='website' />
           <meta
@@ -376,7 +412,7 @@ const CTALExam: React.FC = () => {
           />
           <meta
             property='og:description'
-            content='ISTQB CTAL-TAE Sample Exam - Practice with real exam questions and test your knowledge'
+            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
           />
           <meta
             property='og:image'
@@ -394,7 +430,7 @@ const CTALExam: React.FC = () => {
           />
           <meta
             property='twitter:description'
-            content='ISTQB CTAL-TAE Sample Exam - Practice with real exam questions and test your knowledge'
+            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
           />
           <meta
             property='twitter:image'
@@ -405,10 +441,44 @@ const CTALExam: React.FC = () => {
           <meta name='language' content='English' />
           <meta name='robots' content='index, follow' />
           <meta name='theme-color' content='#ffffff' />
+          <script type='application/ld+json'>
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              name: 'ISTQB CTAL-TAE Sample Exam',
+              url: 'https://serhatozdursun.com/ctal-exam',
+              description:
+                'Prepare for ISTQB Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) with realistic sample questions, tips, and real-life examples.',
+              inLanguage: 'en',
+              isPartOf: {
+                '@type': 'WebSite',
+                name: 'Mehmet Serhat Özdursun',
+                url: 'https://serhatozdursun.com',
+              },
+              breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                  {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: 'https://serhatozdursun.com/',
+                  },
+                  {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'ISTQB CTAL-TAE Sample Exam',
+                    item: 'https://serhatozdursun.com/ctal-exam',
+                  },
+                ],
+              },
+            })}
+          </script>
         </Helmet>
 
         <ExamContainer>
           <ExamHeader>
+            <HomeLink href='/'>← Back to Home</HomeLink>
             <ExamTitle>ISTQB CTAL-TAE Sample Exam</ExamTitle>
             <ExamSubtitle>
               Practice with real exam questions and test your knowledge

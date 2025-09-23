@@ -18,6 +18,7 @@ import {
   CommonLink,
   LeftColumnLinkContainer,
   BadgeWrapper,
+  CertificateTitle,
 } from '../types/StyledComponents';
 import dynamic from 'next/dynamic';
 import HtmlParser from 'html-react-parser';
@@ -196,7 +197,7 @@ const IndexPage: React.FC = () => {
           <LeftColumn>
             <ProfileImage
               id='profile_image'
-              src='/profile.png'
+              src='/IMG_9219.png'
               alt='Profile Picture'
             />
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
@@ -244,11 +245,13 @@ const IndexPage: React.FC = () => {
                 Recommendations
               </CommonLink>
             </LeftColumnLinkContainer>
+            <ContactForm />
+            <CertificateTitle id='qaHelpLabel'>QA Help</CertificateTitle>
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
                 <img
                   src='/Manual_Testing.png'
-                  alt='LinkedIn'
+                  alt='Practice Page'
                   width={20}
                   height={20}
                 />
@@ -257,6 +260,7 @@ const IndexPage: React.FC = () => {
                 Practice Page
               </CommonLink>
             </LeftColumnLinkContainer>
+
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
                 <img
@@ -270,7 +274,7 @@ const IndexPage: React.FC = () => {
                 CTAL-TAE Sample Exam
               </CommonLink>
             </LeftColumnLinkContainer>
-            <ContactForm />
+
             <CertificatesComponents />
             <SkillsComponents />
           </LeftColumn>
