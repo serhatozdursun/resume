@@ -68,7 +68,7 @@ describe('CertificatesComponents', () => {
     );
     expect(certificateLinks[1]).toHaveAttribute(
       'href',
-      'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10'
+      'https://scr.istqb.org/?name=%C3%96ZDURSUN&number=&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10'
     );
     expect(certificateLinks[2]).toHaveAttribute(
       'href',
