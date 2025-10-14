@@ -49,17 +49,23 @@ describe('ExperiencesComponents', () => {
     it('renders all experience items', () => {
       renderWithTheme(<ExperiencesComponents />);
 
-      // Check for all company names
-      expect(screen.getByText('Index, London')).toBeInTheDocument();
+      // Check for updated company names
       expect(
-        screen.getByText('Barcelona, Catalonia, Spain / Madrid, Spain')
+        screen.getByText('Poq (via Index.dev), London')
       ).toBeInTheDocument();
-      expect(screen.getByText('Testinium, İstanbul')).toBeInTheDocument();
-      expect(screen.getByText('Apsiyon, İstanbul')).toBeInTheDocument();
-      expect(screen.getByText('Paytrek, İstanbul')).toBeInTheDocument();
-      expect(screen.getByText('Trendyol Group , İstanbul')).toBeInTheDocument();
-      expect(screen.getByText('Bimsa, İstanbul')).toBeInTheDocument();
-      expect(screen.getByText('Sigortam.Net, İstanbul')).toBeInTheDocument();
+      expect(screen.getByText('Affirm, United States')).toBeInTheDocument();
+      expect(
+        screen.getByText('Payflow (YC S21), Barcelona, Spain')
+      ).toBeInTheDocument();
+      expect(screen.getByText('HUBUC, Barcelona, Spain')).toBeInTheDocument();
+      expect(
+        screen.getByText('ABB (via Testinium), Istanbul, Turkey')
+      ).toBeInTheDocument();
+      expect(screen.getByText('Apsiyon, Istanbul')).toBeInTheDocument();
+      expect(screen.getByText('Paytrek, Istanbul')).toBeInTheDocument();
+      expect(screen.getByText('Trendyol Group, Istanbul')).toBeInTheDocument();
+      expect(screen.getByText('Bimsa, Istanbul')).toBeInTheDocument();
+      expect(screen.getByText('Sigortam.Net, Istanbul')).toBeInTheDocument();
     });
 
     it('renders all job titles', () => {
@@ -67,15 +73,15 @@ describe('ExperiencesComponents', () => {
 
       // Use getAllByText for titles that appear multiple times
       const seniorQATitles = screen.getAllByText(
-        'Senior QA Automation Engineer'
+        /Senior QA Automation Engineer/
       );
       expect(seniorQATitles.length).toBeGreaterThan(0);
 
       expect(
-        screen.getByText('Lead QA Automation Engineer, HUBUC/Payflow')
+        screen.getByText(/Lead QA Automation Engineer/)
       ).toBeInTheDocument();
       expect(
-        screen.getByText('Senior Test Solutions Consultant')
+        screen.getByText(/Senior Test Solutions Consultant/)
       ).toBeInTheDocument();
       expect(
         screen.getByText('Software Quality Assurance Team Lead')
@@ -100,8 +106,9 @@ describe('ExperiencesComponents', () => {
     it('renders all date ranges', () => {
       renderWithTheme(<ExperiencesComponents />);
 
-      expect(screen.getByText('Sep 2023 - Present')).toBeInTheDocument();
-      expect(screen.getByText('Feb 2022 - Sep 2023')).toBeInTheDocument();
+      expect(screen.getByText('Aug 2023 - Present')).toBeInTheDocument();
+      expect(screen.getByText('Jan 2023 - Feb 2024')).toBeInTheDocument();
+      expect(screen.getByText('Feb 2022 - Jan 2023')).toBeInTheDocument();
       expect(screen.getByText('Nov 2020 - Feb 2022')).toBeInTheDocument();
       expect(screen.getByText('Jun 2018 - Nov 2020')).toBeInTheDocument();
       expect(screen.getByText('Sep 2017 - Apr 2018')).toBeInTheDocument();
@@ -117,10 +124,10 @@ describe('ExperiencesComponents', () => {
       expect(logos.length).toBeGreaterThanOrEqual(8);
 
       // Check first few logos
-      expect(logos[0]).toHaveAttribute('alt', 'Index, London logo');
-      expect(logos[1]).toHaveAttribute(
+      // First logo belongs to Poq (via Index.dev)
+      expect(logos[0]).toHaveAttribute(
         'alt',
-        'Barcelona, Catalonia, Spain / Madrid, Spain logo'
+        'Poq (via Index.dev), London logo'
       );
     });
 
@@ -131,10 +138,16 @@ describe('ExperiencesComponents', () => {
       // There are more links than expected due to both logo and company name being clickable
       expect(links.length).toBeGreaterThanOrEqual(8);
 
-      // Check first few links
-      expect(links[0]).toHaveAttribute('href', 'https://www.index.dev/');
-      expect(links[1]).toHaveAttribute('href', 'https://www.index.dev/');
-      expect(links[2]).toHaveAttribute('href', 'https://www.payflow.es/');
+      // Expect specific hrefs to be present among links
+      const hrefs = links.map(l => l.getAttribute('href'));
+      expect(hrefs).toEqual(
+        expect.arrayContaining([
+          'https://poqcommerce.com',
+          'https://www.affirm.com/',
+          'https://www.payflow.es/',
+          'https://www.hubuc.com/',
+        ])
+      );
     });
   });
 
@@ -150,10 +163,16 @@ describe('ExperiencesComponents', () => {
         expect(link).toHaveAttribute('rel', 'noopener noreferrer');
       });
 
-      // Check first few links have correct href
-      expect(links[0]).toHaveAttribute('href', 'https://www.index.dev/');
-      expect(links[1]).toHaveAttribute('href', 'https://www.index.dev/');
-      expect(links[2]).toHaveAttribute('href', 'https://www.payflow.es/');
+      // Check that expected hrefs exist (order-agnostic)
+      const hrefs = links.map(l => l.getAttribute('href'));
+      expect(hrefs).toEqual(
+        expect.arrayContaining([
+          'https://poqcommerce.com',
+          'https://www.affirm.com/',
+          'https://www.payflow.es/',
+          'https://www.hubuc.com/',
+        ])
+      );
     });
 
     it('renders company logos with clickable links', () => {
@@ -173,7 +192,7 @@ describe('ExperiencesComponents', () => {
       renderWithTheme(<ExperiencesComponents />);
 
       const companyNameLinks = screen.getAllByText(
-        /Index|Barcelona|Testinium|Apsiyon|Paytrek|Trendyol|Bimsa|Sigortam/
+        /Poq|Affirm|Payflow|HUBUC|ABB|Apsiyon|Paytrek|Trendyol|Bimsa|Sigortam/
       );
 
       // Check that company names are clickable
@@ -264,7 +283,9 @@ describe('ExperiencesComponents', () => {
           <ExperiencesComponents />
         </ThemeProvider>
       );
-      expect(screen.getByText('Index, London')).toBeInTheDocument();
+      expect(
+        screen.getByText('Poq (via Index.dev), London')
+      ).toBeInTheDocument();
 
       // Simulate desktop viewport
       Object.defineProperty(window, 'innerWidth', {
@@ -278,7 +299,9 @@ describe('ExperiencesComponents', () => {
           <ExperiencesComponents />
         </ThemeProvider>
       );
-      expect(screen.getByText('Index, London')).toBeInTheDocument();
+      expect(
+        screen.getByText('Poq (via Index.dev), London')
+      ).toBeInTheDocument();
     });
   });
 
@@ -290,7 +313,7 @@ describe('ExperiencesComponents', () => {
       const images = screen.getAllByRole('img');
       images.forEach(image => {
         expect(image).toHaveAttribute('src');
-        expect(image.getAttribute('src')).toMatch(/\.(png|jpeg|jpg|webp)$/);
+        expect(image.getAttribute('src')).toMatch(/\.(png|jpeg|jpg|webp|svg)$/);
       });
     });
 

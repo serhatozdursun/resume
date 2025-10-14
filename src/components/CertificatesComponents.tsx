@@ -31,7 +31,7 @@ const CertificatesComponents = () => {
     {
       name: 'ISTQB® CTFL',
       badge: '/Foundation-Level-Exam-2022.png',
-      link: 'http://scr.istqb.org/?name=&number=0515+CTFL+1465&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
+      link: 'https://scr.istqb.org/?name=%C3%96ZDURSUN&number=&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
     },
     {
       name: 'PSD I',
