@@ -14,8 +14,10 @@ const Container = styled.div`
 `;
 
 const LeftColumn = styled.div`
-  flex: 1;
+  width: 250px;
+  max-width: 250px;
   padding-top: 40px;
+  padding-right: 20px;
   overflow-y: auto; /* Enable vertical scrolling */
   height: calc(100vh - 100px); /* Adjust the height as necessary */
   display: flex;
@@ -30,12 +32,14 @@ const LeftColumn = styled.div`
     height: auto;
     padding: 10px;
     position: static;
+    width: 100%;
+    max-width: 100%;
   }
 `;
 
 const RightColumn = styled.div`
-  flex: 2.8;
-  padding-left: 30px;
+  flex: 1;
+  padding-left: 15px;
   padding-right: 100px;
 
   @media (max-width: 768px) {
@@ -86,7 +90,7 @@ export const ProfileImage = styled.img`
   margin-bottom: 10px;
   border: 2px solid #7b7b7b;
   object-fit: cover;
-  margin-left: 80px;
+  margin-left: 20px;
   background-color: ${props => props.theme.colors.secondary};
   transition:
     box-shadow 0.3s ease,
@@ -150,7 +154,7 @@ const Info = styled.p`
 
 const SkillsContainer = styled.div`
   margin-right: 0;
-  margin-left: 10px;
+  margin-left: 20px;
 `;
 
 const Skill = styled.div`
@@ -314,7 +318,7 @@ const SeeMoreLink = styled.span`
 
 const CertificatesContainer = styled.div`
   margin-top: 20px;
-  margin-left: 10px;
+  margin-left: 20px;
   @media (max-width: 768px) {
     margin-top: 30px;
   }
@@ -346,7 +350,7 @@ const CertificateItem = styled.li`
 const LeftColumnLinkContainer = styled.li`
   margin-top: 10px;
   display: flex;
-  margin-left: 10px;
+  margin-left: 20px;
   align-items: center;
   &:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -519,12 +523,13 @@ const SendButton = styled.button`
   }
 `;
 
-const SendLinkContainer = styled.a`
+const SendLinkContainer = styled.li`
+  margin-top: 10px;
   display: flex;
+  margin-left: 20px;
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-  margin-top: 10px;
   margin-bottom: 10px;
   &:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -536,14 +541,10 @@ const SendIconWrapper = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  margin-left: 10px;
+
   @media (max-width: 768px) {
     width: 15px;
     height: 15px;
-  }
-  &:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
   }
 `;
 
@@ -555,13 +556,14 @@ const SendText = styled.span`
   text-align: left;
   margin-right: auto; /* This will align it to the right */
   margin-left: 10px;
+  font-weight: 500;
   @media (min-width: 768px) {
     display: inline; /* Inline display on larger screens */
   }
 
   &:hover {
     text-decoration: none;
-    color: blue;
+    color: ${props => props.theme.colors.highlight};
   }
 `;
 
