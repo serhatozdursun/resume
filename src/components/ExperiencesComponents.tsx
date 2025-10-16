@@ -163,7 +163,7 @@ const Experience: React.FC<Experience> = ({
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
-  const lastIndex: number = description.indexOf('</p>', 200);
+  const lastIndex: number = description.indexOf('</p>', 300);
   const descriptionToShow = showFullDescription
     ? description
     : description.slice(0, lastIndex);
@@ -174,7 +174,8 @@ const Experience: React.FC<Experience> = ({
         onClick={toggleDescription}
         className='experience-header'
       >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+          {/* Company Logo */}
           <a
             href={companyWebsite}
             target='_blank'
@@ -185,36 +186,45 @@ const Experience: React.FC<Experience> = ({
               <Image
                 src={companyLogo}
                 alt={`${company} logo`}
-                width={48}
-                height={48}
+                width={55}
+                height={55}
                 style={{ objectFit: 'contain' }}
               />
             </CompanyLogoWrapper>
           </a>
-          <div>
-            <ExperienceTitle
-              className='experienceTitle'
-              id={title.replace(/[\s,._]+/g, '_').toLowerCase()}
-            >
+
+          {/* Text Section */}
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+            {/* Title line */}
+            <ExperienceTitle className='experienceTitle'>
               {title}
             </ExperienceTitle>
-            <a
-              href={companyWebsite}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='companyWebsite'
+
+            {/* Company + Date line */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: '4px', // tighter than before
+                marginTop: '1px', // was 4px
+              }}
             >
-              <ExperienceCompany
-                id={company.replace(/[\s,._]+/g, '_').toLowerCase()}
+              <a
+                href={companyWebsite}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='companyWebsite'
               >
-                {company}
-              </ExperienceCompany>
-            </a>
+                <ExperienceCompany>{company}</ExperienceCompany>
+              </a>
+              <span style={{ color: '#666' }}>—</span>
+              <ExperienceDateRange className='experience-date-range'>
+                {dateRange}
+              </ExperienceDateRange>
+            </div>
           </div>
         </div>
-        <ExperienceDateRange className='experience-date-range'>
-          {dateRange}
-        </ExperienceDateRange>
       </ExperienceHeader>
       <ExperienceContent className='experience-content'>
         {HtmlParser(descriptionToShow)}

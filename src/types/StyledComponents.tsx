@@ -75,12 +75,22 @@ const Title = styled.h2`
 `;
 
 const SummaryContainer = styled.span`
+  display: block; /* ensures padding works properly */
   font-size: 1.1em;
-  line-height: 1.5;
+  line-height: 1.6;
   font-style: italic;
   text-align: justify;
-  padding-top: 80px;
-  color: ${props => props.theme.colors.text};
+  padding: 60px 80px 0 40px; /* top, right, bottom, left */
+  color: ${({ theme }) => theme.colors.text};
+
+  /* optional: better line flow on large screens */
+  @media (max-width: 1024px) {
+    padding: 40px 40px 0 40px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 20px 0 20px;
+  }
 `;
 
 export const ProfileImage = styled.img`
@@ -223,8 +233,8 @@ const ExperienceItem = styled.div`
 `;
 
 const CompanyLogoWrapper = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 55px;
+  height: 55px;
   margin-right: 5px;
   margin-top: 10px;
   border: 1px solid #cacaca;
@@ -244,17 +254,33 @@ const CompanyLogoWrapper = styled.div`
 
 const ExperienceHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
   margin-bottom: 10px;
-`;
 
+  .experienceTitle {
+    font-weight: 600;
+    font-size: 1.05em;
+  }
+
+  .experience-date-range {
+    font-size: 0.95em;
+    color: #777;
+  }
+
+  a.companyWebsite {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
 const ExperienceTitle = styled.h3`
   font-family: ${props => props.theme.font.heading};
   text-align: left;
   font-size: 1.1em;
   color: ${props => props.theme.colors.accent};
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 
   @media (max-width: 768px) {
     font-size: 0.6em; /* Adjust the font size for smaller screens */
