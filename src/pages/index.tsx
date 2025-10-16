@@ -56,10 +56,16 @@ const ContactForm = dynamic(() => import('../components/ContactForm'), {
 
 const IndexPage: React.FC = () => {
   const summary = `
-       <p><strong>Senior QA Automation Engineer with 13+ years</strong> of experience leading test automation initiatives across <strong>SaaS</strong>, <strong>fintech</strong>, and <strong>enterprise</strong> domains. Certified in <strong>ISTQB CTAL-TAE</strong>, <strong>CTFL</strong>, and <strong>Professional Scrum Developer (PSD I)</strong>. Proven leader in designing and scaling automation frameworks for <strong>mobile, web, and API</strong> layers using <strong>Java</strong>, <strong>Python</strong>, <strong>.NET (C#)</strong>, <strong>Appium</strong>, <strong>Selenium</strong>, and <strong>SpecFlow</strong>. Skilled in <strong>CI/CD</strong> integration (<strong>Azure DevOps</strong>, <strong>Jenkins</strong>, <strong>GitHub Actions</strong>), performance testing (<strong>JMeter</strong>), and driving <strong>Agile QA strategies</strong>.</p>
-       <p>I specialize in <strong>aligning QA with business objectives</strong> to deliver scalable, reliable, and high-impact software at speed. Passionate about <strong>mentoring teams</strong>, improving <strong>test efficiency</strong>, and fostering a <strong>quality-first culture</strong>, I focus on creating automation solutions that <strong>reduce defect rates</strong>, <strong>accelerate delivery</strong>, and <strong>strengthen customer confidence</strong>.</p>
-       <p>Since <strong>2022</strong>, I have been operating as a <strong>self-employed QA Automation Consultant</strong>, supporting multiple international clients (<strong>Affirm</strong>, <strong>Poq</strong>, <strong>Payflow</strong>, <strong>Hubuc</strong>, and others). Some projects ran in parallel, reflecting both strong demand for my expertise and my ability to manage complex engagements effectively.</p>
-    `;
+                  <p style="text-align: justify;">
+                    <strong>Senior QA Automation Engineer with 13+ years</strong> of experience leading test automation initiatives across <strong>SaaS</strong>, <strong>fintech</strong>, and <strong>enterprise</strong> domains. Certified in <strong>ISTQB CTAL-TAE</strong>, <strong>CTFL</strong>, and <strong>Professional Scrum Developer (PSD I)</strong>. Proven leader in designing and scaling automation frameworks for <strong>mobile, web, and API</strong> layers using <strong>Java</strong>, <strong>Python</strong>, <strong>.NET (C#)</strong>, <strong>Appium</strong>, <strong>Selenium</strong>, and <strong>SpecFlow</strong>. Skilled in <strong>CI/CD</strong> integration (<strong>Azure DevOps</strong>, <strong>Jenkins</strong>, <strong>GitHub Actions</strong>), performance testing (<strong>JMeter</strong>), and driving <strong>Agile QA strategies</strong>.
+                  </p>
+                  <p style="text-align: justify;">
+                    I specialize in <strong>aligning QA with business objectives</strong> to deliver scalable, reliable, and high-impact software at speed. Passionate about <strong>mentoring teams</strong>, improving <strong>test efficiency</strong>, and fostering a <strong>quality-first culture</strong>, I focus on creating automation solutions that <strong>reduce defect rates</strong>, <strong>accelerate delivery</strong>, and <strong>strengthen customer confidence</strong>.
+                  </p>
+                  <p style="text-align: justify;">
+                    Since <strong>2022</strong>, I have been operating as a <strong>self-employed QA Automation Consultant</strong>, supporting multiple international clients (<strong>Affirm</strong>, <strong>Poq</strong>, <strong>Payflow</strong>, <strong>Hubuc</strong>, and others). Some projects ran in parallel, reflecting both strong demand for my expertise and my ability to manage complex engagements effectively.
+                  </p>
+                `;
 
   const trackEvent = (
     event: string,
