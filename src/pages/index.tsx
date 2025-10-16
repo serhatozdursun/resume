@@ -197,7 +197,7 @@ const IndexPage: React.FC = () => {
           <LeftColumn>
             <ProfileImage
               id='profile_image'
-              src='/IMG_9219.png'
+              src='/profile.png'
               alt='Profile Picture'
             />
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
@@ -246,7 +246,9 @@ const IndexPage: React.FC = () => {
               </CommonLink>
             </LeftColumnLinkContainer>
             <ContactForm />
-            <CertificateTitle id='qaHelpLabel'>QA Help</CertificateTitle>
+            <div style={{ marginLeft: '20px', marginTop: '20px' }}>
+              <CertificateTitle id='qaHelpLabel'>QA Help</CertificateTitle>
+            </div>
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
                 <img
