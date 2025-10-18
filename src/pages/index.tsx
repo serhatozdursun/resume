@@ -97,8 +97,8 @@ const IndexPage: React.FC = () => {
               content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
             />
             <title>
-              Mehmet Serhat Özdursun - QA Automation Leader | ISTQB CTAL-TAE
-              Certified | Driving Test Automation Excellence for 13+ Years
+              QA Leader | Senior SDET | ISTQB® CTAL-TM, CTAL-TAE & CTFL PSD I |
+              13+ Years in Quality Engineering
             </title>
             <link rel='icon' href='/favicon_.ico' />
 
