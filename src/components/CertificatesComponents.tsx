@@ -24,6 +24,11 @@ const CertificatesComponents = () => {
 
   const certificates = [
     {
+      name: 'ISTQB® CTAL-TM',
+      badge: '/CTAL-TM-badge.png',
+      link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
+    },
+    {
       name: 'ISTQB® CTAL-TAE',
       badge: '/CTAL-TAE-badge.png',
       link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
