@@ -287,6 +287,13 @@ const CTALExam: React.FC = () => {
     loadExamData();
   }, []);
 
+  // Secure random number generator using Web Crypto API
+  const getSecureRandom = (max: number): number => {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return array[0] % max;
+  };
+
   // Function to get random questions using Fisher-Yates shuffle
   const getRandomQuestions = (
     questions: Question[],
@@ -294,12 +301,9 @@ const CTALExam: React.FC = () => {
   ): Question[] => {
     const shuffled = [...questions];
 
-    // Fisher-Yates shuffle algorithm
-    // Math.random() is safe here as we only need fair randomization for educational quiz purposes
-    // No cryptographic security requirements for question shuffling
-    // NOSONAR
+    // Fisher-Yates shuffle algorithm with cryptographically secure random numbers
     for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = getSecureRandom(i + 1);
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
