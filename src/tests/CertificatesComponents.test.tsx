@@ -16,7 +16,7 @@ describe('CertificatesComponents', () => {
     expect(certificateTitles.length).toBe(1);
 
     const certificates = screen.getAllByRole('listitem');
-    expect(certificates.length).toBe(7);
+    expect(certificates.length).toBe(8);
   });
 
   it('handles click events correctly', () => {
@@ -48,6 +48,7 @@ describe('CertificatesComponents', () => {
   it('displays all certificate names correctly', () => {
     render(<CertificatesComponents />);
 
+    expect(screen.getByText('ISTQB® CTAL-TM')).toBeInTheDocument();
     expect(screen.getByText('ISTQB® CTAL-TAE')).toBeInTheDocument();
     expect(screen.getByText('ISTQB® CTFL')).toBeInTheDocument();
     expect(screen.getByText('PSD I')).toBeInTheDocument();
@@ -68,25 +69,29 @@ describe('CertificatesComponents', () => {
     );
     expect(certificateLinks[1]).toHaveAttribute(
       'href',
-      'https://scr.istqb.org/?name=%C3%96ZDURSUN&number=&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10'
+      'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229'
     );
     expect(certificateLinks[2]).toHaveAttribute(
       'href',
-      'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url'
+      'https://scr.istqb.org/?name=%C3%96ZDURSUN&number=&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10'
     );
     expect(certificateLinks[3]).toHaveAttribute(
       'href',
-      'https://www.hackerrank.com/certificates/c331e49c22d0'
+      'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url'
     );
     expect(certificateLinks[4]).toHaveAttribute(
       'href',
-      'https://www.hackerrank.com/certificates/995550878771'
+      'https://www.hackerrank.com/certificates/c331e49c22d0'
     );
     expect(certificateLinks[5]).toHaveAttribute(
       'href',
-      'https://www.hackerrank.com/certificates/2256773c8ba5'
+      'https://www.hackerrank.com/certificates/995550878771'
     );
     expect(certificateLinks[6]).toHaveAttribute(
+      'href',
+      'https://www.hackerrank.com/certificates/2256773c8ba5'
+    );
+    expect(certificateLinks[7]).toHaveAttribute(
       'href',
       'https://www.hackerrank.com/certificates/957d5fbf06b4'
     );
@@ -100,19 +105,19 @@ describe('CertificatesComponents', () => {
     // Check that images have the expected src patterns (Next.js Image component adds query params)
     expect(badgeImages[0]).toHaveAttribute(
       'src',
-      expect.stringContaining('CTAL-TAE-badge.png')
+      expect.stringContaining('CTAL-TM-badge.png')
     );
     expect(badgeImages[1]).toHaveAttribute(
       'src',
-      expect.stringContaining('Foundation-Level-Exam-2022.png')
+      expect.stringContaining('CTAL-TAE-badge.png')
     );
     expect(badgeImages[2]).toHaveAttribute(
       'src',
-      expect.stringContaining('psd1.png')
+      expect.stringContaining('Foundation-Level-Exam-2022.png')
     );
     expect(badgeImages[3]).toHaveAttribute(
       'src',
-      expect.stringContaining('hackerrank.png')
+      expect.stringContaining('psd1.png')
     );
     expect(badgeImages[4]).toHaveAttribute(
       'src',
@@ -123,6 +128,10 @@ describe('CertificatesComponents', () => {
       expect.stringContaining('hackerrank.png')
     );
     expect(badgeImages[6]).toHaveAttribute(
+      'src',
+      expect.stringContaining('hackerrank.png')
+    );
+    expect(badgeImages[7]).toHaveAttribute(
       'src',
       expect.stringContaining('hackerrank.png')
     );
@@ -176,22 +185,23 @@ describe('CertificatesComponents', () => {
     const badgeImages = screen.getAllByRole('img');
 
     // Check that images have appropriate alt text
-    expect(badgeImages[0]).toHaveAttribute('alt', 'ISTQB® CTAL-TAE Badge');
-    expect(badgeImages[1]).toHaveAttribute('alt', 'ISTQB® CTFL Badge');
-    expect(badgeImages[2]).toHaveAttribute('alt', 'PSD I Badge');
-    expect(badgeImages[3]).toHaveAttribute(
+    expect(badgeImages[0]).toHaveAttribute('alt', 'ISTQB® CTAL-TM Badge');
+    expect(badgeImages[1]).toHaveAttribute('alt', 'ISTQB® CTAL-TAE Badge');
+    expect(badgeImages[2]).toHaveAttribute('alt', 'ISTQB® CTFL Badge');
+    expect(badgeImages[3]).toHaveAttribute('alt', 'PSD I Badge');
+    expect(badgeImages[4]).toHaveAttribute(
       'alt',
       'Problem Solving (Int.) Badge'
     );
-    expect(badgeImages[4]).toHaveAttribute(
+    expect(badgeImages[5]).toHaveAttribute(
       'alt',
       'Java (Basic) Certificate Badge'
     );
-    expect(badgeImages[5]).toHaveAttribute(
+    expect(badgeImages[6]).toHaveAttribute(
       'alt',
       'Python (Basic) Certificate Badge'
     );
-    expect(badgeImages[6]).toHaveAttribute(
+    expect(badgeImages[7]).toHaveAttribute(
       'alt',
       'C# (Basic) Certificate Badge'
     );
