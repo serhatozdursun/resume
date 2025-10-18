@@ -176,6 +176,7 @@ describe('CertificatesComponents', () => {
     const badgeImages = screen.getAllByRole('img');
 
     // Check that images have appropriate alt text
+    expect(badgeImages[0]).toHaveAttribute('alt', 'ISTQB® CTAL-TM Badge');
     expect(badgeImages[0]).toHaveAttribute('alt', 'ISTQB® CTAL-TAE Badge');
     expect(badgeImages[1]).toHaveAttribute('alt', 'ISTQB® CTFL Badge');
     expect(badgeImages[2]).toHaveAttribute('alt', 'PSD I Badge');
