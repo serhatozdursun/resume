@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import CTALExam from '../pages/ctal-exam';
+import CtalTaeExam from '../pages/ctal-tae-exam';
 
 // Mock fetch for JSON data
 global.fetch = jest.fn();
@@ -46,14 +46,14 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('renders loading message initially', () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
     expect(
       screen.getByText('Loading CTAL-TAE Sample Exam...')
     ).toBeInTheDocument();
   });
 
   it('renders exam content after loading', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(
@@ -70,7 +70,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('displays questions with answer options', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(
@@ -99,7 +99,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('shows correct answer when show answer button is clicked', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -118,7 +118,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('shows tip when show tip button is clicked', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -139,7 +139,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('loads new questions when next button is clicked', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getByText('Load New Questions')).toBeInTheDocument();
@@ -155,7 +155,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('handles fetch error gracefully', async () => {
     (fetch as jest.Mock).mockRejectedValue(new Error('Failed to fetch'));
 
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(
@@ -165,7 +165,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('has proper SEO meta tags', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(document.querySelector('title')).toHaveTextContent(
@@ -189,7 +189,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('toggles answer visibility correctly', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -207,7 +207,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('toggles tip visibility correctly', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -231,7 +231,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('resets answer and tip visibility when loading new questions', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -251,7 +251,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('disables show tip button until answer is shown', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -268,7 +268,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('toggles real life example visibility correctly', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -292,7 +292,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('disables show real life example button until answer is shown', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
@@ -311,7 +311,7 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('resets real life example visibility when loading new questions', async () => {
-    render(<CTALExam />);
+    render(<CtalTaeExam />);
 
     await waitFor(() => {
       expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);

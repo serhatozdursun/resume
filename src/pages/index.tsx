@@ -57,13 +57,29 @@ const ContactForm = dynamic(() => import('../components/ContactForm'), {
 const IndexPage: React.FC = () => {
   const summary = `
                   <p style="text-align: justify;">
-                    <strong>Senior QA Automation Engineer with 13+ years</strong> of experience leading test automation initiatives across <strong>SaaS</strong>, <strong>fintech</strong>, and <strong>enterprise</strong> domains. Certified in <strong>ISTQB CTAL-TAE</strong>, <strong>CTFL</strong>, and <strong>Professional Scrum Developer (PSD I)</strong>. Proven leader in designing and scaling automation frameworks for <strong>mobile, web, and API</strong> layers using <strong>Java</strong>, <strong>Python</strong>, <strong>.NET (C#)</strong>, <strong>Appium</strong>, <strong>Selenium</strong>, and <strong>SpecFlow</strong>. Skilled in <strong>CI/CD</strong> integration (<strong>Azure DevOps</strong>, <strong>Jenkins</strong>, <strong>GitHub Actions</strong>), performance testing (<strong>JMeter</strong>), and driving <strong>Agile QA strategies</strong>.
+                    Senior <strong>QA Automation Leader</strong> with <strong>13+ years</strong> of experience driving quality engineering across SaaS, fintech, and enterprise platforms. Certified in 
+                    <strong>ISTQB® Certified Tester Advanced Level – Test Management (CTAL-TM v3.0)</strong>, 
+                    <strong>Test Automation Engineer (CTAL-TAE)</strong>, <strong>Foundation Level (CTFL)</strong>, 
+                    and <strong>Professional Scrum Developer (PSD I)</strong>. 
+                    Expert in architecting scalable, AI-assisted test automation frameworks across mobile, <strong>web</strong>, and <strong>API</strong> layers using 
+                    <strong>Java</strong>, <strong>Python</strong>, and .NET (C#) with <strong>Appium</strong>, <strong>Selenium</strong>, and <strong>SpecFlow</strong>. 
+                    Skilled in <strong>CI/CD integration</strong> (Azure DevOps, Jenkins, GitHub Actions), 
+                    performance testing (JMeter, k6), and implementing <strong>shift-left</strong>, 
+                    risk-based, and data-driven quality strategies
                   </p>
+                
                   <p style="text-align: justify;">
-                    I specialize in <strong>aligning QA with business objectives</strong> to deliver scalable, reliable, and high-impact software at speed. Passionate about <strong>mentoring teams</strong>, improving <strong>test efficiency</strong>, and fostering a <strong>quality-first culture</strong>, I focus on creating automation solutions that <strong>reduce defect rates</strong>, <strong>accelerate delivery</strong>, and <strong>strengthen customer confidence</strong>.
+                    I specialize in aligning QA with business objectives to deliver scalable, reliable, and high-impact software at speed. 
+                    Passionate about <strong>mentoring teams</strong>, improving test efficiency, and fostering a 
+                    quality-first culture, I focus on creating automation solutions that reduce defect rates, 
+                    accelerate delivery, and strengthen customer confidence.
                   </p>
+                
                   <p style="text-align: justify;">
-                    Since <strong>2022</strong>, I have been operating as a <strong>self-employed QA Automation Consultant</strong>, supporting multiple international clients (<strong>Affirm</strong>, <strong>Poq</strong>, <strong>Payflow</strong>, <strong>Hubuc</strong>, and others). Some projects ran in parallel, reflecting both strong demand for my expertise and my ability to manage complex engagements effectively.
+                    Since 2022, I have been working as an <strong>independent QA Automation Consultant</strong>, partnering with 
+                    leading international clients including <strong>Affirm</strong>, <strong>Poq</strong>, <strong>Payflow</strong>, and <strong>Hubuc</strong>. 
+                    My work integrates <strong>AI-driven testing</strong>, performance optimization, and 
+                    service virtualization to enhance release confidence, increase quality maturity, and drive measurable ROI.
                   </p>
                 `;
 
@@ -211,8 +227,8 @@ const IndexPage: React.FC = () => {
                 <img
                   src='/resume-computer-icons.png'
                   alt='LinkedIn'
-                  width={20}
-                  height={20}
+                  width={28}
+                  height={28}
                 />
               </BadgeWrapper>
               <CommonLink
@@ -232,8 +248,8 @@ const IndexPage: React.FC = () => {
                 <img
                   src='/recommandation.png'
                   alt='recommandation'
-                  width={20}
-                  height={20}
+                  width={28}
+                  height={28}
                 />
               </BadgeWrapper>
               <CommonLink
@@ -260,8 +276,8 @@ const IndexPage: React.FC = () => {
                 <img
                   src='/Manual_Testing.png'
                   alt='Practice Page'
-                  width={20}
-                  height={20}
+                  width={28}
+                  height={28}
                 />
               </BadgeWrapper>
               <CommonLink id='practicePAge' href='/practice'>
@@ -274,12 +290,26 @@ const IndexPage: React.FC = () => {
                 <img
                   src='/CTAL-TAE-EXAMpng.png'
                   alt='CTAL-TAE Exam'
-                  width={20}
-                  height={20}
+                  width={29}
+                  height={29}
                 />
               </BadgeWrapper>
-              <CommonLink id='ctalExamPage' href='/ctal-exam'>
+              <CommonLink id='CtalTaeExam' href='/ctal-tae-exam'>
                 CTAL-TAE Sample Exam
+              </CommonLink>
+            </LeftColumnLinkContainer>
+
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper>
+                <img
+                  src='/catl_tm_exam.png'
+                  alt='CTAL-TM Exam'
+                  width={29}
+                  height={29}
+                />
+              </BadgeWrapper>
+              <CommonLink id='CtalTmExam' href='/ctal-tm-exam'>
+                CTAL-TM Sample Exam
               </CommonLink>
             </LeftColumnLinkContainer>
 

@@ -1,0 +1,2011 @@
+{
+  "metadata": {
+    "title": "ISTQB CTAL-TM Real Exam Practice — Custom Question Set",
+    "counts": {
+      "custom": 4,
+      "total": 4
+    }
+  },
+  "questions": [
+    {
+      "id": "CUSTOM-Q1",
+      "question": "<p>Your team completed a full regression test. A second regression is planned; this time you estimate <strong>10% more</strong> effort than the recent run. <strong>Which estimation method have you used?</strong></p>",
+      "answers": {
+        "a": "Function Point",
+        "b": "Extrapolation",
+        "c": "PRAM",
+        "d": "IDEAL"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TM-2.5.1",
+      "tip": "Using previous actuals plus a proportional uplift indicates extrapolation from historical data.",
+      "real_life_example": "After a 100-hour regression, the next cycle is estimated at 110 hours due to 10% scope increase."
+    },
+    {
+      "id": "CUSTOM-Q2",
+      "question": "<p>Due to <em>long bug-fix times</em> and an <em>unstable environment</em>, you estimated <strong>45 days</strong> for regression. Your manager argues it’s pessimistic and asks you to reduce the estimate and improve credibility by involving others. <strong>Which estimation method should you use?</strong></p>",
+      "answers": {
+        "a": "Wideband Delphi",
+        "b": "Three-Point (PERT)",
+        "c": "Expert judgment from a single source",
+        "d": "Work Breakdown Structure (WBS) only"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-2.5.1",
+      "tip": "When an individual estimate is challenged, use consensus-based Wideband Delphi with multiple experts.",
+      "real_life_example": "Facilitate two Delphi rounds with QA leads, Dev, and Ops to converge on a credible estimate."
+    },
+    {
+      "id": "CUSTOM-Q3",
+      "question": "<p>Cost of Quality data shows: Prevention = 50,000; Appraisal = 25,000; Internal Failure = 20,000; External Failure = <strong>400,000</strong>. <strong>Which action best reduces total CoQ?</strong></p>",
+      "answers": {
+        "a": "Increase Prevention cost to reduce defects injected",
+        "b": "Add more testing because External Failure is high",
+        "c": "Buy a tool to reduce Internal Failure cost",
+        "d": "Increase Appraisal to catch more defects before release"
+      },
+      "correct_answer": "d",
+      "points": 3,
+      "syllabus_reference": "TM-2.7.2",
+      "tip": "When external failures dominate, boosting appraisal (reviews/testing) reduces expensive customer-found defects.",
+      "real_life_example": "Adding UAT/system test depth cut warranty/support costs in the next release."
+    },
+    {
+      "id": "CUSTOM-Q4",
+      "question": "<p>Management hires three offshore QA automation experts. The local team fears job loss and resists. You assign three team members as <strong>ambassadors</strong> to integrate the offshore team. <strong>Which competencies are you applying?</strong></p>",
+      "answers": {
+        "a": "Social + Personal",
+        "b": "Methodological + Professional",
+        "c": "Professional + Personal",
+        "d": "Social + Methodological"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-3.1.1",
+      "tip": "Addressing resistance and enabling collaboration draws on social and personal competencies.",
+      "real_life_example": "Using ambassadors/champions to bridge teams, align expectations, and reduce conflict."
+    },
+    {
+      "id": "TMv1.2-Q1",
+      "question": "<p>You are the Test Manager in a large CRM implementation project. You are required to establish a test plan before development starts.</p><p><strong>Which of the following activities is most essential in developing and establishing the test plan?</strong></p>",
+      "answers": {
+        "a": "Reaching consensus among all stakeholders",
+        "b": "Defining test objectives based on regulatory standards",
+        "c": "Establishing readiness to begin testing",
+        "d": "Having all stakeholders identify their risk mitigation strategy"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.1.1",
+      "k_level": "K2",
+      "tip": "All aspects of the test plan must be accepted by stakeholders — consensus ensures alignment and approval.",
+      "real_life_example": "In a CRM rollout, the Test Manager organized a stakeholder workshop to agree on test scope and priorities before finalizing the plan."
+    },
+    {
+      "id": "TMv1.2-Q2",
+      "question": "<p>During the course of your software implementation project, test monitoring becomes an important activity for you as a Test Manager.</p><p><strong>Which of the following defines the main goal of test monitoring?</strong></p>",
+      "answers": {
+        "a": "Test monitoring compares the actual test progress against the planned progress.",
+        "b": "Test monitoring compares the actual results against the expected results.",
+        "c": "Test monitoring compares changes against unknown risks.",
+        "d": "Test monitoring compares approval criteria against exit criteria."
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.1.2",
+      "k_level": "K2",
+      "tip": "Test monitoring ensures alignment between planned and actual test progress, enabling early detection of deviations.",
+      "real_life_example": "In a banking project, the Test Manager used daily dashboards comparing planned versus executed test cases to track schedule adherence."
+    },
+    {
+      "id": "TMv1.2-Q3",
+      "question": "<p>When comparing stakeholders in a given project, the Project Manager wants to ensure that detailed discussions are held with high-level stakeholders while, at the same time, engaging low-level stakeholders in a planning workshop specifically for the project schedule.</p><p><strong>Which group of stakeholders is the BEST choice for the Project Manager to include in the detailed discussions?</strong></p>",
+      "answers": {
+        "a": "Development leads, automation testers, finance staff",
+        "b": "Security architects, operations team",
+        "c": "Project managers for other projects, application owners",
+        "d": "Project Managers for other projects, trainers, test management tool vendor"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-1.2.1",
+      "k_level": "K2",
+      "tip": "Detailed discussions should involve high-level stakeholders who have decision-making power and influence on project outcomes.",
+      "real_life_example": "In a CRM integration project, the Test Manager invited the application owner and cross-project PMs to define test dependencies and align expectations early."
+    },
+    {
+      "id": "TMv1.2-Q4",
+      "question": "<p>As a Test Manager responsible for conducting acceptance testing, you are to purchase a stand-alone Commercial Test Management tool that meets your organization's requirements and standards. The tool should enable you to plan, execute, monitor, and report acceptance testing activities and results.</p><p>You have identified and analyzed the stakeholders who have a high interest and high influence on the test management tool.</p><p><strong>Which of the following would be the stakeholders who would be most impacted by the tool decision?</strong></p>",
+      "answers": {
+        "a": "Testers",
+        "b": "Product Developers",
+        "c": "Product Manager",
+        "d": "Project Manager"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.2.2",
+      "k_level": "K2",
+      "tip": "Testers are the main users of a test management tool and therefore have the highest interest and impact when selecting or changing such a tool.",
+      "real_life_example": "When a financial firm adopted a new test management system, testers influenced the final choice because their daily workflows depended on its usability and reporting features."
+    },
+    {
+      "id": "TMv1.2-Q5",
+      "question": "<p>A project has just started to use Agile development practices. The test team is not trained to continuously test in shorter time frames using multiple test cycles.</p><p><strong>Which of the following test management activities is the most important in a test management role?</strong></p>",
+      "answers": {
+        "a": "Coaching and mentoring the test team on automation, continuous integration, testing and delivery.",
+        "b": "Give the team time to learn by negotiating deadlines and recognize the team’s small victories to keep their morale up.",
+        "c": "Convince leadership that introducing Agile practices will not work, because the team and resources are not ready for it.",
+        "d": "Hire some new team members who are familiar with continuous testing."
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.2.3",
+      "k_level": "K2",
+      "tip": "Agile transition requires active coaching and mentoring from the Test Manager to build the team’s competence in continuous testing and automation.",
+      "real_life_example": "When a telecom project moved to Agile, the Test Manager held weekly pairing sessions on CI/CD pipeline usage and automated regression, accelerating the team’s readiness for shorter sprints."
+    },
+    {
+      "id": "TMv1.2-Q7",
+      "question": "<p>Assume that you are working for an ambitious start-up developing a system that provides customized loyalty and rewards programs for small and medium-sized companies selling to web-based customers.</p><p>The companies using the system can self-enroll via the web store and create customized buttons for their websites. These buttons allow customers to enroll in the loyalty and rewards program. Each subsequent purchase earns points, and both companies and customers can manage the program, for example, to determine the number of points required to receive a free product or service.</p><p>Your employer intends to launch new features, enhancements, and bug fixes through multiple releases every month.</p><p><strong>Which of the following test management activities apply?</strong></p>",
+      "answers": {
+        "a": "Implement DevOps Development Tools",
+        "b": "Send the test status reports manually",
+        "c": "Manage the manual regression test execution",
+        "d": "Enable the test team and facilitate communication"
+      },
+      "correct_answer": "d",
+      "points": 3,
+      "syllabus_reference": "TM-1.2.7",
+      "k_level": "K4",
+      "tip": "Test management in iterative or DevOps environments focuses on enabling teams, communication, and coordination rather than manual reporting or tool setup.",
+      "real_life_example": "In a SaaS company releasing updates weekly, the Test Manager facilitated daily syncs between QA and DevOps teams, using dashboards for automated reporting instead of manual status updates."
+    },
+    {
+      "id": "TMv1.2-Q8",
+      "question": "<p>Assume you are in a project that develops software for a safety-critical medical device. The software must comply with standards such as ISO 62304 and FDA regulations. The project follows an Agile methodology with two-week sprints. The test team consists of four onsite testers and six offsite testers. The organization uses a cloud-based DevOps toolchain for CI/CD and test automation. The project is in the maintenance phase, requiring frequent regression testing due to defect fixes and feature enhancements. A continuous risk management process is in place to identify, assess, and mitigate any new or existing risks associated with software changes.</p><p><strong>Which of the following test management activities best emphasizes the specific focus of this project?</strong></p>",
+      "answers": {
+        "a": "Developing a risk management plan to identify, assess, prioritize, and mitigate risks",
+        "b": "Developing a configuration management plan for the test team to define the roles and responsibilities of the onsite and offsite teams",
+        "c": "Developing a test automation plan to define the scope of automation and select the automation tools and frameworks",
+        "d": "Developing a regression testing plan to identify the scope of regression testing and select the regression testing tools"
+      },
+      "correct_answer": "d",
+      "points": 3,
+      "syllabus_reference": "TM-1.2.7",
+      "k_level": "K4",
+      "tip": "In safety-critical systems, regression testing is vital to ensure that maintenance or enhancements do not introduce new defects or compromise compliance with safety standards.",
+      "real_life_example": "In a medical-device software project, the Test Manager maintained a detailed regression suite and automated validation steps to ensure each new release met FDA compliance and safety-critical reliability requirements."
+    },
+    {
+      "id": "TMv1.2-Q9",
+      "question": "<p>A project involved the migration of a web application to the cloud. The cloud system provider estimated that a system outage was very unlikely. Based on this statement, the testers decided not to conduct reliability testing for this item because, even though the risk impact would be high, the moderate overall risk level did not justify the additional effort and time needed for this test type.</p><p>Soon after going live, the website became unavailable for two days, causing a substantial loss of revenue and reputation to the company.</p><p><strong>How could the test team improve its use of risk-based testing to avoid such problems in the future?</strong></p>",
+      "answers": {
+        "a": "Involve additional stakeholders in risk analysis to improve the assessment of risk likelihood",
+        "b": "Conduct intensive reliability tests even if the risk level is moderate",
+        "c": "Involve experienced testers in risk assessment to evaluate the risk level correctly",
+        "d": "Use a risk-based testing strategy to avoid such major failures"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.3.1",
+      "k_level": "K2",
+      "tip": "Risk analysis should include multiple stakeholders — especially independent experts — to achieve realistic and unbiased risk likelihood assessments.",
+      "real_life_example": "A banking migration project involved infrastructure specialists and external auditors in its risk workshops to correctly identify potential downtime scenarios before production deployment."
+    },
+    {
+      "id": "TMv1.2-Q11",
+      "question": "<p>Risks have been identified for a project and analyzed using a quantitative method, with the following results for risk likelihood and risk impact.</p><table><thead><tr><th>Risk ID</th><th>Description</th><th>Risk Likelihood</th><th>Risk Impact</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>The application may not suit the functionality expected by the business</td><td>40%</td><td>1,500,000 €</td></tr><tr><td><strong>B</strong></td><td>The test environment may not be available in time for testing</td><td>20%</td><td>500,000 €</td></tr><tr><td><strong>C</strong></td><td>Users may not understand system documentation</td><td>90%</td><td>100,000 €</td></tr><tr><td><strong>D</strong></td><td>The test manager may not have enough time for this project</td><td>10%</td><td>6,000,000 €</td></tr></tbody></table><p><strong>Which set of testing activities would be the best to mitigate these risks?</strong></p>",
+      "answers": {
+        "a": "Address risk A as a high priority by testing an early prototype with business stakeholders, then address risk C by introducing reviews. No testing is planned to mitigate risks B and D.",
+        "b": "Execute tests addressing risk A by documentation review, and risk C with black-box testing. Then, address risks B and D with white-box testing.",
+        "c": "Mitigate risks by testing risk B and C first with exploratory testing, then test risk A with confirmation testing. Test risk D as time allows.",
+        "d": "Mitigate risks by testing risk A and risk B by testing with business stakeholders using an early prototype and risk D with non-functional testing. Accept risk C without explicit testing."
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-1.3.4",
+      "k_level": "K4",
+      "tip": "Prioritize by risk exposure (likelihood × impact). Product risks are mitigated by testing; project risks typically require non-testing actions.",
+      "real_life_example": "For a new portal, an early clickable prototype with business users exposed misaligned features quickly, while documentation clarity was improved via reviews; environment availability and manager bandwidth were handled outside testing."
+    },
+    {
+      "id": "TMv1.2-Q12",
+      "question": "<p>Assume you are in a project that develops a web application for online banking. The project follows an Agile SDLC with two-week sprints. The application has several features (account management, fund transfer, bill payment, loan application), each with different levels of security, usability, and performance risks. You have a test team of six members with different skills and experience.</p><p><strong>Based on this situation, how would you select appropriate test activities to mitigate risks according to their risk level?</strong></p>",
+      "answers": {
+        "a": "Use static testing and dynamic testing for all features but allocate more test effort and apply more thorough techniques for features with higher risk levels. Assign the most qualified testers to the highest-risk features. Use reviews and regression testing for quality assurance.",
+        "b": "Use static testing for lower-risk features and dynamic testing for higher-risk features. Assign testers randomly regardless of skills and experience. Use reviews and regression testing to ensure quality assurance.",
+        "c": "Use dynamic testing only for higher-risk features and skip testing for lower-risk features. Assign testers based on availability and preference. Use reviews and regression testing to ensure quality assurance.",
+        "d": "Use static testing only for higher-risk features and skip testing for lower-risk features. Assign testers based on seniority and rank. Use reviews and regression testing to ensure quality assurance."
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-1.3.4",
+      "k_level": "K4",
+      "tip": "Risk-based testing scales technique rigor and tester expertise with risk level, but still applies a baseline of both static and dynamic testing across all features.",
+      "real_life_example": "For online banking, senior testers focus on high-risk items like fund transfer and loan approval using stronger techniques (e.g., boundary, decision tables, security checks) while all features still undergo reviews and baseline regression."
+    },
+    {
+      "id": "TMv1.2-Q13",
+      "question": "<p>Your team is developing a new major version of a mobile application that graphically displays the timetable of various public transport organizations on a common user interface. The team follows an Agile lifecycle model with fast iterations and releases. Requirements are informal, often collected from user feedback and development discussions. The organizational test strategy requires risk-based testing. To make the risk analysis proceed quickly, you want to involve agile team members who are familiar with the main risk areas of usability, compatibility, portability, and performance.</p><p><strong>Which technique would you recommend using in this situation?</strong></p>",
+      "answers": {
+        "a": "Hazard analysis",
+        "b": "Pragmatic Risk Analysis and Management",
+        "c": "Systematic Software Testing",
+        "d": "Fault tree analysis"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.3.5",
+      "k_level": "K2",
+      "tip": "PRAM (Pragmatic Risk Analysis and Management) is a lightweight, stakeholder-driven risk analysis approach ideal for Agile projects with limited documentation and fast feedback cycles.",
+      "real_life_example": "In an Agile mobile-app project with short sprints and evolving requirements, the Test Manager used PRAM workshops with developers and UX designers to quickly assess usability and compatibility risks each sprint."
+    },
+    {
+      "id": "TMv1.2-Q14",
+      "question": "<p>As a Test Manager, you have been asked by the Project Manager to establish the test strategy for a software implementation project.</p><p><strong>Which of the following are the most important factors for you to consider to ensure an efficient and effective test strategy?</strong></p>",
+      "answers": {
+        "a": "Test types, test techniques and test metrics.",
+        "b": "Test levels, entry/exit criteria and test techniques.",
+        "c": "Test levels, test types and test techniques.",
+        "d": "Test levels, test techniques and test deliverables."
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-1.4.1",
+      "k_level": "K2",
+      "tip": "A test strategy defines the overall approach, emphasizing key decisions on test levels, test types, and test techniques to ensure efficiency and effectiveness.",
+      "real_life_example": "When designing a system test strategy for a banking app, the Test Manager defined levels (system, UAT), types (functional, performance, security), and techniques (boundary, equivalence, risk-based) to optimize coverage and resources."
+    },
+    {
+      "id": "TMv1.2-Q15",
+      "question": "<p>Assume you are a member of a project developing a software product for the banking sector. You are responsible for analyzing the organizational test strategy and the project context to choose the appropriate test approach. You consider the following factors:</p><ul><li>The project has a tight budget and a fixed deadline, requiring optimization of the test effort and avoidance of unnecessary costs and delays.</li><li>The customer has provided detailed requirements and expects high quality and reliability, requiring compliance with specifications and customer expectations.</li><li>The project uses an Agile SDLC model with frequent releases and feedback cycles, requiring adaptation to changing requirements and fast delivery of test results.</li><li>The test team consists of four testers with varying experience levels, requiring careful task assignment and coaching.</li><li>The test infrastructure is limited and requires manual configuration and maintenance, requiring efficient planning and management of test environments.</li><li>The product has several interfaces with other systems, requiring coordination and integration of test activities with stakeholders to ensure compatibility and interoperability.</li></ul><p><strong>Which of the following test approaches would be most appropriate for this project?</strong></p>",
+      "answers": {
+        "a": "Risk-based testing to prioritize the most critical and complex features and scenarios, and to allocate the test resources accordingly.",
+        "b": "Model-based testing to generate test cases and test data automatically from the requirements, and to measure the test coverage and quality.",
+        "c": "Experience-based testing to leverage the testers' expertise and intuition, and to perform exploratory testing in an agile context.",
+        "d": "Testing based on the acceptance criteria to verify the compliance of the product with the customer's specifications, and to enable acceptance testing."
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-1.4.2",
+      "k_level": "K4",
+      "tip": "Risk-based testing balances time, budget, and quality constraints by aligning test priorities with potential business and technical risks.",
+      "real_life_example": "In a banking platform project with limited time and resources, the Test Manager used risk-based testing to prioritize high-value transactions and security flows, adapting coverage per sprint based on emerging risks."
+    },
+    {
+      "id": "TMv1.2-Q16",
+      "question": "<p>Assume you are in a project that develops a web application for online banking. The project is customer-specific and has strict requirements on security, performance, and reliability. The project uses an Agile SDLC model with two-week sprints and frequent releases.</p><p>The test team consists of four testers with different levels of experience and skills. The test infrastructure is cloud-based and supports various browsers and devices. The test data is provided by the customer and needs to be anonymized before use.</p><p><strong>Based on the scenario, which of the following test approaches would be most appropriate for your project?</strong></p>",
+      "answers": {
+        "a": "Testing will be done by the whole team using three test levels: unit testing and integration testing, where test cases are jointly created and performed by the developers and testers grouped in pairs, and system testing where the four testers will create and perform the test cases. In unit and integration testing, white-box testing is used aiming at 100% automation. In all test levels, risk-based testing will be used to create and prioritize test cases. For system testing, the testers will use all appropriate test techniques to cover acceptance criteria.",
+        "b": "Testing will be done by the whole team using four test levels: unit, integration, system, and acceptance testing. In all levels, model-based testing will be used thoroughly with a focus on state-based testing. Code coverage is measured and aimed at 90% branch coverage. The sprint demo serves as acceptance testing.",
+        "c": "As the project uses an Agile SDLC model, no explicit test levels are defined. Developers automate their unit tests, and testers perform exploratory testing using several charters to cover browsers and devices. Usability testing is performed using checklist-based testing.",
+        "d": "Two test levels will be defined: a combined unit/integration level where the four testers create test cases based on functional requirements (using equivalence partitioning, boundary value analysis, decision tables, and state transition testing) that developers automate; and a system testing level where testers use exploratory testing for every completed item."
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-1.4.2",
+      "k_level": "K4",
+      "tip": "In Agile projects with strong non-functional requirements, a combined risk-based and white-box approach—supported by collaboration between developers and testers—is most effective.",
+      "real_life_example": "In a secure banking web-app project, testers paired with developers to design white-box tests for core components, applying risk-based prioritization for security and performance cases across automated and system test levels."
+    },
+    {
+      "id": "TMv1.2-Q17",
+      "question": "<p>You are part of a team responsible for testing a complex e-commerce website. The team has been given the following objective from Management: <em>“The system should be defect-free.”</em></p><p>According to the S.M.A.R.T. criteria, and taking into account the complexity and limited resources of your project, which of the following revisions to this test objective would be most appropriate?</p>",
+      "answers": {
+        "a": "Our website should be able to perform all planned functions without serious defects that affect the user experience.",
+        "b": "By the end of the current development phase, less than 1% of the site's functions should have defects, as measured by the total number of functional test cases included in the test suite.",
+        "c": "We aim to ensure that our e-commerce system does not experience any critical outages that could lead to business interruptions within the next year.",
+        "d": "Our goal is to reduce the number of accepted defects found in the beta testing by 50% compared to the previous release."
+      },
+      "correct_answer": "d",
+      "points": 2,
+      "syllabus_reference": "TM-1.4.3",
+      "k_level": "K3",
+      "tip": "A SMART test objective must be specific, measurable, achievable, relevant, and time-bound. Reducing beta-test defects by 50% from the prior release satisfies all SMART elements.",
+      "real_life_example": "In an e-commerce project, management set a measurable test goal to halve beta-stage defect leakage compared to the last release, focusing QA effort on root-cause analysis and improved regression scope."
+    },
+    {
+      "id": "TMv1.2-Q18",
+      "question": "<p>You are the Test Manager of a project developing a mobile app for online shopping. The project is under development and has high expectations for usability, functionality, and compatibility. The project uses a hybrid SDLC model with four-month releases and monthly iterations. The test team consists of six testers with various skills and experience. The test infrastructure is cloud-based and supports various devices and operating systems. The test data is generated by a test data management tool and must be validated before use.</p><p><strong>Which of the following project test objectives is S.M.A.R.T. according to the syllabus?</strong></p>",
+      "answers": {
+        "a": "Checking the usability of the app by measuring the time it takes to complete a purchase with the objective that 90% of users can complete their purchase within 3 minutes within the next two months.",
+        "b": "Enhancing the level of automated tests by 50% within the next two weeks with the objective of significantly accelerating regression testing.",
+        "c": "Complying with the rules and regulations of the e-commerce industry which have recently been published and will soon become the regulatory standard in an EU regulation, and thus binding for all stakeholders.",
+        "d": "Proving the functionality and compatibility of the app by testing all features on most real devices as well as via an external service provider, emulators are provided within the following two sprints, as there have been negative comments in the stores."
+      },
+      "correct_answer": "a",
+      "points": 2,
+      "syllabus_reference": "TM-1.4.3",
+      "k_level": "K3",
+      "tip": "A S.M.A.R.T. objective must be specific, measurable, achievable, relevant, and time-bound. Option A defines a clear usability metric (90% of users within 3 minutes) and a fixed time frame (two months).",
+      "real_life_example": "For a retail app redesign, the QA team set a measurable objective: 90% of users should complete checkout within 3 minutes by the next release, validating usability through timed user acceptance testing."
+    },
+    {
+      "id": "TMv1.2-Q35",
+      "question": "<p>The diagram shows an incomplete defect workflow, where two states (<strong>State X</strong> and <strong>State Y</strong>) have yet to be named appropriately.</p><div style='text-align:center; margin: 16px 0;'><img src='/diagram.png' alt='Defect Workflow Diagram' style='max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1);'></div><p><strong>Which of the following would correctly complete the workflow?</strong></p>",
+      "answers": {
+        "a": "STATE X – RETESTED &nbsp;&nbsp;&nbsp;&nbsp; STATE Y – RE-OPENED",
+        "b": "STATE X – REJECTED &nbsp;&nbsp;&nbsp;&nbsp; STATE Y – CLARIFICATION",
+        "c": "STATE X – DUPLICATE &nbsp;&nbsp;&nbsp;&nbsp; STATE Y – TERMINATED",
+        "d": "STATE X – FIXED &nbsp;&nbsp;&nbsp;&nbsp; STATE Y – REJECTED"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TM-1.5.1",
+      "k_level": "K3",
+      "tip": "In a typical defect workflow, 'Rejected' indicates an invalid or non-reproducible issue, while 'Clarification' captures cases needing more information from the reporter.",
+      "real_life_example": "A QA team often moves defects to 'Rejected' when they are out of scope or invalid. Developers use 'Clarification' when additional details are required before resuming work."
+    },
+    {
+      "id": "TMv1.2-Q20",
+      "question": "<p>You, as a Test Consultant, are responsible for test improvements in a critical project at a small regional bank. The project involves digital transformation and will continue for two more years using an Agile approach. Since the Test Maturity Model Integration (TMMi) is widely used in the finance domain, the bank has asked you to use TMMi during your project’s test improvement activities.</p><p><strong>How would you go about using TMMi in the described context?</strong></p>",
+      "answers": {
+        "a": "Make clear that model-based improvement using TMMi is not possible on a project level.",
+        "b": "Recommend that all TMMi level 2 and level 3 process areas be used for these improvement activities.",
+        "c": "Focus on the TMMi process areas that especially relate to the activities at the project level, and in addition use the specific 'TMMi and Agile' guideline.",
+        "d": "Since the project is using an Agile approach, propose using the Scrum Guide for test improvement activities."
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-1.5.2",
+      "k_level": "K2",
+      "tip": "TMMi can be applied at both organizational and project levels. For Agile environments, use the 'TMMi in the Agile world' guideline and focus on project-relevant process areas.",
+      "real_life_example": "A test consultant improving QA practices in a fintech Agile program focused on TMMi Level 2 process areas like Test Planning and Test Monitoring, adapting them using the 'TMMi and Agile' best-practice guide."
+    },
+    {
+      "id": "TMv1.2-Q19",
+      "question": "<p>You are the Test Manager in an organization that recently updated its corporate test policy. The new policy introduces mandatory use of static analysis tools for all development projects. However, your current project is a maintenance release for a legacy system written in an outdated programming language, for which no static analysis tools are available.</p><p><strong>What is the best action for you to take in this situation?</strong></p>",
+      "answers": {
+        "a": "Escalate the issue to senior management and request a formal policy exemption for your project.",
+        "b": "Ignore the policy, since it cannot be implemented for this project.",
+        "c": "Delay the project until a static analysis tool becomes available.",
+        "d": "Replace static analysis with manual code reviews and document the deviation in the test plan."
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.4.4",
+      "k_level": "K3",
+      "tip": "If a corporate policy cannot be applied, the Test Manager must escalate the issue and formally request an exemption rather than ignoring or changing the policy unilaterally.",
+      "real_life_example": "In a financial institution, a Test Manager requested an exemption from the corporate static analysis policy for a COBOL-based system, citing tool unavailability and proposing compensating code review measures instead."
+    },
+    {
+      "id": "TMv1.2-Q21",
+      "question": "<p>Assume that you are working for an ambitious start-up developing a system that provides customized loyalty and rewards programs for small and medium-sized companies selling to web-based customers. The companies using the system can self-enroll on the system’s web store and create customized buttons for their websites. These buttons allow their customers to enroll in the companies’ loyalty and rewards programs. Each subsequent purchase earns points, and both companies and customers can manage the program, for example, determining the number of points required for a free product or service.</p><p>Your employer’s marketing staff is heavily promoting the system by offering aggressive discounts on the first year’s fees to sign up inaugural companies. The marketing materials state that the service will be highly reliable and extremely fast for companies and their customers.</p><p>Four months ago, the requirements were completed and development of the software started. During quality risk analysis, button adaptation was classified as the lowest risk, while registration was classified as the highest. The first release was launched a month ago and users have been using the system since then. Your team has applied a mix of risk-based testing, requirements-based testing, and reactive testing. You are now conducting a retrospective for the testing work.</p><p><strong>Which TWO of the following areas should most likely be considered in this retrospective?</strong></p>",
+      "answers": {
+        "a": "Evaluating whether significant problems have been reported by users in button customization.",
+        "b": "Deciding if the project plan included all relevant project risks that affected delivery to early-adopter companies.",
+        "c": "Determining the level of detail required for enrollment, customization and managing the test cases.",
+        "d": "Measuring the coverage of the enrollment requirements and reporting the results to project and business stakeholders.",
+        "e": "Investigating which tests at which test level could have covered issues reported by customers."
+      },
+      "correct_answer": ["a", "e"],
+      "points": 2,
+      "syllabus_reference": "TM-1.5.4",
+      "k_level": "K3",
+      "tip": "A test retrospective focuses on lessons learned and process improvement from executed testing, including verifying whether risk analysis was accurate and identifying where earlier test coverage could have prevented customer issues.",
+      "real_life_example": "After a loyalty-platform release, the QA team reviewed defect reports showing registration failures. The retrospective confirmed that earlier risk prioritization missed these areas, prompting adjustments in future risk-based test design and coverage planning."
+    },
+    {
+      "id": "TMv1.2-Q22",
+      "question": "<p>You are a tester in an Agile software development team that has just completed an iteration. You are preparing for the retrospective meeting with the rest of the team.</p><p><strong>Which of the following activities is NOT part of a typical retrospective?</strong></p>",
+      "answers": {
+        "a": "Reviewing the test progress, defect detection, and test effectiveness metrics",
+        "b": "Identifying the root causes of the testing problems and generating improvement ideas",
+        "c": "Assigning responsibilities and defining goals and metrics for the improvement actions",
+        "d": "Evaluating the test processes and tools against the industry best practices"
+      },
+      "correct_answer": "d",
+      "points": 2,
+      "syllabus_reference": "TM-1.5.4",
+      "k_level": "K3",
+      "tip": "Retrospectives focus on team-specific lessons and improvements for the next iteration. Formal evaluation against industry best practices belongs to structured test process improvement models like TMMi or TPI Next.",
+      "real_life_example": "In a Scrum team, the retrospective covered test stability issues and reassigned ownership for automation maintenance. Industry benchmarking was done later as part of a separate QA maturity assessment."
+    },
+    {
+      "id": "TMv1.2-Q23",
+      "question": "<p>You are a Test Manager and the head of the testing team for a new product line with multiple variants for several customers. One of your first tasks is to select and introduce a proper tool for test management, since the company’s current tool does not meet the needs of the upcoming product line.</p><p><strong>Which is NOT a best practice for selecting the new test management tool?</strong></p>",
+      "answers": {
+        "a": "Choose the successor of the currently used test management tool",
+        "b": "List the criteria needed for the product line that are not met by the current test management tool",
+        "c": "Evaluate which licensing model will best fit the test management of a product line with multiple variants",
+        "d": "Evaluate the tool against clear requirements and objective criteria"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.6.1",
+      "k_level": "K2",
+      "tip": "Selecting a tool’s successor without evaluating requirements and objective criteria risks carrying over existing limitations. Always base tool decisions on needs analysis and measurable evaluation criteria.",
+      "real_life_example": "A QA team replaced their legacy test tool with its successor without requirements analysis. The new tool lacked integration with their CI/CD pipeline, causing delays and rework. A requirements-driven evaluation would have revealed this gap early."
+    },
+    {
+      "id": "TMv1.2-Q24",
+      "question": "<p>You work for an international company producing hardware and software for telecom networks. Hardware and software development are carried out in separate business units. You are the Test Manager of one product line of network router software.</p><p>In your product line, there is a long tradition of creating tightly integrated products using an incremental product lifecycle. The hardware business unit produces a new version every six months. Your software product line aims to have a new version of the software ready for each new hardware version. The software is developed in two-month increments. The business unit schedules are synchronized during design.</p><p>Your team consists of 15 testers, most of whom have been with the company for over two years. New tests are developed by the most experienced test analysts, while variations and regression test sets are executed by the rest of the team.</p><p>The company’s management requires monthly progress reports listing the number of severe defects found, as well as the status of test execution. There have also been efforts to measure the efficiency of personnel in all business units. There have been problems keeping up with the hardware development schedule.</p><p>You have heard that another software product line within your company is using an open-source tool for their test automation. They automate roughly 50% of the tests and execute the rest manually through the software’s user interface.</p><p>You are requested to investigate if it would be possible to use this tool for your product line as well.</p><p><strong>What should be your key concern?</strong></p>",
+      "answers": {
+        "a": "How good is the support for the open-source tool?",
+        "b": "Is the new tool user-friendly?",
+        "c": "Is my business unit mature enough for test automation using this tool?",
+        "d": "Can all artifacts created by the tool be easily maintained?"
+      },
+      "correct_answer": "c",
+      "points": 3,
+      "syllabus_reference": "TM-1.6.3",
+      "k_level": "K4",
+      "tip": "The key concern before adopting any test automation tool is whether the organization or business unit has the necessary maturity in its processes, skills, and infrastructure to implement and sustain automation effectively.",
+      "real_life_example": "A telecom QA team attempted to adopt a Selenium-based automation framework without assessing readiness. Due to missing test data management, unstable environments, and lack of scripting discipline, maintenance costs outweighed benefits. After a maturity assessment, they phased automation gradually with process improvements."
+    },
+    {
+      "id": "TMv1.2-Q25",
+      "question": "<p>You are working on a software development project that is using an Agile development methodology. You are considering introducing a test automation tool to improve the quality and efficiency of testing. You have identified three potential tools: Tool A, Tool B, and Tool C. Each tool has different features, costs, and benefits. The annual recurring costs for all three tools are equal to 20% of the acquisition costs.</p><p>Before the implementation of the tool, the annual manual testing effort was <strong>$60,000</strong>. You have performed a cost-benefit analysis and calculated the ROI for each tool based on the following information:</p><ul><li><strong>Tool A:</strong> costs $10,000 to purchase and $2,000 per year to maintain. It has a high level of usability and maintainability, but it only supports functional testing. It can reduce the manual testing effort by 20% and the test cycle time by 10%. It can also increase the test coverage by 15%.</li><li><strong>Tool B:</strong> costs $15,000 to purchase and $3,000 per year to maintain. It has a moderate level of usability and maintainability, but it supports both functional and performance testing. It can reduce the manual testing effort by 30% and the test cycle time by 20%. It can also increase the test coverage by 25%.</li><li><strong>Tool C:</strong> costs $20,000 to purchase and $4,000 per year to maintain. It has a low level of usability and maintainability, but it supports functional, performance, and security testing. It can reduce the manual testing effort by 40% and the test cycle time by 30%. It can also increase the test coverage by 35%.</li></ul><p><strong>Assuming that the ROI can be calculated for the given situation, which tool would you choose and why?</strong></p>",
+      "answers": {
+        "a": "Tool A, because it has the lowest initial and recurring costs",
+        "b": "Tool B, because it has the best balance between costs and benefits",
+        "c": "Tool C, because it has the highest reduction in effort and time and the highest increase in coverage",
+        "d": "None of the tools, because they do not provide a positive ROI"
+      },
+      "correct_answer": "c",
+      "points": 3,
+      "syllabus_reference": "TM-1.6.3",
+      "k_level": "K4",
+      "tip": "Tool C provides the greatest reduction in effort and time along with the widest test coverage and multi-domain support (functional, performance, and security). Despite higher cost, its ROI and value are superior.",
+      "real_life_example": "During a banking project, ROI analysis showed a commercial automation tool (similar to Tool C) provided 40% faster execution and supported compliance security testing. Though more expensive initially, its overall cost-to-value ratio surpassed open-source alternatives within one year."
+    },
+    {
+      "id": "TMv1.2-Q26",
+      "question": "<p>For your current project, the available custom-built tool does not meet the requirements of your test automation effort. Within your company, there is an open-source test automation tool successfully being used for identical requirements.</p><p>If you choose the same open-source tool, which of the following activities should happen as a first step when retiring the current custom-built tool in order to show the value of the new tool as quickly as possible?</p>",
+      "answers": {
+        "a": "The custom-built tool must be maintained and converted to the new environment.",
+        "b": "The regression test scripts of the custom-built tool must be converted to the new tool.",
+        "c": "The backup and restore functionalities of the custom-built tool must be maintained.",
+        "d": "All test scripts of the custom-built tool must be converted to the new tool."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.6.4",
+      "k_level": "K2",
+      "tip": "When replacing a legacy test tool, convert regression test scripts first. They are the most reused, high-value tests and demonstrate the new tool’s effectiveness and ROI early.",
+      "real_life_example": "A telecom QA department migrated from a proprietary automation framework to an open-source one. By converting only the regression suite first, they proved faster execution and lower maintenance costs within two sprints, securing management buy-in for full migration."
+    },
+    {
+      "id": "TMv1.2-Q27",
+      "question": "<p>As a Test Manager, you are required to report on different metrics during different test activities.</p><p><strong>Which of the following metrics would you recommend for the corresponding test management activities?</strong></p><p><u>Metrics:</u><br>1. Percentage of product risk coverage<br>2. Number of resolved defects compared to unresolved defects<br>3. Percentage of planned vs. automated test cases<br>4. Ratio of estimated number of hours required for test activities vs. total project hours</p><p><u>Test Management Activities:</u><br>A) Test planning<br>B) Test monitoring &amp; test control<br>C) Test completion<br>D) None of the above</p><p><strong>Please match the test management activities with the corresponding metrics.</strong></p>",
+      "answers": {
+        "a": "3B, 4B, 1C, 2C",
+        "b": "2B, 3B, 1C, 4C",
+        "c": "1B, 2B, 4B, 3C",
+        "d": "1B, 2C, 3C, 4C"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-2.1.1",
+      "k_level": "K2",
+      "tip": "Metrics related to risk coverage, defect tracking, and effort ratios belong to test monitoring and control, while automation coverage is typically reported at test completion.",
+      "real_life_example": "In a financial project, the QA lead tracked product risk coverage and defect closure ratios during execution (monitoring & control) and reported automation coverage percentages in the test summary at completion."
+    },
+    {
+      "id": "TMv1.2-Q28",
+      "question": "<p>Your management board is new to test metrics and asks you to explain the primary goal of using test metrics.</p><p><strong>Which of the following statements would you use to explain the benefit of test metrics to your management?</strong></p>",
+      "answers": {
+        "a": "Test metrics are indicators for test progress and assist in assessing whether the test exit criteria or test objectives have been met.",
+        "b": "Test metrics recommend corrective actions to achieve effective and efficient testing.",
+        "c": "Test metrics are used to collect data from completed test activities to consolidate lessons learned, testware, and other relevant information.",
+        "d": "Test metrics are used to reprioritize tests when an identified risk becomes an issue."
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-2.1.2",
+      "k_level": "K2",
+      "tip": "Test metrics provide measurable indicators of test progress and effectiveness. They help assess whether objectives and exit criteria have been achieved — they do not directly define corrective actions or reprioritize tests.",
+      "real_life_example": "During a product launch cycle, a QA manager used metrics such as defect density and test coverage to show that exit criteria were met. This data-driven report allowed management to confidently approve release readiness."
+    },
+    {
+      "id": "TMv1.2-Q29",
+      "question": "<p>You work for an international company producing hardware and software for telecom networks. Hardware and software development are carried out in separate business units. You are the Test Manager of one product line of network router software.</p><p>In your product line, there is a long tradition of creating tightly integrated products using an incremental product lifecycle. The hardware business unit produces a new version every six months, and your software product line aims to have a new version of the software ready for each new hardware version. The software is developed in two-month increments. The business unit schedules are synchronized during design.</p><p>Your team consists of 15 testers, most with several years of experience. New tests are developed by senior test analysts as in-house custom test scripts, while variations and regression tests are executed by the rest of the team.</p><p>Company management requires monthly progress reports listing the number of severe defects found and the status of test execution. They also measure personnel efficiency across business units. There have been problems keeping up with the hardware development schedule. The business unit manager has asked you to propose improvements to testing by introducing better tools or measurable metrics (e.g., at least 100% statement coverage). A product risk list from user representatives suggests not all risks are covered by current tests.</p><p><strong>Which of the following options would you recommend?</strong></p>",
+      "answers": {
+        "a": "Add more tests to better cover the functionality.",
+        "b": "Derive risk and confidence status from the testers’ opinions about developer capabilities.",
+        "c": "Analyze residual risks based on tester confidence to see if enough statement coverage is reached.",
+        "d": "Include confidence evaluation as part of the project measurements."
+      },
+      "correct_answer": "d",
+      "points": 3,
+      "syllabus_reference": "TM-2.1.3",
+      "k_level": "K4",
+      "tip": "Measuring tester confidence helps identify perceived risk areas, improve communication with stakeholders, and focus test effort where uncertainty or perceived risk is highest.",
+      "real_life_example": "A network-hardware project used a 'confidence index' metric in retrospectives, asking testers to rate trust in release quality. Low confidence correlated with integration defects, helping management identify scheduling misalignments between hardware and software teams."
+    },
+    {
+      "id": "TMv1.2-Q30",
+      "question": "<p>You are the Test Manager of a software project that uses a document-centric sequential development model and involves developing a desktop application for a banking system. The project has a large, hierarchical team working with multiple stakeholders. The project has a low level of uncertainty and complexity due to the stable and well-defined requirements and technology. It also has strict quality and security standards to comply with legal regulations in the banking industry.</p><p><strong>What are the most suitable metrics you would use to analyze test results and create reports that empower stakeholders to make decisions?</strong></p>",
+      "answers": {
+        "a": "Metrics related to product risks, defects, test progress, coverage, and costs and test effort",
+        "b": "Metrics related to defects, test progress, coverage, and code coverage",
+        "c": "Metrics related to product risks, defects, test progress, coverage, and environment/configuration coverage",
+        "d": "Metrics related to defects, test progress, coverage, and residual costs for untested components"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-2.1.3",
+      "k_level": "K4",
+      "tip": "In regulated, document-driven projects, management decisions depend on comprehensive visibility into risk coverage, defect trends, progress, and cost/effort efficiency. Code-level or residual-cost metrics are less useful at this level.",
+      "real_life_example": "In a banking project subject to financial-compliance audits, the Test Manager used risk-based defect density, test progress, coverage, and cost-of-testing metrics to provide regulators and executives with clear evidence of product quality and traceability."
+    },
+    {
+      "id": "TMv1.2-Q31",
+      "question": "<p>As a Test Manager, you have to consider many factors for estimating test efforts. This estimation can be revised as the testing progresses.</p><p><strong>Which of the following factors is NOT relevant for test estimation during INITIAL test planning?</strong></p>",
+      "answers": {
+        "a": "The complexity and size of the software under test",
+        "b": "The availability and skills of the test team members",
+        "c": "The quality and reliability of the test tools and environment",
+        "d": "The number and severity of the defects found during testing"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TM-2.2.2",
+      "k_level": "K2",
+      "tip": "Initial test effort estimation considers inputs available before testing begins. Defect numbers are outcomes, not planning inputs, so they are irrelevant at this stage.",
+      "real_life_example": "In an insurance system project, the Test Manager used function point size, team experience, and tool reliability for initial estimation. Later, defect data was used only for retrospective calibration, not initial planning."
+    },
+    {
+      "id": "TMv1.2-Q32",
+      "question": "<p>You are working on an Agile project that takes place in multiple locations, and you are responsible for the test effort at your location. The testing strategy is a blend of risk-based testing, process-compliant test strategy, and reactive testing. Developers are following known Agile best practices, including automated component testing and continuous integration.</p><p><strong>Your task is to estimate the system test effort required for a particular iteration by your test team.</strong></p><p>Which <strong>TWO</strong> of the following statements best describe which test techniques or approaches you should use and how you should carry out the estimation in this situation?</p>",
+      "answers": {
+        "a": "Consider the average effort required per identified risk in past iterations.",
+        "b": "Allocate time-boxed test sessions for each identified test charter.",
+        "c": "Estimate that most defects will be found during system test execution.",
+        "d": "Include effort to create detailed test documentation.",
+        "e": "Assume that system tests can reuse unit test data and environments."
+      },
+      "correct_answer": ["a", "b"],
+      "points": 3,
+      "syllabus_reference": "TM-2.2.3",
+      "k_level": "K4",
+      "tip": "Combine historical risk-based estimation with reactive testing approaches. Use past effort per risk item to guide estimates and allocate time-boxed exploratory sessions for adaptability.",
+      "real_life_example": "In a distributed Agile e-commerce project, the Test Manager used historical effort data from prior sprints for high-risk features (A) and scheduled exploratory test sessions (B) to keep testing flexible and aligned with evolving stories."
+    },
+    {
+      "id": "TMv1.2-Q33",
+      "question": "<p>You are the Test Manager of a software project that follows the sequential development model. Historical data on efforts based on requirements from similar projects are available. The project requirements and scope are fixed and well defined.</p><p><strong>You need to estimate the test effort for the entire project based on the requirements specification document. Which of the following techniques or approaches would be most suitable for your context?</strong></p>",
+      "answers": {
+        "a": "Estimation based on ratios",
+        "b": "Planning Poker",
+        "c": "Three-point estimation",
+        "d": "Delphi method"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-2.2.3",
+      "k_level": "K4",
+      "tip": "Estimation based on ratios leverages historical data from similar projects, making it ideal for structured, requirements-driven environments with stable scope and low uncertainty.",
+      "real_life_example": "In a banking waterfall project, the Test Manager estimated test effort as 25% of total development effort using validated historical ratios. This method provided quick, consistent estimates aligned with organizational benchmarks."
+    },
+    {
+      "id": "TMv1.2-Q34",
+      "question": "<p>As a tester, you are typically required to create a defect report whenever you observe a defect during testing. However, there may be situations where you might <strong>not</strong> create a defect report.</p><p><strong>Which of the following is a reason why a defect report may NOT be created after a failure is detected by a test?</strong></p>",
+      "answers": {
+        "a": "The failure is caused by a defect that was introduced in the same phase as the test.",
+        "b": "The failure is caused by a defect that is not to be tracked within the defect workflow.",
+        "c": "The failure is caused by an invalid test that does not match the requirements specification.",
+        "d": "The failure is caused by an anomaly that is not observed by the tester."
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TM-2.3.1",
+      "k_level": "K3",
+      "tip": "In contexts such as test-driven development (TDD), some failures are expected and not tracked as defects because they are part of executable design specifications. Only genuine unexpected deviations should be logged as defects.",
+      "real_life_example": "In a TDD-based component project, early test failures during incremental coding were treated as expected design validations rather than defects. Only post-development anomalies outside the defined workflow were logged as defects."
+    },
+    {
+      "id": "TMv1.2-Q36",
+      "question": "<p>As a Test Manager, you are reviewing a defect report submitted by one of your testers. The report describes a failure observed during the execution of a system test. The tester wrote the following:</p><blockquote>During the checkout process, the system displays an error message 'Payment not accepted' after submitting valid credit-card data. The defect occurred three times in a row this morning and once again after lunch. The problem seems to appear randomly. The tester attached a screenshot of the message.</blockquote><p><strong>Which of the following important elements is missing in this defect report?</strong></p>",
+      "answers": {
+        "a": "The expected result of the test case",
+        "b": "The environment and build information where the defect occurred",
+        "c": "The actual result of the test case",
+        "d": "The severity classification of the defect"
+      },
+      "correct_answer": "b",
+      "points": 3,
+      "syllabus_reference": "TM-2.3.2",
+      "k_level": "K3",
+      "tip": "A high-quality defect report must allow reproducibility. Missing environment or build details prevent developers from reproducing and diagnosing the issue accurately.",
+      "real_life_example": "In an e-commerce project, several 'intermittent payment failure' defects could not be reproduced because testers omitted browser and API-gateway version details. Adding environment info to the defect template resolved the issue."
+    },
+    {
+      "id": "TMv1.2-Q36",
+      "question": "<p>Which of the following represents a complete sequence of states for a defect report that leads to a terminal state? Assume that IN PROGRESS means one or more states where developers or other project stakeholders are addressing the defect.</p>",
+      "answers": {
+        "a": "OPEN, IN PROGRESS, RESOLVED, CLOSED, DEFERRED.",
+        "b": "OPEN, IN PROGRESS, RETURNED, IN PROGRESS, RESOLVED.",
+        "c": "OPEN, IN PROGRESS, RESOLVED, CLOSED.",
+        "d": "IN PROGRESS, OPEN, RESOLVED, CLOSED."
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.2",
+      "k_level": "K2",
+      "tip": "A typical workflow progresses linearly from OPEN to IN PROGRESS, then RESOLVED, and finally CLOSED — representing discovery, fixing, verification, and closure.",
+      "real_life_example": "In Jira, the standard defect flow follows exactly this path: Open → In Progress → Resolved → Closed."
+    },
+    {
+      "id": "TMv1.2-Q37",
+      "question": "<p>You are a tester in an agile team working on a new product. During the third sprint, while performing exploratory tests, you experienced a failure in the login feature which was developed during the first sprint in cooperation with the team responsible for the Identity Provider (IDP).</p><p><strong>What is one reason why you would choose NOT to create a defect report in this case?</strong></p>",
+      "answers": {
+        "a": "The developer will not have time to work on the fix until the following week.",
+        "b": "You need to clarify the failure with a developer of your team first.",
+        "c": "This failure will require cooperation with the IDP team.",
+        "d": "According to the Product Owner, this failure has low severity and should be fixed in the next iteration."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.3",
+      "k_level": "K2",
+      "tip": "In Agile teams, informal communication and quick clarification often precede formal defect creation — improving efficiency and collaboration.",
+      "real_life_example": "A tester discovers a login bug and discusses it with the developer. The developer realizes it’s a configuration issue and fixes it immediately — no need for a defect report."
+    },
+    {
+      "id": "TMv1.2-Q38",
+      "question": "<p>Nowadays multiple software development methodologies are used. Different methodologies in the SDLC call for an adapted test approach.</p><p>You are a test manager in a software development project which operates in a hybrid environment. Which of the following is MOST relevant regarding defect management in this context?</p>",
+      "answers": {
+        "a": "All teams use the same defect management tool, whatever their methodology is.",
+        "b": "Frequency of the defect management committee meetings should be determined by the largest team.",
+        "c": "Agile teams should schedule their defect fixing priorities to align with the overall project plan.",
+        "d": "All team members agree on the prioritization of the defects."
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.4",
+      "k_level": "K2",
+      "tip": "In hybrid environments, synchronization of defect resolution with the overall release plan ensures coherent delivery across teams.",
+      "real_life_example": "In a project with both Scrum and Waterfall teams, defect priorities were aligned weekly to prevent release conflicts between sprint increments and legacy modules."
+    },
+    {
+      "id": "TMv1.2-Q39",
+      "question": "<p>Defect ID, status, component, and subsystem are listed in a defect record. Which of the following data items is NOT mandatory for managing defect reports in most environments?</p>",
+      "answers": {
+        "a": "A defect title with a short summary of the anomaly",
+        "b": "The subsystem or component in which the defect lies",
+        "c": "Severity of the impact on the system under test and/or the product stakeholders",
+        "d": "Priority to fix the anomaly"
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TM-2.3.5",
+      "k_level": "K3",
+      "tip": "Subsystem or component fields can be context-dependent, but severity and priority are mandatory for triage and tracking.",
+      "real_life_example": "Some small Agile teams omit 'component' fields in Jira, but always track severity and priority to maintain efficient backlog grooming."
+    },
+    {
+      "id": "TMv1.2-Q40",
+      "question": "<p>You are the test manager on a project where system testing is being performed on software provided by a third party. The third party complains that the completeness of the defect data from your system testing is unacceptable.</p><p><strong>Which TWO of the following items could have been missing from the defect reports sent to the third party?</strong></p>",
+      "answers": {
+        "a": "The project activity occurring when the problem was detected.",
+        "b": "Steps to reproduce the failure, along with the actual and expected results.",
+        "c": "The priority to fix the problem.",
+        "d": "The technical type of the defect.",
+        "e": "The software lifecycle phase in which the defect was detected."
+      },
+      "correct_answer": ["b", "c"],
+      "points": 2,
+      "syllabus_reference": "TM-2.3.5",
+      "k_level": "K3",
+      "tip": "Clear reproduction steps and prioritization are essential when communicating defects externally — ensuring shared understanding and triage efficiency.",
+      "real_life_example": "A vendor rejected multiple bug reports until testers added reproduction steps and priority tags, after which resolution time improved by 40%."
+    },
+    {
+      "id": "TMv1.2-Q41",
+      "question": "<p>Your organization has decided that it aims to improve its test and development process by reducing the number of defects introduced during development, based on already existing defect reports.</p><p><strong>Which of the following defect report information will be MOST useful in fulfilling this objective?</strong></p>",
+      "answers": {
+        "a": "The software lifecycle phases of detection, and removal of the defect.",
+        "b": "The defect’s root cause information.",
+        "c": "The number of defects per component.",
+        "d": "The efficiency of the elimination of defects."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.6",
+      "k_level": "K2",
+      "tip": "Root cause analysis enables prevention — not just correction — of recurring defect types.",
+      "real_life_example": "A team used root cause data showing 65% of defects originated from unclear requirements, leading to mandatory joint requirement workshops that cut defect leakage by half."
+    },
+    {
+      "id": "TMv1.2-Q42",
+      "question": "<p>As a test manager, you are looking for new team members and have to write a job posting. In this posting, you include the required competences of the new team members. Which of the following skills is an example of <strong>methodological competence</strong> for a test team member?</p>",
+      "answers": {
+        "a": "Ability to apply test techniques to design test cases",
+        "b": "Ability to communicate test results to stakeholders",
+        "c": "Ability to receive criticism",
+        "d": "Ability to learn new technologies and tools"
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TM-3.1.1",
+      "k_level": "K2",
+      "tip": "Methodological competence refers to the ability to independently approach new, complex problems by applying suitable methods and learning strategies.",
+      "real_life_example": "When a new automation framework was introduced, the tester quickly self-learned its syntax and integrated it into the test process — demonstrating methodological competence."
+    },
+    {
+      "id": "TMv1.2-Q43",
+      "question": "<p>You are responsible for staffing a test team in a company that develops brake systems for a domestic motor vehicle manufacturer. While individual software components are developed by Agile teams, system development (software + hardware) follows the V-model. The brake system is safety-critical, and tests must meet state-of-the-art design and documentation standards.</p><p>The system test analyst leaves during the final phase and must be replaced quickly. What is the <strong>minimum combination of skills and qualifications</strong> required for this position?</p>",
+      "answers": {
+        "a": "Black-box test techniques; communication skills; resilience; test documentation according to ISO 29119",
+        "b": "Black-box test techniques; programming skills; resilience; Agile certification",
+        "c": "Communication skills; ability to delegate work; intercultural competence; test documentation according to ISO 29119",
+        "d": "Intercultural competence; communication skills; black-box test techniques; ability to delegate"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-3.1.2",
+      "k_level": "K4",
+      "tip": "In safety-critical contexts, black-box techniques, resilience under pressure, structured documentation, and strong communication are essential.",
+      "real_life_example": "A system test analyst on an automotive braking project used ISO 29119 templates and maintained cross-team communication to ensure compliance and traceability."
+    },
+    {
+      "id": "TMv1.2-Q44",
+      "question": "<p>You are in a test management role in an Agile software development lifecycle (SDLC) project developing a web application for an online gambling platform. The project has a small cross-functional team, frequent requirement changes, and strict legal quality standards.</p><p><strong>Which are the MOST important skills to look for when selecting test team members for this project?</strong></p>",
+      "answers": {
+        "a": "Business expertise in the gambling industry, technical expertise in web technologies and security vulnerabilities, technical expertise for automating test execution, communication and cooperation skills, self-management and discipline skills",
+        "b": "Conceptual knowledge for developing a test strategy, project management skills, analytical skills, and judgment skills for test selection",
+        "c": "Skills in test techniques, conceptual knowledge for designing test environments, technical expertise for scripting and automation, communication and cooperation skills",
+        "d": "Business expertise in the gambling industry, programming expertise, knowledge about test levels and roles, conflict resolution skills"
+      },
+      "correct_answer": "a",
+      "points": 3,
+      "syllabus_reference": "TM-3.1.2",
+      "k_level": "K4",
+      "tip": "For Agile, domain knowledge, technical testing ability, collaboration, and self-management are more valuable than hierarchical management or formal PM skills.",
+      "real_life_example": "An Agile QA lead for a gambling platform combined security testing and open communication with developers to meet strict regulatory requirements."
+    },
+    {
+      "id": "TMv1.2-Q45",
+      "question": "<p>To determine the competence of a new colleague, you have given them the task of analyzing a set of requirements and designing test cases for the system test.</p><p><strong>Which skill areas can be evaluated based on the colleague's performance in this task?</strong></p>",
+      "answers": {
+        "a": "Evaluation of technical competence based on the test cases created and methodological competence based on the queries.",
+        "b": "Evaluation of methodical competence on the basis of findings on the requirements and technical competence on the basis of the selected test techniques.",
+        "c": "Evaluation of professional competence on the basis of findings on the requirements and methodological competence on the basis of the selected test techniques.",
+        "d": "Evaluation of professional competence on the basis of the questions and social competence on the basis of created test cases."
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-3.1.3",
+      "k_level": "K2",
+      "tip": "Professional competence reflects domain and testing expertise; methodological competence reflects analytical thinking and structured problem solving.",
+      "real_life_example": "A tester correctly derived boundary conditions from requirements (professional competence) and used decision tables systematically (methodological competence)."
+    },
+    {
+      "id": "TMv1.2-Q46",
+      "question": "<p>Developing the skills and competences of your team members is essential for a high-performing test team. As a test manager, you have to establish personal development plans for your team. Which of the following statements about development approaches is <strong>correct</strong>?</p>",
+      "answers": {
+        "a": "Training and coaching both involve predefined content delivered to multiple participants simultaneously.",
+        "b": "Self-study is a recommended approach to develop social skills.",
+        "c": "In peer learning, an experienced team member provides ongoing guidance to a new team member.",
+        "d": "Coaching provides individual guidance to a person new to a role, helping them find solutions to improve their competencies."
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TM-3.1.4",
+      "k_level": "K2",
+      "tip": "Coaching is a personalized, one-to-one approach focusing on helping individuals grow through guided reflection and problem-solving.",
+      "real_life_example": "A senior test manager coached a new team member weekly, enabling them to independently plan regression tests after one month."
+    },
+    {
+      "id": "TMv1.2-Q47",
+      "question": "<p>Leading a team requires specific skills. Which of the following statements about leading a test team is <strong>correct</strong>?</p>",
+      "answers": {
+        "a": "In a test team, willingness to help is more important than the ability to delegate.",
+        "b": "When a new test team forms, the ability to act with appreciation is the most important competence.",
+        "c": "Throughout the test team’s lifecycle, all skills are equally important.",
+        "d": "The ability to resolve conflicts helps to gain consensus around rules and roles in the early stages of group development."
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TM-3.1.5",
+      "k_level": "K2",
+      "tip": "Conflict-resolution skills are particularly critical during the Storming phase of team formation to establish norms and cooperation.",
+      "real_life_example": "During the early sprint cycles, a QA lead’s mediation helped testers and developers agree on triage criteria — resolving tension and improving collaboration."
+    },
+    {
+      "id": "TMv1.2-Q48",
+      "question": "<p>Consider these categories of quality costs:</p><ol><li>Prevention costs</li><li>Appraisal costs</li><li>Internal failure costs</li><li>External failure costs</li></ol><p>And these examples of quality-related activities:</p><ul><li>A. Early acceptance testing for fast feedback</li><li>B. Performing a product risk analysis</li><li>C. Customer complaints about poor performance</li><li>D. Long lag time from defect reporting to resolution during testing causing increased defect management inefficiency</li></ul><p><strong>Which of the following correctly matches the categories of quality costs with their examples in software development?</strong></p>",
+      "answers": {
+        "a": "1 – A, 2 – B, 3 – C, 4 – D",
+        "b": "1 – B, 2 – A, 3 – D, 4 – C",
+        "c": "1 – A, 2 – B, 3 – D, 4 – C",
+        "d": "1 – B, 2 – A, 3 – C, 4 – D"
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-3.2.1",
+      "k_level": "K2",
+      "tip": "Prevention = proactive measures (e.g., risk analysis), Appraisal = evaluation (e.g., testing), Internal = failures before release, External = failures after release.",
+      "real_life_example": "An organization tracked that 70% of its quality costs came from external failure (customer complaints). After investing in prevention activities like product risk analysis, they reduced complaint costs by 40%."
+    },
+    {
+      "id": "TMv1.2-Q49",
+      "question": "<p>You are managing testing for a mature online dating service application. The app allows users to create profiles, match with compatible people, arrange social events, and block unwanted contacts. You need to calculate the cost-benefit of testing for this application.</p><p>You have calculated the following costs of quality per defect:</p><ul><li>Appraisal costs: $150</li><li>Internal failure costs: $250</li><li>External failure costs: $5,000</li></ul><p>Based on this information, which of the following statements is correct regarding the cost-benefit analysis of testing for this application?</p>",
+      "answers": {
+        "a": "The total cost of quality for this dating application is likely to be around $5,000, excluding prevention costs.",
+        "b": "Each defect found by testing offers the organization an average of $4,600 in savings in cost of quality.",
+        "c": "While cost of quality is useful in many industries, it has limited applicability in calculating the value of testing for software applications.",
+        "d": "Testing provides a potential cost saving of $5,400 per defect by identifying issues before they reach the customer."
+      },
+      "correct_answer": "b",
+      "points": 2,
+      "syllabus_reference": "TM-3.2.2",
+      "k_level": "K3",
+      "tip": "Average savings per defect = External Failure Cost − (Appraisal + Internal Failure Costs).",
+      "real_life_example": "For each critical bug found before release, the company avoided an average of $4,600 in lost user revenue and support costs — proving the ROI of pre-release testing."
+    },
+    {
+      "id": "TMv1.2-Q50",
+      "question": "<p>You are the test manager of a software project with a budget of €100,000 and a six-month deadline. The following average costs apply per defect:</p><ul><li>Prevention cost: €150</li><li>Appraisal cost: €400</li><li>Internal failure cost: €250</li><li>External failure cost: €3,000</li></ul><p>Based on this information, which of the following scenarios <strong>does NOT include a correct conclusion</strong>?</p>",
+      "answers": {
+        "a": "Due to unclear requirements, the average internal failure cost per defect doubles, resulting in an average saving of only €2,100 per defect.",
+        "b": "Becoming familiar with the technology triples the cost of defect prevention, but the actions do not affect the average savings per defect.",
+        "c": "Omitting repeated pre-delivery tests reduces the external defect costs to €2,000, but also reduces the average savings per defect to €1,350.",
+        "d": "Expanding the test team increases appraisal costs to €500, raising the average savings per prevented defect by €100 each."
+      },
+      "correct_answer": "d",
+      "points": 2,
+      "syllabus_reference": "TM-3.2.2",
+      "k_level": "K3",
+      "tip": "Higher appraisal costs reduce — not increase — average savings per defect, as savings = External − (Appraisal + Internal).",
+      "real_life_example": "After a project increased appraisal cost per defect from €400 to €500, the net savings decreased by €100 per defect — proving that more inspection doesn’t always equal more efficiency."
+    },
+    {
+      "id": "TMv1.2-A1",
+      "question": "<p>As a test manager, you have to establish checklists in many different phases of your test project. Which of the following is the most accurate description of a <strong>test completion check</strong>?</p>",
+      "answers": {
+        "a": "A test completion check ensures that all testware is completed as planned.",
+        "b": "A test completion check ensures that all important lessons learned are documented.",
+        "c": "A test completion check ensures that all testware are stored in the configuration management system.",
+        "d": "A test completion check ensures that test plans are developed to ensure that good practices are repeatable."
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-1.1.3",
+      "k_level": "K2",
+      "tip": "A test completion check confirms that all planned test activities and deliverables have been completed as part of test closure.",
+      "real_life_example": "Before project closure, the test manager verifies that all test cases are executed, reports delivered, and lessons learned documented."
+    },
+    {
+      "id": "TMv1.2-A2",
+      "question": "<p>As a test manager, you perform different activities at different test levels. Which of the following is <strong>NOT</strong> a test management activity at the system testing level?</p>",
+      "answers": {
+        "a": "Defining the test scope",
+        "b": "Selecting the tools and test techniques",
+        "c": "Deciding which parts need to be integrated and tested",
+        "d": "Managing defects throughout the test process"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-1.2.5",
+      "k_level": "K2",
+      "tip": "Integration planning belongs to component or integration test levels, not system testing.",
+      "real_life_example": "System testing focuses on the full application, while integration planning defines which subsystems to combine first."
+    },
+    {
+      "id": "TMv1.2-A3",
+      "question": "<p>As a test manager, you must align test management activities with the test types. Which of the following is a test management activity for <strong>white-box testing</strong>, but not for functional or non-functional testing?</p>",
+      "answers": {
+        "a": "Define the scope",
+        "b": "Determine the test tools and test environments",
+        "c": "Measure the coverage of statements",
+        "d": "Monitor test execution based on prioritization of test cases"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-1.2.6",
+      "k_level": "K2",
+      "tip": "White-box testing involves analyzing internal code structure — statement coverage measurement applies only here.",
+      "real_life_example": "Measuring 85% statement coverage in a unit test ensures critical paths in the code were exercised."
+    },
+    {
+      "id": "TMv1.2-A4",
+      "question": "<p>An Agile team is developing a new web-based application. Which of the factors below will most likely <strong>NOT influence</strong> the level of quality risks?</p>",
+      "answers": {
+        "a": "The user acceptance testing (UAT) team is assigned to several other high-priority projects.",
+        "b": "A new business analyst joined the Agile team with strong domain knowledge, but little test automation experience.",
+        "c": "Most of the development team is in India, but the product owner is located in the USA.",
+        "d": "A new defect management process has been introduced within the company which is unfamiliar to the developers."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.3.3",
+      "k_level": "K2",
+      "tip": "Business analysts' lack of automation experience doesn’t impact product risk directly — unlike distribution or process changes.",
+      "real_life_example": "Distributed teams (India–US) introduce time-zone risk, but a BA’s automation inexperience mainly affects efficiency, not quality risk."
+    },
+    {
+      "id": "TMv1.2-A5",
+      "question": "<p>As a test manager, you decide to use a risk-based testing approach to allocate test efforts effectively. Which of the following is the <strong>most problematic</strong> when using risk-based testing?</p>",
+      "answers": {
+        "a": "The project has ten different stakeholders who all want to contribute to risk analysis.",
+        "b": "The test team starts out with risk-based test planning but neglects risk control due to project pressure.",
+        "c": "The risk items and risk levels of a project are not reused in other projects.",
+        "d": "The stakeholders understand the residual risk and may decide to go live before all tests are executed."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.3.6",
+      "k_level": "K2",
+      "tip": "Neglecting ongoing risk control undermines the entire purpose of risk-based testing — continuous monitoring is key.",
+      "real_life_example": "A team planned by risk, but skipped mid-project reassessment — leading to late surprises in high-risk features."
+    },
+    {
+      "id": "TMv1.2-A6",
+      "question": "<p>You join an existing project as a test manager. The product has frequent releases but suffers from poor quality and many customer complaints. You are asked to look for improvements.</p><p>Which TWO of the following actions follow an <strong>analytical-based test improvement strategy</strong> addressing this problem?</p>",
+      "answers": {
+        "a": "Implement a defect classification scheme and classify customer-reported defects.",
+        "b": "Compare your team's test design practices with the TMMi model.",
+        "c": "Determine the defect detection percentage using customer and system test data.",
+        "d": "Initiate a company-wide GQM-based measurement program evaluating estimation accuracy.",
+        "e": "Introduce a new test automation tool to reduce test execution effort."
+      },
+      "correct_answer": ["a", "c"],
+      "points": 2,
+      "syllabus_reference": "TM-1.5.3",
+      "k_level": "K2",
+      "tip": "Analytical-based improvements rely on defect data and measurable metrics to guide process enhancement.",
+      "real_life_example": "Tracking defect origin and detection rates revealed missing test coverage in one module — leading to focused training."
+    },
+    {
+      "id": "TMv1.2-A7",
+      "question": "<p>Your company currently uses a 15-year-old test management tool. To support the switch from waterfall to agile, a new tool is required. Which is a <strong>valid consideration</strong> for the selection of a new test tool?</p>",
+      "answers": {
+        "a": "Vendor preferences of the development department head.",
+        "b": "Requirements from all stakeholders to evaluate and identify the most appropriate tool.",
+        "c": "The tool needs to match the corporate design standards of your company.",
+        "d": "The new tool must be less expensive than the current tool to be efficient."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.6.2",
+      "k_level": "K2",
+      "tip": "Tool selection should be based on stakeholder requirements, not personal preferences or design aesthetics.",
+      "real_life_example": "After consulting QA, DevOps, and PM stakeholders, a team selected a Jira plugin that supported traceability and Agile metrics."
+    },
+    {
+      "id": "TMv1.2-A8",
+      "question": "<p>You are responsible for test management of a reporting engine for a banking system. The project just started, and project management requests weekly progress overviews.</p><p>As you have not yet set up metrics, what should you do first?</p>",
+      "answers": {
+        "a": "Make sure traceability is included in your metrics.",
+        "b": "Gather the information needs of the test team and project management.",
+        "c": "Activate all possible metrics to give management maximum choice.",
+        "d": "Start with defect management since defect criteria are already defined."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-1.6.5",
+      "k_level": "K2",
+      "tip": "Metrics should be driven by stakeholder information needs — not collected blindly.",
+      "real_life_example": "The test manager met with PMs and found they cared only about defect closure rate — so only relevant metrics were tracked."
+    },
+    {
+      "id": "TMv1.2-A9",
+      "question": "<p>You have to estimate the test effort in an Agile software development project. Which of the following statements is <strong>true</strong> about test estimation in this context?</p>",
+      "answers": {
+        "a": "Test estimation is done separately from development estimation and based on the test levels and activities.",
+        "b": "Test estimation is done as part of development estimation and is based on the user stories and acceptance criteria.",
+        "c": "Test estimation is not done in Agile projects; testing is performed ad-hoc.",
+        "d": "Test estimation is done by the customer or product owner based on business value and risk."
+      },
+      "correct_answer": "b",
+      "points": 1,
+      "syllabus_reference": "TM-2.2.1",
+      "k_level": "K2",
+      "tip": "In Agile, testing is integrated within development estimation and relies on story size and acceptance criteria.",
+      "real_life_example": "During sprint planning, testers joined developers in story-point estimation, ensuring testing time was included for each story."
+    },
+    {
+      "id": "TMv1.2-A10a",
+      "question": "<p>As a test manager, you must control time, effort, and quality in your test project. Which of the following will most likely influence the <strong>duration</strong>, but not the <strong>effort</strong>, of testing activities?</p>",
+      "answers": {
+        "a": "Time to repair defects found during testing",
+        "b": "Maturity of the test process",
+        "c": "Required level of detail of test conditions",
+        "d": "Required quality of the system"
+      },
+      "correct_answer": "a",
+      "points": 1,
+      "syllabus_reference": "TM-2.2.2",
+      "k_level": "K2",
+      "tip": "Effort = person-hours; duration = calendar time. Long fix cycles increase duration but not necessarily tester effort.",
+      "real_life_example": "Testing paused for 3 days while waiting for fixes — duration extended, effort unchanged."
+    },
+    {
+      "id": "TMv1.2-A10b",
+      "question": "<p>As a test manager, you consider many factors to estimate testing effort. Which of the following should <strong>NOT</strong> be considered?</p>",
+      "answers": {
+        "a": "The qualifications of the development team members",
+        "b": "Human skills and experiences of the developers",
+        "c": "Estimated effort in other ongoing projects",
+        "d": "The determined hours from the test effort estimation"
+      },
+      "correct_answer": "c",
+      "points": 1,
+      "syllabus_reference": "TM-2.2.2",
+      "k_level": "K2",
+      "tip": "Ongoing projects are irrelevant — only completed projects provide useful historical data for effort estimation.",
+      "real_life_example": "A manager tried to reuse estimates from an active project and underestimated effort due to changing scope and incomplete data."
+    },
+    {
+      "id": "TMv1.2-A11",
+      "question": "<p>A key factor in test team performance is motivation. Which of the following is the <strong>best example</strong> of a motivating factor?</p>",
+      "answers": {
+        "a": "Introduction of a labor wage agreement for all employees.",
+        "b": "Test activities and work products planned down to the last detail.",
+        "c": "A well-running test environment.",
+        "d": "Recognition and appreciation for the work done."
+      },
+      "correct_answer": "d",
+      "points": 1,
+      "syllabus_reference": "TM-3.1.6",
+      "k_level": "K2",
+      "tip": "Recognition and appreciation are intrinsic motivators; salary or infrastructure are hygiene factors.",
+      "real_life_example": "A QA manager introduced a monthly ‘bug of the month’ recognition — boosting morale and ownership across the team."
+    },
+    {
+      "id": "ASTQB-TM-1",
+      "question": "Your organization is purchasing a new mobile application that advises nurses when to give medications. What are the minimum test levels required for your testing?",
+      "answers": {
+        "a": "User Acceptance Tests",
+        "b": "Systems Integration Tests and Acceptance Tests (UAT and OAT)",
+        "c": "System Tests, System Integration Tests and UAT",
+        "d": "Unit Tests, Integration Tests, System Tests, System Integration Tests and Acceptance Tests (UAT and OAT)"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-1.2.1",
+      "tip": "Vendors perform unit, integration, and system tests; you still must verify system integration and acceptance with your own systems.",
+      "real_life_example": "A hospital integrates a vendor's medication app with its pharmacy system and must execute SIT and UAT before rollout."
+    },
+    {
+      "id": "ASTQB-TM-2",
+      "question": "When planning a complex banking system interacting across multiple data centers, what must you do to ensure test objectives are met?",
+      "answers": {
+        "a": "Engage project architects to ensure environment needs are satisfied.",
+        "b": "Ensure detailed requirements reviews are completed.",
+        "c": "Determine how retrospective findings will be incorporated.",
+        "d": "Define the RACI matrix for development and support teams."
+      },
+      "correct_answer": "A",
+      "points": 3,
+      "syllabus_reference": "TM-1.2.1",
+      "tip": "Test objectives around performance/load require proper environment design validated by architects.",
+      "real_life_example": "Before load testing, QA works with infrastructure architects to size clustered servers for peak banking transactions."
+    },
+    {
+      "id": "ASTQB-TM-3",
+      "question": "<p>You have been given the following traceability information. Risk-based testing has been used as the test approach. Test conditions have been derived from the risk items, and test cases are used to test the test conditions. The results of the test case execution are shown below.</p><div style='text-align:center; margin:16px 0;'><img src='/b40a2b32-f8f9-4b1c-8d44-861d8af88950.png' alt='Risk Traceability Matrix' style='max-width:100%; height:auto; border:1px solid #ccc; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1);'></div><p>Given this information, what do you know about the risk items?</p>",
+      "answers": {
+        "a": "Only Risk Item 5 has been tested with all tests passing.",
+        "b": "None of the Risk Items have been tested with all tests passing.",
+        "c": "Test conditions 2, 3 and 6 all passed testing.",
+        "d": "All of the Risk Items have been tested."
+      },
+      "correct_answer": "A",
+      "points": 3,
+      "syllabus_reference": "TM-1.3.1",
+      "tip": "Linking test cases to risk items allows prioritization and visibility into uncovered risks.",
+      "real_life_example": "In risk-based traceability reports, visual matrices like this help identify which high-impact risks remain untested."
+    },
+    {
+      "id": "ASTQB-TM-4",
+      "question": "While developing a traceability matrix for stakeholder sign-off, what should you provide to support a go/no-go release decision?",
+      "answers": {
+        "a": "Risk items mapped to test conditions.",
+        "b": "Test case execution results only.",
+        "c": "Requirements mapped to test case execution results.",
+        "d": "Test conditions mapped to test case execution results."
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-1.3.1",
+      "tip": "Linking requirements directly to executed test results demonstrates fulfillment of strategic objectives.",
+      "real_life_example": "A coverage report mapping user stories to executed tests allows managers to approve release readiness."
+    },
+    {
+      "id": "ASTQB-TM-5",
+      "question": "Which statement describes an advantage of specifying test conditions in detail?",
+      "answers": {
+        "a": "It takes less time to specify test conditions in detail.",
+        "b": "Detailed test conditions are easier to maintain.",
+        "c": "It helps relate test work items to the test basis.",
+        "d": "Fewer detailed test conditions are required than high-level ones."
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-1.3.2",
+      "tip": "Detailing conditions improves traceability between requirements and tests.",
+      "real_life_example": "Each acceptance criterion is decomposed into explicit test conditions linked back to its requirement ID."
+    },
+    {
+      "id": "ASTQB-TM-6",
+      "question": "You are creating full traceability from requirements to test cases. What is the correct trace order?",
+      "answers": {
+        "a": "High-level test case → Low-level test case → Test condition → Requirement",
+        "b": "Requirement → Test condition → High-level test case → Low-level test case",
+        "c": "Test condition → High-level test case → Low-level test case → Requirement",
+        "d": "Low-level test case → High-level test case and Requirement → Test condition"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-1.4.1",
+      "tip": "Traceability always flows from the source (requirement) downward to derived test artifacts.",
+      "real_life_example": "A QA tool links each requirement → condition → high-level case → detailed automated test."
+    },
+    {
+      "id": "ASTQB-TM-7",
+      "question": "Before you can design high-level or low-level test cases for a system modernization, what must be performed first?",
+      "answers": {
+        "a": "Implement the test cases.",
+        "b": "Select test data and execute tests.",
+        "c": "Identify the test conditions.",
+        "d": "Prioritize tests for execution."
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-1.4.1",
+      "tip": "Test design starts with identifying conditions derived from the test basis.",
+      "real_life_example": "Analyst extracts logical conditions from legacy requirement docs before designing new regression suites."
+    },
+    {
+      "id": "ASTQB-TM-8",
+      "question": "In a safety-critical insulin pump project subject to regulation, which execution order of test cases is correct?",
+      "answers": {
+        "a": "4, 5, 3, 7, 2, 6, 1",
+        "b": "7, 1, 4, 2, 3, 6, 5",
+        "c": "7, 4, 2, 6, 5, 1, 3",
+        "d": "4, 3, 5, 2, 6, 7, 1"
+      },
+      "correct_answer": "A",
+      "points": 3,
+      "syllabus_reference": "TM-1.5.1",
+      "tip": "Prioritize by sprint availability, regulatory needs, then risk and business priority.",
+      "real_life_example": "A medical-device QA plan executes Sprint 1 regulatory tests first, delaying optional business reports."
+    },
+    {
+      "id": "ASTQB-TM-9",
+      "question": "You manage joint on-shore/off-shore testing in a shared environment. How should you schedule testing for maximum efficiency?",
+      "answers": {
+        "a": "Load-balance manual and automated tests across both teams.",
+        "b": "Run automated tests first, then manual tests.",
+        "c": "Run both teams' testing in parallel.",
+        "d": "Schedule automation during off-hours."
+      },
+      "correct_answer": "D",
+      "points": 3,
+      "syllabus_reference": "TM-1.5.1",
+      "tip": "Using off-shore hours for automation removes environment conflicts and improves utilization.",
+      "real_life_example": "Automated suites run overnight in shared environments so day-shift testers can perform manual exploratory work."
+    },
+    {
+      "id": "ASTQB-TM-10",
+      "question": "<p>You have received the following test execution completion information from your team. The exit criteria state that you must have an <strong>80% pass rate of all test cases</strong> and an <strong>85% pass rate</strong> of all test cases covering <strong>high-risk areas</strong> (risk priority of 1 or 2).</p><table style='width:100%; border-collapse:collapse; margin:12px 0; font-size:14px;'><thead><tr><th style=\"border:1px solid #ccc; padding:6px; text-align:left;\">Risk Area</th><th style=\"border:1px solid #ccc; padding:6px; text-align:left;\">Risk Priority</th><th style=\"border:1px solid #ccc; padding:6px; text-align:left;\"># Tests Passed</th><th style=\"border:1px solid #ccc; padding:6px; text-align:left;\"># Tests Failed</th><th style=\"border:1px solid #ccc; padding:6px; text-align:left;\"># Tests not executed</th></tr></thead><tbody><tr><td style='border:1px solid #eee; padding:6px;'>1</td><td style='border:1px solid #eee; padding:6px;'>1</td><td style='border:1px solid #eee; padding:6px;'>8</td><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>0</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>3</td><td style='border:1px solid #eee; padding:6px;'>10</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>2</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>3</td><td style='border:1px solid #eee; padding:6px;'>4</td><td style='border:1px solid #eee; padding:6px;'>5</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>0</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>4</td><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>7</td><td style='border:1px solid #eee; padding:6px;'>3</td><td style='border:1px solid #eee; padding:6px;'>2</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>5</td><td style='border:1px solid #eee; padding:6px;'>3</td><td style='border:1px solid #eee; padding:6px;'>10</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>0</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>6</td><td style='border:1px solid #eee; padding:6px;'>3</td><td style='border:1px solid #eee; padding:6px;'>10</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>0</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>7</td><td style='border:1px solid #eee; padding:6px;'>5</td><td style='border:1px solid #eee; padding:6px;'>8</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>10</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>8</td><td style='border:1px solid #eee; padding:6px;'>1</td><td style='border:1px solid #eee; padding:6px;'>5</td><td style='border:1px solid #eee; padding:6px;'>1</td><td style='border:1px solid #eee; padding:6px;'>2</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>9</td><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>20</td><td style='border:1px solid #eee; padding:6px;'>0</td><td style='border:1px solid #eee; padding:6px;'>0</td></tr><tr><td style='border:1px solid #eee; padding:6px;'>10</td><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>7</td><td style='border:1px solid #eee; padding:6px;'>2</td><td style='border:1px solid #eee; padding:6px;'>1</td></tr></tbody></table><p><em>Given these results, have you achieved the exit criteria?</em></p>",
+      "answers": {
+        "a": "No. The 80% was met, but the 85% was not.",
+        "b": "No. The 80% was not met, but the 85% was met.",
+        "c": "No. Neither goal was met.",
+        "d": "Yes. Both goals were met."
+      },
+      "correct_answer": "C",
+      "points": 2,
+      "syllabus_reference": "TM-1.6.1",
+      "tip": "Compute both totals—overall ≈78.2% and high-risk (priority 1–2) ≈78.3%; both are below their thresholds.",
+      "real_life_example": "Release readiness is deferred when overall or high-risk pass rates are below agreed exit criteria; teams re-test failed items to raise metrics."
+    },
+    {
+      "id": "ASTQB-TM-11",
+      "question": "Your team is testing a new mobile tracking application with detailed requirements approved by stakeholders. What information do you need to track to ensure testing coverage meets end-user needs?",
+      "answers": {
+        "a": "Test execution results",
+        "b": "Defect density with priority rankings and defect status",
+        "c": "Test execution results mapped to the requirements",
+        "d": "Test condition coverage and associated defect detection efficiency"
+      },
+      "correct_answer": "C",
+      "points": 2,
+      "syllabus_reference": "TM-1.6.1",
+      "tip": "Trace test results to requirement items to measure functional coverage.",
+      "real_life_example": "A QA dashboard showing requirements linked to executed tests helps confirm that all user stories are verified."
+    },
+    {
+      "id": "ASTQB-TM-12",
+      "question": "Ideally, when should testers post their test execution results in the test management tool?",
+      "answers": {
+        "a": "Once a week, in time for the weekly status report",
+        "b": "At the end of the day so morning metrics will be accurate the next day",
+        "c": "Twice a day to allow periodic sampling reports",
+        "d": "Immediately after the execution of each test"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-1.7.1",
+      "tip": "Post results immediately to maintain data freshness and accuracy.",
+      "real_life_example": "Automated CI pipelines push test results to Jira/Xray instantly after each run."
+    },
+    {
+      "id": "ASTQB-TM-13",
+      "question": "You have summarized all test results and handed over the open-defect workarounds to the support team. What type of activity have you just completed?",
+      "answers": {
+        "a": "Test analysis",
+        "b": "Test support",
+        "c": "Test execution",
+        "d": "Test closure"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-1.8.1",
+      "tip": "Handover of artifacts and lessons learned occurs during test closure.",
+      "real_life_example": "At project end, QA exports unresolved defect summaries to operations before archiving the test repository."
+    },
+    {
+      "id": "ASTQB-TM-14",
+      "question": "<p>You have just completed a project that overran the schedule by several weeks. Senior management was very unhappy about this. Your people have told you that the developers seemed to break more than they fixed when they started defect resolution and this caused significant schedule issues.</p><p>Given this information, what is an important aspect of the retrospective meeting that you should be sure to perform?</p>",
+      "answers": {
+        "a": "Reviewing the project estimates since the project overran the schedule",
+        "b": "Check to see if the people who participated in the quality risk analysis had the right information to make risk rating decisions",
+        "c": "Conduct a cause and effect analysis of the regressions to understand what went wrong in the development processes",
+        "d": "Archive the results from the project to use to compare with future projects"
+      },
+      "correct_answer": "C",
+      "points": 2,
+      "syllabus_reference": "TM-1.8.2",
+      "tip": "Retrospectives focus on identifying process weaknesses; regression-related root cause analysis guides future prevention.",
+      "real_life_example": "Teams use fishbone or 5-Whys analysis to uncover why fixes repeatedly introduced new defects and refine code review and CI policies."
+    },
+    {
+      "id": "ASTQB-TM-15",
+      "question": "<p>You are working on a project that is implementing an upgraded CRM system. The business users will be evaluating and changing their processes to match the “out of the box” functionality of the system. Even with the expectation that little customization will be allowed, interfaces will have to be developed to work with various other systems used by the company, including the financial, personnel and marketing systems.</p><p>The business users will be conducting UAT and will be aligning their testing with the new business processes. What testing activities can help the business users define what they need to test?</p>",
+      "answers": {
+        "a": "Unit test development and execution using test-driven development",
+        "b": "Integration test design to understand the interfaces between the systems",
+        "c": "System test design to understand the business processes that will be used with the new system",
+        "d": "Defining test tools that can be used to capture the UAT and system test scripts in the same system so they can be compared"
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-2.2.1",
+      "tip": "System test design reveals end-to-end flows that mirror actual user processes, which supports UAT planning.",
+      "real_life_example": "QA maps CRM business workflows into system test scenarios, helping business teams reuse them directly during UAT."
+    },
+    {
+      "id": "ASTQB-TM-16",
+      "question": "<p>Your organization is planning a new mobile application that will provide customers with flexibility pertaining to their shipments, including adjusted delivery times and reroutes to neighbors or designated drop-off points. These are considered important features to the customer base and must be deployed as quickly as possible to maintain a competitive edge in the marketplace. You are challenged with ensuring these features meet the expectations of key stakeholders while meeting an aggressive deployment schedule.</p><p>You are sure the business analysts developed solid requirements. What other steps should you include to ensure both customer and stakeholder expectations are met?</p>",
+      "answers": {
+        "a": "Include customers when reviewing system test cases",
+        "b": "Ensure the UAT window is not compressed",
+        "c": "Involve senior management in test design",
+        "d": "Allow business analysts to review UAT results"
+      },
+      "correct_answer": "A",
+      "points": 3,
+      "syllabus_reference": "TM-2.2.1",
+      "tip": "Early customer participation ensures test coverage aligns with real business expectations and priorities.",
+      "real_life_example": "Customer representatives join test case reviews for a logistics app to verify that delivery options match user needs."
+    },
+    {
+      "id": "ASTQB-TM-17",
+      "question": "<p>Because of time constraints, coding of a new system is going to start before the full requirements are known. The requirements will be defined just ahead of when the developers will need them to start implementing code.</p><p>In this scenario, what is the best lifecycle model to use?</p>",
+      "answers": {
+        "a": "V-Model",
+        "b": "Iterative",
+        "c": "Spiral",
+        "d": "Big bang"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-2.2.2",
+      "tip": "Iterative models allow progressive refinement of requirements and incremental delivery.",
+      "real_life_example": "Scrum or Agile iterations handle evolving requirements by developing features in small, time-boxed increments."
+    },
+    {
+      "id": "ASTQB-TM-20",
+      "question": "<p>Which of the following is a true statement regarding the risk rating for a test object?</p>",
+      "answers": {
+        "a": "The overall rating remains the same throughout the testing",
+        "b": "The likelihood tends to increase when high priority problems are found",
+        "c": "The impact tends to increase as more issues are found",
+        "d": "The likelihood and impact may vary based on what is discovered during testing"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.1",
+      "tip": "Risk ratings evolve as new information appears during testing.",
+      "real_life_example": "Pen-test results elevate likelihood for security risks; mitigations later can reduce it again."
+    },
+    {
+      "id": "ASTQB-TM-21",
+      "question": "<p>When is it necessary to use a sample of potential customers to help identify the potential risks in a new software product?</p>",
+      "answers": {
+        "a": "During a brainstorming session",
+        "b": "When the expert interviews indicate that specific user expertise is needed",
+        "c": "When the software is a mass market product and the potential users can be surrogates for the real users",
+        "d": "During a risk workshop when the discussion is limited to the experiences of the users with past products"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.2",
+      "tip": "For mass-market products, representative customers surface real-world risks efficiently.",
+      "real_life_example": "Sampling retail app users reveals checkout friction that internal experts miss."
+    },
+    {
+      "id": "ASTQB-TM-22",
+      "question": "<p>You are working on a business intelligence project that will be replacing the product that is currently in production. The team has identified a risk with the presentation layer, in particular the data extraction and reporting. The developers are using a new tool to provide this functionality and they are finding it difficult to use. The test team is reporting significant errors in the reports, both in data and formatting. This information is important to the business, but they do have a workaround to access the data via a different interface. That interface is working properly and the users are familiar with it.</p><p>Given this information, what are the correct likelihood and impact ratings for this risk item, assuming 1 is highest and 5 is lowest?</p>",
+      "answers": {
+        "a": "Likelihood = 2, impact = 5",
+        "b": "Likelihood = 1, impact = 3",
+        "c": "Likelihood = 1, impact = 1",
+        "d": "Likelihood = 3, impact = 1"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-2.3.3",
+      "tip": "Frequent/reportable errors ⇒ high likelihood; effective workaround ⇒ medium impact.",
+      "real_life_example": "Reports are wrong but users rely on an alternate dashboard until the new tool stabilizes."
+    },
+    {
+      "id": "ASTQB-TM-23",
+      "question": "<p>You are performing a risk analysis for a mobile stock trading application that is scheduled for world-wide deployment in the coming months. This analysis is based on past experience, customer interviews, and independent input gathered by stakeholders. Recent competition has put additional pressure on stakeholders to ensure the product can meet or exceed the functionality provided by previous versions. It is also important that the additional features as well as faster trade execution and confirmation are working properly. The developers are behind schedule and this will affect the test schedule.</p><p>Based on this information, which product quality risk should you assess as high impact during your analysis?</p>",
+      "answers": {
+        "a": "Delay to the customer",
+        "b": "Difficulty with translating the product to other languages and currencies",
+        "c": "Slow response time",
+        "d": "Loss of market share"
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-2.3.3",
+      "tip": "In trading, performance/latency is business-critical ⇒ high impact.",
+      "real_life_example": "Order execution delays cause financial loss and regulatory complaints."
+    },
+    {
+      "id": "ASTQB-TM-24",
+      "question": "<p>Which of the following is a reasonable mitigation plan for a risk item that has a medium likelihood but a low impact because of an easy and obvious workaround?</p>",
+      "answers": {
+        "a": "Hold the release until the risk has been resolved by the development team",
+        "b": "Add more testing effort to lower the likelihood of the risk happening",
+        "c": "Transfer the risk to the support department with information regarding how to workaround the problem",
+        "d": "A medium likelihood item cannot have a low impact, so reassess the risk ratings"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.4",
+      "tip": "Low-impact items with clear workarounds are good candidates for transfer.",
+      "real_life_example": "Service desk KB article instructs users to export via legacy path when new report fails."
+    },
+    {
+      "id": "ASTQB-TM-25",
+      "question": "<p>Which is a characteristic of a “depth-first” risk-based testing methodology?</p>",
+      "answers": {
+        "a": "Sampling of tests across all risk items",
+        "b": "Low risk items are identified and run first",
+        "c": "Execution of the most comprehensive tests regardless of risk level",
+        "d": "Tests are run in the specific order of risk"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-2.3.4",
+      "tip": "Depth-first means highest-risk items are tested first and in order.",
+      "real_life_example": "Security and payment flows run before low-risk UI polish tests."
+    },
+    {
+      "id": "ASTQB-TM-26",
+      "question": "<p>The cost incurred from writing test cases should be assigned to which cost of quality category?</p>",
+      "answers": {
+        "a": "Cost of prevention",
+        "b": "Cost of detection",
+        "c": "Cost of internal failure",
+        "d": "Cost of external failure"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-2.7.1",
+      "tip": "Authoring and executing tests are detection activities in CoQ.",
+      "real_life_example": "Budgeting test design hours under ‘Appraisal/Detection’ in CoQ reports."
+    },
+    {
+      "id": "ASTQB-TM-27",
+      "question": "<p>You have just joined a new organization as the test manager. You are working on a test plan for a product that controls the data that is fed into a patient’s pacemaker to determine if it should speed up or slow down the heart rate. The existing test strategy emphasizes that the test approach used should always be risk-based, but you are concerned about the regulatory requirements that must be meet for this safety-critical project. What approach should you use in your test plan?</p>",
+      "answers": {
+        "a": "Standard-compliant, because this is a safety-critical project and must meet the regulatory standards to be released",
+        "b": "Risk-based, because this is the organization standard and has been proven to be successful in the past",
+        "c": "Methodical, because this is the safest approach for a product like this",
+        "d": "A blended strategy using regulatory and risk-based approaches"
+      },
+      "correct_answer": "D",
+      "points": 3,
+      "syllabus_reference": "TM-2.4.1",
+      "tip": "Safety-critical work must satisfy regulation while still prioritizing risks.",
+      "real_life_example": "IEC/FDA compliance plus risk-based prioritization of safety and performance tests."
+    },
+    {
+      "id": "ASTQB-TM-28",
+      "question": "<p>You are working on a new web site that will replace the organization’s existing e-commerce web site. The e-commerce side of the business produces 70% of the company’s revenue. You are very concerned about the quality of the release and, in particular, the functioning of the checkout capability. At this point, a user can only purchase a single item at a time and can only use PayPal to checkout. The product is due to release very soon and the developers don't think they can get the problems fixed before release. Postponing the release is not an option.</p><p>Given this information, what is the best way to handle the risk with the checkout function?</p>",
+      "answers": {
+        "a": "Mitigate it with further testing and development work",
+        "b": "Have a contingency in place for what to do if it fails in production (such as swap back the old web site)",
+        "c": "Transfer the risk to the support department",
+        "d": "Accept the risk as a part of doing business"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-2.4.2",
+      "tip": "When fix isn’t feasible pre-release, prepare a concrete contingency plan.",
+      "real_life_example": "Blue-green deployment with instant rollback to the previous checkout."
+    },
+    {
+      "id": "ASTQB-TM-29",
+      "question": "<p>If you are using the ISO25000 standard as a guideline checklist for your testing, what type of testing strategy are you following?</p>",
+      "answers": {
+        "a": "Model-based",
+        "b": "Methodical",
+        "c": "Standard-compliant",
+        "d": "Consultative"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-2.4.3",
+      "tip": "Using a predefined checklist/guideline aligns with a methodical strategy.",
+      "real_life_example": "Applying ISO 25010 quality characteristics as a structured test basis."
+    },
+    {
+      "id": "ASTQB-TM-30",
+      "question": "<p>Which test strategy relies on input from stakeholders to determine coverage for test conditions?</p>",
+      "answers": {
+        "a": "Consultative",
+        "b": "Standard-compliant",
+        "c": "Model-based",
+        "d": "Reactive"
+      },
+      "correct_answer": "A",
+      "points": 1,
+      "syllabus_reference": "TM-2.4.3",
+      "tip": "Consultative/user-directed strategies solicit coverage inputs from stakeholders.",
+      "real_life_example": "Customer councils and ops support help prioritize what must be tested first."
+    },
+    {
+      "id": "ASTQB-TM-31",
+      "question": "<p>You are working on a project that is creating software that will handle waste water management systems for a large city. What would be a good source to use for standard testing document templates and guidelines?</p>",
+      "answers": {
+        "a": "ISO 9126 (ISO 25000)",
+        "b": "IEEE 1044",
+        "c": "ISO 15504",
+        "d": "IEEE 829"
+      },
+      "correct_answer": "D",
+      "points": 2,
+      "syllabus_reference": "TM-2.4.4",
+      "tip": "IEEE 829 (now ISO/IEC/IEEE 29119-3) defines standardized templates for test documentation.",
+      "real_life_example": "Many safety-critical projects (e.g., municipal infrastructure) base their master test plan and test summary report on IEEE 829 templates."
+    },
+    {
+      "id": "ASTQB-TM-32",
+      "question": "<p>You are working on a testing estimate for a new project. The organization will use the same developers and testers as were used for previous projects. You have reviewed the requirements and talked with the BA’s and determined that you will need about 500 test cases. You know that test execution of a single test case will usually take 20 minutes. You’ve worked out the math and that means you will need about 34 days of testing (assuming 5-hour days). This estimate doesn’t seem right though because previous projects have taken between four and six months to complete.</p><p>Consider the following:</p><ol><li>Time to review the requirements</li><li>Time to create the test cases</li><li>Time to deal with the defects that may be found during testing</li><li>Time required by the developers to fix the defects</li><li>Time required for unit testing</li><li>Time required for UAT</li><li>Time to do the necessary reporting to management</li><li>Time to create the test estimate</li></ol><p>Given this information, which of the following should have been included in your testing estimate?</p>",
+      "answers": {
+        "a": "2, 3",
+        "b": "1, 4, 7",
+        "c": "5, 6, 8",
+        "d": "1, 2, 3, 4, 5, 6, 7, 8"
+      },
+      "correct_answer": "A",
+      "points": 2,
+      "syllabus_reference": "TM-2.5.1",
+      "tip": "Include design and defect-handling effort; omit unrelated development or management time.",
+      "real_life_example": "QA estimates add time for writing and re-testing defects, not for developer fixes or UAT."
+    },
+    {
+      "id": "ASTQB-TM-33",
+      "question": "<p>Your management has decided to change to a different test and defect management tool that will be used for all new projects. No one in your team has used this tool before. The vendor will help with configuring the tool. What effect should the new tool adoption have on your test estimate for the next new project?</p>",
+      "answers": {
+        "a": "No change because the vendor will handle the configuration effort",
+        "b": "No change because the developers will not be affected by the tool change",
+        "c": "The estimate should be increased to account for time to learn the new tool",
+        "d": "The estimate should be decreased because the new tool will introduce efficiencies in the process"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-2.5.2",
+      "tip": "Always include learning-curve time when adopting new tools.",
+      "real_life_example": "Teams add 10-15 % contingency to their first project’s schedule after switching to a new ALM tool."
+    },
+    {
+      "id": "ASTQB-TM-34",
+      "question": "<p>You have been closely tracking the Defect Detection Effectiveness (DDE) for the last release. You are showing a DDE of 95%, which has achieved the goal set by the organization. This is an example of what type of metric?</p>",
+      "answers": {
+        "a": "Project metric",
+        "b": "Product metric",
+        "c": "Process metric",
+        "d": "People metric"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-2.6.1",
+      "tip": "DDE measures the effectiveness of the testing process, not people or product quality directly.",
+      "real_life_example": "High DDE (defects found pre-release ÷ total defects) indicates strong testing coverage and process maturity."
+    },
+    {
+      "id": "ASTQB-TM-35",
+      "question": "<p>One of your exit criteria is to achieve 95% pass rate of all high-risk test cases. You have achieved that goal. What other dimension of test progress should you use with this metric to ensure you have achieved the appropriate level of quality?</p>",
+      "answers": {
+        "a": "Validity",
+        "b": "Defects",
+        "c": "Progress",
+        "d": "People"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-2.6.2",
+      "tip": "Complement pass rate metrics with defect data for a complete quality view.",
+      "real_life_example": "A 95% pass rate can hide severe open defects—combine it with defect density or severity trends."
+    },
+    {
+      "id": "ASTQB-TM-36",
+      "question": "<p>You are working on the testing report for a project that is nearing completion. The exit criteria for test execution and coverage include the following:</p><ul><li>100% coverage of all high and very high risk items</li><li>98% Pass for all high and very high risk test cases executed</li><li>90% coverage of all medium risk items</li><li>90% Pass for all medium risk test cases executed</li><li>50% coverage of all low risk items</li><li>80% Pass for all low risk test cases executed</li></ul><p>You have achieved all of these criteria. What is the one critical metric that still needs to be reviewed before this software can be approved for release?</p>",
+      "answers": {
+        "a": "How many hours were used to achieve this level of coverage",
+        "b": "What was the coverage level achieved by the overall test effort",
+        "c": "What is the DDE for this software",
+        "d": "Are there any outstanding high priority/severity defects"
+      },
+      "correct_answer": "D",
+      "points": 3,
+      "syllabus_reference": "TM-2.6.3",
+      "tip": "Residual critical defects can block release regardless of coverage metrics.",
+      "real_life_example": "Even with 98 % pass rate, one unresolved critical bug in payments may delay go-live."
+    },
+    {
+      "id": "ASTQB-TM-37",
+      "question": "<p>Your team has concluded testing and is preparing the test summary results for review with the stakeholders at a management review. You will provide quantitative metrics to stakeholders in order to obtain a collective decision regarding the readiness for release.</p><p>Which metric should you include in the management review in order to assist stakeholders with their decision?</p>",
+      "answers": {
+        "a": "Percentage of code coverage achieved by all forms of testing",
+        "b": "Percentage of risk covered, organized by risk category",
+        "c": "Percentage of defect reports resolved versus unresolved",
+        "d": "Percentage of test conditions identified"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-2.6.3",
+      "tip": "Risk-based coverage gives management confidence in readiness and residual exposure.",
+      "real_life_example": "Management dashboards show risk category coverage (security 95 %, performance 90 %, usability 85 %)."
+    },
+    {
+      "id": "ASTQB-TM-38",
+      "question": "<p>You’ve been doing analysis of the last major testing project that produced a tax preparation product. The project performed well regarding the quantitative values of testing, but failed to deliver the qualitative values to a sufficient level. In fact, although the software was of excellent quality in terms of residual defects, it was a failure in the marketplace because it missed the market window (the tax season) due to the time required to find and fix the defects.</p><p>In terms of the cost of quality, where should expenditure be increased to reduce similar problems with future projects?</p>",
+      "answers": {
+        "a": "The cost of prevention",
+        "b": "The cost of detection",
+        "c": "The cost of internal failure",
+        "d": "The cost of external failure"
+      },
+      "correct_answer": "A",
+      "points": 2,
+      "syllabus_reference": "TM-2.7.2",
+      "tip": "Investing in prevention (reviews, static analysis) reduces defects injected and shortens schedules.",
+      "real_life_example": "Adding peer reviews and early automation prevents late-cycle defect bottlenecks."
+    },
+    {
+      "id": "ASTQB-TM-39",
+      "question": "<p>When working with an organization that has geographically distributed testing and development teams, what is an effective way to improve communication?</p>",
+      "answers": {
+        "a": "Encourage the use of informal communication such as hallway chats",
+        "b": "Use team-building exercises with all team members to help improve the relationships",
+        "c": "Employ good tools with clear workflows to track project tasks including defects",
+        "d": "Plan to have significant overlap in the activities where both teams work on the same tasks and then compare the results"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-2.8.1",
+      "tip": "Workflow and tracking tools bridge communication gaps in distributed teams.",
+      "real_life_example": "Jira, Confluence, and MS Teams dashboards keep offshore and onshore testers aligned daily."
+    },
+    {
+      "id": "ASTQB-TM-40",
+      "question": "<p>Which of the following is a characteristic that is common to management reviews and audits?</p>",
+      "answers": {
+        "a": "Both are led by managers",
+        "b": "Both are focused on determining if the plan has been followed",
+        "c": "Both are used to assess project risks",
+        "d": "Both result in recommendations and corrective actions to be taken"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-3.2.1",
+      "tip": "Both reviews and audits end with actionable recommendations for improvement.",
+      "real_life_example": "Audit findings and management reviews alike produce CAPA (Corrective and Preventive Action) items."
+    },
+    {
+      "id": "ASTQB-TM-41",
+      "question": "<p>You have developed the quality risk analysis for the software for a tool that can be used to create graphics for web sites. Your company is small and the development and testing groups work well together. The customer (product owner) is also very engaged. What would be the appropriate type of review to conduct on the quality risk analysis?</p>",
+      "answers": {
+        "a": "A management review",
+        "b": "An audit",
+        "c": "A walkthrough",
+        "d": "An inspection"
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-3.3.1",
+      "tip": "Walkthroughs are informal, collaborative reviews suitable for small, cooperative teams.",
+      "real_life_example": "In a startup environment, QA and dev teams conduct walkthroughs of risk logs with the product owner to align on priorities."
+    },
+    {
+      "id": "ASTQB-TM-42",
+      "question": "<p>You have completed test execution on a major project set to deploy in the coming weeks. The project consists of a mobile application that customers will use to order pizzas, so aesthetics and functionality in the hands of the customer are important. Success of this project is a priority for the company. What type of review should take place at this key milestone in the project and who should be included?</p>",
+      "answers": {
+        "a": "Inspection with senior management",
+        "b": "Technical review with management and technical team",
+        "c": "Walkthrough with stakeholders and peers",
+        "d": "Management review with stakeholders"
+      },
+      "correct_answer": "D",
+      "points": 3,
+      "syllabus_reference": "TM-3.3.1",
+      "tip": "Management reviews happen at key milestones to evaluate readiness for release.",
+      "real_life_example": "Before go-live, QA leads a management review with stakeholders to confirm readiness metrics and defect status."
+    },
+    {
+      "id": "ASTQB-TM-43",
+      "question": "<p>When is a review checklist used?</p>",
+      "answers": {
+        "a": "At the conclusion of the review to be sure all items have been addressed",
+        "b": "When the review is being organized to be sure the right people are invited",
+        "c": "During review preparation to ensure the important items are checked",
+        "d": "During the review retrospective to verify that all participants have turned in the documents required"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-3.3.2",
+      "tip": "Checklists guide reviewers during preparation to focus on critical areas.",
+      "real_life_example": "Before peer review of requirements, testers use a checklist covering ambiguity, completeness, and traceability."
+    },
+    {
+      "id": "ASTQB-TM-44",
+      "question": "<p>Your management is complaining that too much time is being spent on requirements reviews and they would like to stop the practice. You think the reviews are very valuable and have significantly improved the quality of the code thanks to the removal of requirements defects found during the reviews. Which of the following metrics would be most useful in convincing your management that the reviews should continue?</p>",
+      "answers": {
+        "a": "Time required to prepare for and conduct the review",
+        "b": "Number of defects found and their severity",
+        "c": "Defect detection effectiveness and the time required to fix the defects found",
+        "d": "Cost of quality metrics for the defects found in the reviews versus other methods"
+      },
+      "correct_answer": "D",
+      "points": 2,
+      "syllabus_reference": "TM-3.4.1",
+      "tip": "Cost of Quality (CoQ) shows savings from early defect detection — powerful for management persuasion.",
+      "real_life_example": "Tracking that each defect found in review saves 10× the cost compared to finding it post-release justifies review time."
+    },
+    {
+      "id": "ASTQB-TM-45",
+      "question": "<p>You have just completed a review where metrics were tracked regarding the effectiveness and efficiency of the review. Which of the following is the best description of this type of review?</p>",
+      "answers": {
+        "a": "A management review",
+        "b": "An informal review",
+        "c": "A formal review",
+        "d": "An audit"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "Formal reviews include entry/exit criteria, roles, and quantitative metrics on effectiveness and efficiency.",
+      "real_life_example": "QA leads a formal inspection tracking defect density and review rate to assess review performance."
+    },
+    {
+      "id": "ASTQB-TM-46",
+      "question": "<p>You are working on a project that is about halfway complete. The testers have been consistently reporting defects at the rate of 50 per week, but the defect backlog just continues to grow. You asked the development manager if the developers are fixing defects and he said they are fixing everything that is fixable as quickly as it is received. Given this information, what metric would be helpful in determining why and where the defects are getting stalled in the workflow?</p>",
+      "answers": {
+        "a": "How many defects are in which state and what is the average time for a defect to move between states",
+        "b": "How many defects are logged against particular areas of the software and how many are assigned to each developer",
+        "c": "How many duplicates have been reported by your team",
+        "d": "How many defects have been opened and closed for this project"
+      },
+      "correct_answer": "A",
+      "points": 2,
+      "syllabus_reference": "TM-4.2.1",
+      "tip": "Defect aging and state-transition metrics identify bottlenecks in defect workflows.",
+      "real_life_example": "Tracking average time in ‘In Progress’ reveals delays caused by code review or environment setup."
+    },
+    {
+      "id": "ASTQB-TM-47",
+      "question": "<p>Who should close a defect report that reports a false-positive result?</p>",
+      "answers": {
+        "a": "The developer because only they know it is a false-positive",
+        "b": "The tester after they have investigated and determined it is truly a false-positive",
+        "c": "The developer after they have fixed the issue",
+        "d": "The tester after they have verified the fix"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-4.2.1",
+      "tip": "Testers confirm false positives to maintain data accuracy in defect tracking.",
+      "real_life_example": "A tester closes a ‘bug’ later proven to be a test-environment setup error."
+    },
+    {
+      "id": "ASTQB-TM-48",
+      "question": "<p>Your management has requested that you provide summary defect graphs based on various classification data such as priority and severity. They are particularly interested in data that will support the measures they have taken to reduce the cost of quality. What is an important type of classification data that you should be tracking to supply this information?</p>",
+      "answers": {
+        "a": "The amount of time required to reproduce a problem",
+        "b": "The priority and severity trends of the reported defects",
+        "c": "Defect cluster information compared to the risk priority rating of each area",
+        "d": "The lifecycle phase for introduction, detection and removal"
+      },
+      "correct_answer": "D",
+      "points": 2,
+      "syllabus_reference": "TM-4.4.1",
+      "tip": "Tracking defect introduction, detection, and removal phases supports Cost of Quality analysis.",
+      "real_life_example": "By classifying defects by phase found vs introduced, QA quantifies early detection savings for management reports."
+    },
+    {
+      "id": "ASTQB-TM-49",
+      "question": "<p>What is the primary reason for tracking root-cause information?</p>",
+      "answers": {
+        "a": "To identify the developers with poor development tendencies",
+        "b": "To target testing to areas where the highest number of defects are found",
+        "c": "To improve the testing techniques used to detect defects",
+        "d": "To provide information for process improvement"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-4.4.1",
+      "tip": "Root cause data feeds continuous improvement by preventing recurrence of defect types.",
+      "real_life_example": "Root cause analysis showed ambiguous requirements caused many defects, leading to improved BA templates."
+    },
+    {
+      "id": "ASTQB-TM-50",
+      "question": "<p>What is a benefit to using a process model as a basis for process improvement?</p>",
+      "answers": {
+        "a": "It provides a standard to measure against",
+        "b": "It lets you learn from past mistakes to put prevention plans into place",
+        "c": "Using a standard such as CMMI provides step by step improvement plans for testing",
+        "d": "The model can be customized to the particular project situation"
+      },
+      "correct_answer": "A",
+      "points": 1,
+      "syllabus_reference": "TM-3.4.1",
+      "tip": "Process models like TMMi or CMMI offer structured benchmarks to assess and improve maturity.",
+      "real_life_example": "A QA group measures its process maturity against TMMi Level 3 goals to plan future improvements."
+    },
+    {
+      "id": "ASTQB-TM-51",
+      "question": "<p>You have a new CIO who has decided that the current testing approach is not working based on a recent failure in production. He has told you that you need to make changes now and has asked you to present a test process improvement plan by the end of the week. What step of the IDEAL process is he missing?</p>",
+      "answers": {
+        "a": "Initiating the improvement process",
+        "b": "Defining the solution",
+        "c": "Implementing the solution",
+        "d": "Diagnosing the problem"
+      },
+      "correct_answer": "D",
+      "points": 2,
+      "syllabus_reference": "TM-3.4.2",
+      "tip": "IDEAL: Initiating → Diagnosing → Establishing → Acting → Learning. Skipping diagnosis skips understanding root causes.",
+      "real_life_example": "A CIO demands a new QA strategy without analyzing current pain points—causing repeating issues later."
+    },
+    {
+      "id": "ASTQB-TM-52",
+      "question": "<p>Which of the following shows the levels of the TMMi test process improvement model in the correct order?</p>",
+      "answers": {
+        "a": "Initial, Controlled, Efficient, Optimizing",
+        "b": "Identification, Recognition, Selection",
+        "c": "Initial, Managed, Defined, Measured, Optimized",
+        "d": "Initial, Repeatable, Defined, Managed, Optimizing"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-3.4.2",
+      "tip": "TMMi mirrors CMMI: Initial → Managed → Defined → Measured → Optimized.",
+      "real_life_example": "Organizations track progress from ad-hoc testing (Level 1) toward metrics-driven continuous improvement (Level 4–5)."
+    },
+    {
+      "id": "ASTQB-TM-53",
+      "question": "<p>If you are looking for a test process improvement model that allows the organization to make improvements in the order that makes sense to them and will work with an Agile environment with a risk-based testing approach, which model would be most appropriate?</p>",
+      "answers": {
+        "a": "STEP",
+        "b": "CTP",
+        "c": "TMMi",
+        "d": "CMMI"
+      },
+      "correct_answer": "B",
+      "points": 3,
+      "syllabus_reference": "TM-3.4.2",
+      "tip": "CTP (Critical Testing Processes) is flexible and adaptable to Agile and risk-based contexts.",
+      "real_life_example": "An Agile test group selects improvement priorities using CTP’s modular structure instead of a fixed maturity ladder."
+    },
+    {
+      "id": "ASTQB-TM-54",
+      "question": "<p>Your team has just downloaded an open-source tool that they want to use for test management. To integrate the tool with your defect tracking system will require some modifications to the test management tool. The tool has a GNU General Public License-type license with it. What are the implications of this license?</p>",
+      "answers": {
+        "a": "Changes to the source are not allowed",
+        "b": "The source can be changed, but the maintenance agreements will be voided",
+        "c": "There is an expectation that any code changes made will be shared back to the community",
+        "d": "You will have to pay a royalty fee for each test case added to the tool and for each user of the tool"
+      },
+      "correct_answer": "C",
+      "points": 1,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "GPL licenses require derivative code to remain open and shared.",
+      "real_life_example": "A team modifies a GPL-licensed tool plugin and publishes their fork to GitHub per license obligations."
+    },
+    {
+      "id": "ASTQB-TM-55",
+      "question": "<p>The developers are willing to build a tool that will provide traceability between the source code modules and the test cases that test those modules. What management concerns should you have with this development effort?</p>",
+      "answers": {
+        "a": "Long-term maintenance may not be planned, leaving you with an unsupported tool",
+        "b": "The scope of the project is too large and the tool will be too generic to be useful",
+        "c": "There are no requirements for this effort so you will be at the mercy of what the developers decide to implement",
+        "d": "It is unlikely that the ROI will be achieved"
+      },
+      "correct_answer": "A",
+      "points": 2,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "In-house tools often lack maintenance funding, creating long-term risk.",
+      "real_life_example": "A custom traceability tool works initially but breaks after framework updates due to no assigned maintainer."
+    },
+    {
+      "id": "ASTQB-TM-56",
+      "question": "<p>Your organization has been using a custom-built tool that manages the process from code check-in, build, code release, test management and defect management. The cost of maintaining the tool has continued to escalate over the years and it is now just too expensive to maintain. You have been investigating purchasing a new tool and have studied the costs to write the requirements, evaluate and purchase the tool, conduct the training and integrate the tool with the other tools in use. The hardware running the current tool will be sufficient for the new tool.</p><p>What else should be considered in your ROI analysis?</p>",
+      "answers": {
+        "a": "The likelihood that the vendor will stay in business and provide adequate support for the tool",
+        "b": "The users of the tool and the access permissions they will require",
+        "c": "The recurring costs associated with owning the tool",
+        "d": "The opportunity cost spent on the previous custom-built tool"
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "ROI must include recurring (ongoing) costs like renewals, upgrades, and support fees.",
+      "real_life_example": "A tool appears cheaper initially but yearly maintenance doubles total cost of ownership over five years."
+    },
+    {
+      "id": "ASTQB-TM-57",
+      "question": "<p>Why is it important to consider how a tool will evolve?</p>",
+      "answers": {
+        "a": "Because purchase of a replacement tool will have to be budgeted",
+        "b": "Because continuity of the service must be ensured",
+        "c": "Because data stored in the tool must be maintained unchanged",
+        "d": "Because tool updates may be required by the vendor that will break the interfaces"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "Future updates can break integrations—evaluate vendor roadmap and API stability.",
+      "real_life_example": "After a major tool version upgrade, the API changes cause integration scripts to fail—testing must plan for it."
+    },
+    {
+      "id": "ASTQB-TM-58",
+      "question": "<p>Ideally, a tool should gather data in what timeframe?</p>",
+      "answers": {
+        "a": "Real time",
+        "b": "Hourly",
+        "c": "Daily",
+        "d": "Weekly"
+      },
+      "correct_answer": "A",
+      "points": 1,
+      "syllabus_reference": "TM-3.5.1",
+      "tip": "Real-time data collection enables immediate monitoring and faster decision-making.",
+      "real_life_example": "Dashboards pulling test and defect data in real time give management instant project health visibility."
+    },
+    {
+      "id": "ASTQB-TM-59",
+      "question": "<p>You have completed the following skills assessment for your team, rating each (low) to 5 (high) for their competency in each area.</p><table style='width:100%; border-collapse:collapse; margin:12px 0; font-size:14px; text-align:center;'><thead><tr style='background:#f5f5f5;'><th style='border:1px solid #ccc; padding:6px; text-align:left;'>Skill Area</th><th style='border:1px solid #ccc; padding:6px;'>Tester A</th><th style='border:1px solid #ccc; padding:6px;'>Tester B</th><th style='border:1px solid #ccc; padding:6px;'>Tester C</th><th style='border:1px solid #ccc; padding:6px;'>Tester D</th><th style='border:1px solid #ccc; padding:6px;'>Tester E</th></tr></thead><tbody><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Technical Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>SQL</td><td>5</td><td>4</td><td>5</td><td>2</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Automation</td><td>5</td><td>4</td><td>5</td><td>1</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Performance Testing</td><td>4</td><td>2</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Security Testing</td><td>2</td><td>1</td><td>3</td><td>1</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>API Testing</td><td>5</td><td>3</td><td>5</td><td>1</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Functional Test Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Analysis</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Design</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Implementation</td><td>5</td><td>4</td><td>5</td><td>3</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Execution</td><td>5</td><td>4</td><td>5</td><td>5</td><td>5</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Leadership Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Training / Developing</td><td>2</td><td>5</td><td>1</td><td>1</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Project Leadership</td><td>1</td><td>5</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Peer Coaching</td><td>2</td><td>3</td><td>1</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Reporting</td><td>1</td><td>4</td><td>2</td><td>3</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Soft Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Speaking</td><td>1</td><td>3</td><td>2</td><td>5</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Writing</td><td>3</td><td>4</td><td>3</td><td>3</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Ability to Learn</td><td>5</td><td>5</td><td>5</td><td>4</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Communicating Bad News</td><td>1</td><td>3</td><td>1</td><td>1</td><td>5</td></tr></tbody></table><p><em>Given this information, which tester would you assign to lead automation, and which would you assign to coach the team in soft skills?</em></p>",
+      "answers": {
+        "a": "Tester C for automation, Tester E for soft skills",
+        "b": "Tester A for automation, Tester D for soft skills",
+        "c": "Tester C for automation, Tester B for soft skills",
+        "d": "Tester A for automation, Tester E for soft skills"
+      },
+      "correct_answer": "D",
+      "points": 3,
+      "syllabus_reference": "TM-4.5.1",
+      "tip": "Use competency ratings to allocate responsibilities effectively: highest automation and interpersonal skill scores guide assignments.",
+      "real_life_example": "Automation is led by the strongest technical tester (A), while communication and mentoring are best handled by the highest soft-skill scorer (E)."
+    },
+    {
+      "id": "ASTQB-TM-60",
+      "question": "<p>You have completed the following skills assessment for your team, rating each person from 1 (low) to 5 (high) for their competency in each area.</p><table style='width:100%; border-collapse:collapse; margin:12px 0; font-size:14px; text-align:center;'><thead><tr style='background:#f5f5f5;'><th style='border:1px solid #ccc; padding:6px; text-align:left;'>Skill Area</th><th style='border:1px solid #ccc; padding:6px;'>Tester A</th><th style='border:1px solid #ccc; padding:6px;'>Tester B</th><th style='border:1px solid #ccc; padding:6px;'>Tester C</th><th style='border:1px solid #ccc; padding:6px;'>Tester D</th><th style='border:1px solid #ccc; padding:6px;'>Tester E</th></tr></thead><tbody><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Technical Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>SQL</td><td>5</td><td>4</td><td>5</td><td>2</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Automation</td><td>5</td><td>4</td><td>5</td><td>1</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Performance Testing</td><td>4</td><td>2</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Security Testing</td><td>2</td><td>1</td><td>3</td><td>1</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>API Testing</td><td>5</td><td>3</td><td>5</td><td>1</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Functional Test Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Analysis</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Design</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Implementation</td><td>5</td><td>4</td><td>5</td><td>3</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Execution</td><td>5</td><td>4</td><td>5</td><td>5</td><td>5</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Leadership Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Training / Developing</td><td>2</td><td>5</td><td>1</td><td>1</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Project Leadership</td><td>1</td><td>5</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Peer Coaching</td><td>2</td><td>3</td><td>1</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Reporting</td><td>1</td><td>4</td><td>2</td><td>3</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Soft Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Speaking</td><td>1</td><td>3</td><td>2</td><td>5</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Writing</td><td>3</td><td>4</td><td>3</td><td>3</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Ability to Learn</td><td>5</td><td>5</td><td>5</td><td>4</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Communicating Bad News</td><td>1</td><td>3</td><td>1</td><td>1</td><td>5</td></tr></tbody></table><p>You have an opportunity to send one of your testers to speak at a conference on the importance of technical testing skills in software testing. This person will also be expected to attend other seminars and bring back and disseminate that information to the team. Who is the best candidate for this opportunity?</p>",
+      "answers": {
+        "a": "Tester A",
+        "b": "Tester C",
+        "c": "Tester D",
+        "d": "Tester E"
+      },
+      "correct_answer": "C",
+      "points": 2,
+      "syllabus_reference": "TM-4.5.1",
+      "tip": "Select someone with high technical knowledge, communication skills, and the ability to transfer knowledge effectively.",
+      "real_life_example": "Tester D scores highest in speaking (5) and strong in technical and functional testing areas, making them ideal for conference representation and knowledge sharing."
+    },
+    {
+      "id": "ASTQB-TM-61",
+      "question": "<p>You are in the middle of a very technical project with significant problems. Tester D is quite junior and needs frequent guidance. You have to go on vacation for the next two weeks. Who is the best person on your team to handle the test management tasks while you are gone?</p>",
+      "answers": {
+        "a": "Tester A",
+        "b": "Tester B",
+        "c": "Tester C",
+        "d": "Tester E"
+      },
+      "correct_answer": "B",
+      "points": 2,
+      "syllabus_reference": "TM-4.5.1",
+      "tip": "Delegate to someone with leadership and reporting skills as well as strong domain knowledge.",
+      "real_life_example": "Tester B scored highest in leadership (training 5, project leadership 5, reporting 4) and can maintain team coordination during your absence."
+    },
+    {
+      "id": "ASTQB-TM-62",
+      "question": "<p>Which of the following is one of the most important skills a test manager must possess?</p>",
+      "answers": {
+        "a": "Test automation",
+        "b": "Diplomacy",
+        "c": "Test strategy/plan creation",
+        "d": "Process improvement"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-4.6.1",
+      "tip": "A test manager must balance stakeholder expectations—diplomacy is essential for conflict resolution.",
+      "real_life_example": "When dev and product disagree about defect severity, diplomatic negotiation helps maintain collaboration."
+    },
+    {
+      "id": "ASTQB-TM-63",
+      "question": "<p>Which of the following is a problem that can happen when a tester reports to a development manager?</p>",
+      "answers": {
+        "a": "The tester misses important information because he is disassociated from the developers",
+        "b": "The tester may be reporting to a manager whose goals are schedule-focused rather than quality-focused",
+        "c": "The tester is given a higher status in the team than the developers due to his superior testing skills",
+        "d": "The tester has a clear career path to improve testing expertise"
+      },
+      "correct_answer": "B",
+      "points": 1,
+      "syllabus_reference": "TM-4.6.2",
+      "tip": "Reporting under development can bias priorities toward delivery rather than quality.",
+      "real_life_example": "A dev manager under deadline pressure may downplay testing blockers to meet release targets."
+    },
+    {
+      "id": "ASTQB-TM-64",
+      "question": "<p>Your testers want to have a weekly “best bug” contest within the team. Should you implement this?</p>",
+      "answers": {
+        "a": "Yes, it will help to motivate the team by bringing them together with a common understanding of the problems found in the software by having a friendly contest",
+        "b": "Yes, it will help them to become better testers by showing the defects that have been missed by others",
+        "c": "No, defects are negative and finding them should not be encouraged in a testing team",
+        "d": "No, it is likely to discourage the junior testers who can’t find as many defects as the senior testers"
+      },
+      "correct_answer": "D",
+      "points": 1,
+      "syllabus_reference": "TM-4.6.3",
+      "tip": "Competitions may demotivate or intimidate less experienced testers; collaboration is healthier.",
+      "real_life_example": "Senior testers dominate bug contests, leaving juniors feeling undervalued instead of motivated."
+    },
+    {
+      "id": "ASTQB-TM-65",
+      "question": "<p>As a Test Manager which of the following is a key component to motivating the test team?</p>",
+      "answers": {
+        "a": "Give fair and honest appraisals of mistakes",
+        "b": "Recognize all team members regardless of contribution",
+        "c": "Base the amount of praise on the importance of the project",
+        "d": "Provide positive recognition, avoiding negative feedback if possible"
+      },
+      "correct_answer": "A",
+      "points": 1,
+      "syllabus_reference": "TM-4.6.3",
+      "tip": "Constructive feedback and honest recognition of both successes and mistakes drive genuine motivation.",
+      "real_life_example": "A balanced one-on-one session acknowledging good work but discussing improvement areas boosts trust and engagement."
+    },
+    {
+      "id": "ASTQB-TM-61",
+      "question": "<p>You have completed the following skills assessment for your team, rating each person from 1 (low) to 5 (high) for their competency in each area.</p><table style='width:100%; border-collapse:collapse; margin:12px 0; font-size:14px; text-align:center;'><thead><tr style='background:#f5f5f5;'><th style='border:1px solid #ccc; padding:6px; text-align:left;'>Skill Area</th><th style='border:1px solid #ccc; padding:6px;'>Tester A</th><th style='border:1px solid #ccc; padding:6px;'>Tester B</th><th style='border:1px solid #ccc; padding:6px;'>Tester C</th><th style='border:1px solid #ccc; padding:6px;'>Tester D</th><th style='border:1px solid #ccc; padding:6px;'>Tester E</th></tr></thead><tbody><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Technical Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>SQL</td><td>5</td><td>4</td><td>5</td><td>2</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Automation</td><td>5</td><td>4</td><td>5</td><td>1</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Performance Testing</td><td>4</td><td>2</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Security Testing</td><td>2</td><td>1</td><td>3</td><td>1</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>API Testing</td><td>5</td><td>3</td><td>5</td><td>1</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Functional Test Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Analysis</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Design</td><td>4</td><td>4</td><td>5</td><td>3</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Implementation</td><td>5</td><td>4</td><td>5</td><td>3</td><td>3</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Test Execution</td><td>5</td><td>4</td><td>5</td><td>5</td><td>5</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Leadership Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Training / Developing</td><td>2</td><td>5</td><td>1</td><td>1</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Project Leadership</td><td>1</td><td>5</td><td>3</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Peer Coaching</td><td>2</td><td>3</td><td>1</td><td>1</td><td>2</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Reporting</td><td>1</td><td>4</td><td>2</td><td>3</td><td>4</td></tr><tr><td colspan='6' style='text-align:left; font-weight:bold; background:#eef;'>Soft Skills</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Speaking</td><td>1</td><td>3</td><td>2</td><td>5</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Writing</td><td>3</td><td>4</td><td>3</td><td>3</td><td>4</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Ability to Learn</td><td>5</td><td>5</td><td>5</td><td>4</td><td>5</td></tr><tr><td style='text-align:left; border:1px solid #eee;'>Communicating Bad News</td><td>1</td><td>3</td><td>1</td><td>1</td><td>5</td></tr></tbody></table><p>You have a limited training budget, but you can afford to send two people to a course on peer coaching. In order to best benefit the department, who should you send to this training?</p>",
+      "answers": {
+        "a": "Testers C and D",
+        "b": "Testers A and C",
+        "c": "Testers B and E",
+        "d": "Testers B and D"
+      },
+      "correct_answer": "C",
+      "points": 3,
+      "syllabus_reference": "TM-4.5.1",
+      "tip": "Select individuals who combine leadership potential with growth opportunity—training them increases department-wide benefit.",
+      "real_life_example": "Tester B (leadership strength) and Tester E (mentoring potential) will multiply the training’s impact across teams."
+    }
+  ]
+}

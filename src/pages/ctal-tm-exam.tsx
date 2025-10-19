@@ -98,7 +98,22 @@ const AnswerOption = styled.div`
 
   &:hover {
     border-color: ${props => props.theme.colors.accent};
-    background-color: ${props => props.theme.colors.primary};
+    background-color: ${props => props.theme.colors.highlight};
+  }
+
+  &.selected {
+    border-color: ${props => props.theme.colors.accent};
+    background-color: ${props => props.theme.colors.highlight};
+  }
+
+  &.correct {
+    border-color: #4caf50;
+    background-color: #e8f5e8;
+  }
+
+  &.incorrect {
+    border-color: #f44336;
+    background-color: #ffebee;
   }
 `;
 
@@ -108,30 +123,22 @@ const AnswerLabel = styled.span`
   color: ${props => props.theme.colors.accent};
 `;
 
-const AnswerText = styled.span`
-  color: ${props => props.theme.colors.text};
-`;
-
-const ActionButtons = styled.div`
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-`;
-
 const ActionButton = styled.button`
   background-color: ${props => props.theme.colors.accent};
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
 
   &:hover {
-    background-color: #1d4ed8;
+    background-color: ${props => props.theme.colors.highlight};
+    color: ${props => props.theme.colors.text};
   }
 
   &:disabled {
@@ -142,93 +149,77 @@ const ActionButton = styled.button`
 
 const SecondaryButton = styled(ActionButton)`
   background-color: ${props => props.theme.colors.secondary};
-  color: ${props => props.theme.colors.text};
 
   &:hover {
-    background-color: #d1d5db;
+    background-color: ${props => props.theme.colors.accent};
+    color: white;
   }
 `;
 
-const NextButton = styled(ActionButton)`
-  background-color: #059669;
-  margin-left: auto;
+const TertiaryButton = styled(ActionButton)`
+  background-color: #6c757d;
+  font-size: 0.9rem;
+  padding: 8px 16px;
 
   &:hover {
-    background-color: #047857;
+    background-color: #5a6268;
+    color: white;
   }
 `;
 
-const AnswerReveal = styled.div`
-  background-color: #f0f9ff;
-  border: 2px solid #0ea5e9;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-`;
-
-const AnswerRevealTitle = styled.h4`
-  color: #0c4a6e;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-`;
-
-const AnswerRevealText = styled.p`
-  color: #0c4a6e;
-  margin-bottom: 10px;
-  font-weight: 500;
-`;
-
-const TipReveal = styled.div`
-  background-color: #fef3c7;
-  border: 2px solid #f59e0b;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-`;
-
-const TipRevealTitle = styled.h4`
-  color: #92400e;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-`;
-
-const TipRevealText = styled.p`
-  color: #92400e;
-  margin-bottom: 10px;
-  font-weight: 500;
-`;
-
-const RealLifeExampleReveal = styled.div`
-  margin-top: 20px;
-  padding: 20px;
+const ExplanationContainer = styled.div`
   background-color: ${props => props.theme.colors.background};
-  border: 2px solid #17a2b8;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  border-left: 4px solid ${props => props.theme.colors.accent};
 `;
 
-const RealLifeExampleRevealTitle = styled.h4`
-  margin: 0 0 10px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #17a2b8;
+const ExplanationTitle = styled.h4`
+  color: ${props => props.theme.colors.accent};
+  margin-bottom: 10px;
 `;
 
-const RealLifeExampleRevealText = styled.p`
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
+const ExplanationText = styled.p`
   color: ${props => props.theme.colors.text};
+  margin-bottom: 10px;
+  line-height: 1.6;
 `;
 
-const LoadingMessage = styled.div`
+const LoadingContainer = styled.div`
   text-align: center;
   padding: 40px;
-  font-size: 1.2rem;
   color: ${props => props.theme.colors.text};
 `;
 
-// Question interface
+const ErrorContainer = styled.div`
+  text-align: center;
+  padding: 40px;
+  color: #f44336;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 20px 0;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+`;
+
+// Interface for exam data
+interface ExamData {
+  metadata: {
+    title: string;
+    counts: {
+      custom: number;
+      total: number;
+    };
+  };
+  questions: Question[];
+}
+
 interface Question {
   id: string;
   question: string;
@@ -245,19 +236,7 @@ interface Question {
   real_life_example: string;
 }
 
-// Exam data interface
-interface ExamData {
-  metadata: {
-    title: string;
-    sources: string[];
-    counts: {
-      [key: string]: number;
-    };
-  };
-  questions: Question[];
-}
-
-const CTALExam: React.FC = () => {
+const CTALTMExam: React.FC = () => {
   const [examData, setExamData] = useState<ExamData | null>(null);
   const [currentQuestions, setCurrentQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
@@ -273,7 +252,8 @@ const CTALExam: React.FC = () => {
   useEffect(() => {
     const loadExamData = async () => {
       try {
-        const response = await fetch('/ctal_tae_sample_exam.json');
+        setLoading(true);
+        const response = await fetch('/ctal_tm_sample.exam.json');
         const data: ExamData = await response.json();
         setExamData(data);
         setCurrentQuestions(getRandomQuestions(data.questions, 10));
@@ -336,7 +316,7 @@ const CTALExam: React.FC = () => {
     }));
   };
 
-  // Function to toggle real life example visibility
+  // Function to toggle real-life example visibility
   const toggleRealLifeExample = (questionId: string) => {
     setShowRealLifeExamples(prev => ({
       ...prev,
@@ -344,23 +324,42 @@ const CTALExam: React.FC = () => {
     }));
   };
 
+  // Function to get answer class for styling
+  const getAnswerClass = (
+    questionId: string,
+    answerKey: string,
+    correctAnswer: string
+  ) => {
+    if (showAnswers[questionId]) {
+      return answerKey === correctAnswer ? 'correct' : '';
+    }
+    return '';
+  };
+
   if (loading) {
     return (
       <ThemeProvider theme={theme}>
         <ExamContainer>
-          <LoadingMessage>Loading CTAL-TAE Sample Exam...</LoadingMessage>
+          <LoadingContainer>
+            <h2>Loading CTAL-TM Sample Exam...</h2>
+            <p>Please wait while we prepare your exam questions.</p>
+          </LoadingContainer>
         </ExamContainer>
       </ThemeProvider>
     );
   }
 
-  if (!examData) {
+  if (!examData || currentQuestions.length === 0) {
     return (
       <ThemeProvider theme={theme}>
         <ExamContainer>
-          <LoadingMessage>
-            Error loading exam data. Please try again later.
-          </LoadingMessage>
+          <ErrorContainer>
+            <h2>No Exam Data Available</h2>
+            <p>Unable to load exam questions. Please try again later.</p>
+            <ActionButton onClick={() => window.location.reload()}>
+              Try Again
+            </ActionButton>
+          </ErrorContainer>
         </ExamContainer>
       </ThemeProvider>
     );
@@ -368,21 +367,20 @@ const CTALExam: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        {/* Google Analytics */}
+      <ExamContainer>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${env.GA_TRACKING_ID}`}
           strategy='afterInteractive'
         />
         <Script
-          id='gtag-init-ctal'
+          id='gtag-init'
           strategy='afterInteractive'
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);} 
               gtag('js', new Date());
-              gtag('config', '${env.GA_TRACKING_ID}', { page_path: '/ctal-exam' });
+              gtag('config', '${env.GA_TRACKING_ID}', { page_path: '/ctal-tm-exam' });
             `,
           }}
         />
@@ -396,28 +394,31 @@ const CTALExam: React.FC = () => {
           />
           <meta
             name='description'
-            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
+            content='ISTQB CTAL-TM Sample Exam. Prepare for Certified Tester Advanced Level Test Management with realistic practice questions, tips, and real-life examples.'
           />
           <meta
             name='keywords'
-            content='ISTQB, CTAL-TAE, Certified Tester Advanced Level, Test Automation Engineering, sample exam, practice questions, exam preparation, ISTQB Advanced Level'
+            content='ISTQB, CTAL-TM, Certified Tester Advanced Level, Test Management, sample exam, practice questions, exam preparation, ISTQB Advanced Level'
           />
-          <title>Mehmet Serhat Özdursun - CTAL-TAE Sample Exam</title>
+          <title>Mehmet Serhat Özdursun - CTAL-TM Sample Exam</title>
           <link rel='icon' href='/favicon_.ico' />
-          <link rel='canonical' href='https://serhatozdursun.com/ctal-exam' />
+          <link
+            rel='canonical'
+            href='https://serhatozdursun.com/ctal-tm-exam'
+          />
 
           <meta property='og:type' content='website' />
           <meta
             property='og:url'
-            content='https://serhatozdursun.com/ctal-exam'
+            content='https://serhatozdursun.com/ctal-tm-exam'
           />
           <meta
             property='og:title'
-            content='Mehmet Serhat Özdursun - CTAL-TAE Sample Exam'
+            content='Mehmet Serhat Özdursun - CTAL-TM Sample Exam'
           />
           <meta
             property='og:description'
-            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
+            content='ISTQB CTAL-TM Sample Exam. Prepare for Certified Tester Advanced Level Test Management with realistic practice questions, tips, and real-life examples.'
           />
           <meta
             property='og:image'
@@ -427,33 +428,124 @@ const CTALExam: React.FC = () => {
           <meta property='twitter:card' content='summary_large_image' />
           <meta
             property='twitter:url'
-            content='https://serhatozdursun.com/ctal-exam'
+            content='https://serhatozdursun.com/ctal-tm-exam'
           />
           <meta
             property='twitter:title'
-            content='Mehmet Serhat Özdursun - CTAL-TAE Sample Exam'
+            content='Mehmet Serhat Özdursun - CTAL-TM Sample Exam'
           />
           <meta
             property='twitter:description'
-            content='ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
+            content='ISTQB CTAL-TM Sample Exam. Prepare for Certified Tester Advanced Level Test Management with realistic practice questions, tips, and real-life examples.'
           />
           <meta
             property='twitter:image'
             content='https://serhatozdursun.com/profile.png'
           />
+        </Helmet>
 
-          <meta name='author' content='Mehmet Serhat Özdursun' />
-          <meta name='language' content='English' />
-          <meta name='robots' content='index, follow' />
-          <meta name='theme-color' content='#ffffff' />
-          <script type='application/ld+json'>
-            {JSON.stringify({
+        <ExamHeader>
+          <HomeLink href='/'>← Back to Resume</HomeLink>
+          <ExamTitle>ISTQB CTAL-TM Sample Exam</ExamTitle>
+          <ExamSubtitle>
+            Certified Tester Advanced Level - Test Management
+          </ExamSubtitle>
+          <QuestionCounter>
+            {currentQuestions.length} Sample Questions
+          </QuestionCounter>
+        </ExamHeader>
+
+        {currentQuestions.map((question, index) => (
+          <QuestionContainer key={question.id}>
+            <QuestionNumber>{index + 1}</QuestionNumber>
+            <QuestionText>{parse(question.question)}</QuestionText>
+
+            {Object.entries(question.answers).map(([key, value]) => (
+              <AnswerOption
+                key={key}
+                className={getAnswerClass(
+                  question.id,
+                  key,
+                  question.correct_answer
+                )}
+              >
+                <AnswerLabel>{key.toUpperCase()}.</AnswerLabel>
+                {value}
+              </AnswerOption>
+            ))}
+
+            <ButtonContainer>
+              <TertiaryButton onClick={() => toggleAnswer(question.id)}>
+                {showAnswers[question.id] ? 'Hide Answer' : 'Show Answer'}
+              </TertiaryButton>
+              <TertiaryButton onClick={() => toggleTip(question.id)}>
+                {showTips[question.id] ? 'Hide Tip' : 'Show Tip'}
+              </TertiaryButton>
+              <TertiaryButton
+                onClick={() => toggleRealLifeExample(question.id)}
+              >
+                {showRealLifeExamples[question.id]
+                  ? 'Hide Example'
+                  : 'Show Example'}
+              </TertiaryButton>
+            </ButtonContainer>
+
+            {showAnswers[question.id] && (
+              <ExplanationContainer>
+                <ExplanationTitle>✅ Correct Answer:</ExplanationTitle>
+                <ExplanationText>
+                  <strong>{question.correct_answer.toUpperCase()}</strong> -{' '}
+                  {
+                    question.answers[
+                      question.correct_answer as keyof typeof question.answers
+                    ]
+                  }
+                </ExplanationText>
+              </ExplanationContainer>
+            )}
+
+            {showTips[question.id] && (
+              <ExplanationContainer>
+                <ExplanationTitle>💡 Tip:</ExplanationTitle>
+                <ExplanationText>{question.tip}</ExplanationText>
+              </ExplanationContainer>
+            )}
+
+            {showRealLifeExamples[question.id] && (
+              <ExplanationContainer>
+                <ExplanationTitle>🏢 Real-life Example:</ExplanationTitle>
+                <ExplanationText>{question.real_life_example}</ExplanationText>
+              </ExplanationContainer>
+            )}
+
+            <ExplanationContainer>
+              <ExplanationTitle>📚 Syllabus Reference:</ExplanationTitle>
+              <ExplanationText>{question.syllabus_reference}</ExplanationText>
+            </ExplanationContainer>
+          </QuestionContainer>
+        ))}
+
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <ActionButton onClick={loadNewQuestions}>
+            Load New Questions
+          </ActionButton>
+          <SecondaryButton onClick={() => (window.location.href = '/')}>
+            Back to Resume
+          </SecondaryButton>
+        </div>
+
+        <Script
+          id='ldjson-schema'
+          type='application/ld+json'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebPage',
-              name: 'ISTQB CTAL-TAE Sample Exam',
-              url: 'https://serhatozdursun.com/ctal-exam',
+              name: 'ISTQB CTAL-TM Sample Exam',
+              url: 'https://serhatozdursun.com/ctal-tm-exam',
               description:
-                'Prepare for ISTQB Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) with realistic sample questions, tips, and real-life examples.',
+                'Prepare for ISTQB Certified Tester Advanced Level Test Management (CTAL-TM) with realistic sample questions, tips, and real-life examples.',
               inLanguage: 'en',
               isPartOf: {
                 '@type': 'WebSite',
@@ -472,115 +564,17 @@ const CTALExam: React.FC = () => {
                   {
                     '@type': 'ListItem',
                     position: 2,
-                    name: 'ISTQB CTAL-TAE Sample Exam',
-                    item: 'https://serhatozdursun.com/ctal-exam',
+                    name: 'ISTQB CTAL-TM Sample Exam',
+                    item: 'https://serhatozdursun.com/ctal-tm-exam',
                   },
                 ],
               },
-            })}
-          </script>
-        </Helmet>
-
-        <ExamContainer>
-          <ExamHeader>
-            <HomeLink href='/'>← Back to Home</HomeLink>
-            <ExamTitle>ISTQB CTAL-TAE Sample Exam</ExamTitle>
-            <ExamSubtitle>
-              Practice with real exam questions and test your knowledge
-            </ExamSubtitle>
-            <QuestionCounter>
-              {currentQuestions.length} Questions
-            </QuestionCounter>
-          </ExamHeader>
-
-          {currentQuestions.map((question, index) => (
-            <QuestionContainer key={question.id}>
-              <QuestionNumber>{index + 1}</QuestionNumber>
-              <QuestionText>{parse(question.question)}</QuestionText>
-
-              {Object.entries(question.answers).map(([key, value]) => (
-                <AnswerOption key={key}>
-                  <AnswerLabel>{key.toUpperCase()}.</AnswerLabel>
-                  <AnswerText>{value}</AnswerText>
-                </AnswerOption>
-              ))}
-
-              <ActionButtons>
-                <ActionButton onClick={() => toggleAnswer(question.id)}>
-                  {showAnswers[question.id]
-                    ? 'Hide Answer'
-                    : 'Show Correct Answer'}
-                </ActionButton>
-
-                {showAnswers[question.id] && (
-                  <SecondaryButton onClick={() => toggleTip(question.id)}>
-                    {showTips[question.id] ? 'Hide Tip' : 'Show Tip'}
-                  </SecondaryButton>
-                )}
-
-                {showAnswers[question.id] && (
-                  <SecondaryButton
-                    onClick={() => toggleRealLifeExample(question.id)}
-                  >
-                    {showRealLifeExamples[question.id]
-                      ? 'Hide Real Life Example'
-                      : 'Show Real Life Example'}
-                  </SecondaryButton>
-                )}
-              </ActionButtons>
-
-              {showAnswers[question.id] && (
-                <AnswerReveal>
-                  <AnswerRevealTitle>Correct Answer:</AnswerRevealTitle>
-                  <AnswerRevealText>
-                    <strong>
-                      {question.correct_answer.toUpperCase()}.{' '}
-                      {
-                        question.answers[
-                          question.correct_answer as keyof typeof question.answers
-                        ]
-                      }
-                    </strong>
-                  </AnswerRevealText>
-                  <AnswerRevealText>
-                    <strong>Syllabus Reference:</strong>{' '}
-                    {question.syllabus_reference}
-                  </AnswerRevealText>
-                  <AnswerRevealText>
-                    <strong>Points:</strong> {question.points}
-                  </AnswerRevealText>
-                </AnswerReveal>
-              )}
-
-              {showTips[question.id] && (
-                <TipReveal>
-                  <TipRevealTitle>Tip:</TipRevealTitle>
-                  <TipRevealText>{question.tip}</TipRevealText>
-                </TipReveal>
-              )}
-
-              {showRealLifeExamples[question.id] && (
-                <RealLifeExampleReveal>
-                  <RealLifeExampleRevealTitle>
-                    Real Life Example:
-                  </RealLifeExampleRevealTitle>
-                  <RealLifeExampleRevealText>
-                    {question.real_life_example}
-                  </RealLifeExampleRevealText>
-                </RealLifeExampleReveal>
-              )}
-            </QuestionContainer>
-          ))}
-
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <NextButton onClick={loadNewQuestions}>
-              Load New Questions
-            </NextButton>
-          </div>
-        </ExamContainer>
-      </div>
+            }),
+          }}
+        />
+      </ExamContainer>
     </ThemeProvider>
   );
 };
 
-export default CTALExam;
+export default CTALTMExam;
