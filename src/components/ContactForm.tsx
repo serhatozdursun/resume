@@ -155,8 +155,8 @@ const ContactForm: React.FC = () => {
               <Image
                 src='/email.png'
                 alt='Send Icon'
-                width={20}
-                height={20}
+                width={25}
+                height={25}
                 style={{ objectFit: 'contain' }}
               />
             </SendIconWrapper>
