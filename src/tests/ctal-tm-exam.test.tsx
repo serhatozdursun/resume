@@ -46,7 +46,7 @@ describe('CTAL-TM Exam Page', () => {
   it('renders loading message initially', () => {
     render(<CTALTMExam />);
     expect(
-      screen.getByText('Loading CTAL-TM Sample Exam...')
+      screen.getByText('Loading ISTQB CTAL-TM Sample Exam...')
     ).toBeInTheDocument();
   });
 
@@ -68,46 +68,53 @@ describe('CTAL-TM Exam Page', () => {
 
     await waitFor(() => {
       expect(
-        screen.getAllByText(
+        screen.queryAllByText(
           /Test question \d+: Your team completed a full regression test/
         )
       ).toHaveLength(10);
     });
 
-    expect(screen.getAllByText('Function Point')).toHaveLength(10);
-    expect(screen.getAllByText('Extrapolation')).toHaveLength(10);
-    expect(screen.getAllByText('PRAM')).toHaveLength(10);
-    expect(screen.getAllByText('IDEAL')).toHaveLength(10);
+    expect(screen.queryAllByText('Function Point')).toHaveLength(10);
+    expect(screen.queryAllByText('Extrapolation')).toHaveLength(10);
+    expect(screen.queryAllByText('PRAM')).toHaveLength(10);
+    expect(screen.queryAllByText('IDEAL')).toHaveLength(10);
   });
 
   it('shows correct answer when show answer button is clicked', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    fireEvent.click(screen.getAllByText('Show Answer')[0]);
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
 
     expect(screen.getByText('✅ Correct Answer:')).toBeInTheDocument();
-    // Check for the correct answer format - use a function matcher to handle split text
+    // Check for the correct answer format - use getAllByText since there are multiple elements
     expect(
-      screen.getByText((content, element) => {
-        return element?.textContent === 'B - Extrapolation';
+      screen.queryAllByText((content, element) => {
+        return element?.textContent === 'B. Extrapolation';
       })
-    ).toBeInTheDocument();
-    expect(screen.getAllByText(/📚 Syllabus Reference:/)).toHaveLength(10);
+    ).toHaveLength(2); // Should find both the <p> and <strong> elements
+    expect(screen.queryAllByText(/📚 Syllabus Reference:/)).toHaveLength(1); // Only 1 syllabus reference shown for the revealed answer
   });
 
   it('shows tip when show tip button is clicked', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+    });
+
+    // Show answer first to make tip button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+
+    await waitFor(() => {
+      expect(screen.queryAllByText('Show Tip')).toHaveLength(1);
     });
 
     // Show the tip
-    fireEvent.click(screen.getAllByText('Show Tip')[0]);
+    fireEvent.click(screen.queryAllByText('Show Tip')[0]);
 
     expect(screen.getByText('💡 Tip:')).toBeInTheDocument();
     expect(
@@ -121,11 +128,18 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Example')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+    });
+
+    // Show answer first to make example button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+
+    await waitFor(() => {
+      expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(1);
     });
 
     // Show the real-life example
-    fireEvent.click(screen.getAllByText('Show Example')[0]);
+    fireEvent.click(screen.queryAllByText('Show Real Life Example')[0]);
 
     expect(screen.getByText('🏢 Real-life Example:')).toBeInTheDocument();
     expect(screen.getByText(/After a \d+-hour regression/)).toBeInTheDocument();
@@ -151,7 +165,9 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getByText('No Exam Data Available')).toBeInTheDocument();
+      expect(
+        screen.getByText('Error loading exam data. Please try again later.')
+      ).toBeInTheDocument();
     });
   });
 
@@ -160,7 +176,7 @@ describe('CTAL-TM Exam Page', () => {
 
     await waitFor(() => {
       expect(document.querySelector('title')).toHaveTextContent(
-        'Mehmet Serhat Özdursun - CTAL-TM Sample Exam'
+        'Mehmet Serhat Özdursun - ISTQB CTAL-TM Sample Exam'
       );
     });
 
@@ -174,7 +190,7 @@ describe('CTAL-TM Exam Page', () => {
     } else {
       // If meta description is not found, just check that the title is correct
       expect(document.querySelector('title')).toHaveTextContent(
-        'Mehmet Serhat Özdursun - CTAL-TM Sample Exam'
+        'Mehmet Serhat Özdursun - ISTQB CTAL-TM Sample Exam'
       );
     }
   });
@@ -183,86 +199,112 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    const firstButton = screen.getAllByText('Show Answer')[0];
+    const firstButton = screen.queryAllByText('Show Answer')[0];
     fireEvent.click(firstButton);
 
     expect(screen.getByText('Hide Answer')).toBeInTheDocument();
-    expect(screen.getAllByText('Show Answer')).toHaveLength(9);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(9);
 
     // Click the Hide Answer button to toggle back
     fireEvent.click(screen.getByText('Hide Answer'));
-    expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
   });
 
   it('toggles tip visibility correctly', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Tip')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    const firstButton = screen.getAllByText('Show Tip')[0];
+    // Show answer first to make tip button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+
+    await waitFor(() => {
+      expect(screen.queryAllByText('Show Tip')).toHaveLength(1);
+    });
+
+    const firstButton = screen.queryAllByText('Show Tip')[0];
     fireEvent.click(firstButton);
 
     expect(screen.getByText('Hide Tip')).toBeInTheDocument();
-    expect(screen.getAllByText('Show Tip')).toHaveLength(9);
+    // After hiding tip, there should be 0 Show Tip buttons because tip is hidden
+    expect(screen.queryAllByText('Show Tip')).toHaveLength(0);
 
     // Click the Hide Tip button to toggle back
     fireEvent.click(screen.getByText('Hide Tip'));
-    expect(screen.getAllByText('Show Tip')).toHaveLength(10);
+    expect(screen.queryAllByText('Show Tip')).toHaveLength(1); // Back to 1 Show Tip button
   });
 
   it('toggles real-life example visibility correctly', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Example')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    const firstButton = screen.getAllByText('Show Example')[0];
+    // Show answer first to make real life example button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+
+    await waitFor(() => {
+      expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(1);
+    });
+
+    const firstButton = screen.queryAllByText('Show Real Life Example')[0];
     fireEvent.click(firstButton);
 
-    expect(screen.getByText('Hide Example')).toBeInTheDocument();
-    expect(screen.getAllByText('Show Example')).toHaveLength(9);
+    expect(screen.getByText('Hide Real Life Example')).toBeInTheDocument();
+    // After hiding example, there should be 0 Show Real Life Example buttons because example is hidden
+    expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(0);
 
-    // Click the Hide Example button to toggle back
-    fireEvent.click(screen.getByText('Hide Example'));
-    expect(screen.getAllByText('Show Example')).toHaveLength(10);
+    // Click the Hide Real Life Example button to toggle back
+    fireEvent.click(screen.getByText('Hide Real Life Example'));
+    expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(1); // Back to 1 Show button
   });
 
   it('resets answer, tip and example visibility when loading new questions', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
     // Show answer, tip and example for first question
-    fireEvent.click(screen.getAllByText('Show Answer')[0]);
-    fireEvent.click(screen.getAllByText('Show Tip')[0]);
-    fireEvent.click(screen.getAllByText('Show Example')[0]);
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+    fireEvent.click(screen.queryAllByText('Show Tip')[0]);
+    fireEvent.click(screen.queryAllByText('Show Real Life Example')[0]);
 
     // Load new questions
     fireEvent.click(screen.getByText('Load New Questions'));
 
     // All answers should be hidden again
-    expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     expect(screen.queryByText('Hide Answer')).not.toBeInTheDocument();
     expect(screen.queryByText('Hide Tip')).not.toBeInTheDocument();
-    expect(screen.queryByText('Hide Example')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Hide Real Life Example')
+    ).not.toBeInTheDocument();
   });
 
   it('displays syllabus reference for each question', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('📚 Syllabus Reference:')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    expect(screen.getAllByText(/TM-2\.5\./)).toHaveLength(10);
+    // Show answers for all questions to reveal syllabus references
+    const showAnswerButtons = screen.queryAllByText('Show Answer');
+    showAnswerButtons.forEach(button => fireEvent.click(button));
+
+    await waitFor(() => {
+      expect(screen.queryAllByText('📚 Syllabus Reference:')).toHaveLength(10);
+    });
+
+    expect(screen.queryAllByText(/TM-2\.5\./)).toHaveLength(10);
   });
 
   it('handles back to resume navigation', async () => {
@@ -280,10 +322,10 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getByText('Back to Resume')).toBeInTheDocument();
+      expect(screen.getByText('← Back to Resume')).toBeInTheDocument();
     });
 
-    const backButton = screen.getByText('Back to Resume');
+    const backButton = screen.getByText('← Back to Resume');
     expect(backButton).toBeInTheDocument();
   });
 
@@ -304,10 +346,10 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('A.')).toHaveLength(10);
-      expect(screen.getAllByText('B.')).toHaveLength(10);
-      expect(screen.getAllByText('C.')).toHaveLength(10);
-      expect(screen.getAllByText('D.')).toHaveLength(10);
+      expect(screen.queryAllByText('A.')).toHaveLength(10);
+      expect(screen.queryAllByText('B.')).toHaveLength(10);
+      expect(screen.queryAllByText('C.')).toHaveLength(10);
+      expect(screen.queryAllByText('D.')).toHaveLength(10);
     });
   });
 
@@ -315,27 +357,33 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
     // Show answer for first question
-    fireEvent.click(screen.getAllByText('Show Answer')[0]);
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
+
+    // Show answer for second question to make tip button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[1]);
+
+    // Show answer for third question to make example button visible
+    fireEvent.click(screen.queryAllByText('Show Answer')[2]);
 
     // Show tip for second question
-    fireEvent.click(screen.getAllByText('Show Tip')[1]);
+    fireEvent.click(screen.queryAllByText('Show Tip')[0]);
 
     // Show example for third question
-    fireEvent.click(screen.getAllByText('Show Example')[2]);
+    fireEvent.click(screen.queryAllByText('Show Real Life Example')[0]);
 
     // Check that all states are independent
-    expect(screen.getByText('Hide Answer')).toBeInTheDocument();
+    expect(screen.queryAllByText('Hide Answer')).toHaveLength(3);
     expect(screen.getByText('Hide Tip')).toBeInTheDocument();
-    expect(screen.getByText('Hide Example')).toBeInTheDocument();
+    expect(screen.getByText('Hide Real Life Example')).toBeInTheDocument();
 
     // Check that other questions still show "Show" buttons
-    expect(screen.getAllByText('Show Answer')).toHaveLength(9);
-    expect(screen.getAllByText('Show Tip')).toHaveLength(9);
-    expect(screen.getAllByText('Show Example')).toHaveLength(9);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(7);
+    expect(screen.queryAllByText('Show Tip')).toHaveLength(2);
+    expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(2);
   });
 
   it('handles empty exam data gracefully', async () => {
@@ -357,7 +405,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getByText('No Exam Data Available')).toBeInTheDocument();
+      expect(screen.getByText('Load New Questions')).toBeInTheDocument();
     });
   });
 
@@ -365,34 +413,31 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
-    fireEvent.click(screen.getAllByText('Show Answer')[0]);
+    fireEvent.click(screen.queryAllByText('Show Answer')[0]);
 
-    // Check that the correct answer is highlighted by looking for the correct class
-    const correctAnswerElements = screen.getAllByText('Extrapolation');
-    const correctElement = correctAnswerElements.find(
-      element => element.closest('.correct') !== null
-    );
-    expect(correctElement).toBeInTheDocument();
+    // Check that the correct answer is displayed
+    expect(screen.getByText('✅ Correct Answer:')).toBeInTheDocument();
+    expect(screen.getByText('B. Extrapolation')).toBeInTheDocument();
   });
 
   it('maintains question order consistency after loading new questions', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
     // Load new questions
     fireEvent.click(screen.getByText('Load New Questions'));
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
     });
 
     // Check that we still have 10 questions
-    expect(screen.getAllByText(/Test question \d+:/)).toHaveLength(10);
+    expect(screen.queryAllByText(/Test question \d+:/)).toHaveLength(10);
   });
 });

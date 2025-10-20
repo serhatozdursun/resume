@@ -48,7 +48,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('renders loading message initially', () => {
     render(<CtalTaeExam />);
     expect(
-      screen.getByText('Loading CTAL-TAE Sample Exam...')
+      screen.getByText('Loading ISTQB CTAL-TAE Sample Exam...')
     ).toBeInTheDocument();
   });
 
@@ -169,7 +169,7 @@ describe('CTAL-TAE Exam Page', () => {
 
     await waitFor(() => {
       expect(document.querySelector('title')).toHaveTextContent(
-        'Mehmet Serhat Özdursun - CTAL-TAE Sample Exam'
+        'Mehmet Serhat Özdursun - ISTQB CTAL-TAE Sample Exam'
       );
     });
 
@@ -183,7 +183,7 @@ describe('CTAL-TAE Exam Page', () => {
     } else {
       // If meta description is not found, just check that the title is correct
       expect(document.querySelector('title')).toHaveTextContent(
-        'Mehmet Serhat Özdursun - CTAL-TAE Sample Exam'
+        'Mehmet Serhat Özdursun - ISTQB CTAL-TAE Sample Exam'
       );
     }
   });
