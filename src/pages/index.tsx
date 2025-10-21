@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import React from 'react';
+import Image from 'next/image';
 import {
   Container,
   LeftColumn,
@@ -224,7 +225,7 @@ const IndexPage: React.FC = () => {
             />
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper className='badgeImage'>
-                <img
+                <Image
                   src='/resume-computer-icons.png'
                   alt='LinkedIn'
                   width={28}
@@ -243,9 +244,32 @@ const IndexPage: React.FC = () => {
                 Download Resume
               </CommonLink>
             </LeftColumnLinkContainer>
+
+            <LeftColumnLinkContainer className='leftColumnLinkContainer'>
+              <BadgeWrapper className='badgeImage'>
+                <Image
+                  src='/certified-tester-minimal-logo.png'
+                  alt='LinkedIn'
+                  width={28}
+                  height={28}
+                />
+              </BadgeWrapper>
+              <CommonLink
+                id='goAtsqa'
+                href='https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229'
+                target='_blank'
+                rel='noopener noreferrer'
+                title='Official U.S. List of Certified & Credentialed Software Testers™'
+                onClick={() =>
+                  trackEvent('goAtsqa', 'List', 'Official U.S. List')
+                }
+              >
+                Official U.S. List
+              </CommonLink>
+            </LeftColumnLinkContainer>
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
-                <img
+                <Image
                   src='/recommandation.png'
                   alt='recommandation'
                   width={28}
@@ -273,7 +297,7 @@ const IndexPage: React.FC = () => {
             </div>
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
-                <img
+                <Image
                   src='/Manual_Testing.png'
                   alt='Practice Page'
                   width={28}
@@ -287,7 +311,7 @@ const IndexPage: React.FC = () => {
 
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
-                <img
+                <Image
                   src='/CTAL-TAE-EXAMpng.png'
                   alt='CTAL-TAE Exam'
                   width={29}
@@ -301,7 +325,7 @@ const IndexPage: React.FC = () => {
 
             <LeftColumnLinkContainer className='leftColumnLinkContainer'>
               <BadgeWrapper>
-                <img
+                <Image
                   src='/catl_tm_exam.png'
                   alt='CTAL-TM Exam'
                   width={29}
@@ -336,7 +360,7 @@ const IndexPage: React.FC = () => {
                   }
                 >
                   <IconImageWrapper className='iconImage'>
-                    <img
+                    <Image
                       src='/linkedin-icon.png'
                       alt='LinkedIn'
                       width={32}
@@ -352,7 +376,7 @@ const IndexPage: React.FC = () => {
                   className='iconLink'
                 >
                   <IconImageWrapper>
-                    <img
+                    <Image
                       src='/upwork.png'
                       alt='upwork'
                       width={32}
@@ -371,9 +395,28 @@ const IndexPage: React.FC = () => {
                   }
                 >
                   <IconImageWrapper className='iconImage'>
-                    <img
+                    <Image
                       src='/github-icon.png'
                       alt='GitHub'
+                      width={32}
+                      height={32}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </IconImageWrapper>
+                </IconLink>
+                <IconLink
+                  href='https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='iconLink'
+                  onClick={() =>
+                    trackEvent('navigate_github', 'github', 'Github')
+                  }
+                >
+                  <IconImageWrapper className='iconImage'>
+                    <Image
+                      src='/certified-tester-logo.svg'
+                      alt='atsqa.org'
                       width={32}
                       height={32}
                       style={{ objectFit: 'contain' }}
@@ -387,7 +430,7 @@ const IndexPage: React.FC = () => {
                   className='iconLink'
                 >
                   <IconImageWrapper className='iconImage'>
-                    <img
+                    <Image
                       src='/medium_icon.png'
                       alt='medium'
                       width={32}
@@ -403,7 +446,7 @@ const IndexPage: React.FC = () => {
                   className='iconLink'
                 >
                   <IconImageWrapper className='iconImage'>
-                    <img
+                    <Image
                       src='/hackerrank.png'
                       alt='medium'
                       width={32}
@@ -419,7 +462,7 @@ const IndexPage: React.FC = () => {
                   className='iconLink'
                 >
                   <IconImageWrapper className='iconImage'>
-                    <img
+                    <Image
                       src='/dev.webp'
                       alt='dev'
                       width={32}
