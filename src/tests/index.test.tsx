@@ -10,6 +10,14 @@ jest.mock('next/script', () => {
   };
 });
 
+jest.mock('next/image', () => {
+  const MockNextImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
+    <img {...props} />
+  );
+  MockNextImage.displayName = 'MockNextImage';
+  return MockNextImage;
+});
+
 // Mock next/dynamic
 jest.mock('next/dynamic', () => {
   return function MockDynamic() {
@@ -148,6 +156,28 @@ describe('IndexPage Component', () => {
         'content',
         'Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
       );
+    });
+
+    it('renders all expected link texts', () => {
+      render(<IndexPage />);
+
+      const containers = document.querySelectorAll('.leftColumnLinkContainer');
+      expect(containers.length).toBeGreaterThan(0);
+
+      // Combine text from all containers into one string for easier checking
+      const combinedText = Array.from(containers)
+        .map(el => el.textContent)
+        .join(' ');
+
+      // Verify each expected text exists
+      expect(combinedText).toContain('Download Resume');
+      expect(combinedText).toContain('Recommendations');
+      expect(combinedText).toContain(
+        'Official U.S. List Recommendations Practice Page CTAL-TAE Sample Exam CTAL-TM Sample Exam'
+      );
+      expect(combinedText).toContain('Practice Page');
+      expect(combinedText).toContain('CTAL-TAE Sample Exam');
+      expect(combinedText).toContain('CTAL-TM Sample Exam');
     });
 
     it('includes Open Graph meta tags', () => {
@@ -359,6 +389,25 @@ describe('IndexPage Component', () => {
       }).not.toThrow();
 
       global.window = originalWindow;
+    });
+
+    it('renders all expected images with correct src and alt attributes', () => {
+      render(<IndexPage />);
+
+      const images = screen.getAllByRole('img');
+      const imageSources = images.map(img => img.getAttribute('src'));
+
+      // check total image count (if known)
+      expect(images.length).toBeGreaterThanOrEqual(3);
+
+      // check each image src
+      expect(imageSources).toContain('/resume-computer-icons.png');
+      expect(imageSources).toContain('/certified-tester-minimal-logo.png');
+      expect(imageSources).toContain('/recommandation.png');
+
+      // check alt text
+      expect(screen.getByAltText('LinkedIn')).toBeInTheDocument();
+      expect(screen.getByAltText('recommandation')).toBeInTheDocument();
     });
   });
 

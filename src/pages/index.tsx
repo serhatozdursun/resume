@@ -227,7 +227,7 @@ const IndexPage: React.FC = () => {
               <BadgeWrapper className='badgeImage'>
                 <Image
                   src='/resume-computer-icons.png'
-                  alt='LinkedIn'
+                  alt='resume'
                   width={28}
                   height={28}
                 />
@@ -249,7 +249,7 @@ const IndexPage: React.FC = () => {
               <BadgeWrapper className='badgeImage'>
                 <Image
                   src='/certified-tester-minimal-logo.png'
-                  alt='LinkedIn'
+                  alt='atsqa-logo'
                   width={28}
                   height={28}
                 />
