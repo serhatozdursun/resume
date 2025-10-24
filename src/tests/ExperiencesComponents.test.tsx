@@ -55,17 +55,16 @@ describe('ExperiencesComponents', () => {
       ).toBeInTheDocument();
       expect(screen.getByText('Affirm, United States')).toBeInTheDocument();
       expect(
-        screen.getByText('Payflow (YC S21), Barcelona, Spain')
+        screen.getByText('Payflow (via Hubuc), Barcelona, Spain')
       ).toBeInTheDocument();
-      expect(screen.getByText('HUBUC, Barcelona, Spain')).toBeInTheDocument();
       expect(
         screen.getByText('ABB (via Testinium), Istanbul, Turkey')
       ).toBeInTheDocument();
       expect(screen.getByText('Apsiyon, Istanbul')).toBeInTheDocument();
-      expect(screen.getByText('Paytrek, Istanbul')).toBeInTheDocument();
       expect(screen.getByText('Trendyol Group, Istanbul')).toBeInTheDocument();
       expect(screen.getByText('Bimsa, Istanbul')).toBeInTheDocument();
       expect(screen.getByText('Sigortam.Net, Istanbul')).toBeInTheDocument();
+      expect(screen.getByText('SET YAZILIM, Istanbul')).toBeInTheDocument();
     });
 
     it('renders all job titles', () => {
@@ -87,7 +86,9 @@ describe('ExperiencesComponents', () => {
         screen.getByText('Software Quality Assurance Team Lead')
       ).toBeInTheDocument();
       expect(
-        screen.getByText('Senior Software Test Engineer')
+        screen.getByText(
+          'Lead QA Automation Engineer (Self-Employed Contractor)'
+        )
       ).toBeInTheDocument();
 
       // Use getAllByText for duplicate titles
@@ -107,13 +108,14 @@ describe('ExperiencesComponents', () => {
       renderWithTheme(<ExperiencesComponents />);
 
       expect(screen.getByText('Aug 2023 - Present')).toBeInTheDocument();
-      expect(screen.getByText('Jan 2023 - Feb 2024')).toBeInTheDocument();
-      expect(screen.getByText('Feb 2022 - Jan 2023')).toBeInTheDocument();
-      expect(screen.getByText('Nov 2020 - Feb 2022')).toBeInTheDocument();
-      expect(screen.getByText('Jun 2018 - Nov 2020')).toBeInTheDocument();
-      expect(screen.getByText('Sep 2017 - Apr 2018')).toBeInTheDocument();
-      expect(screen.getByText('Jan 2017 - Aug 2017')).toBeInTheDocument();
-      expect(screen.getByText('Nov 2014 - Dec 2016')).toBeInTheDocument();
+      expect(screen.getByText('Jun 2022 - Aug 2023')).toBeInTheDocument();
+      expect(screen.getByText('Mar 2021 - Jun 2022')).toBeInTheDocument();
+      expect(screen.getByText('Nov 2019 - Mar 2021')).toBeInTheDocument();
+      expect(screen.getByText('Jun 2017 - Nov 2019')).toBeInTheDocument();
+      expect(screen.getByText('Jan 2016 - Jun 2017')).toBeInTheDocument();
+      expect(screen.getByText('Nov 2013 - Jan 2016')).toBeInTheDocument();
+      expect(screen.getByText('Mar 2012 - Nov 2013')).toBeInTheDocument();
+      expect(screen.getByText('Oct 2010 - Mar 2012')).toBeInTheDocument();
     });
 
     it('renders company logos with correct alt text', () => {
@@ -145,7 +147,7 @@ describe('ExperiencesComponents', () => {
           'https://poqcommerce.com',
           'https://www.affirm.com/',
           'https://www.payflow.es/',
-          'https://www.hubuc.com/',
+          'https://abb-bank.az/',
         ])
       );
     });
@@ -170,7 +172,7 @@ describe('ExperiencesComponents', () => {
           'https://poqcommerce.com',
           'https://www.affirm.com/',
           'https://www.payflow.es/',
-          'https://www.hubuc.com/',
+          'https://abb-bank.az/',
         ])
       );
     });
@@ -192,7 +194,7 @@ describe('ExperiencesComponents', () => {
       renderWithTheme(<ExperiencesComponents />);
 
       const companyNameLinks = screen.getAllByText(
-        /Poq|Affirm|Payflow|HUBUC|ABB|Apsiyon|Paytrek|Trendyol|Bimsa|Sigortam/
+        /Poq|Affirm|Payflow|ABB|Apsiyon|Trendyol|Bimsa|Sigortam|SET YAZILIM/
       );
 
       // Check that company names are clickable
