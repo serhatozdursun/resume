@@ -110,13 +110,20 @@ const experiences: Experience[] = [
 ];
 
 const ExperienceList: React.FC = () => {
+  // Helper function to generate unique IDs
+  const generateExperienceId = (company: string, title: string): string => {
+    const cleanCompany = company.replace(/[\s,._]+/g, '_').toLowerCase();
+    const cleanTitle = title.replace(/[\s,._]+/g, '_').toLowerCase();
+    return `${cleanCompany}_${cleanTitle}`;
+  };
+
   return (
     <ExperienceContainer>
       {experiences.map((experience, index) => (
         <ExperienceItem
           className='experience'
           key={index}
-          id={`${experience.company.replace(/[\s,._]+/g, '_').toLowerCase()}_${experience.title.replace(/[\s,._]+/g, '_').toLowerCase()}`}
+          id={generateExperienceId(experience.company, experience.title)}
         >
           <Experience
             title={experience.title}
@@ -145,10 +152,40 @@ const Experience: React.FC<Experience> = ({
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
+
   const lastIndex: number = description.indexOf('</p>', 300);
   const descriptionToShow = showFullDescription
     ? description
     : description.slice(0, lastIndex);
+
+  // Common link props to avoid duplication
+  const companyLinkProps = {
+    href: companyWebsite,
+    target: '_blank' as const,
+    rel: 'noopener noreferrer',
+    className: 'companyWebsite',
+  };
+
+  // Common styles to avoid duplication
+  const containerStyles = {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '16px',
+  };
+
+  const textSectionStyles = {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    flex: 1,
+  };
+
+  const companyDateStyles = {
+    display: 'flex',
+    flexWrap: 'wrap' as const,
+    alignItems: 'center',
+    gap: '4px',
+    marginTop: '1px',
+  };
 
   return (
     <ExperienceItem>
@@ -156,14 +193,9 @@ const Experience: React.FC<Experience> = ({
         onClick={toggleDescription}
         className='experience-header'
       >
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+        <div style={containerStyles}>
           {/* Company Logo */}
-          <a
-            href={companyWebsite}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='companyWebsite'
-          >
+          <a {...companyLinkProps}>
             <CompanyLogoWrapper className='companyLogo'>
               <Image
                 src={companyLogo}
@@ -176,28 +208,15 @@ const Experience: React.FC<Experience> = ({
           </a>
 
           {/* Text Section */}
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+          <div style={textSectionStyles}>
             {/* Title line */}
             <ExperienceTitle className='experienceTitle'>
               {title}
             </ExperienceTitle>
 
             {/* Company + Date line */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: '4px', // tighter than before
-                marginTop: '1px', // was 4px
-              }}
-            >
-              <a
-                href={companyWebsite}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='companyWebsite'
-              >
+            <div style={companyDateStyles}>
+              <a {...companyLinkProps}>
                 <ExperienceCompany>{company}</ExperienceCompany>
               </a>
               <span style={{ color: '#666' }}>—</span>
