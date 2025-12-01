@@ -14,8 +14,8 @@ const Container = styled.div`
 `;
 
 const LeftColumn = styled.div`
-  width: 250px;
-  max-width: 250px;
+  width: 300px;
+  max-width: 300px;
   padding-top: 40px;
   padding-right: 20px;
   overflow-y: auto; /* Enable vertical scrolling */
