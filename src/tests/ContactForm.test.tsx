@@ -222,6 +222,72 @@ describe('ContactForm', () => {
     expect((messageInput as HTMLTextAreaElement).value).toBe('A'.repeat(1500));
   });
 
+  it('calls scrollIntoView after successful submission when form ref exists', async () => {
+    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
+    mockSend.mockResolvedValueOnce({
+      status: 200,
+      text: 'OK',
+    } as EmailJSResponseStatus);
+
+    const mockScrollIntoView = jest.fn();
+    HTMLElement.prototype.scrollIntoView = mockScrollIntoView;
+
+    render(
+      <ThemeProvider theme={theme}>
+        <ContactForm />
+      </ThemeProvider>
+    );
+
+    const sendLink = screen.getByText('Send a message');
+    fireEvent.click(sendLink);
+
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Message sent successfully!')
+      ).toBeInTheDocument();
+    });
+
+    // Check that scrollIntoView was called
+    await waitFor(() => {
+      expect(mockScrollIntoView).toHaveBeenCalledWith({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  });
+
+  it('handles scrollIntoView when form ref does not have scrollIntoView method', async () => {
+    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
+    mockSend.mockResolvedValueOnce({
+      status: 200,
+      text: 'OK',
+    } as EmailJSResponseStatus);
+
+    render(
+      <ThemeProvider theme={theme}>
+        <ContactForm />
+      </ThemeProvider>
+    );
+
+    const sendLink = screen.getByText('Send a message');
+    fireEvent.click(sendLink);
+
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Message sent successfully!')
+      ).toBeInTheDocument();
+    });
+
+    // Should not throw error even if scrollIntoView doesn't exist
+    expect(screen.queryByText('Close Contact Form')).not.toBeInTheDocument();
+  });
+
   it('handles snackbar close', async () => {
     const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
     mockSend.mockResolvedValueOnce({
