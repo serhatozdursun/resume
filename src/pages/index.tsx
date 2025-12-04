@@ -344,8 +344,9 @@ const IndexPage: React.FC = () => {
             <Header>
               <Name id='name'>Mehmet Serhat Ozdursun</Name>
               <Title id='title'>
-                QA Leader | Senior SDET | ISTQB® CTAL-TM, CTAL-TAE & CTFL | PSD
-                I
+                QA Leader | Senior SDET | 2026 AT*SQA Advisory Board – Emerging
+                Leaders <br />
+                ISTQB® CTAL-TM, CTAL-TAE, CTFL | Scrum.org PSD I
                 <br />
                 13+ Years in Quality Engineering <br />
               </Title>
