@@ -6,7 +6,7 @@ import CtalTaeExam from '../pages/ctal-tae-exam';
 // Mock fetch for JSON data
 global.fetch = jest.fn();
 
-// Mock exam data - create 15 questions to ensure we get 10 random ones
+// Mock exam data - create 50 questions to ensure we get 40 random ones
 const mockExamData = {
   metadata: {
     title: 'ISTQB CTAL-TAE Combined Question Bank (Near-Complete)',
@@ -18,7 +18,7 @@ const mockExamData = {
       custom: 80,
     },
   },
-  questions: Array.from({ length: 15 }, (_, i) => ({
+  questions: Array.from({ length: 50 }, (_, i) => ({
     id: `TEST-Q${i + 1}`,
     question: `Test question ${i + 1}: Which of the following is a disadvantage of test automation?`,
     answers: {
@@ -66,7 +66,7 @@ describe('CTAL-TAE Exam Page', () => {
         'Practice with real exam questions and test your knowledge'
       )
     ).toBeInTheDocument();
-    expect(screen.getByText(/10 Questions/)).toBeInTheDocument();
+    expect(screen.getByText(/40 Questions/)).toBeInTheDocument();
   });
 
   it('displays questions with answer options', async () => {
@@ -77,32 +77,32 @@ describe('CTAL-TAE Exam Page', () => {
         screen.getAllByText(
           /Test question \d+: Which of the following is a disadvantage of test automation\?/
         )
-      ).toHaveLength(10);
+      ).toHaveLength(40);
     });
 
     expect(
       screen.getAllByText(
         'They are less subject to human error during execution'
       )
-    ).toHaveLength(10);
+    ).toHaveLength(40);
     expect(
       screen.getAllByText('They execute faster than manual tests')
-    ).toHaveLength(10);
+    ).toHaveLength(40);
     expect(
       screen.getAllByText(
         'They always verify exactly what they were programmed to verify'
       )
-    ).toHaveLength(10);
+    ).toHaveLength(40);
     expect(
       screen.getAllByText('They can execute more complex tests more reliably')
-    ).toHaveLength(10);
+    ).toHaveLength(40);
   });
 
   it('shows correct answer when show answer button is clicked', async () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
@@ -121,7 +121,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // First show the answer
@@ -149,7 +149,7 @@ describe('CTAL-TAE Exam Page', () => {
     fireEvent.click(screen.getByText('Load New Questions'));
 
     // The page should still show 10 questions
-    expect(screen.getByText(/10 Questions/)).toBeInTheDocument();
+    expect(screen.getByText(/40 Questions/)).toBeInTheDocument();
   });
 
   it('handles fetch error gracefully', async () => {
@@ -192,25 +192,25 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     const firstButton = screen.getAllByText('Show Correct Answer')[0];
     fireEvent.click(firstButton);
 
     expect(screen.getByText('Hide Answer')).toBeInTheDocument();
-    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(9);
+    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(39);
 
     // Click the Hide Answer button to toggle back
     fireEvent.click(screen.getByText('Hide Answer'));
-    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
   });
 
   it('toggles tip visibility correctly', async () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // First show the answer
@@ -234,7 +234,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // Show answer and tip for first question
@@ -245,7 +245,7 @@ describe('CTAL-TAE Exam Page', () => {
     fireEvent.click(screen.getByText('Load New Questions'));
 
     // All answers should be hidden again
-    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+    expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     expect(screen.queryByText('Hide Answer')).not.toBeInTheDocument();
     expect(screen.queryByText('Hide Tip')).not.toBeInTheDocument();
   });
@@ -254,7 +254,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // Tip button should not be visible until answer is shown
@@ -271,7 +271,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // First show the answer
@@ -295,7 +295,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // Real life example button should not be visible until answer is shown
@@ -314,7 +314,7 @@ describe('CTAL-TAE Exam Page', () => {
     render(<CtalTaeExam />);
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // Show answer and real life example
@@ -330,7 +330,7 @@ describe('CTAL-TAE Exam Page', () => {
     fireEvent.click(screen.getByText('Load New Questions'));
 
     await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(10);
+      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
     });
 
     // Real life example should be hidden
