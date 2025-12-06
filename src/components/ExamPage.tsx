@@ -290,7 +290,7 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
         const response = await fetch(config.dataFile);
         const data: ExamData = await response.json();
         setExamData(data);
-        setCurrentQuestions(getRandomQuestions(data.questions, 10));
+        setCurrentQuestions(getRandomQuestions(data.questions, 40));
         setLoading(false);
       } catch (error) {
         console.error('Error loading exam data:', error);
@@ -327,7 +327,7 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
   // Function to load new set of questions
   const loadNewQuestions = () => {
     if (examData) {
-      setCurrentQuestions(getRandomQuestions(examData.questions, 10));
+      setCurrentQuestions(getRandomQuestions(examData.questions, 40));
       setShowAnswers({});
       setShowTips({});
       setShowRealLifeExamples({});

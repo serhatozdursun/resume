@@ -24,6 +24,11 @@ const CertificatesComponents = () => {
 
   const certificates = [
     {
+      name: 'AT*SQA Advisory Board 2026',
+      badge: '/ATSQA.png',
+      link: 'https://atsqa.org/atsqa-advisory-board-members-2026',
+    },
+    {
       name: 'ISTQB® CTAL-TM',
       badge: '/CTAL-TM-badge.png',
       link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
@@ -68,7 +73,7 @@ const CertificatesComponents = () => {
   return (
     <CertificatesContainer id='certificatesContainer'>
       <CertificateTitle id='certificatesContainertitle'>
-        Certificates
+        Certificates & Achievements
       </CertificateTitle>
       <CertificateList>
         {certificates.map((certificate, index) => (

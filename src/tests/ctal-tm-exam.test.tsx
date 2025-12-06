@@ -6,7 +6,7 @@ import CTALTMExam from '../pages/ctal-tm-exam';
 // Mock fetch for JSON data
 global.fetch = jest.fn();
 
-// Mock exam data - create 15 questions to ensure we get 10 random ones
+// Mock exam data - create 50 questions to ensure we get 40 random ones
 const mockExamData = {
   metadata: {
     title: 'ISTQB CTAL-TM Real Exam Practice — Custom Question Set',
@@ -15,7 +15,7 @@ const mockExamData = {
       total: 4,
     },
   },
-  questions: Array.from({ length: 15 }, (_, i) => ({
+  questions: Array.from({ length: 50 }, (_, i) => ({
     id: `CUSTOM-Q${i + 1}`,
     question: `Test question ${i + 1}: Your team completed a full regression test. A second regression is planned; this time you estimate <strong>10% more</strong> effort than the recent run. <strong>Which estimation method have you used?</strong>`,
     answers: {
@@ -60,7 +60,7 @@ describe('CTAL-TM Exam Page', () => {
     expect(
       screen.getByText('Certified Tester Advanced Level - Test Management')
     ).toBeInTheDocument();
-    expect(screen.getByText(/10 Sample Questions/)).toBeInTheDocument();
+    expect(screen.getByText(/40 Sample Questions/)).toBeInTheDocument();
   });
 
   it('displays questions with answer options', async () => {
@@ -71,20 +71,20 @@ describe('CTAL-TM Exam Page', () => {
         screen.queryAllByText(
           /Test question \d+: Your team completed a full regression test/
         )
-      ).toHaveLength(10);
+      ).toHaveLength(40);
     });
 
-    expect(screen.queryAllByText('Function Point')).toHaveLength(10);
-    expect(screen.queryAllByText('Extrapolation')).toHaveLength(10);
-    expect(screen.queryAllByText('PRAM')).toHaveLength(10);
-    expect(screen.queryAllByText('IDEAL')).toHaveLength(10);
+    expect(screen.queryAllByText('Function Point')).toHaveLength(40);
+    expect(screen.queryAllByText('Extrapolation')).toHaveLength(40);
+    expect(screen.queryAllByText('PRAM')).toHaveLength(40);
+    expect(screen.queryAllByText('IDEAL')).toHaveLength(40);
   });
 
   it('shows correct answer when show answer button is clicked', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     fireEvent.click(screen.queryAllByText('Show Answer')[0]);
@@ -103,7 +103,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer first to make tip button visible
@@ -128,7 +128,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer first to make example button visible
@@ -156,7 +156,7 @@ describe('CTAL-TM Exam Page', () => {
     fireEvent.click(screen.getByText('Load New Questions'));
 
     // The page should still show 10 questions
-    expect(screen.getByText(/10 Sample Questions/)).toBeInTheDocument();
+    expect(screen.getByText(/40 Sample Questions/)).toBeInTheDocument();
   });
 
   it('handles fetch error gracefully', async () => {
@@ -199,25 +199,25 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     const firstButton = screen.queryAllByText('Show Answer')[0];
     fireEvent.click(firstButton);
 
     expect(screen.getByText('Hide Answer')).toBeInTheDocument();
-    expect(screen.queryAllByText('Show Answer')).toHaveLength(9);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(39);
 
     // Click the Hide Answer button to toggle back
     fireEvent.click(screen.getByText('Hide Answer'));
-    expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
   });
 
   it('toggles tip visibility correctly', async () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer first to make tip button visible
@@ -243,7 +243,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer first to make real life example button visible
@@ -269,7 +269,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer, tip and example for first question
@@ -281,7 +281,7 @@ describe('CTAL-TM Exam Page', () => {
     fireEvent.click(screen.getByText('Load New Questions'));
 
     // All answers should be hidden again
-    expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     expect(screen.queryByText('Hide Answer')).not.toBeInTheDocument();
     expect(screen.queryByText('Hide Tip')).not.toBeInTheDocument();
     expect(
@@ -293,7 +293,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answers for all questions to reveal syllabus references
@@ -301,10 +301,10 @@ describe('CTAL-TM Exam Page', () => {
     showAnswerButtons.forEach(button => fireEvent.click(button));
 
     await waitFor(() => {
-      expect(screen.queryAllByText('📚 Syllabus Reference:')).toHaveLength(10);
+      expect(screen.queryAllByText('📚 Syllabus Reference:')).toHaveLength(40);
     });
 
-    expect(screen.queryAllByText(/TM-2\.5\./)).toHaveLength(10);
+    expect(screen.queryAllByText(/TM-2\.5\./)).toHaveLength(40);
   });
 
   it('handles back to resume navigation', async () => {
@@ -336,8 +336,8 @@ describe('CTAL-TM Exam Page', () => {
       expect(screen.getByText('ISTQB CTAL-TM Sample Exam')).toBeInTheDocument();
     });
 
-    // Check that question numbers 1-10 are displayed
-    for (let i = 1; i <= 10; i++) {
+    // Check that question numbers 1-40 are displayed
+    for (let i = 1; i <= 40; i++) {
       expect(screen.getByText(i.toString())).toBeInTheDocument();
     }
   });
@@ -346,10 +346,10 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('A.')).toHaveLength(10);
-      expect(screen.queryAllByText('B.')).toHaveLength(10);
-      expect(screen.queryAllByText('C.')).toHaveLength(10);
-      expect(screen.queryAllByText('D.')).toHaveLength(10);
+      expect(screen.queryAllByText('A.')).toHaveLength(40);
+      expect(screen.queryAllByText('B.')).toHaveLength(40);
+      expect(screen.queryAllByText('C.')).toHaveLength(40);
+      expect(screen.queryAllByText('D.')).toHaveLength(40);
     });
   });
 
@@ -357,7 +357,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Show answer for first question
@@ -381,7 +381,7 @@ describe('CTAL-TM Exam Page', () => {
     expect(screen.getByText('Hide Real Life Example')).toBeInTheDocument();
 
     // Check that other questions still show "Show" buttons
-    expect(screen.queryAllByText('Show Answer')).toHaveLength(7);
+    expect(screen.queryAllByText('Show Answer')).toHaveLength(37);
     expect(screen.queryAllByText('Show Tip')).toHaveLength(2);
     expect(screen.queryAllByText('Show Real Life Example')).toHaveLength(2);
   });
@@ -413,7 +413,7 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     fireEvent.click(screen.queryAllByText('Show Answer')[0]);
@@ -427,17 +427,17 @@ describe('CTAL-TM Exam Page', () => {
     render(<CTALTMExam />);
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
     // Load new questions
     fireEvent.click(screen.getByText('Load New Questions'));
 
     await waitFor(() => {
-      expect(screen.queryAllByText('Show Answer')).toHaveLength(10);
+      expect(screen.queryAllByText('Show Answer')).toHaveLength(40);
     });
 
-    // Check that we still have 10 questions
-    expect(screen.queryAllByText(/Test question \d+:/)).toHaveLength(10);
+    // Check that we still have 40 questions
+    expect(screen.queryAllByText(/Test question \d+:/)).toHaveLength(40);
   });
 });
