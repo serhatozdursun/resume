@@ -25,7 +25,7 @@ const CertificatesComponents = () => {
   const certificates = [
     {
       name: 'AT*SQA Advisory Board 2026',
-      badge: '/ATSQA.png',
+      badge: '/AT_SQA_Advisory_Board_Ozdursun.png',
       link: 'https://atsqa.org/atsqa-advisory-board-members-2026',
     },
     {

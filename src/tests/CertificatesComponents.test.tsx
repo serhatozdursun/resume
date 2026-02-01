@@ -110,7 +110,7 @@ describe('CertificatesComponents', () => {
     // Check that images have the expected src patterns (Next.js Image component adds query params)
     expect(badgeImages[0]).toHaveAttribute(
       'src',
-      expect.stringContaining('ATSQA.png')
+      expect.stringContaining('AT_SQA_Advisory_Board_Ozdursun.png')
     );
     expect(badgeImages[1]).toHaveAttribute(
       'src',
