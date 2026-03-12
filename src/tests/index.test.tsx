@@ -77,7 +77,8 @@ jest.mock('../components/theme', () => ({
 // Mock environment utilities
 jest.mock('../utils/env', () => ({
   env: {
-    NEXT_PUBLIC_GA_ID: 'test-ga-id',
+    GA_TRACKING_ID: 'test-ga-id',
+    SITE_URL: 'https://serhatozdursun.com',
   },
 }));
 
@@ -407,7 +408,7 @@ describe('IndexPage Component', () => {
 
       // check alt text
       expect(screen.getByAltText('LinkedIn')).toBeInTheDocument();
-      expect(screen.getByAltText('recommandation')).toBeInTheDocument();
+      expect(screen.getByAltText('recommendation')).toBeInTheDocument();
     });
   });
 

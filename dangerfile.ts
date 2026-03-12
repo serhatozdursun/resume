@@ -93,6 +93,40 @@ interface AIReviewFindingIdx {
   body: string;
 }
 
+/* ---------- AI QA Impact Report Types ---------- */
+interface AffectedPage {
+  page: string;
+  route: string;
+  file?: string;
+  reason: string;
+}
+
+interface AffectedComponent {
+  name: string;
+  file: string;
+  affectedBehavior: string;
+}
+
+interface AffectedFunction {
+  name: string;
+  file: string;
+  affectedBehavior: string;
+}
+
+interface SuggestedTestObject {
+  object: string;
+  priority: 'high' | 'medium' | 'low';
+  description: string;
+}
+
+interface QAImpactReport {
+  affectedPages: AffectedPage[];
+  affectedComponents: AffectedComponent[];
+  affectedFunctions: AffectedFunction[];
+  suggestedTestObjects: SuggestedTestObject[];
+  testFocusAreas: string[];
+}
+
 /* =======================
    Helpers
    ======================= */
@@ -254,16 +288,17 @@ async function aiTestIdeas(file: string, diffText: string): Promise<string> {
     {
       role: 'user',
       content: `Write a copy-paste-ready test file for the diff below.
-- File name: \`src/tests/${file
-        .split('/')
-        .pop()
-        ?.replace(/\.[jt]sx?$/, '')}.auto.test.ts\`
-- Use realistic imports relative to project root.
-- Cover branches/edge cases implied by the diff.
-- Keep it minimal but runnable.
+                  - File name: \`src/tests/${file
+                    .split('/')
+                    .pop()
+                    ?.replace(/\.[jt]sx?$/, '')}
+                                                .auto.test.ts\`
+                  - Use realistic imports relative to project root.
+                  - Cover branches/edge cases implied by the diff.
+                  - Keep it minimal but runnable.
 
-Diff:
-${trimmed || 'N/A'}`,
+          Diff:
+          ${trimmed || 'N/A'}`,
     },
   ];
 
@@ -347,6 +382,140 @@ async function aiCodeReview(
   } catch {
     return [];
   }
+}
+
+/* ---------- AI: QA Impact / Affected Areas Report ---------- */
+
+async function aiQAImpactReport(
+  diffs: ReviewDiff[]
+): Promise<QAImpactReport | null> {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return null;
+  const client = new OpenAI({ apiKey: key });
+
+  const joined = diffs
+    .map(d => `# FILE: ${d.file}\n\`\`\`diff\n${d.diff.slice(0, 8000)}\n\`\`\``)
+    .join('\n\n');
+  const trimmed = joined.slice(0, AI_REVIEW_MAX_CHARS);
+
+  const systemPrompt =
+    'You are a senior QA Engineer and Test Analyst. Analyze the git diff and produce an "Affected Areas Report" for QA engineers.\n\n' +
+    'Return ONLY a single JSON object. No prose, no markdown code fences. Valid JSON only.\n' +
+    'Structure:\n' +
+    '{\n' +
+    '  "affectedPages": [\n' +
+    '    { "page": "Page display name", "route": "/path", "file": "src/pages/...", "reason": "Why this page is affected" }\n' +
+    '  ],\n' +
+    '  "affectedComponents": [\n' +
+    '    { "name": "ComponentName", "file": "src/components/...", "affectedBehavior": "What changed or may break" }\n' +
+    '  ],\n' +
+    '  "affectedFunctions": [\n' +
+    '    { "name": "functionName", "file": "src/...", "affectedBehavior": "What the function does that may be impacted" }\n' +
+    '  ],\n' +
+    '  "suggestedTestObjects": [\n' +
+    '    { "object": "What to test", "priority": "high|medium|low", "description": "Brief test focus" }\n' +
+    '  ],\n' +
+    '  "testFocusAreas": ["Area 1", "Area 2", ...]\n' +
+    '}\n\n' +
+    'Rules:\n' +
+    '- Infer pages from file paths (e.g. src/pages/index.tsx → route "/", src/pages/practice.tsx → route "/practice")\n' +
+    '- For shared components, list all pages that likely use them\n' +
+    '- suggestedTestObjects: concrete things QA should verify (e.g. "Contact form submission", "Resume download link")\n' +
+    '- testFocusAreas: high-level categories (e.g. "Form validation", "Accessibility", "API integration")\n' +
+    '- Be concise but actionable for QA engineers';
+
+  const userPrompt = `Analyze these diffs and produce the Affected Areas Report as JSON:\n\n${trimmed || 'N/A'}`;
+
+  try {
+    const res = await client.chat.completions.create({
+      model: OPENAI_MODEL,
+      temperature: 0.1,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+    });
+    const raw = res.choices[0]?.message?.content ?? '{}';
+    const jsonText = (() => {
+      const m = /```(?:json)?\s*([\s\S]*?)```/m.exec(raw);
+      return m && m[1] ? m[1].trim() : raw.trim();
+    })();
+    const parsed = JSON.parse(jsonText) as unknown;
+    if (typeof parsed !== 'object' || parsed === null) return null;
+
+    const o = parsed as Record<string, unknown>;
+    return {
+      affectedPages: Array.isArray(o.affectedPages) ? o.affectedPages : [],
+      affectedComponents: Array.isArray(o.affectedComponents)
+        ? o.affectedComponents
+        : [],
+      affectedFunctions: Array.isArray(o.affectedFunctions)
+        ? o.affectedFunctions
+        : [],
+      suggestedTestObjects: Array.isArray(o.suggestedTestObjects)
+        ? o.suggestedTestObjects
+        : [],
+      testFocusAreas: Array.isArray(o.testFocusAreas) ? o.testFocusAreas : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+function formatQAImpactReport(report: QAImpactReport): string {
+  const lines: string[] = [
+    '### QA: Affected Areas Report',
+    '',
+    'Use this as a starting point to define test objects and generate test cases.',
+    '',
+  ];
+
+  if (report.affectedPages.length > 0) {
+    lines.push('#### Affected Pages', '');
+    lines.push('| Page | Route | Reason |');
+    lines.push('|------|-------|--------|');
+    for (const p of report.affectedPages) {
+      lines.push(`| ${p.page} | \`${p.route}\` | ${p.reason} |`);
+    }
+    lines.push('');
+  }
+
+  if (report.affectedComponents.length > 0) {
+    lines.push('#### Affected Components', '');
+    lines.push('| Component | File | Affected Behavior |');
+    lines.push('|-----------|------|------------------|');
+    for (const c of report.affectedComponents) {
+      lines.push(`| ${c.name} | \`${c.file}\` | ${c.affectedBehavior} |`);
+    }
+    lines.push('');
+  }
+
+  if (report.affectedFunctions.length > 0) {
+    lines.push('#### Affected Functions', '');
+    lines.push('| Function | File | Affected Behavior |');
+    lines.push('|----------|------|------------------|');
+    for (const f of report.affectedFunctions) {
+      lines.push(`| ${f.name} | \`${f.file}\` | ${f.affectedBehavior} |`);
+    }
+    lines.push('');
+  }
+
+  if (report.suggestedTestObjects.length > 0) {
+    lines.push('#### Suggested Test Objects', '');
+    lines.push('| Object | Priority | Description |');
+    lines.push('|--------|----------|-------------|');
+    for (const t of report.suggestedTestObjects) {
+      lines.push(`| ${t.object} | **${t.priority}** | ${t.description} |`);
+    }
+    lines.push('');
+  }
+
+  if (report.testFocusAreas.length > 0) {
+    lines.push('#### Test Focus Areas', '');
+    lines.push(report.testFocusAreas.map(a => `- ${a}`).join('\n'));
+  }
+
+  return lines.join('\n');
 }
 
 /* =======================
@@ -478,6 +647,13 @@ export default async function run(): Promise<void> {
     }
 
     if (diffsForReview.length) {
+      // QA: Affected Areas Report (for test object definition & test case generation)
+      const qaReport = await aiQAImpactReport(diffsForReview);
+      if (qaReport) {
+        const formatted = formatQAImpactReport(qaReport);
+        await post(formatted);
+      }
+
       const findings = await aiCodeReview(diffsForReview);
 
       const summary: string[] = [];
