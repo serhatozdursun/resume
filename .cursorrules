@@ -1,0 +1,108 @@
+# Resume Website – Cursor Rules
+
+Project conventions to keep this codebase safe, healthy, and maintainable.
+
+## Project Overview
+
+- **Stack**: Next.js 15, React 18, TypeScript, Styled Components, MUI
+- **Purpose**: Personal resume site with contact form, practice/exam pages, and QA content
+
+---
+
+## Security
+
+- **Never** commit API keys, secrets, or credentials. Use `env.example` as the template.
+- **Always** use `src/utils/env.ts` for environment variables. Add new vars to `env.example`.
+- **Never** hardcode URLs or keys. Use `env.SITE_URL`, `env.GA_TRACKING_ID`, etc.
+- **Never** disable `ignoreBuildErrors` or `ignoreDuringBuilds` in `next.config.js` to hide real issues.
+- **Never** use `dangerouslySetInnerHTML` with user input. Only use with trusted content (e.g. from `src/data/`).
+
+---
+
+## Architecture & Structure
+
+### File Organization
+
+```
+src/
+  components/     # Reusable UI components
+  data/           # Content config (profile, links, meta)
+  pages/          # Next.js pages and API routes
+  types/          # TypeScript types and styled components
+  utils/          # Utilities (env, validators)
+  tests/          # Jest tests
+```
+
+### Conventions
+
+- **Data**: Put page content, links, and meta in `src/data/`. Keep components presentational.
+- **Components**: One component per file. Extract when a file exceeds ~150 lines.
+- **Imports**: Prefer `@/*` path alias for `src/*` when it improves readability.
+- **Dynamic imports**: Use `next/dynamic` with `ssr: false` for heavy or client-only components.
+- **Styled components**: Define in `src/types/StyledComponents.tsx`. Use theme from `src/components/theme.tsx`.
+
+---
+
+## TypeScript
+
+- **Strict mode**: Keep `strict: true` in `tsconfig.json`.
+- **Types**: Define interfaces for props, API responses, and config objects.
+- **Avoid `any`**: Use `unknown` and type guards when types are uncertain.
+- **Exports**: Use `as const` for config objects to preserve literal types.
+
+---
+
+## React & Next.js
+
+- **Components**: Prefer functional components with `React.FC` or explicit prop types.
+- **Pages**: Use default export. Keep page components thin; delegate to child components.
+- **Images**: Use `next/image` for optimized loading. Use `ProfileImage` styled component only where custom styling is needed.
+- **Scripts**: Use `next/script` with `strategy="afterInteractive"` for analytics.
+- **Meta/SEO**: Use `SEOHead` component or `react-helmet` for meta tags. Centralize in `src/data/profile.ts`.
+
+---
+
+## Testing
+
+- **Framework**: Jest + React Testing Library + jest-axe.
+- **Location**: `src/tests/` with `*.test.tsx` or `*.test.ts`.
+- **Coverage**: Maintain high coverage. Danger enforces `MIN_FILE_COVERAGE` on PRs.
+- **Mocks**: Mock `next/script`, `next/image`, `next/dynamic`, `react-helmet`, and `env` in tests.
+- **Accessibility**: Use `jest-axe` for a11y checks where applicable.
+- **Run**: `yarn test` before pushing. Pre-push hook runs tests.
+
+---
+
+## Code Quality
+
+- **Lint**: Run `yarn lint` and fix errors. ESLint flat config in `eslint.config.mjs`.
+- **Format**: Use Prettier. Run `yarn format`. Pre-commit runs lint-staged.
+- **Pre-commit**: Husky runs ESLint and Prettier on staged files.
+- **Pre-push**: Husky runs tests, lint, and build.
+- **Do not** bypass hooks with `--no-verify` unless necessary and documented.
+
+---
+
+## Danger & CI
+
+- **Dangerfile**: `dangerfile.ts` runs on PRs. Covers coverage, AI review, QA impact report.
+- **Secrets**: `OPENAI_API_KEY`, `DANGER_GITHUB_API_TOKEN`, `SONAR_TOKEN` required for full CI.
+- **Coverage**: LCOV at `coverage/lcov.info`. Keep `MIN_FILE_COVERAGE` (default 80%).
+
+---
+
+## Docker
+
+- **Dockerfile**: Multi-stage build. Ensure Nginx config serves from correct paths.
+- **Env**: Copy `env.example` to `.env.local` before build. Rebuild if env changes.
+
+---
+
+## When Making Changes
+
+1. Run `yarn lint` and `yarn test` locally.
+2. Add tests for new components and utilities.
+3. Update `env.example` if adding env vars.
+4. Keep components small; extract when logic grows.
+5. Preserve existing IDs and `data-testid` for tests.
+6. Use semantic HTML and ARIA where appropriate for accessibility.
