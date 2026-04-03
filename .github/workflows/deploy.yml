@@ -28,14 +28,16 @@ jobs:
       - name: Deploy app
         uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f
         env:
-          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
-          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
-          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
+          EMAILJS_PRIVATE_KEY: ${{ secrets.EMAILJS_PRIVATE_KEY }}
+          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NEXT_PUBLIC_EMAILJS_SERVICE_ID,NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+          envs: EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,EMAILJS_PUBLIC_KEY,EMAILJS_PRIVATE_KEY,RECAPTCHA_SECRET_KEY
           script: |
             set -euo pipefail
 
@@ -61,7 +63,7 @@ jobs:
               npm install -g pm2
             fi
 
-            for v in NEXT_PUBLIC_EMAILJS_SERVICE_ID NEXT_PUBLIC_EMAILJS_TEMPLATE_ID NEXT_PUBLIC_EMAILJS_PUBLIC_KEY; do
+            for v in EMAILJS_SERVICE_ID EMAILJS_TEMPLATE_ID EMAILJS_PUBLIC_KEY EMAILJS_PRIVATE_KEY; do
               if [ -z "${!v:-}" ]; then
                 echo "ERROR: $v is empty"
                 exit 1
