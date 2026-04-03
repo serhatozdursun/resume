@@ -1,14 +1,33 @@
 // CertificatesComponents.test.tsx
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import CertificatesComponents from '../components/CertificatesComponents';
 import '@testing-library/jest-dom';
 import { axe, toHaveNoViolations } from 'jest-axe';
+import { renderWithTheme } from './test-utils';
 expect.extend(toHaveNoViolations);
 
 describe('CertificatesComponents', () => {
+  it('hides section title when hideSectionTitle is true', () => {
+    renderWithTheme(<CertificatesComponents hideSectionTitle />);
+
+    expect(
+      screen.queryByRole('heading', { name: /Certificates & Achievements/i })
+    ).not.toBeInTheDocument();
+
+    expect(screen.getAllByRole('listitem').length).toBeGreaterThan(0);
+  });
+
+  it('shows section title when hideSectionTitle is false (default)', () => {
+    renderWithTheme(<CertificatesComponents />);
+
+    expect(
+      screen.getByRole('heading', { name: /Certificates & Achievements/i })
+    ).toBeInTheDocument();
+  });
+
   it('renders certificate items correctly', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const certificateTitles = screen.getAllByRole('heading', {
       name: /Certificates & Achievements/i,
@@ -20,33 +39,33 @@ describe('CertificatesComponents', () => {
   });
 
   it('handles click events correctly', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const certificateLinks = screen.getAllByRole('link');
 
     // Click the first certificate link
     fireEvent.click(certificateLinks[0]);
 
-    // Check if the clicked badge color changes to blue
-    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    // Check if the clicked badge color changes to link accent blue
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Clicking again should not change color
     fireEvent.click(certificateLinks[0]);
-    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Click the second certificate link
     fireEvent.click(certificateLinks[1]);
-    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
   });
 
   it('is accessible according to jest-axe', async () => {
-    const { container } = render(<CertificatesComponents />);
+    const { container } = renderWithTheme(<CertificatesComponents />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
   it('displays all certificate names correctly', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     expect(screen.getByText('AT*SQA Advisory Board 2026')).toBeInTheDocument();
     expect(screen.getByText('ISTQB® CTAL-TM')).toBeInTheDocument();
@@ -60,7 +79,7 @@ describe('CertificatesComponents', () => {
   });
 
   it('has correct links for all certificates', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const certificateLinks = screen.getAllByRole('link');
 
@@ -103,7 +122,7 @@ describe('CertificatesComponents', () => {
   });
 
   it('displays correct badge images', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const badgeImages = screen.getAllByRole('img');
 
@@ -147,49 +166,49 @@ describe('CertificatesComponents', () => {
   });
 
   it('handles multiple clicks on different certificates', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const certificateLinks = screen.getAllByRole('link');
 
     // Click first certificate
     fireEvent.click(certificateLinks[0]);
-    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Click second certificate
     fireEvent.click(certificateLinks[1]);
-    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Click third certificate
     fireEvent.click(certificateLinks[2]);
-    expect(certificateLinks[2]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[2]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // All clicked certificates should remain blue
-    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
-    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
-    expect(certificateLinks[2]).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(certificateLinks[0]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
+    expect(certificateLinks[1]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
+    expect(certificateLinks[2]).toHaveStyle({ color: 'rgb(37, 99, 235)' });
   });
 
   it('maintains state correctly when clicking same certificate multiple times', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const certificateLinks = screen.getAllByRole('link');
     const firstLink = certificateLinks[0];
 
     // Click first time
     fireEvent.click(firstLink);
-    expect(firstLink).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(firstLink).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Click second time - should remain blue
     fireEvent.click(firstLink);
-    expect(firstLink).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(firstLink).toHaveStyle({ color: 'rgb(37, 99, 235)' });
 
     // Click third time - should still remain blue
     fireEvent.click(firstLink);
-    expect(firstLink).toHaveStyle({ color: 'rgb(0, 0, 255)' });
+    expect(firstLink).toHaveStyle({ color: 'rgb(37, 99, 235)' });
   });
 
   it('has proper alt text for all badge images', () => {
-    render(<CertificatesComponents />);
+    renderWithTheme(<CertificatesComponents />);
 
     const badgeImages = screen.getAllByRole('img');
 

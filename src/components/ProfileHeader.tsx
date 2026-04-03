@@ -3,21 +3,18 @@ import Image from 'next/image';
 import {
   Header,
   Name,
+  IdentityTag,
   Title,
   IconWrapper,
   IconLink,
   IconImageWrapper,
   Info,
   BoldText,
-  CommonLink,
-} from '../types/StyledComponents';
+  HeaderMeta,
+} from './ProfileHeader.styles';
+import { CommonLink } from './Layout.styles';
 import { profile, socialLinks } from '../data/profile';
-
-export type TrackEventFn = (
-  event: string,
-  eventCategory: string,
-  eventLabel: string
-) => void;
+import type { TrackEventFn } from '../types/events';
 
 interface ProfileHeaderProps {
   onTrackEvent?: TrackEventFn;
@@ -37,6 +34,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onTrackEvent }) => {
 
   return (
     <Header>
+      <IdentityTag>Professional QA Portfolio</IdentityTag>
       <Name id='name'>{profile.name}</Name>
       <Title id='title'>
         {profile.title}
@@ -75,7 +73,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onTrackEvent }) => {
           </IconLink>
         ))}
       </IconWrapper>
-      <div>
+      <HeaderMeta>
         <Info>
           <BoldText id='emailLabel'>Email</BoldText>:{' '}
           <CommonLink id='email' href={`mailto:${profile.email}`}>
@@ -91,7 +89,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onTrackEvent }) => {
         <Info>
           <BoldText id='languages'>Languages</BoldText>: {profile.languages}
         </Info>
-      </div>
+      </HeaderMeta>
     </Header>
   );
 };

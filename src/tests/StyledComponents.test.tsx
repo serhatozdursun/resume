@@ -2,56 +2,66 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {
+  BadgeWrapper,
+  CommonLink,
   Container,
   LeftColumn,
+  LeftColumnLinkContainer,
   RightColumn,
+  SummaryContainer,
+} from '../components/Layout.styles';
+import {
+  BoldText,
   Header,
+  IconImageWrapper,
+  IconLink,
+  IconWrapper,
+  Info,
   Name,
   Title,
-  SummaryContainer,
-  IconWrapper,
-  IconLink,
-  IconImageWrapper,
-  BoldText,
-  Info,
-  SkillsContainer,
-  Skill,
-  SkillName,
-  SkillLevel,
-  SkillLevelFill,
-  SkillsTitle,
-  ExperienceContainer,
-  ExperienceItem,
-  CompanyLogoWrapper,
-  ExperienceHeader,
-  ExperienceTitle,
-  ExperienceCompany,
-  ExperienceDateRange,
-  ExperienceContent,
-  SeeMoreLink,
-  CertificatesContainer,
-  CertificateTitle,
-  CertificateList,
+} from '../components/ProfileHeader.styles';
+import {
   CertificateItem,
   CertificateLink,
+  CertificateList,
   CertificateName,
-  BadgeWrapper,
-  ContactFormStyle,
-  Input,
-  Textarea,
-  SendButton,
+  CertificatesContainer,
+  CertificateTitle,
+} from '../components/Certificates.styles';
+import {
   CloseButton,
-  SendLinkContainer,
-  SendIconWrapper,
-  SendText,
-  NameInput,
-  EmailInput,
-  InputContainer,
-  ErrorText,
   ContactFormDescription,
-  LeftColumnLinkContainer,
-  CommonLink,
-} from '../types/StyledComponents';
+  ContactFormStyle,
+  EmailInput,
+  ErrorText,
+  Input,
+  InputContainer,
+  NameInput,
+  SendButton,
+  SendIconWrapper,
+  SendLinkContainer,
+  SendText,
+  Textarea,
+} from '../components/ContactForm.styles';
+import {
+  CompanyLogoWrapper,
+  ExperienceCompany,
+  ExperienceContainer,
+  ExperienceContent,
+  ExperienceDateRange,
+  ExperienceHeader,
+  ExperienceItem,
+  ExperienceTitle,
+  SeeMoreLink,
+} from '../components/ExperienceList.styles';
+import {
+  Skill,
+  SkillLevel,
+  SkillLevelFill,
+  SkillName,
+  SkillsContainer,
+  SkillsTitle,
+} from '../components/Skills.styles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/theme';
 import type { ComponentProps } from 'react';
@@ -405,7 +415,7 @@ describe('StyledComponents', () => {
   describe('CertificateLink', () => {
     it('renders with correct styles when not clicked', () => {
       renderWithTheme(
-        <CertificateLink data-testid='certificate-link' clicked={false}>
+        <CertificateLink data-testid='certificate-link' $clicked={false}>
           Content
         </CertificateLink>
       );
@@ -415,7 +425,7 @@ describe('StyledComponents', () => {
 
     it('renders with correct styles when clicked', () => {
       renderWithTheme(
-        <CertificateLink data-testid='certificate-link' clicked={true}>
+        <CertificateLink data-testid='certificate-link' $clicked={true}>
           Content
         </CertificateLink>
       );
@@ -465,8 +475,8 @@ describe('StyledComponents', () => {
       expect(input).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<Input data-testid='input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<Input data-testid='input' $hasError={true} />);
       const input = screen.getByTestId('input');
       expect(input).toBeInTheDocument();
     });
@@ -479,8 +489,8 @@ describe('StyledComponents', () => {
       expect(textarea).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<Textarea data-testid='textarea' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<Textarea data-testid='textarea' $hasError={true} />);
       const textarea = screen.getByTestId('textarea');
       expect(textarea).toBeInTheDocument();
     });
@@ -545,8 +555,8 @@ describe('StyledComponents', () => {
       expect(nameInput).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<NameInput data-testid='name-input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<NameInput data-testid='name-input' $hasError={true} />);
       const nameInput = screen.getByTestId('name-input');
       expect(nameInput).toBeInTheDocument();
     });
@@ -559,8 +569,10 @@ describe('StyledComponents', () => {
       expect(emailInput).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<EmailInput data-testid='email-input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(
+        <EmailInput data-testid='email-input' $hasError={true} />
+      );
       const emailInput = screen.getByTestId('email-input');
       expect(emailInput).toBeInTheDocument();
     });
@@ -627,9 +639,7 @@ describe('StyledComponents', () => {
 
   describe('ProfileImage', () => {
     it('renders with correct styles', async () => {
-      const mod = await import('../types/StyledComponents');
-      const { ProfileImage } =
-        mod as typeof import('../types/StyledComponents');
+      const { ProfileImage } = await import('../components/Layout.styles');
       renderWithTheme(
         <ProfileImage
           data-testid='profile-image'

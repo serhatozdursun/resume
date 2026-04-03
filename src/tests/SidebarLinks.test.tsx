@@ -1,17 +1,15 @@
-import React, { ImgHTMLAttributes } from 'react';
+import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SidebarLinks from '../components/SidebarLinks';
 import { renderWithTheme } from './test-utils';
 
-jest.mock('next/image', () => {
-  const MockNextImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element -- mock for tests
-    <img {...props} />
-  );
-  MockNextImage.displayName = 'MockNextImage';
-  return MockNextImage;
-});
+jest.mock(
+  'next/image',
+  () =>
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest mock factory must use require()
+    require('./mockNextImage').default
+);
 
 jest.mock('next/dynamic', () => {
   return function MockDynamic() {

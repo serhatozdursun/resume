@@ -3,12 +3,9 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import NotFoundPage from '../pages/NotFoundPage';
 
-// Mock react-helmet
-jest.mock('react-helmet', () => {
-  return {
-    Helmet: ({ children }: { children: React.ReactNode }) => (
-      <div data-testid='helmet'>{children}</div>
-    ),
+jest.mock('next/head', () => {
+  return function MockHead({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
   };
 });
 
@@ -111,10 +108,9 @@ describe('NotFoundPage Component', () => {
   });
 
   describe('SEO and Meta Tags', () => {
-    it('renders Helmet component', () => {
+    it('renders head metadata', () => {
       render(<NotFoundPage />);
-
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(document.querySelector('title')).toBeInTheDocument();
     });
 
     it('includes proper meta tags', () => {

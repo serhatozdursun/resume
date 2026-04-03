@@ -4,6 +4,11 @@ import '@testing-library/jest-dom';
 import App from '../pages/_app';
 import { validateEnv } from '../utils/env';
 
+jest.mock('next/font/google', () => ({
+  Inter: () => ({ variable: 'font-inter' }),
+  Montserrat: () => ({ variable: 'font-montserrat' }),
+}));
+
 // Mock the validateEnv function
 jest.mock('../utils/env', () => ({
   validateEnv: jest.fn(),

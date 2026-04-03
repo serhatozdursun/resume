@@ -107,15 +107,25 @@ describe('/api/contact', () => {
   });
 
   describe('reCAPTCHA verification', () => {
-    it('returns 500 when RECAPTCHA_SECRET_KEY is missing', async () => {
+    it('skips reCAPTCHA and sends email when RECAPTCHA_SECRET_KEY is absent', async () => {
       delete process.env.RECAPTCHA_SECRET_KEY;
+
+      // No reCAPTCHA fetch — only EmailJS fetch
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+      });
 
       await handler(mockReq as NextApiRequest, mockRes as NextApiResponse);
 
-      expect(statusResponse).toHaveBeenCalledWith(500);
-      expect(jsonResponse).toHaveBeenCalledWith({
-        error: 'Captcha secret not configured',
-      });
+      // reCAPTCHA endpoint must NOT have been called
+      expect(global.fetch).not.toHaveBeenCalledWith(
+        'https://www.google.com/recaptcha/api/siteverify',
+        expect.any(Object)
+      );
+
+      expect(statusResponse).toHaveBeenCalledWith(200);
+      expect(jsonResponse).toHaveBeenCalledWith({ message: 'Sent' });
     });
 
     it('returns 400 when reCAPTCHA verification fails', async () => {

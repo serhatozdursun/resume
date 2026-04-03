@@ -25,6 +25,7 @@ export default [
       'node_modules/',
       'build/',
       '.next/',
+      'coverage/',
       'babel.config.js',
       'jest.config.js',
       'next-sitemap.config.js',

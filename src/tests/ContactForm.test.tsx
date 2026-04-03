@@ -2,6 +2,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import ContactForm from '../components/ContactForm';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/theme';
@@ -11,19 +12,17 @@ import {
   fillContactForm,
   clickSendMessage,
 } from './test-utils';
-import emailjs, { type EmailJSResponseStatus } from 'emailjs-com';
 
-// Mock emailjs
-jest.mock('emailjs-com');
+// Mock fetch globally
+global.fetch = jest.fn();
 
-// Mock the env module
-jest.mock('../utils/env', () => ({
-  env: {
-    EMAILJS_SERVICE_ID: 'test-service-id',
-    EMAILJS_TEMPLATE_ID: 'test-template-id',
-    EMAILJS_PUBLIC_KEY: 'test-public-key',
-  },
-}));
+const mockFetchSuccess = () => {
+  (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: true });
+};
+
+const mockFetchError = () => {
+  (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false, status: 500 });
+};
 
 describe('ContactForm', () => {
   beforeEach(() => {
@@ -62,11 +61,7 @@ describe('ContactForm', () => {
   });
 
   it('handles form submission successfully', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     render(
       <ThemeProvider theme={theme}>
@@ -81,18 +76,15 @@ describe('ContactForm', () => {
     clickSendMessage();
 
     await waitFor(() => {
-      expect(mockSend).toHaveBeenCalledWith(
-        'test-service-id',
-        'test-template-id',
-        {
+      expect(global.fetch).toHaveBeenCalledWith('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: 'John Doe',
           email: 'john@example.com',
           message: 'Hello, this is a test message!',
-          reply_to: 'john@example.com',
-          from_name: 'John Doe',
-        },
-        'test-public-key'
-      );
+        }),
+      });
     });
 
     await waitFor(() => {
@@ -105,11 +97,10 @@ describe('ContactForm', () => {
   });
 
   it('handles form submission error', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
     const consoleErrorSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    mockSend.mockRejectedValueOnce(new Error('Email service error'));
+    mockFetchError();
 
     renderWithTheme(<ContactForm />);
     openContactForm();
@@ -127,16 +118,133 @@ describe('ContactForm', () => {
       'Error sending message:',
       expect.any(Error)
     );
-    expect(screen.getByText('Close Contact Form')).toBeInTheDocument(); // Form should remain open
+    expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
+
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('John Doe');
+    expect(screen.getByPlaceholderText('Your Email')).toHaveValue(
+      'john@example.com'
+    );
+    expect(screen.getByPlaceholderText('Your Message')).toHaveValue(
+      'Hello, this is a test message!'
+    );
+  });
+
+  it('logs API error body when response is not ok', async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({ error: 'Rate limited' }),
+    });
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to send message. Please try again.')
+      ).toBeInTheDocument();
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('API error response:', {
+      error: 'Rate limited',
+    });
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('treats non-JSON error responses as generic failure and preserves form fields', async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: async () => {
+        throw new SyntaxError('invalid json');
+      },
+    });
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to send message. Please try again.')
+      ).toBeInTheDocument();
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('API error response:', null);
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('John Doe');
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('shows field error messages when pasted value exceeds max length', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    const nameInput = screen.getByPlaceholderText('Your Name');
+    fireEvent.change(nameInput, {
+      target: { value: 'A'.repeat(101), name: 'name', maxLength: 100 },
+    });
+    expect(
+      screen.getByText('Name cannot exceed 100 characters.')
+    ).toBeInTheDocument();
+
+    const emailInput = screen.getByPlaceholderText('Your Email');
+    fireEvent.change(emailInput, {
+      target: { value: 'a'.repeat(51), name: 'email', maxLength: 50 },
+    });
+    expect(
+      screen.getByText('Email cannot exceed 50 characters.')
+    ).toBeInTheDocument();
+
+    const messageInput = screen.getByPlaceholderText('Your Message');
+    fireEvent.change(messageInput, {
+      target: { value: 'M'.repeat(1501), name: 'message', maxLength: 1500 },
+    });
+    expect(
+      screen.getByText('Message cannot exceed 1500 characters.')
+    ).toBeInTheDocument();
+  });
+
+  it('exposes accessible error alerts with stable ids and role="alert"', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    fireEvent.change(screen.getByPlaceholderText('Your Name'), {
+      target: { value: 'N'.repeat(101), name: 'name', maxLength: 100 },
+    });
+    const nameErr = document.getElementById('name-error');
+    expect(nameErr).toBeInTheDocument();
+    expect(nameErr).toHaveAttribute('role', 'alert');
+
+    fireEvent.change(screen.getByPlaceholderText('Your Email'), {
+      target: { value: 'e'.repeat(51), name: 'email', maxLength: 50 },
+    });
+    const emailErr = document.getElementById('email-error');
+    expect(emailErr).toBeInTheDocument();
+    expect(emailErr).toHaveAttribute('role', 'alert');
+
+    fireEvent.change(screen.getByPlaceholderText('Your Message'), {
+      target: { value: 'M'.repeat(1501), name: 'message', maxLength: 1500 },
+    });
+    const messageErr = document.getElementById('message-error');
+    expect(messageErr).toBeInTheDocument();
+    expect(messageErr).toHaveAttribute('role', 'alert');
   });
 
   it('shows loading state during submission', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    let resolvePromise: (value: EmailJSResponseStatus) => void;
-    const promise = new Promise<EmailJSResponseStatus>(resolve => {
+    let resolvePromise: (value: Response) => void;
+    const promise = new Promise<Response>(resolve => {
       resolvePromise = resolve;
     });
-    mockSend.mockReturnValueOnce(promise);
+    (global.fetch as jest.Mock).mockReturnValueOnce(promise);
 
     renderWithTheme(<ContactForm />);
     openContactForm();
@@ -145,25 +253,18 @@ describe('ContactForm', () => {
     const sendButton = screen.getByText('Send');
     fireEvent.click(sendButton);
 
-    // Check loading state
     expect(sendButton).toBeDisabled();
     expect(sendButton).toHaveTextContent('Sending...');
 
-    // Resolve the promise
-    resolvePromise!({ status: 200, text: 'OK' } as EmailJSResponseStatus);
+    resolvePromise!({ ok: true } as Response);
 
-    // Wait for the form to close after successful submission
     await waitFor(() => {
       expect(screen.queryByText('Close Contact Form')).not.toBeInTheDocument();
     });
   });
 
   it('resets form after successful submission', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     renderWithTheme(<ContactForm />);
     openContactForm();
@@ -177,10 +278,8 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Form should be closed and reset
     expect(screen.queryByText('Close Contact Form')).not.toBeInTheDocument();
 
-    // Reopen form to check if fields are reset
     fireEvent.click(screen.getByText('Send a message'));
 
     const newNameInput = screen.getByPlaceholderText(
@@ -206,28 +305,21 @@ describe('ContactForm', () => {
     const emailInput = screen.getByPlaceholderText('Your Email');
     const messageInput = screen.getByPlaceholderText('Your Message');
 
-    // Test name length validation (max 100 characters)
     const longName = 'A'.repeat(110);
     fireEvent.change(nameInput, { target: { value: longName } });
     expect((nameInput as HTMLInputElement).value).toBe('A'.repeat(100));
 
-    // Test email length validation (max 50 characters)
     const longEmail = 'a'.repeat(60) + '@example.com';
     fireEvent.change(emailInput, { target: { value: longEmail } });
     expect((emailInput as HTMLInputElement).value).toBe('a'.repeat(50));
 
-    // Test message length validation (max 1500 characters)
     const longMessage = 'A'.repeat(1600);
     fireEvent.change(messageInput, { target: { value: longMessage } });
     expect((messageInput as HTMLTextAreaElement).value).toBe('A'.repeat(1500));
   });
 
   it('calls scrollIntoView after successful submission when form ref exists', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     const mockScrollIntoView = jest.fn();
     HTMLElement.prototype.scrollIntoView = mockScrollIntoView;
@@ -250,7 +342,6 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Check that scrollIntoView was called
     await waitFor(() => {
       expect(mockScrollIntoView).toHaveBeenCalledWith({
         behavior: 'smooth',
@@ -260,11 +351,7 @@ describe('ContactForm', () => {
   });
 
   it('handles scrollIntoView when form ref does not have scrollIntoView method', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     render(
       <ThemeProvider theme={theme}>
@@ -284,16 +371,11 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Should not throw error even if scrollIntoView doesn't exist
     expect(screen.queryByText('Close Contact Form')).not.toBeInTheDocument();
   });
 
   it('handles snackbar close', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     render(
       <ThemeProvider theme={theme}>
@@ -313,11 +395,9 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Close the snackbar
     const closeButton = screen.getByRole('button', { name: /close/i });
     fireEvent.click(closeButton);
 
-    // Wait for snackbar to close
     await waitFor(() => {
       expect(
         screen.queryByText('Message sent successfully!')
@@ -326,28 +406,17 @@ describe('ContactForm', () => {
   });
 
   it('handles form submission with empty fields', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
-
     renderWithTheme(<ContactForm />);
     openContactForm();
 
     const sendButton = screen.getByText('Send');
 
-    // Verify the form is rendered and can be submitted
     expect(sendButton).toBeInTheDocument();
     expect(sendButton).not.toBeDisabled();
   });
 
   it('handles scroll into view after successful submission', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     const mockScrollIntoView = jest.fn();
     Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
@@ -380,11 +449,7 @@ describe('ContactForm', () => {
   });
 
   it('handles scroll into view when form ref is null', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValueOnce({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    mockFetchSuccess();
 
     renderWithTheme(<ContactForm />);
     openContactForm();
@@ -392,11 +457,25 @@ describe('ContactForm', () => {
     fillContactForm();
     fireEvent.click(sendButton);
 
-    // Should not throw error when form ref is null
     await waitFor(() => {
       expect(
         screen.getByText('Message sent successfully!')
       ).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('passes axe checks in initial send-link state', async () => {
+      const { container } = renderWithTheme(<ContactForm />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('passes axe checks with form open', async () => {
+      const { container } = renderWithTheme(<ContactForm />);
+      openContactForm();
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 
@@ -412,21 +491,17 @@ describe('ContactForm', () => {
     const emailInput = screen.getByPlaceholderText('Your Email');
     const messageInput = screen.getByPlaceholderText('Your Message');
 
-    // Test normal input
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
     expect(nameInput).toHaveValue('John Doe');
 
-    // Test input with maxLength constraint
     fireEvent.change(nameInput, {
       target: { value: 'A'.repeat(100), maxLength: 50 },
     });
     expect(nameInput).toHaveValue('A'.repeat(50));
 
-    // Test email input
     fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
     expect(emailInput).toHaveValue('john@example.com');
 
-    // Test message input
     fireEvent.change(messageInput, {
       target: { value: 'Test message content' },
     });
@@ -434,11 +509,7 @@ describe('ContactForm', () => {
   });
 
   it('handles snackbar close functionality', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValue({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    (global.fetch as jest.Mock).mockResolvedValue({ ok: true });
 
     renderWithTheme(<ContactForm />);
     openContactForm();
@@ -457,7 +528,6 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Close snackbar
     const closeButton = screen.getByRole('button', { name: /close/i });
     fireEvent.click(closeButton);
 
@@ -487,7 +557,6 @@ describe('ContactForm', () => {
 
     const nameInput = screen.getByPlaceholderText('Your Name');
 
-    // Test input that exceeds maxLength
     fireEvent.change(nameInput, {
       target: {
         value: 'A'.repeat(100),
@@ -496,21 +565,15 @@ describe('ContactForm', () => {
       },
     });
 
-    // The input should be truncated to maxLength
     expect(nameInput).toHaveValue('A'.repeat(50));
   });
 
   it('handles multiple form submissions', async () => {
-    const mockSend = emailjs.send as jest.MockedFunction<typeof emailjs.send>;
-    mockSend.mockResolvedValue({
-      status: 200,
-      text: 'OK',
-    } as EmailJSResponseStatus);
+    (global.fetch as jest.Mock).mockResolvedValue({ ok: true });
 
     renderWithTheme(<ContactForm />);
     openContactForm();
 
-    // First submission
     fillContactForm({
       name: 'John Doe',
       email: 'john@example.com',
@@ -525,21 +588,17 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    // Close snackbar
     const closeButton = screen.getByRole('button', { name: /close/i });
     fireEvent.click(closeButton);
 
-    // Wait for snackbar to close and form to reset
     await waitFor(() => {
       expect(
         screen.queryByText('Message sent successfully!')
       ).not.toBeInTheDocument();
     });
 
-    // Open form again for second submission
     openContactForm();
 
-    // Second submission
     fillContactForm({
       name: 'Jane Doe',
       email: 'jane@example.com',
@@ -554,6 +613,6 @@ describe('ContactForm', () => {
       ).toBeInTheDocument();
     });
 
-    expect(mockSend).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 });

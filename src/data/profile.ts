@@ -104,6 +104,18 @@ export const sidebarLinks: SidebarLink[] = [
     },
   },
   {
+    id: 'mentorshipPage',
+    href: '/mentorship',
+    label: 'QA Mentorship',
+    icon: '/email.png',
+    iconAlt: 'QA Mentorship',
+    trackEvent: {
+      event: 'mentorship_page',
+      category: 'mentorship',
+      label: 'QA Mentorship',
+    },
+  },
+  {
     id: 'practicePage',
     href: '/practice',
     label: 'Practice Page',

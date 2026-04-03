@@ -1,18 +1,16 @@
-import React, { ImgHTMLAttributes } from 'react';
+import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ProfileHeader from '../components/ProfileHeader';
 import { profile } from '../data/profile';
 import { renderWithTheme } from './test-utils';
 
-jest.mock('next/image', () => {
-  const MockNextImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element -- mock for tests
-    <img {...props} />
-  );
-  MockNextImage.displayName = 'MockNextImage';
-  return MockNextImage;
-});
+jest.mock(
+  'next/image',
+  () =>
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest mock factory must use require()
+    require('./mockNextImage').default
+);
 
 const mockGtag = jest.fn();
 Object.defineProperty(window, 'gtag', {
@@ -29,6 +27,24 @@ describe('ProfileHeader', () => {
   it('renders profile name', () => {
     renderWithTheme(<ProfileHeader />);
     expect(screen.getByText(profile.name)).toBeInTheDocument();
+  });
+
+  it('renders identity tag, name/title ids, and contact metadata labels', () => {
+    renderWithTheme(<ProfileHeader />);
+
+    expect(screen.getByText('Professional QA Portfolio')).toBeInTheDocument();
+
+    const nameEl = document.getElementById('name');
+    expect(nameEl).toBeInTheDocument();
+    expect(nameEl).toHaveTextContent(profile.name);
+
+    const titleEl = document.getElementById('title');
+    expect(titleEl).toBeInTheDocument();
+    expect(titleEl).toHaveTextContent(/QA Leader/);
+
+    expect(document.getElementById('emailLabel')).toHaveTextContent('Email');
+    expect(document.getElementById('phoneLabel')).toHaveTextContent('Phone');
+    expect(document.getElementById('languages')).toHaveTextContent('Languages');
   });
 
   it('renders profile email with mailto link', () => {
