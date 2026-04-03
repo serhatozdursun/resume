@@ -39,9 +39,18 @@ export interface ExamConfig {
 }
 
 export const getSecureRandom = (max: number): number => {
+  if (!Number.isFinite(max) || max <= 0) {
+    return 0;
+  }
   const array = new Uint32Array(1);
-  crypto.getRandomValues(array);
-  return array[0] % max;
+  if (
+    typeof crypto !== 'undefined' &&
+    typeof crypto.getRandomValues === 'function'
+  ) {
+    crypto.getRandomValues(array);
+    return array[0] % max;
+  }
+  return Math.floor(Math.random() * max);
 };
 
 export const getRandomQuestions = (

@@ -119,6 +119,14 @@ describe('ContactForm', () => {
       expect.any(Error)
     );
     expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
+
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('John Doe');
+    expect(screen.getByPlaceholderText('Your Email')).toHaveValue(
+      'john@example.com'
+    );
+    expect(screen.getByPlaceholderText('Your Message')).toHaveValue(
+      'Hello, this is a test message!'
+    );
   });
 
   it('logs API error body when response is not ok', async () => {
@@ -145,6 +153,34 @@ describe('ContactForm', () => {
     expect(consoleErrorSpy).toHaveBeenCalledWith('API error response:', {
       error: 'Rate limited',
     });
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('treats non-JSON error responses as generic failure and preserves form fields', async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: async () => {
+        throw new SyntaxError('invalid json');
+      },
+    });
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to send message. Please try again.')
+      ).toBeInTheDocument();
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('API error response:', null);
+    expect(screen.getByPlaceholderText('Your Name')).toHaveValue('John Doe');
     consoleErrorSpy.mockRestore();
   });
 

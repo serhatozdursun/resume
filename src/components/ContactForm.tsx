@@ -71,15 +71,15 @@ const ContactForm: React.FC = () => {
     const maxAllowedLength = Number(maxLength);
 
     if (currentLength > maxAllowedLength) {
-      setInputErrors({ ...inputErrors, [name]: true });
+      setInputErrors(prev => ({ ...prev, [name]: true }));
     } else {
-      setInputErrors({ ...inputErrors, [name]: false });
+      setInputErrors(prev => ({ ...prev, [name]: false }));
     }
 
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: value.slice(0, maxAllowedLength),
-    });
+    }));
   };
 
   const handleCloseSnackbar = () => {
@@ -120,6 +120,11 @@ const ContactForm: React.FC = () => {
       setSnackbarSeverity('success');
       setOpenSnackbar(true);
       setFormVisible(false);
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
 
       if (
         formRef.current &&
@@ -135,12 +140,6 @@ const ContactForm: React.FC = () => {
     } finally {
       setSending(false);
     }
-
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
   };
 
   const contactFormDescriptionHtml = `

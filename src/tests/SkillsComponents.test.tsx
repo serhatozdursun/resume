@@ -97,9 +97,12 @@ describe('SkillsComponents', () => {
     expect(skillRow).toBeTruthy();
     fireEvent.mouseEnter(skillRow!);
 
-    expect(
-      screen.getByText(skillExperienceTitle(skills[0].experience))
-    ).toBeInTheDocument();
+    const tip = screen.getByText(skillExperienceTitle(skills[0].experience));
+    expect(tip).toBeInTheDocument();
+    expect(skillRow).toHaveAttribute(
+      'aria-describedby',
+      tip.getAttribute('id')
+    );
 
     fireEvent.mouseLeave(skillRow!);
     expect(

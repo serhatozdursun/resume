@@ -141,4 +141,60 @@ describe('MotionReveal', () => {
     expect(screen.getByText('Intersected')).toBeInTheDocument();
     expect(wrapper).toHaveStyle({ opacity: '1' });
   });
+
+  it('unobserves the target after intersection and disconnects on unmount', () => {
+    const unobserveMock = jest.fn();
+    let capturedCallback: IntersectionObserverCallback | undefined;
+
+    class MockIntersectionObserver implements IntersectionObserver {
+      readonly root: Element | null = null;
+      readonly rootMargin = '';
+      readonly thresholds: readonly number[] = [];
+
+      constructor(cb: IntersectionObserverCallback) {
+        capturedCallback = cb;
+      }
+
+      observe(): void {}
+
+      disconnect(): void {}
+
+      unobserve(target: Element): void {
+        unobserveMock(target);
+      }
+
+      takeRecords(): IntersectionObserverEntry[] {
+        return [];
+      }
+    }
+
+    Object.defineProperty(window, 'IntersectionObserver', {
+      configurable: true,
+      writable: true,
+      value: MockIntersectionObserver,
+    });
+
+    const { container, unmount } = render(
+      <MotionReveal delayMs={5}>
+        <span>Unobserve test</span>
+      </MotionReveal>
+    );
+
+    const wrapper = container.firstChild as HTMLElement;
+    act(() => {
+      capturedCallback!(
+        [
+          {
+            isIntersecting: true,
+            target: wrapper,
+          } as IntersectionObserverEntry,
+        ],
+        {} as IntersectionObserver
+      );
+    });
+
+    expect(unobserveMock).toHaveBeenCalledWith(wrapper);
+
+    unmount();
+  });
 });

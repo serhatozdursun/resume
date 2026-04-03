@@ -118,9 +118,11 @@ describe('ExperienceItemComponent', () => {
 
     it('truncates long plain-text description when no </p> is found after index 300', () => {
       const plainLong = 'x'.repeat(400);
-      renderWithTheme(
+      const { container } = renderWithTheme(
         <ExperienceItemComponent {...baseProps} description={plainLong} />
       );
+      const parsed = container.querySelector('.experience-content > div');
+      expect(parsed?.textContent).toHaveLength(300);
       expect(
         screen.getByRole('button', { name: /see more/i })
       ).toBeInTheDocument();
@@ -128,6 +130,9 @@ describe('ExperienceItemComponent', () => {
       expect(
         screen.getByRole('button', { name: /see less/i })
       ).toBeInTheDocument();
+      expect(
+        container.querySelector('.experience-content > div')?.textContent
+      ).toHaveLength(400);
     });
   });
 

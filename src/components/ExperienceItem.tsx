@@ -28,10 +28,14 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
     setShowFullDescription(prev => !prev);
   };
 
-  const lastIndex: number = description.indexOf('</p>', 300);
+  const paragraphEnd = description.indexOf('</p>', 300);
   const descriptionToShow = showFullDescription
     ? description
-    : description.slice(0, lastIndex);
+    : paragraphEnd === -1
+      ? description.length > 300
+        ? description.slice(0, 300)
+        : description
+      : description.slice(0, paragraphEnd);
 
   const companyLinkProps = {
     href: companyWebsite,

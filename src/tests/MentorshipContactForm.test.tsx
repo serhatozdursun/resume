@@ -45,6 +45,26 @@ describe('MentorshipContactForm', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows validation snackbar when fields are only whitespace', async () => {
+    renderForm();
+
+    fireEvent.change(screen.getByLabelText('Name'), {
+      target: { value: '   ' },
+    });
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: '\t\n' },
+    });
+    fireEvent.change(screen.getByLabelText('Message'), {
+      target: { value: ' ' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Send Message' }));
+
+    expect(
+      await screen.findByText('Please fill in all required fields.')
+    ).toBeInTheDocument();
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
   it('submits successfully and scrolls form into view when supported', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: true });
     const scrollIntoView = jest.fn();

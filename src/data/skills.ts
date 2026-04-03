@@ -7,7 +7,7 @@ export interface SkillItem {
 
 /** Tooltip text for skill rows (native `title` attribute). */
 export function skillExperienceTitle(years: number): string {
-  return `${years}+ years experience`;
+  return `${years} years experience`;
 }
 
 export const skills: SkillItem[] = [
