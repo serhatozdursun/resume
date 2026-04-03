@@ -36,16 +36,14 @@ describe('ExamPage.helpers', () => {
       }
     });
 
-    it('falls back to Math.random when crypto.getRandomValues is unavailable', () => {
+    it('returns 0 from getSecureRandom when crypto.getRandomValues is unavailable', () => {
       const original = crypto.getRandomValues;
       Object.defineProperty(crypto, 'getRandomValues', {
         value: undefined,
         configurable: true,
       });
       try {
-        const n = getSecureRandom(5);
-        expect(n).toBeGreaterThanOrEqual(0);
-        expect(n).toBeLessThan(5);
+        expect(getSecureRandom(5)).toBe(0);
       } finally {
         Object.defineProperty(crypto, 'getRandomValues', {
           value: original,
@@ -75,6 +73,25 @@ describe('ExamPage.helpers', () => {
     it('returns an empty array when count is 0', () => {
       const q = [sampleQuestion('1'), sampleQuestion('2')];
       expect(getRandomQuestions(q, 0)).toEqual([]);
+    });
+
+    it('returns the first count questions in order when Web Crypto is unavailable', () => {
+      const original = crypto.getRandomValues;
+      Object.defineProperty(crypto, 'getRandomValues', {
+        value: undefined,
+        configurable: true,
+      });
+      try {
+        const q: Question[] = ['a', 'b', 'c', 'd'].map(id =>
+          sampleQuestion(id)
+        );
+        expect(getRandomQuestions(q, 2)).toEqual([q[0], q[1]]);
+      } finally {
+        Object.defineProperty(crypto, 'getRandomValues', {
+          value: original,
+          configurable: true,
+        });
+      }
     });
   });
 });

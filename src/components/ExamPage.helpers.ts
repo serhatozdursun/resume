@@ -38,25 +38,30 @@ export interface ExamConfig {
   structuredDataDescription: string;
 }
 
+const hasWebCryptoRandom = (): boolean =>
+  typeof globalThis.crypto !== 'undefined' &&
+  typeof globalThis.crypto.getRandomValues === 'function';
+
 export const getSecureRandom = (max: number): number => {
   if (!Number.isFinite(max) || max <= 0) {
     return 0;
   }
-  const array = new Uint32Array(1);
-  if (
-    typeof crypto !== 'undefined' &&
-    typeof crypto.getRandomValues === 'function'
-  ) {
-    crypto.getRandomValues(array);
-    return array[0] % max;
+  if (!hasWebCryptoRandom()) {
+    return 0;
   }
-  return Math.floor(Math.random() * max);
+  const array = new Uint32Array(1);
+  globalThis.crypto.getRandomValues(array);
+  return array[0] % max;
 };
 
 export const getRandomQuestions = (
   questions: Question[],
   count: number
 ): Question[] => {
+  if (!hasWebCryptoRandom()) {
+    return questions.slice(0, count);
+  }
+
   const shuffled = [...questions];
 
   for (let i = shuffled.length - 1; i > 0; i--) {
