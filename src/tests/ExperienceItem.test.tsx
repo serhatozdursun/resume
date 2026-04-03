@@ -115,6 +115,20 @@ describe('ExperienceItemComponent', () => {
         screen.getByRole('button', { name: /see less/i })
       ).toBeInTheDocument();
     });
+
+    it('truncates long plain-text description when no </p> is found after index 300', () => {
+      const plainLong = 'x'.repeat(400);
+      renderWithTheme(
+        <ExperienceItemComponent {...baseProps} description={plainLong} />
+      );
+      expect(
+        screen.getByRole('button', { name: /see more/i })
+      ).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /see more/i }));
+      expect(
+        screen.getByRole('button', { name: /see less/i })
+      ).toBeInTheDocument();
+    });
   });
 
   describe('aria-expanded state', () => {
@@ -133,6 +147,17 @@ describe('ExperienceItemComponent', () => {
       });
       fireEvent.click(toggleButton);
       expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('toggle button aria-expanded returns to false after collapsing again', () => {
+      renderWithTheme(<ExperienceItemComponent {...baseProps} />);
+      const toggleButton = screen.getByRole('button', {
+        name: /Senior QA Engineer.*toggle description/i,
+      });
+      fireEvent.click(toggleButton);
+      expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.click(toggleButton);
+      expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('"See more" button aria-expanded is false initially', () => {

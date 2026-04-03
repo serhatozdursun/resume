@@ -29,6 +29,24 @@ describe('ProfileHeader', () => {
     expect(screen.getByText(profile.name)).toBeInTheDocument();
   });
 
+  it('renders identity tag, name/title ids, and contact metadata labels', () => {
+    renderWithTheme(<ProfileHeader />);
+
+    expect(screen.getByText('Professional QA Portfolio')).toBeInTheDocument();
+
+    const nameEl = document.getElementById('name');
+    expect(nameEl).toBeInTheDocument();
+    expect(nameEl).toHaveTextContent(profile.name);
+
+    const titleEl = document.getElementById('title');
+    expect(titleEl).toBeInTheDocument();
+    expect(titleEl).toHaveTextContent(/QA Leader/);
+
+    expect(document.getElementById('emailLabel')).toHaveTextContent('Email');
+    expect(document.getElementById('phoneLabel')).toHaveTextContent('Phone');
+    expect(document.getElementById('languages')).toHaveTextContent('Languages');
+  });
+
   it('renders profile email with mailto link', () => {
     renderWithTheme(<ProfileHeader />);
     const emailLink = screen.getByRole('link', { name: profile.email });

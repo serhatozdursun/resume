@@ -121,6 +121,88 @@ describe('ContactForm', () => {
     expect(screen.getByText('Close Contact Form')).toBeInTheDocument();
   });
 
+  it('logs API error body when response is not ok', async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({ error: 'Rate limited' }),
+    });
+
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+    fillContactForm();
+    clickSendMessage();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to send message. Please try again.')
+      ).toBeInTheDocument();
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('API error response:', {
+      error: 'Rate limited',
+    });
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('shows field error messages when pasted value exceeds max length', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    const nameInput = screen.getByPlaceholderText('Your Name');
+    fireEvent.change(nameInput, {
+      target: { value: 'A'.repeat(101), name: 'name', maxLength: 100 },
+    });
+    expect(
+      screen.getByText('Name cannot exceed 100 characters.')
+    ).toBeInTheDocument();
+
+    const emailInput = screen.getByPlaceholderText('Your Email');
+    fireEvent.change(emailInput, {
+      target: { value: 'a'.repeat(51), name: 'email', maxLength: 50 },
+    });
+    expect(
+      screen.getByText('Email cannot exceed 50 characters.')
+    ).toBeInTheDocument();
+
+    const messageInput = screen.getByPlaceholderText('Your Message');
+    fireEvent.change(messageInput, {
+      target: { value: 'M'.repeat(1501), name: 'message', maxLength: 1500 },
+    });
+    expect(
+      screen.getByText('Message cannot exceed 1500 characters.')
+    ).toBeInTheDocument();
+  });
+
+  it('exposes accessible error alerts with stable ids and role="alert"', () => {
+    renderWithTheme(<ContactForm />);
+    openContactForm();
+
+    fireEvent.change(screen.getByPlaceholderText('Your Name'), {
+      target: { value: 'N'.repeat(101), name: 'name', maxLength: 100 },
+    });
+    const nameErr = document.getElementById('name-error');
+    expect(nameErr).toBeInTheDocument();
+    expect(nameErr).toHaveAttribute('role', 'alert');
+
+    fireEvent.change(screen.getByPlaceholderText('Your Email'), {
+      target: { value: 'e'.repeat(51), name: 'email', maxLength: 50 },
+    });
+    const emailErr = document.getElementById('email-error');
+    expect(emailErr).toBeInTheDocument();
+    expect(emailErr).toHaveAttribute('role', 'alert');
+
+    fireEvent.change(screen.getByPlaceholderText('Your Message'), {
+      target: { value: 'M'.repeat(1501), name: 'message', maxLength: 1500 },
+    });
+    const messageErr = document.getElementById('message-error');
+    expect(messageErr).toBeInTheDocument();
+    expect(messageErr).toHaveAttribute('role', 'alert');
+  });
+
   it('shows loading state during submission', async () => {
     let resolvePromise: (value: Response) => void;
     const promise = new Promise<Response>(resolve => {

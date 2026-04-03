@@ -8,6 +8,24 @@ import { renderWithTheme } from './test-utils';
 expect.extend(toHaveNoViolations);
 
 describe('CertificatesComponents', () => {
+  it('hides section title when hideSectionTitle is true', () => {
+    renderWithTheme(<CertificatesComponents hideSectionTitle />);
+
+    expect(
+      screen.queryByRole('heading', { name: /Certificates & Achievements/i })
+    ).not.toBeInTheDocument();
+
+    expect(screen.getAllByRole('listitem').length).toBeGreaterThan(0);
+  });
+
+  it('shows section title when hideSectionTitle is false (default)', () => {
+    renderWithTheme(<CertificatesComponents />);
+
+    expect(
+      screen.getByRole('heading', { name: /Certificates & Achievements/i })
+    ).toBeInTheDocument();
+  });
+
   it('renders certificate items correctly', () => {
     renderWithTheme(<CertificatesComponents />);
 
