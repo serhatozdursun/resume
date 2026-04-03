@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Head from 'next/head';
 import {
   Button,
   CheckboxInput,
@@ -19,7 +20,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
-import { Helmet } from 'react-helmet';
 import { validateEmail } from '../utils/validators';
 
 const Practice: React.FC = () => {
@@ -167,8 +167,7 @@ const Practice: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Helmet>
-          <html lang='en' />
+        <Head>
           <meta charSet='UTF-8' />
           <meta
             name='viewport'
@@ -179,8 +178,6 @@ const Practice: React.FC = () => {
             content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
           />
           <title>Mehmet Serhat Ozdursun - Automation Practice</title>
-          <link rel='icon' href='/favicon_.ico' />
-
           <meta property='og:type' content='website' />
           <meta property='og:url' content='https://serhatozdursun.com/' />
           <meta
@@ -220,7 +217,7 @@ const Practice: React.FC = () => {
             name='keywords'
             content='QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume'
           />
-        </Helmet>
+        </Head>
         <Header>
           <PageHeader>Test Automation Practice Page</PageHeader>
         </Header>

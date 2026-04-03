@@ -1,6 +1,6 @@
 import React from 'react';
+import Head from 'next/head';
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
   display: flex;
@@ -40,8 +40,7 @@ const StyledLink = styled.a`
 const NotFoundPage: React.FC = () => {
   return (
     <Container>
-      <Helmet>
-        <html lang='en' />
+      <Head>
         <meta charSet='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <meta
@@ -49,8 +48,6 @@ const NotFoundPage: React.FC = () => {
           content='Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
         />
         <title>Mehmet Serhat Ozdursun - 404</title>
-        <link rel='icon' href='/favicon_.ico' />
-
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://serhatozdursun.com/' />
         <meta property='og:title' content='Mehmet Serhat Ozdursun - 404' />
@@ -84,7 +81,7 @@ const NotFoundPage: React.FC = () => {
           name='keywords'
           content='QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume'
         />
-      </Helmet>
+      </Head>
       <Title>404</Title>
       <Subtitle>
         Oops! The page you&#39;re looking for doesn&#39;t exist.

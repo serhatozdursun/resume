@@ -3,6 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CtalTaeExam from '../pages/ctal-tae-exam';
 
+jest.mock('next/head', () => {
+  return function MockHead({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
+  };
+});
+
 // Mock fetch for JSON data
 global.fetch = jest.fn();
 
@@ -178,7 +184,7 @@ describe('CTAL-TAE Exam Page', () => {
     if (descriptionMeta) {
       expect(descriptionMeta).toHaveAttribute(
         'content',
-        'ISTQB CTAL-TAE Sample Exam - Practice with real exam questions and test your knowledge'
+        'ISTQB CTAL-TAE Sample Exam. Prepare for Certified Tester Advanced Level Test Automation Engineering with realistic practice questions, tips, and real-life examples.'
       );
     } else {
       // If meta description is not found, just check that the title is correct

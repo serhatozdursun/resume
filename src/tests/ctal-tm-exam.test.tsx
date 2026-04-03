@@ -3,6 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CTALTMExam from '../pages/ctal-tm-exam';
 
+jest.mock('next/head', () => {
+  return function MockHead({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
+  };
+});
+
 // Mock fetch for JSON data
 global.fetch = jest.fn();
 

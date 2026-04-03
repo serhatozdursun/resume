@@ -1,49 +1,138 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import {
   Container,
+  CtaCard,
+  CtaGrid,
+  CtaText,
+  CtaTitle,
   LeftColumn,
+  MainContentStack,
   RightColumn,
-  ProfileImage,
-  ExperienceContainer,
-} from '../types/StyledComponents';
+  ProfileImageWrapper,
+  SectionEyebrow,
+  SectionFrame,
+  SectionHeading,
+  SectionLead,
+} from '../components/Layout.styles';
 import { theme } from '../components/theme';
 import { ThemeProvider } from 'styled-components';
 import SEOHead from '../components/SEOHead';
 import ProfileHeader from '../components/ProfileHeader';
 import ProfileSummary from '../components/ProfileSummary';
 import SidebarLinks from '../components/SidebarLinks';
+import MotionReveal from '../components/MotionReveal';
+import {
+  SkillsPinBoundary,
+  SkillsPinProvider,
+} from '../components/SkillsPinDesktop';
 
 const ExperienceList = dynamic(
   () => import('../components/ExperiencesComponents'),
   {
     ssr: false,
-    loading: () => <div>Loading...</div>,
+    loading: () => (
+      <div
+        style={{ minHeight: '600px' }}
+        aria-busy='true'
+        aria-label='Loading experience list'
+      />
+    ),
   }
 );
 
 const IndexPage: React.FC = () => (
   <div>
     <ThemeProvider theme={theme}>
-      <Container>
-        <SEOHead />
+      <SkillsPinProvider>
+        <Container>
+          <SkillsPinBoundary />
+          <SEOHead />
 
-        <LeftColumn>
-          <ProfileImage
-            id='profile_image'
-            src='/profile.png'
-            alt='Profile Picture'
-          />
-          <SidebarLinks />
-        </LeftColumn>
-        <RightColumn>
-          <ProfileHeader />
-          <ProfileSummary />
-          <ExperienceContainer id='experience_container'>
-            <ExperienceList />
-          </ExperienceContainer>
-        </RightColumn>
-      </Container>
+          <LeftColumn>
+            <MotionReveal>
+              <ProfileImageWrapper id='profile_image'>
+                <Image
+                  src='/profile.png'
+                  alt='Profile Picture'
+                  width={150}
+                  height={200}
+                  priority
+                  style={{
+                    display: 'block',
+                    width: '150px',
+                    height: '200px',
+                    objectFit: 'cover',
+                    borderRadius: '15px',
+                  }}
+                />
+              </ProfileImageWrapper>
+            </MotionReveal>
+            <MotionReveal delayMs={80}>
+              <SidebarLinks />
+            </MotionReveal>
+          </LeftColumn>
+          <RightColumn>
+            <MainContentStack>
+              <MotionReveal>
+                <ProfileHeader />
+              </MotionReveal>
+              <MotionReveal delayMs={70}>
+                <ProfileSummary />
+              </MotionReveal>
+              <MotionReveal delayMs={95}>
+                <SectionFrame aria-label='Professional value and QA resources'>
+                  <SectionEyebrow>Value & Navigation</SectionEyebrow>
+                  <SectionHeading>
+                    Professional Portfolio + QA Resource Hub
+                  </SectionHeading>
+                  <SectionLead>
+                    Explore professional credentials, connect directly, and use
+                    practical QA learning resources from one curated homepage.
+                  </SectionLead>
+                  <CtaGrid>
+                    <CtaCard
+                      href='https://drive.google.com/file/d/1wQuZyIB8PJnpUnjRJPlQJs8u_hEITzc6/view?usp=sharing'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <CtaTitle>Download Resume</CtaTitle>
+                      <CtaText>
+                        View full career history and achievements.
+                      </CtaText>
+                    </CtaCard>
+                    <CtaCard href='/mentorship'>
+                      <CtaTitle>QA Mentorship</CtaTitle>
+                      <CtaText>
+                        1-on-1 career guidance, automation roadmap, and
+                        interview prep.
+                      </CtaText>
+                    </CtaCard>
+                    <CtaCard href='/practice'>
+                      <CtaTitle>Automation Practice</CtaTitle>
+                      <CtaText>
+                        Interactive UI automation playground for QA workflows.
+                      </CtaText>
+                    </CtaCard>
+                    <CtaCard href='/ctal-tae-exam'>
+                      <CtaTitle>Sample Exam Resources</CtaTitle>
+                      <CtaText>
+                        Start CTAL-TAE and CTAL-TM practice from here.
+                      </CtaText>
+                    </CtaCard>
+                  </CtaGrid>
+                </SectionFrame>
+              </MotionReveal>
+              <MotionReveal delayMs={120}>
+                <div id='experience_container'>
+                  <ExperienceList />
+                </div>
+              </MotionReveal>
+            </MainContentStack>
+          </RightColumn>
+        </Container>
+      </SkillsPinProvider>
     </ThemeProvider>
   </div>
 );

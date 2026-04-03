@@ -6,11 +6,18 @@ import {
   CertificateItem,
   CertificateLink,
   CertificateName,
-  BadgeWrapper,
-} from '../types/StyledComponents';
+} from './Certificates.styles';
+import { BadgeWrapper } from './Layout.styles';
 import Image from 'next/image';
+import { certificates } from '../data/certificates';
 
-const CertificatesComponents = () => {
+interface CertificatesComponentsProps {
+  hideSectionTitle?: boolean;
+}
+
+const CertificatesComponents: React.FC<CertificatesComponentsProps> = ({
+  hideSectionTitle = false,
+}) => {
   const [clickedCertificates, setClickedCertificates] = useState<string[]>([]);
 
   const handleClick = (certificateName: string) => {
@@ -22,59 +29,13 @@ const CertificatesComponents = () => {
     });
   };
 
-  const certificates = [
-    {
-      name: 'AT*SQA Advisory Board 2026',
-      badge: '/AT_SQA_Advisory_Board_Ozdursun.png',
-      link: 'https://atsqa.org/atsqa-advisory-board-members-2026',
-    },
-    {
-      name: 'ISTQB® CTAL-TM',
-      badge: '/CTAL-TM-badge.png',
-      link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
-    },
-    {
-      name: 'ISTQB® CTAL-TAE',
-      badge: '/CTAL-TAE-badge.png',
-      link: 'https://atsqa.org/certified-testers/profile/dff138edc5684bd8aef8a2ca49779229',
-    },
-    {
-      name: 'ISTQB® CTFL',
-      badge: '/Foundation-Level-Exam-2022.png',
-      link: 'https://scr.istqb.org/?name=%C3%96ZDURSUN&number=&orderBy=relevancy&orderDirection=&dateStart=&dateEnd=&expiryStart=&expiryEnd=&certificationBody=&examProvider=&certificationLevel=&country=&resultsPerPage=10',
-    },
-    {
-      name: 'PSD I',
-      badge: '/psd1.png',
-      link: 'https://www.credly.com/badges/c81059a4-a85f-4b9b-83b8-aa4d7cf36c31/public_url',
-    },
-    {
-      name: 'Problem Solving (Int.)',
-      badge: '/hackerrank.png',
-      link: 'https://www.hackerrank.com/certificates/c331e49c22d0',
-    },
-    {
-      name: 'Java (Basic) Certificate',
-      badge: '/hackerrank.png',
-      link: 'https://www.hackerrank.com/certificates/995550878771',
-    },
-    {
-      name: 'Python (Basic) Certificate',
-      badge: '/hackerrank.png',
-      link: 'https://www.hackerrank.com/certificates/2256773c8ba5',
-    },
-    {
-      name: 'C# (Basic) Certificate',
-      badge: '/hackerrank.png',
-      link: 'https://www.hackerrank.com/certificates/957d5fbf06b4',
-    },
-  ];
-
   return (
     <CertificatesContainer id='certificatesContainer'>
-      <CertificateTitle id='certificatesContainertitle'>
-        Certificates & Achievements
-      </CertificateTitle>
+      {!hideSectionTitle && (
+        <CertificateTitle id='certificatesContainertitle'>
+          Certificates & Achievements
+        </CertificateTitle>
+      )}
       <CertificateList>
         {certificates.map((certificate, index) => (
           <CertificateItem className='certificate' key={index}>
@@ -83,7 +44,7 @@ const CertificatesComponents = () => {
               href={certificate.link}
               target='_blank'
               onClick={() => handleClick(certificate.name)}
-              clicked={clickedCertificates.includes(certificate.name)}
+              $clicked={clickedCertificates.includes(certificate.name)}
             >
               <BadgeWrapper className='certificateBadge'>
                 <Image

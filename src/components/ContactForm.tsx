@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import emailjs from 'emailjs-com';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import HtmlParser from 'html-react-parser';
@@ -23,11 +22,11 @@ import {
   InputContainer,
   ContactFormDescription,
   SendText,
-} from '../types/StyledComponents';
+  FormLabel,
+} from './ContactForm.styles';
 import Image from 'next/image';
 import { theme } from './theme'; // Import your theme
 import { ThemeProvider } from 'styled-components';
-import { env } from '../utils/env';
 
 interface FormData {
   name: string;
@@ -101,12 +100,21 @@ const ContactForm: React.FC = () => {
     try {
       setSending(true);
 
-      await emailjs.send(
-        env.EMAILJS_SERVICE_ID!,
-        env.EMAILJS_TEMPLATE_ID!,
-        { ...formData, reply_to: formData.email, from_name: formData.name },
-        env.EMAILJS_PUBLIC_KEY!
-      );
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        console.error('API error response:', body);
+        throw new Error(body?.error ?? 'Failed to send message');
+      }
 
       setSnackbarMessage('Message sent successfully!');
       setSnackbarSeverity('success');
@@ -173,6 +181,7 @@ const ContactForm: React.FC = () => {
               <>{HtmlParser(contactFormDescriptionHtml)}</>
             </ContactFormDescription>
             <InputContainer id='contactFormInputContainer'>
+              <FormLabel htmlFor='name'>Name</FormLabel>
               <NameInput
                 id='name'
                 ref={nameInputRef}
@@ -184,13 +193,18 @@ const ContactForm: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                hasError={inputErrors.name || formData.name.length >= 100}
+                $hasError={inputErrors.name || formData.name.length >= 100}
+                aria-invalid={inputErrors.name || formData.name.length >= 100}
+                aria-describedby={inputErrors.name ? 'name-error' : undefined}
               />
               {inputErrors.name && (
-                <ErrorText>Name cannot exceed 100 characters.</ErrorText>
+                <ErrorText id='name-error' role='alert'>
+                  Name cannot exceed 100 characters.
+                </ErrorText>
               )}
             </InputContainer>
             <InputContainer>
+              <FormLabel htmlFor='email'>Email</FormLabel>
               <EmailInput
                 id='email'
                 type='email'
@@ -200,13 +214,18 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 required
                 maxLength={50}
-                hasError={inputErrors.email || formData.email.length >= 50}
+                $hasError={inputErrors.email || formData.email.length >= 50}
+                aria-invalid={inputErrors.email || formData.email.length >= 50}
+                aria-describedby={inputErrors.email ? 'email-error' : undefined}
               />
               {inputErrors.email && (
-                <ErrorText>Email cannot exceed 50 characters.</ErrorText>
+                <ErrorText id='email-error' role='alert'>
+                  Email cannot exceed 50 characters.
+                </ErrorText>
               )}
             </InputContainer>
             <InputContainer>
+              <FormLabel htmlFor='message'>Message</FormLabel>
               <Textarea
                 id='message'
                 name='message'
@@ -215,10 +234,16 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 required
                 maxLength={1500}
-                hasError={formData.message.length >= 1500}
+                $hasError={formData.message.length >= 1500}
+                aria-invalid={formData.message.length >= 1500}
+                aria-describedby={
+                  inputErrors.message ? 'message-error' : undefined
+                }
               />
               {inputErrors.message && (
-                <ErrorText>Message cannot exceed 1500 characters.</ErrorText>
+                <ErrorText id='message-error' role='alert'>
+                  Message cannot exceed 1500 characters.
+                </ErrorText>
               )}
             </InputContainer>
             <SendButton

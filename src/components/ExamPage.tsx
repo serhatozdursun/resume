@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Script from 'next/script';
-import { Helmet } from 'react-helmet';
 import { theme } from './theme';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
 import { env } from '../utils/env';
+import {
+  getRandomQuestions,
+  type ExamConfig,
+  type ExamData,
+  type Question,
+} from './ExamPage.helpers';
 
 // Styled components for the exam page
 const ExamContainer = styled.div`
@@ -23,17 +29,18 @@ const ExamHeader = styled.div`
   padding: 20px;
   background-color: ${props => props.theme.colors.card};
   border-radius: 8px;
-  box-shadow: 0 2px 4px ${props => props.theme.colors.shadow};
+  box-shadow: ${props => props.theme.colors.cardShadow};
 `;
 
 const HomeLink = styled.a`
   display: inline-block;
   margin-bottom: 12px;
-  color: ${props => props.theme.colors.accent};
+  color: ${props => props.theme.colors.link};
   text-decoration: none;
   font-weight: 600;
   &:hover {
     text-decoration: underline;
+    color: ${props => props.theme.colors.highlight};
   }
 `;
 
@@ -51,8 +58,9 @@ const ExamSubtitle = styled.p`
 `;
 
 const QuestionCounter = styled.div`
-  background-color: ${props => props.theme.colors.accent};
-  color: white;
+  background-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.text};
+  border: 1px solid ${props => props.theme.colors.secondary};
   padding: 10px 20px;
   border-radius: 20px;
   display: inline-block;
@@ -64,12 +72,13 @@ const QuestionContainer = styled.div`
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px ${props => props.theme.colors.shadow};
+  box-shadow: ${props => props.theme.colors.cardShadow};
 `;
 
 const QuestionNumber = styled.div`
-  background-color: ${props => props.theme.colors.accent};
-  color: white;
+  background-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.text};
+  border: 1px solid ${props => props.theme.colors.secondary};
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -105,7 +114,7 @@ const AnswerOption = styled.div`
 const AnswerLabel = styled.span`
   font-weight: bold;
   margin-right: 10px;
-  color: ${props => props.theme.colors.accent};
+  color: ${props => props.theme.colors.text};
 `;
 
 const AnswerText = styled.span`
@@ -131,7 +140,7 @@ const ActionButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #1d4ed8;
+    background-color: ${props => props.theme.colors.highlight};
   }
 
   &:disabled {
@@ -228,49 +237,6 @@ const LoadingMessage = styled.div`
   color: ${props => props.theme.colors.text};
 `;
 
-// Question interface
-interface Question {
-  id: string;
-  question: string;
-  answers: {
-    a: string;
-    b: string;
-    c: string;
-    d: string;
-  };
-  correct_answer: string;
-  points: number;
-  syllabus_reference: string;
-  tip: string;
-  real_life_example: string;
-}
-
-// Exam data interface
-interface ExamData {
-  metadata: {
-    title: string;
-    sources?: string[];
-    counts: {
-      [key: string]: number;
-    };
-  };
-  questions: Question[];
-}
-
-// Exam configuration interface
-interface ExamConfig {
-  examType: 'TAE' | 'TM';
-  dataFile: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  canonicalUrl: string;
-  pagePath: string;
-  keywords: string;
-  structuredDataName: string;
-  structuredDataDescription: string;
-}
-
 const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
   const [examData, setExamData] = useState<ExamData | null>(null);
   const [currentQuestions, setCurrentQuestions] = useState<Question[]>([]);
@@ -300,29 +266,6 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
 
     loadExamData();
   }, [config.dataFile]);
-
-  // Secure random number generator using Web Crypto API
-  const getSecureRandom = (max: number): number => {
-    const array = new Uint32Array(1);
-    crypto.getRandomValues(array);
-    return array[0] % max;
-  };
-
-  // Function to get random questions using Fisher-Yates shuffle
-  const getRandomQuestions = (
-    questions: Question[],
-    count: number
-  ): Question[] => {
-    const shuffled = [...questions];
-
-    // Fisher-Yates shuffle algorithm with cryptographically secure random numbers
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = getSecureRandom(i + 1);
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    return shuffled.slice(0, count);
-  };
 
   // Function to load new set of questions
   const loadNewQuestions = () => {
@@ -401,8 +344,7 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
           }}
         />
         {/* End Google Analytics */}
-        <Helmet>
-          <html lang='en' />
+        <Head>
           <meta charSet='UTF-8' />
           <meta
             name='viewport'
@@ -411,7 +353,6 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
           <meta name='description' content={config.description} />
           <meta name='keywords' content={config.keywords} />
           <title>Mehmet Serhat Özdursun - {config.title}</title>
-          <link rel='icon' href='/favicon_.ico' />
           <link rel='canonical' href={config.canonicalUrl} />
 
           <meta property='og:type' content='website' />
@@ -442,39 +383,42 @@ const ExamPage: React.FC<{ config: ExamConfig }> = ({ config }) => {
           <meta name='language' content='English' />
           <meta name='robots' content='index, follow' />
           <meta name='theme-color' content='#ffffff' />
-          <script type='application/ld+json'>
-            {JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebPage',
-              name: config.title,
-              url: config.canonicalUrl,
-              description: config.structuredDataDescription,
-              inLanguage: 'en',
-              isPartOf: {
-                '@type': 'WebSite',
-                name: 'Mehmet Serhat Özdursun',
-                url: 'https://serhatozdursun.com',
-              },
-              breadcrumb: {
-                '@type': 'BreadcrumbList',
-                itemListElement: [
-                  {
-                    '@type': 'ListItem',
-                    position: 1,
-                    name: 'Home',
-                    item: 'https://serhatozdursun.com/',
-                  },
-                  {
-                    '@type': 'ListItem',
-                    position: 2,
-                    name: config.title,
-                    item: config.canonicalUrl,
-                  },
-                ],
-              },
-            })}
-          </script>
-        </Helmet>
+          <script
+            type='application/ld+json'
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'WebPage',
+                name: config.title,
+                url: config.canonicalUrl,
+                description: config.structuredDataDescription,
+                inLanguage: 'en',
+                isPartOf: {
+                  '@type': 'WebSite',
+                  name: 'Mehmet Serhat Özdursun',
+                  url: 'https://serhatozdursun.com',
+                },
+                breadcrumb: {
+                  '@type': 'BreadcrumbList',
+                  itemListElement: [
+                    {
+                      '@type': 'ListItem',
+                      position: 1,
+                      name: 'Home',
+                      item: 'https://serhatozdursun.com/',
+                    },
+                    {
+                      '@type': 'ListItem',
+                      position: 2,
+                      name: config.title,
+                      item: config.canonicalUrl,
+                    },
+                  ],
+                },
+              }),
+            }}
+          />
+        </Head>
 
         <ExamContainer>
           <ExamHeader>

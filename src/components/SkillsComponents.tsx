@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 import {
   SkillsContainer,
@@ -7,54 +7,78 @@ import {
   SkillLevel,
   SkillLevelFill,
   SkillsTitle,
-} from '../types/StyledComponents';
+  SkillTooltip,
+} from './Skills.styles';
+import { skillExperienceTitle, skills } from '../data/skills';
 
-export const SkillsComponents = () => {
-  const skills = [
-    { name: 'Test Automation', level: 100 },
-    { name: 'Selenium', level: 100 },
-    { name: 'Appium', level: 95 },
-    { name: 'JMeter', level: 90 },
-    { name: 'K6', level: 85 },
-    { name: 'Postman', level: 98 },
-    { name: 'WebDriverIO', level: 90 },
-    { name: 'Java', level: 90 },
-    { name: 'TypeScript', level: 80 },
-    { name: 'JavaScript', level: 78 },
-    { name: 'node.js', level: 80 },
-    { name: '.Net', level: 75 },
-    { name: 'Grafana', level: 70 },
-    { name: 'Git', level: 90 },
-    { name: 'CI/CD', level: 80 },
-    { name: 'TestNG', level: 85 },
-    { name: 'Python', level: 70 },
-    { name: 'JUnit', level: 80 },
-    { name: 'Docker', level: 85 },
-    { name: 'Mobile Testing', level: 85 },
-    { name: 'SQL', level: 75 },
-    { name: 'Agile', level: 80 },
-    { name: 'API Testing', level: 85 },
-    { name: 'Performance Testing', level: 80 },
-    { name: 'Usability Testing', level: 80 },
-  ];
+export interface SkillsComponentsProps {
+  /** When true, omit the section heading (e.g. sidebar uses `SidebarSectionLabel`). */
+  hideSectionTitle?: boolean;
+}
+
+const skillLabelId = (index: number) => `skill-label-${index}`;
+
+const DESKTOP_MQ = '(min-width: 769px)';
+
+export const SkillsComponents: React.FC<SkillsComponentsProps> = ({
+  hideSectionTitle = false,
+}) => {
+  const tipIdBase = useId();
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    if (
+      typeof window === 'undefined' ||
+      typeof window.matchMedia !== 'function'
+    ) {
+      return;
+    }
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   return (
     <SkillsContainer>
-      <SkillsTitle>Skills</SkillsTitle>
-      {skills.map((skill, index) => (
-        <Skill key={index}>
-          <SkillName id={`${skill.name.toLowerCase().replace(' ', '_')}`}>
-            {skill.name}
-          </SkillName>
-          <SkillLevel>
-            <SkillLevelFill
-              id={`skill_level-${index}`}
-              data-testid={`${skill.name}-level-fill`}
-              $level={skill.level}
-            />
-          </SkillLevel>
-        </Skill>
-      ))}
+      {!hideSectionTitle && <SkillsTitle>Skills</SkillsTitle>}
+      {skills.map((skill, index) => {
+        const tipText = skillExperienceTitle(skill.experience);
+        const tipId = `${tipIdBase}-tip-${index}`;
+        const showCustomTip = isDesktop && hoveredRow === index;
+
+        return (
+          <Skill
+            key={`${skill.name}-${index}`}
+            onMouseEnter={() => setHoveredRow(index)}
+            onMouseLeave={() => setHoveredRow(null)}
+            /* Native tooltip on mobile / when not using custom (fixed layer breaks native title) */
+            title={isDesktop ? undefined : tipText}
+            aria-describedby={showCustomTip ? tipId : undefined}
+          >
+            {showCustomTip && (
+              <SkillTooltip id={tipId} role='tooltip'>
+                {tipText}
+              </SkillTooltip>
+            )}
+            <SkillName id={skillLabelId(index)}>{skill.name}</SkillName>
+            <SkillLevel
+              role='progressbar'
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={skill.level}
+              aria-labelledby={skillLabelId(index)}
+            >
+              <SkillLevelFill
+                data-testid={`${skill.name}-level-fill`}
+                $level={skill.level}
+              />
+            </SkillLevel>
+          </Skill>
+        );
+      })}
     </SkillsContainer>
   );
 };

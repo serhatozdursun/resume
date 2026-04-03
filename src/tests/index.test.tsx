@@ -10,8 +10,15 @@ jest.mock('next/script', () => {
   };
 });
 
+jest.mock('next/head', () => {
+  return function MockHead({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
+  };
+});
+
 jest.mock('next/image', () => {
   const MockNextImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line @next/next/no-img-element -- test mock for next/image
     <img {...props} />
   );
   MockNextImage.displayName = 'MockNextImage';
@@ -26,15 +33,6 @@ jest.mock('next/dynamic', () => {
     );
     Component.displayName = 'MockDynamicComponent';
     return Component;
-  };
-});
-
-// Mock react-helmet
-jest.mock('react-helmet', () => {
-  return {
-    Helmet: ({ children }: { children: React.ReactNode }) => (
-      <div data-testid='helmet'>{children}</div>
-    ),
   };
 });
 
@@ -55,9 +53,14 @@ jest.mock('../components/theme', () => ({
       background: '#ffffff',
       text: '#222222',
       link: '#e11d48',
+      highlight: '#1d4ed8',
       card: '#f9f9fb',
       shadow: 'rgba(80, 80, 80, 0.08)',
+      cardShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
+      sectionLabel: '#64748b',
       headerBg: '#f3f4f6',
+      skillBarTrack: '#e5e7eb',
+      skillBarFill: 'linear-gradient(90deg, #10b981, #34d399)',
     },
     spacing: {
       small: '8px',
@@ -100,7 +103,7 @@ describe('IndexPage Component', () => {
     it('renders without crashing', () => {
       render(<IndexPage />);
 
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(screen.getByAltText('Profile Picture')).toBeInTheDocument();
     });
 
     it('renders the main container', () => {
@@ -121,10 +124,10 @@ describe('IndexPage Component', () => {
   });
 
   describe('SEO and Meta Tags', () => {
-    it('renders Helmet component', () => {
+    it('renders SEO head elements', () => {
       render(<IndexPage />);
 
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(document.querySelector('title')).toBeInTheDocument();
     });
 
     it('includes proper meta tags', () => {
@@ -357,7 +360,7 @@ describe('IndexPage Component', () => {
       });
 
       const { rerender } = render(<IndexPage />);
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(screen.getByAltText('Profile Picture')).toBeInTheDocument();
 
       // Test desktop viewport
       Object.defineProperty(window, 'innerWidth', {
@@ -367,7 +370,7 @@ describe('IndexPage Component', () => {
       });
 
       rerender(<IndexPage />);
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(screen.getByAltText('Profile Picture')).toBeInTheDocument();
     });
   });
 
@@ -429,7 +432,7 @@ describe('IndexPage Component', () => {
     it('renders all required elements', () => {
       render(<IndexPage />);
 
-      expect(screen.getByTestId('helmet')).toBeInTheDocument();
+      expect(screen.getByAltText('Profile Picture')).toBeInTheDocument();
       expect(screen.getAllByTestId('script').length).toBeGreaterThan(0);
     });
   });

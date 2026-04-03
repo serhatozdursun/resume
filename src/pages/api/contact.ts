@@ -21,40 +21,40 @@ export default async function handler(
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  // Verify reCAPTCHA token (Standard v3)
-  try {
-    const secret = process.env.RECAPTCHA_SECRET_KEY;
-    if (!secret) {
-      return res.status(500).json({ error: 'Captcha secret not configured' });
-    }
+  // Verify reCAPTCHA token (Standard v3).
+  // When RECAPTCHA_SECRET_KEY is not configured, verification is skipped.
+  // Configure the secret to enable spam protection.
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (secret) {
+    try {
+      const verifyResp = await fetch(
+        'https://www.google.com/recaptcha/api/siteverify',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            secret,
+            response: token || '',
+          }),
+        }
+      );
 
-    const verifyResp = await fetch(
-      'https://www.google.com/recaptcha/api/siteverify',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          secret,
-          response: token || '',
-        }),
+      const verifyJson = (await verifyResp.json()) as {
+        success: boolean;
+        score?: number;
+        'error-codes'?: string[];
+        action?: string;
+      };
+
+      if (
+        !verifyJson.success ||
+        (typeof verifyJson.score === 'number' && verifyJson.score < 0.3)
+      ) {
+        return res.status(400).json({ error: 'Captcha verification failed' });
       }
-    );
-
-    const verifyJson = (await verifyResp.json()) as {
-      success: boolean;
-      score?: number;
-      'error-codes'?: string[];
-      action?: string;
-    };
-
-    if (
-      !verifyJson.success ||
-      (typeof verifyJson.score === 'number' && verifyJson.score < 0.3)
-    ) {
-      return res.status(400).json({ error: 'Captcha verification failed' });
+    } catch {
+      return res.status(400).json({ error: 'Captcha verification error' });
     }
-  } catch {
-    return res.status(400).json({ error: 'Captcha verification error' });
   }
 
   // Forward email via EmailJS REST API
@@ -62,6 +62,7 @@ export default async function handler(
     const service_id = process.env.EMAILJS_SERVICE_ID;
     const template_id = process.env.EMAILJS_TEMPLATE_ID;
     const user_id = process.env.EMAILJS_PUBLIC_KEY;
+    const accessToken = process.env.EMAILJS_PRIVATE_KEY;
 
     if (!service_id || !template_id || !user_id) {
       return res.status(500).json({ error: 'Email service not configured' });
@@ -76,6 +77,7 @@ export default async function handler(
           service_id,
           template_id,
           user_id,
+          accessToken,
           template_params: {
             from_name: name,
             reply_to: email,

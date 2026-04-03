@@ -1,108 +1,195 @@
-# Resume Website – Cursor Rules
+# Cursor Rules -- Resume Website
 
-Project conventions to keep this codebase safe, healthy, and maintainable.
+This repository represents a **production-quality personal engineering
+portfolio**.
 
-## Project Overview
+Code must reflect:
 
-- **Stack**: Next.js 15, React 18, TypeScript, Styled Components, MUI
-- **Purpose**: Personal resume site with contact form, practice/exam pages, and QA content
+-   senior engineering practices
+-   QA discipline
+-   strong testing
+-   performance awareness
+-   accessibility standards
 
----
+------------------------------------------------------------------------
 
-## Security
+# Stack
 
-- **Never** commit API keys, secrets, or credentials. Use `env.example` as the template.
-- **Always** use `src/utils/env.ts` for environment variables. Add new vars to `env.example`.
-- **Never** hardcode URLs or keys. Use `env.SITE_URL`, `env.GA_TRACKING_ID`, etc.
-- **Never** disable `ignoreBuildErrors` or `ignoreDuringBuilds` in `next.config.js` to hide real issues.
-- **Never** use `dangerouslySetInnerHTML` with user input. Only use with trusted content (e.g. from `src/data/`).
+Next.js 15\
+React 18\
+TypeScript (strict)\
+Styled Components\
+Material UI
 
----
+Testing: Jest\
+React Testing Library\
+jest-axe
 
-## Architecture & Structure
+Quality: ESLint\
+Prettier\
+Danger\
+SonarCloud
 
-### File Organization
+------------------------------------------------------------------------
 
-```
-src/
-  components/     # Reusable UI components
-  data/           # Content config (profile, links, meta)
-  pages/          # Next.js pages and API routes
-  types/          # TypeScript types and styled components
-  utils/          # Utilities (env, validators)
-  tests/          # Jest tests
-```
+# General Rules
 
-### Conventions
+-   Prefer improving existing code instead of rewriting large sections
+-   Never introduce `any`
+-   Maintain TypeScript strict mode
+-   Never bypass lint, test, or build errors
+-   Avoid unnecessary dependencies
+-   Keep components small and readable
+-   Prefer incremental changes
 
-- **Data**: Put page content, links, and meta in `src/data/`. Keep components presentational.
-- **Components**: One component per file. Extract when a file exceeds ~150 lines.
-- **Imports**: Prefer `@/*` path alias for `src/*` when it improves readability.
-- **Dynamic imports**: Use `next/dynamic` with `ssr: false` for heavy or client-only components.
-- **Styled components**: Define in `src/types/StyledComponents.tsx`. Use theme from `src/components/theme.tsx`.
+------------------------------------------------------------------------
 
----
+# Security
 
-## TypeScript
+Never commit secrets.
 
-- **Strict mode**: Keep `strict: true` in `tsconfig.json`.
-- **Types**: Define interfaces for props, API responses, and config objects.
-- **Avoid `any`**: Use `unknown` and type guards when types are uncertain.
-- **Exports**: Use `as const` for config objects to preserve literal types.
+Environment variables must:
 
----
+-   exist in `.env.local`
+-   be documented in `env.example`
+-   be accessed via `src/utils/env.ts`
 
-## React & Next.js
+Never access `process.env` directly inside components.
 
-- **Components**: Prefer functional components with `React.FC` or explicit prop types.
-- **Pages**: Use default export. Keep page components thin; delegate to child components.
-- **Images**: Use `next/image` for optimized loading. Use `ProfileImage` styled component only where custom styling is needed.
-- **Scripts**: Use `next/script` with `strategy="afterInteractive"` for analytics.
-- **Meta/SEO**: Use `SEOHead` component or `react-helmet` for meta tags. Centralize in `src/data/profile.ts`.
+Never render user input with `dangerouslySetInnerHTML`.
 
----
+------------------------------------------------------------------------
 
-## Testing
+# Architecture
 
-- **Framework**: Jest + React Testing Library + jest-axe.
-- **Location**: `src/tests/` with `*.test.tsx` or `*.test.ts`.
-- **Coverage**: Maintain high coverage. Danger enforces `MIN_FILE_COVERAGE` on PRs.
-- **Mocks**: Mock `next/script`, `next/image`, `next/dynamic`, `react-helmet`, and `env` in tests.
-- **Accessibility**: Use `jest-axe` for a11y checks where applicable.
-- **Run**: `yarn test` before pushing. Pre-push hook runs tests.
+Project structure:
 
----
+src/ components/ data/ pages/ types/ utils/ tests/ styles/
 
-## Code Quality
+Rules:
 
-- **Lint**: Run `yarn lint` and fix errors. ESLint flat config in `eslint.config.mjs`.
-- **Format**: Use Prettier. Run `yarn format`. Pre-commit runs lint-staged.
-- **Pre-commit**: Husky runs ESLint and Prettier on staged files.
-- **Pre-push**: Husky runs tests, lint, and build.
-- **Do not** bypass hooks with `--no-verify` unless necessary and documented.
+-   one component per file
+-   extract reusable logic into hooks
+-   keep components under \~150 lines
 
----
+------------------------------------------------------------------------
 
-## Danger & CI
+# Content
 
-- **Dangerfile**: `dangerfile.ts` runs on PRs. Covers coverage, AI review, QA impact report.
-- **Secrets**: `OPENAI_API_KEY`, `DANGER_GITHUB_API_TOKEN`, `SONAR_TOKEN` required for full CI.
-- **Coverage**: LCOV at `coverage/lcov.info`. Keep `MIN_FILE_COVERAGE` (default 80%).
+All static content must live inside:
 
----
+src/data/
 
-## Docker
+Components should not hardcode content.
 
-- **Dockerfile**: Multi-stage build. Ensure Nginx config serves from correct paths.
-- **Env**: Copy `env.example` to `.env.local` before build. Rebuild if env changes.
+------------------------------------------------------------------------
 
----
+# TypeScript
 
-## When Making Changes
+Strict mode required.
 
-1. Run `yarn lint` and `yarn test` locally.
-2. Add tests for new components and utilities.
-3. Update `env.example` if adding env vars.
-4. Keep components small; extract when logic grows.
-5. Preserve existing IDs and `data-testid` for tests.
-6. Use semantic HTML and ARIA where appropriate for accessibility.
+Rules:
+
+-   avoid `any`
+-   prefer `unknown` + guards
+-   define interfaces for props
+-   use `as const` for config objects
+
+------------------------------------------------------------------------
+
+# React
+
+Use functional components only.
+
+Avoid class components.
+
+------------------------------------------------------------------------
+
+# Next.js
+
+Use `next/image` for images.
+
+Use dynamic imports for heavy components.
+
+------------------------------------------------------------------------
+
+# SEO
+
+All pages must include metadata.
+
+Metadata should be centralized in:
+
+src/data/profile.ts
+
+------------------------------------------------------------------------
+
+# Accessibility
+
+Use:
+
+-   semantic HTML
+-   alt text for images
+-   correct heading hierarchy
+-   ARIA attributes when needed
+
+Accessibility tests should use jest-axe.
+
+------------------------------------------------------------------------
+
+# Testing
+
+Framework:
+
+Jest\
+React Testing Library
+
+Location:
+
+src/tests/
+
+Coverage target:
+
+80%+
+
+------------------------------------------------------------------------
+
+# Code Quality
+
+Before committing:
+
+yarn lint\
+yarn test\
+yarn build
+
+------------------------------------------------------------------------
+
+# Git Hooks
+
+Husky runs:
+
+pre-commit → lint + format\
+pre-push → tests + build
+
+------------------------------------------------------------------------
+
+# CI
+
+GitHub Actions pipeline:
+
+tests\
+lint\
+build\
+SonarCloud\
+Danger
+
+------------------------------------------------------------------------
+
+# Goal
+
+This repository should demonstrate:
+
+clean architecture\
+strong QA practices\
+performance optimization\
+accessibility awareness\
+modern frontend engineering

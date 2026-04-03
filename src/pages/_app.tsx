@@ -3,6 +3,19 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { validateEnv } from '../utils/env';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { Inter, Montserrat } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -18,7 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
-      <Component {...pageProps} />
+      <main className={`${inter.variable} ${montserrat.variable}`}>
+        <Component {...pageProps} />
+      </main>
     </ErrorBoundary>
   );
 }
