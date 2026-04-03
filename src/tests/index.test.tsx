@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import IndexPage from '../pages/index';
@@ -16,14 +16,12 @@ jest.mock('next/head', () => {
   };
 });
 
-jest.mock('next/image', () => {
-  const MockNextImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element -- test mock for next/image
-    <img {...props} />
-  );
-  MockNextImage.displayName = 'MockNextImage';
-  return MockNextImage;
-});
+jest.mock(
+  'next/image',
+  () =>
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest mock factory must use require()
+    require('./mockNextImage').default
+);
 
 // Mock next/dynamic
 jest.mock('next/dynamic', () => {
@@ -176,8 +174,9 @@ describe('IndexPage Component', () => {
       // Verify each expected text exists
       expect(combinedText).toContain('Download Resume');
       expect(combinedText).toContain('Recommendations');
+      expect(combinedText).toContain('QA Mentorship');
       expect(combinedText).toContain(
-        'Official U.S. List Recommendations Practice Page CTAL-TAE Sample Exam CTAL-TM Sample Exam'
+        'Official U.S. List Recommendations QA Mentorship Practice Page CTAL-TAE Sample Exam CTAL-TM Sample Exam'
       );
       expect(combinedText).toContain('Practice Page');
       expect(combinedText).toContain('CTAL-TAE Sample Exam');

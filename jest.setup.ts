@@ -1,6 +1,15 @@
 import 'jest-styled-components';
+import { TextDecoder, TextEncoder } from 'util';
 import { toHaveNoViolations } from 'jest-axe';
+
 expect.extend(toHaveNoViolations);
+
+if (typeof globalThis.TextEncoder === 'undefined') {
+  globalThis.TextEncoder = TextEncoder as typeof globalThis.TextEncoder;
+}
+if (typeof globalThis.TextDecoder === 'undefined') {
+  globalThis.TextDecoder = TextDecoder as typeof globalThis.TextDecoder;
+}
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

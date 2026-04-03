@@ -415,7 +415,7 @@ describe('StyledComponents', () => {
   describe('CertificateLink', () => {
     it('renders with correct styles when not clicked', () => {
       renderWithTheme(
-        <CertificateLink data-testid='certificate-link' clicked={false}>
+        <CertificateLink data-testid='certificate-link' $clicked={false}>
           Content
         </CertificateLink>
       );
@@ -425,7 +425,7 @@ describe('StyledComponents', () => {
 
     it('renders with correct styles when clicked', () => {
       renderWithTheme(
-        <CertificateLink data-testid='certificate-link' clicked={true}>
+        <CertificateLink data-testid='certificate-link' $clicked={true}>
           Content
         </CertificateLink>
       );
@@ -475,8 +475,8 @@ describe('StyledComponents', () => {
       expect(input).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<Input data-testid='input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<Input data-testid='input' $hasError={true} />);
       const input = screen.getByTestId('input');
       expect(input).toBeInTheDocument();
     });
@@ -489,8 +489,8 @@ describe('StyledComponents', () => {
       expect(textarea).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<Textarea data-testid='textarea' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<Textarea data-testid='textarea' $hasError={true} />);
       const textarea = screen.getByTestId('textarea');
       expect(textarea).toBeInTheDocument();
     });
@@ -555,8 +555,8 @@ describe('StyledComponents', () => {
       expect(nameInput).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<NameInput data-testid='name-input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(<NameInput data-testid='name-input' $hasError={true} />);
       const nameInput = screen.getByTestId('name-input');
       expect(nameInput).toBeInTheDocument();
     });
@@ -569,8 +569,10 @@ describe('StyledComponents', () => {
       expect(emailInput).toBeInTheDocument();
     });
 
-    it('renders with error styles when hasError is true', () => {
-      renderWithTheme(<EmailInput data-testid='email-input' hasError={true} />);
+    it('renders with error styles when $hasError is true', () => {
+      renderWithTheme(
+        <EmailInput data-testid='email-input' $hasError={true} />
+      );
       const emailInput = screen.getByTestId('email-input');
       expect(emailInput).toBeInTheDocument();
     });

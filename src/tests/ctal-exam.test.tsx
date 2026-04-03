@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CtalTaeExam from '../pages/ctal-tae-exam';
 
@@ -51,21 +51,20 @@ describe('CTAL-TAE Exam Page', () => {
     jest.clearAllMocks();
   });
 
-  it('renders loading message initially', () => {
+  it('renders loading message initially', async () => {
     render(<CtalTaeExam />);
     expect(
       screen.getByText('Loading ISTQB CTAL-TAE Sample Exam...')
     ).toBeInTheDocument();
+    await screen.findByText('ISTQB CTAL-TAE Sample Exam');
   });
 
   it('renders exam content after loading', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText('ISTQB CTAL-TAE Sample Exam')
-      ).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText('ISTQB CTAL-TAE Sample Exam')
+    ).toBeInTheDocument();
 
     expect(
       screen.getByText(
@@ -78,13 +77,11 @@ describe('CTAL-TAE Exam Page', () => {
   it('displays questions with answer options', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(
-        screen.getAllByText(
-          /Test question \d+: Which of the following is a disadvantage of test automation\?/
-        )
-      ).toHaveLength(40);
-    });
+    expect(
+      await screen.findAllByText(
+        /Test question \d+: Which of the following is a disadvantage of test automation\?/
+      )
+    ).toHaveLength(40);
 
     expect(
       screen.getAllByText(
@@ -107,9 +104,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('shows correct answer when show answer button is clicked', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
 
@@ -126,9 +121,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('shows tip when show tip button is clicked', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // First show the answer
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
@@ -147,9 +140,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('loads new questions when next button is clicked', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getByText('Load New Questions')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('Load New Questions')).toBeInTheDocument();
 
     // Click the next button
     fireEvent.click(screen.getByText('Load New Questions'));
@@ -159,25 +150,33 @@ describe('CTAL-TAE Exam Page', () => {
   });
 
   it('handles fetch error gracefully', async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
     (fetch as jest.Mock).mockRejectedValue(new Error('Failed to fetch'));
 
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText('Error loading exam data. Please try again later.')
-      ).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText(
+        'Error loading exam data. Please try again later.'
+      )
+    ).toBeInTheDocument();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error loading exam data:',
+      expect.any(Error)
+    );
+    consoleErrorSpy.mockRestore();
   });
 
   it('has proper SEO meta tags', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(document.querySelector('title')).toHaveTextContent(
-        'Mehmet Serhat Özdursun - ISTQB CTAL-TAE Sample Exam'
-      );
-    });
+    await screen.findByText('ISTQB CTAL-TAE Sample Exam');
+    expect(document.querySelector('title')).toHaveTextContent(
+      'Mehmet Serhat Özdursun - ISTQB CTAL-TAE Sample Exam'
+    );
 
     // Check if meta description exists
     const descriptionMeta = document.querySelector('meta[name="description"]');
@@ -197,9 +196,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('toggles answer visibility correctly', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     const firstButton = screen.getAllByText('Show Correct Answer')[0];
     fireEvent.click(firstButton);
@@ -215,17 +212,12 @@ describe('CTAL-TAE Exam Page', () => {
   it('toggles tip visibility correctly', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // First show the answer
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
 
-    // Wait for the tip button to appear
-    await waitFor(() => {
-      expect(screen.getByText('Show Tip')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('Show Tip')).toBeInTheDocument();
 
     // Show tip
     fireEvent.click(screen.getByText('Show Tip'));
@@ -239,9 +231,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('resets answer and tip visibility when loading new questions', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // Show answer and tip for first question
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
@@ -259,9 +249,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('disables show tip button until answer is shown', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // Tip button should not be visible until answer is shown
     expect(screen.queryByText('Show Tip')).not.toBeInTheDocument();
@@ -276,17 +264,14 @@ describe('CTAL-TAE Exam Page', () => {
   it('toggles real life example visibility correctly', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // First show the answer
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
 
-    // Wait for the real life example button to appear
-    await waitFor(() => {
-      expect(screen.getByText('Show Real Life Example')).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText('Show Real Life Example')
+    ).toBeInTheDocument();
 
     // Show real life example
     fireEvent.click(screen.getByText('Show Real Life Example'));
@@ -300,9 +285,7 @@ describe('CTAL-TAE Exam Page', () => {
   it('disables show real life example button until answer is shown', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // Real life example button should not be visible until answer is shown
     expect(
@@ -319,15 +302,13 @@ describe('CTAL-TAE Exam Page', () => {
   it('resets real life example visibility when loading new questions', async () => {
     render(<CtalTaeExam />);
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // Show answer and real life example
     fireEvent.click(screen.getAllByText('Show Correct Answer')[0]);
-    await waitFor(() => {
-      expect(screen.getByText('Show Real Life Example')).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText('Show Real Life Example')
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByText('Show Real Life Example'));
 
     expect(screen.getByText('Hide Real Life Example')).toBeInTheDocument();
@@ -335,9 +316,7 @@ describe('CTAL-TAE Exam Page', () => {
     // Load new questions
     fireEvent.click(screen.getByText('Load New Questions'));
 
-    await waitFor(() => {
-      expect(screen.getAllByText('Show Correct Answer')).toHaveLength(40);
-    });
+    expect(await screen.findAllByText('Show Correct Answer')).toHaveLength(40);
 
     // Real life example should be hidden
     expect(

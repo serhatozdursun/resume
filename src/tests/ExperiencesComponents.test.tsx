@@ -5,21 +5,12 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/theme';
 import ExperiencesComponents from '../components/ExperiencesComponents';
 
-// Mock next/image
-jest.mock('next/image', () => {
-  return function MockImage({
-    src,
-    alt,
-    ...props
-  }: {
-    src: string;
-    alt: string;
-    [key: string]: unknown;
-  }) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} {...props} />;
-  };
-});
+jest.mock(
+  'next/image',
+  () =>
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest mock factory must use require()
+    require('./mockNextImage').default
+);
 
 // Mock html-react-parser
 jest.mock('html-react-parser', () => {
