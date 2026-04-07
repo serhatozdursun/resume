@@ -10,7 +10,7 @@ import React, {
 import { SkillsStickySection } from './Layout.styles';
 
 const STICKY_TOP_PX = 96;
-const MOBILE_QUERY = '(max-width: 768px)';
+const MOBILE_OR_TABLET_QUERY = '(max-width: 1024px)';
 
 export const SkillsPinContext =
   createContext<React.RefObject<HTMLDivElement | null> | null>(null);
@@ -53,7 +53,7 @@ function isMobileViewport(): boolean {
   if (typeof window === 'undefined' || !window.matchMedia) {
     return false;
   }
-  return window.matchMedia(MOBILE_QUERY).matches;
+  return window.matchMedia(MOBILE_OR_TABLET_QUERY).matches;
 }
 
 interface FixedMetrics {
@@ -155,12 +155,26 @@ export const SkillsPinDesktop: React.FC<{ children: React.ReactNode }> = ({
       });
     };
 
+    const mq =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia(MOBILE_OR_TABLET_QUERY)
+        : null;
+    let io: IntersectionObserver | null = null;
+    if (mq?.matches) {
+      scheduleUpdate();
+      mq.addEventListener('change', scheduleUpdate);
+      return () => {
+        mq.removeEventListener('change', scheduleUpdate);
+        if (raf) cancelAnimationFrame(raf);
+        io?.disconnect();
+      };
+    }
+    mq?.addEventListener('change', scheduleUpdate);
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate, { passive: true });
 
     const wrapper = wrapperRef.current;
     const boundary = boundaryRef.current;
-    let io: IntersectionObserver | null = null;
     if (typeof IntersectionObserver !== 'undefined' && wrapper && boundary) {
       io = new IntersectionObserver(scheduleUpdate, {
         root: null,
@@ -170,12 +184,6 @@ export const SkillsPinDesktop: React.FC<{ children: React.ReactNode }> = ({
       io.observe(wrapper);
       io.observe(boundary);
     }
-
-    const mq =
-      typeof window.matchMedia === 'function'
-        ? window.matchMedia(MOBILE_QUERY)
-        : null;
-    mq?.addEventListener('change', scheduleUpdate);
 
     scheduleUpdate();
 

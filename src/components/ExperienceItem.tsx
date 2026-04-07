@@ -73,8 +73,8 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
               <Image
                 src={companyLogo}
                 alt={`${company} logo`}
-                width={55}
-                height={55}
+                fill
+                sizes='(max-width: 768px) 40px, 40px'
                 style={{ objectFit: 'contain' }}
               />
             </CompanyLogoWrapper>

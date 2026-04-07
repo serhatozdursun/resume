@@ -36,17 +36,21 @@ export const CompanyLogoWrapper = styled.div`
   height: 55px;
   margin-right: 5px;
   margin-top: 10px;
-  border: 1px solid #cacaca;
-  border-radius: 5px;
   overflow: hidden;
   background: ${props => props.theme.colors.card};
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   transition:
     transform 220ms ease,
     box-shadow 220ms ease;
 
   @media (max-width: 768px) {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
   }
 
   &:hover {
