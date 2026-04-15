@@ -339,8 +339,12 @@ describe('IndexPage Component', () => {
       ).toBeInTheDocument();
       expect(screen.getByText('AI Visual Compare')).toBeInTheDocument();
       expect(
+        screen.getByText('AI-Assisted Mobile Test Automation with Maestro')
+      ).toBeInTheDocument();
+      expect(
         screen.getByText('QA Engineering CI/CD Playground')
       ).toBeInTheDocument();
+      expect(screen.getByText('BDD Testing Frameworks')).toBeInTheDocument();
 
       expect(
         screen.getByRole('link', { name: 'AI Visual Compare repository' })
@@ -350,9 +354,31 @@ describe('IndexPage Component', () => {
       );
       expect(
         screen.getByRole('link', {
+          name: 'AI-Assisted Mobile Test Automation with Maestro repository',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://github.com/serhatozdursun/maestro-ai-agent'
+      );
+      expect(
+        screen.getByRole('link', {
+          name: 'AI-Assisted Mobile Test Automation with Maestro View on PyPI',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://pypi.org/project/maestro-ai-agent/0.1.0/'
+      );
+      expect(
+        screen.getByRole('link', {
           name: 'QA Engineering CI/CD Playground repository',
         })
       ).toHaveAttribute('href', 'https://github.com/serhatozdursun/resume');
+      expect(
+        screen.getByRole('link', { name: 'BDD Testing Frameworks repository' })
+      ).toHaveAttribute(
+        'href',
+        'https://github.com/vmso/io.bdd_testing_frameworks'
+      );
     });
 
     it('renders Open Source Contributions cards with external links', () => {

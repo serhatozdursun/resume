@@ -4,6 +4,7 @@ import {
   ProjectCard,
   ProjectDescription,
   ProjectLink,
+  ProjectLinksRow,
   ProjectName,
   ProjectsEyebrow,
   ProjectsGrid,
@@ -33,14 +34,26 @@ const EngineeringProjects: React.FC = () => {
                 <Tag key={`${project.title}-${tag}`}>{tag}</Tag>
               ))}
             </TagList>
-            <ProjectLink
-              href={project.repository}
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label={`${project.title} repository`}
-            >
-              View Repository
-            </ProjectLink>
+            <ProjectLinksRow>
+              <ProjectLink
+                href={project.repository}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label={`${project.title} repository`}
+              >
+                View Repository
+              </ProjectLink>
+              {project.supportLink ? (
+                <ProjectLink
+                  href={project.supportLink.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={`${project.title} ${project.supportLink.label}`}
+                >
+                  {project.supportLink.label}
+                </ProjectLink>
+              ) : null}
+            </ProjectLinksRow>
           </ProjectCard>
         ))}
       </ProjectsGrid>
