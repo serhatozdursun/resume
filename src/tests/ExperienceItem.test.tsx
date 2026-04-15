@@ -30,6 +30,7 @@ const baseProps = {
   companyLogo: '/acme-logo.png',
   companyWebsite: 'https://acme.com',
   dateRange: 'Jan 2020 - Present',
+  bullets: ['Bullet A', 'Bullet B'],
   description: longDescription,
 };
 
