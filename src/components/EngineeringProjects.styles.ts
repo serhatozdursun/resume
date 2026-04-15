@@ -106,3 +106,14 @@ export const ProjectLink = styled.a`
     text-decoration: none;
   }
 `;
+
+export const ProjectLinksRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+
+  ${ProjectLink} {
+    margin-top: 0;
+  }
+`;
