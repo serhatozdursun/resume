@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useRef } from 'react';
+import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import {
@@ -17,101 +17,21 @@ import {
   FormHelperBlock,
   MentorshipFormEl,
 } from './Mentorship.styles';
-
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
-
-interface InputErrors {
-  name: boolean;
-  email: boolean;
-  message: boolean;
-}
+import { useContactForm } from './useContactForm';
 
 const MentorshipContactForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [inputErrors, setInputErrors] = useState<InputErrors>({
-    name: false,
-    email: false,
-    message: false,
-  });
-  const [sending, setSending] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>(
-    'success'
-  );
-
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value, maxLength } = e.target;
-    const max = Number(maxLength);
-    setInputErrors(prev => ({ ...prev, [name]: value.length > max }));
-    setFormData(prev => ({ ...prev, [name]: value.slice(0, max) }));
-  };
-
-  const handleCloseSnackbar = () => setOpenSnackbar(false);
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (
-      !formData.name.trim() ||
-      !formData.email.trim() ||
-      !formData.message.trim()
-    ) {
-      setSnackbarMessage('Please fill in all required fields.');
-      setSnackbarSeverity('error');
-      setOpenSnackbar(true);
-      return;
-    }
-
-    setSending(true);
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => null);
-        throw new Error(body?.error ?? 'Failed to send message');
-      }
-
-      setSnackbarMessage('Message sent successfully!');
-      setSnackbarSeverity('success');
-      setOpenSnackbar(true);
-      setFormData({ name: '', email: '', message: '' });
-
-      if (
-        formRef.current &&
-        typeof formRef.current.scrollIntoView === 'function'
-      ) {
-        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setSnackbarMessage('Failed to send message. Please try again.');
-      setSnackbarSeverity('error');
-      setOpenSnackbar(true);
-    } finally {
-      setSending(false);
-    }
-  };
+  const {
+    formData,
+    inputErrors,
+    sending,
+    openSnackbar,
+    snackbarMessage,
+    snackbarSeverity,
+    formRef,
+    handleChange,
+    handleCloseSnackbar,
+    handleSubmit,
+  } = useContactForm();
 
   return (
     <FormPanel id='contact'>
@@ -129,7 +49,19 @@ const MentorshipContactForm: React.FC = () => {
         </ul>
       </FormHelperBlock>
 
-      <MentorshipFormEl ref={formRef} onSubmit={handleSubmit} noValidate>
+      <MentorshipFormEl
+        ref={formRef}
+        onSubmit={event =>
+          handleSubmit(event, {
+            buildPayload: currentData => ({
+              name: currentData.name,
+              email: currentData.email,
+              message: currentData.message,
+            }),
+          })
+        }
+        noValidate
+      >
         <InputContainer>
           <FormLabel htmlFor='m-name'>Name</FormLabel>
           <NameInput

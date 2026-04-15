@@ -25,7 +25,7 @@ describe('MentorshipPage', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'QA Mentorship & Career Guidance',
+        name: 'Mentorship & Knowledge Sharing',
       })
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /← Home/i })).toHaveAttribute(

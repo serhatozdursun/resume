@@ -5,8 +5,7 @@
 
 export const profile = {
   name: 'Mehmet Serhat Ozdursun',
-  title: `QA Leader | Senior SDET | 2026 AT*SQA Advisory Board – Emerging
-                Leaders`,
+  title: `Lead QA Automation Engineer | AI-Driven Quality Engineering | Mobile, API & CI/CD`,
   titleSubtitle: 'ISTQB® CTAL-TM, CTAL-TAE, CTFL | Scrum.org PSD I',
   titleExperience: '13+ Years in Quality Engineering',
   email: 'serhat.ozdursun@gmail.com',
@@ -16,42 +15,36 @@ export const profile = {
 
 export const summary = `
   <p style="text-align: justify;">
-    Senior <strong>QA Automation Leader</strong> with <strong>13+ years</strong> of experience driving quality engineering across SaaS, fintech, and enterprise platforms. Certified in 
-    <strong>ISTQB® Certified Tester Advanced Level – Test Management (CTAL-TM v3.0)</strong>, 
-    <strong>Test Automation Engineer (CTAL-TAE)</strong>, <strong>Foundation Level (CTFL)</strong>, 
-    and <strong>Professional Scrum Developer (PSD I)</strong>. 
-    Expert in architecting scalable, AI-assisted test automation frameworks across mobile, <strong>web</strong>, and <strong>API</strong> layers using 
-    <strong>Java</strong>, <strong>Python</strong>, and .NET (C#) with <strong>Appium</strong>, <strong>Selenium</strong>, and <strong>SpecFlow</strong>. 
-    Skilled in <strong>CI/CD integration</strong> (Azure DevOps, Jenkins, GitHub Actions), 
-    performance testing (JMeter, k6), and implementing <strong>shift-left</strong>, 
-    risk-based, and data-driven quality strategies
+    <strong>Lead QA Automation Engineer</strong> with <strong>13+ years</strong> of experience delivering end-to-end quality engineering across mobile, web, and API platforms.
   </p>
 
   <p style="text-align: justify;">
-    I specialize in aligning QA with business objectives to deliver scalable, reliable, and high-impact software at speed. 
-    Passionate about <strong>mentoring teams</strong>, improving test efficiency, and fostering a 
-    quality-first culture, I focus on creating automation solutions that reduce defect rates, 
-    accelerate delivery, and strengthen customer confidence.
+    I specialize in building scalable automation frameworks, embedding quality across CI/CD pipelines, and defining automation strategy while staying hands-on.
   </p>
 
   <p style="text-align: justify;">
-    Since 2022, I have been working as an <strong>independent QA Automation Consultant</strong>, partnering with 
-    leading international clients including <strong>Affirm</strong>, <strong>Poq</strong>, <strong>Payflow</strong>, and <strong>Hubuc</strong>. 
-    My work integrates <strong>AI-driven testing</strong>, performance optimization, and 
-    service virtualization to enhance release confidence, increase quality maturity, and drive measurable ROI.
+    Throughout my career, I have led QA initiatives across <strong>fintech</strong>, <strong>SaaS</strong>, and enterprise systems, increasing release confidence, reducing production defects, and improving delivery speed.
+  </p>
+
+  <p style="text-align: justify;">
+    Recently, I have focused on <strong>AI-assisted testing</strong>, applying practical approaches to improve automation speed, reduce maintenance overhead, and support more scalable quality engineering practices.
+  </p>
+
+  <p style="text-align: justify;">
+    I currently work in <strong>full-time contract roles as a Lead QA Automation Engineer</strong>, partnering with distributed teams to lead quality initiatives across large-scale mobile commerce platforms.
   </p>
 `;
 
 export const meta = {
   title:
-    'QA Leader | Senior SDET | ISTQB® CTAL-TM, CTAL-TAE & CTFL PSD I | 13+ Years in Quality Engineering',
+    'Lead QA Automation Engineer | AI-Driven Quality Engineering | ISTQB® CTAL-TM, CTAL-TAE & CTFL | 13+ Years',
   description:
-    'Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions',
-  ogTitle: 'Mehmet Serhat Özdursun - QA Automation Engineer',
+    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks, integrating CI/CD quality gates, and driving AI-assisted testing.',
+  ogTitle: 'Mehmet Serhat Özdursun - Lead QA Automation Engineer',
   ogDescription:
-    'Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions.',
+    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks and driving AI-assisted quality engineering.',
   keywords:
-    'QA Automation Engineer, Software Testing, Mehmet Serhat Özdursun, Resume',
+    'Lead QA Automation Engineer, QA Automation, Test Automation, AI-Driven Testing, Mehmet Serhat Özdursun',
   author: 'Mehmet Serhat Özdursun',
 } as const;
 
@@ -106,13 +99,13 @@ export const sidebarLinks: SidebarLink[] = [
   {
     id: 'mentorshipPage',
     href: '/mentorship',
-    label: 'QA Mentorship',
-    icon: '/email.png',
-    iconAlt: 'QA Mentorship',
+    label: 'Mentorship & Knowledge Sharing',
+    icon: '/mentor.png',
+    iconAlt: 'Mentorship & Knowledge Sharing',
     trackEvent: {
       event: 'mentorship_page',
       category: 'mentorship',
-      label: 'QA Mentorship',
+      label: 'Mentorship & Knowledge Sharing',
     },
   },
   {
@@ -202,7 +195,7 @@ export const getStructuredData = (siteUrl: string) => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Mehmet Serhat Özdursun',
-  jobTitle: 'QA Automation Engineer',
+  jobTitle: 'Lead QA Automation Engineer',
   url: `${siteUrl}/`,
   sameAs: [
     'https://www.linkedin.com/in/serhat-ozdursun/',
@@ -211,7 +204,7 @@ export const getStructuredData = (siteUrl: string) => ({
   ],
   image: `${siteUrl}/profile.png`,
   description:
-    'Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions',
+    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks and driving AI-assisted quality engineering.',
   email: 'serhat.ozdursun@gmail.com',
   telephone: '+905368361407',
   address: {
