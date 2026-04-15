@@ -142,6 +142,41 @@ export const HeroCta = styled.a`
   }
 `;
 
+export const HeroCtaRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+`;
+
+export const HeroCtaSecondary = styled.a`
+  display: inline-block;
+  color: ${props => props.theme.colors.accent};
+  border: 1px solid ${props => props.theme.colors.secondary};
+  background: ${props => props.theme.colors.card};
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+
+  &:hover {
+    color: ${props => props.theme.colors.highlight};
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${props => props.theme.colors.accent};
+    outline-offset: 3px;
+  }
+`;
+
 /* ─── Content card (margin-free variant of SectionFrame) ────────────────── */
 
 export const ContentCard = styled.section`

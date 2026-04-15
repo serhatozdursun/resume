@@ -40,7 +40,7 @@ describe('ProfileHeader', () => {
 
     const titleEl = document.getElementById('title');
     expect(titleEl).toBeInTheDocument();
-    expect(titleEl).toHaveTextContent(/QA Leader/);
+    expect(titleEl).toHaveTextContent(/Lead QA Automation Engineer/);
 
     expect(document.getElementById('emailLabel')).toHaveTextContent('Email');
     expect(document.getElementById('phoneLabel')).toHaveTextContent('Phone');
@@ -71,7 +71,7 @@ describe('ProfileHeader', () => {
 
   it('renders title content', () => {
     renderWithTheme(<ProfileHeader />);
-    expect(screen.getByText(/QA Leader/)).toBeInTheDocument();
+    expect(screen.getByText(/Lead QA Automation Engineer/)).toBeInTheDocument();
     expect(screen.getByText(/ISTQB® CTAL-TM/)).toBeInTheDocument();
     expect(screen.getByText(/13\+ Years/)).toBeInTheDocument();
   });
@@ -130,5 +130,13 @@ describe('ProfileHeader', () => {
     expect(images.length).toBeGreaterThanOrEqual(7);
     expect(screen.getByAltText('LinkedIn')).toBeInTheDocument();
     expect(screen.getByAltText('GitHub')).toBeInTheDocument();
+  });
+
+  it('does not render a duplicate secondary profiles row', () => {
+    renderWithTheme(<ProfileHeader />);
+
+    expect(
+      screen.queryByLabelText('External engineering and writing profiles')
+    ).not.toBeInTheDocument();
   });
 });

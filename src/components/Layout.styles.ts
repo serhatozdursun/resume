@@ -85,8 +85,8 @@ export const MainContentStack = styled.div`
 export const SummaryContainer = styled.span`
   display: block;
   box-sizing: border-box;
-  font-size: 1.05rem;
-  line-height: 1.72;
+  font-size: 0.98rem;
+  line-height: 1.78;
   text-align: left;
   width: 100%;
   max-width: none;
@@ -109,7 +109,7 @@ export const SummaryContainer = styled.span`
   }
 
   p {
-    margin: 0 0 12px;
+    margin: 0 0 14px;
   }
 
   p:last-child {
@@ -118,13 +118,18 @@ export const SummaryContainer = styled.span`
 
   @media (max-width: 1024px) {
     padding: 26px 26px;
-    line-height: 1.68;
+    font-size: 0.96rem;
+    line-height: 1.74;
   }
 
   @media (max-width: 768px) {
     padding: 22px 18px;
-    font-size: 0.96rem;
-    line-height: 1.62;
+    font-size: 0.93rem;
+    line-height: 1.7;
+
+    p {
+      margin: 0 0 12px;
+    }
   }
 `;
 

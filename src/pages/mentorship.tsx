@@ -65,9 +65,9 @@ const TOPICS = [
 ] as const;
 
 const PAGE_TITLE =
-  'QA Mentorship & Test Automation Career Guidance | Serhat Ozdursun';
+  'Mentorship & Knowledge Sharing | QA Career Guidance | Serhat Ozdursun';
 const PAGE_DESC =
-  'Personalized QA mentorship for engineers who want to enter software testing, move into test automation, improve CV/LinkedIn, and prepare for technical interviews.';
+  'Personalized QA mentorship for engineers looking to enter software testing, move into test automation, strengthen CV/LinkedIn positioning, and prepare for technical interviews.';
 const SITE_URL = 'https://serhatozdursun.com';
 
 const FAQS = [
@@ -124,7 +124,9 @@ const MentorshipPage: React.FC = () => (
         <PageNav aria-label='Breadcrumb'>
           <BackLink href='/'>← Home</BackLink>
           <NavSep aria-hidden='true'>/</NavSep>
-          <NavCurrent aria-current='page'>QA Mentorship</NavCurrent>
+          <NavCurrent aria-current='page'>
+            Mentorship &amp; Knowledge Sharing
+          </NavCurrent>
         </PageNav>
 
         <PageGrid>
@@ -135,13 +137,13 @@ const MentorshipPage: React.FC = () => (
               <HeroSection aria-labelledby='page-title'>
                 <HeroEyebrow>Limited 1-on-1 Availability</HeroEyebrow>
                 <HeroTitle id='page-title'>
-                  QA Mentorship &amp; Career Guidance
+                  Mentorship &amp; Knowledge Sharing
                 </HeroTitle>
                 <HeroLead>
-                  Personalized support for people who want to get into QA, move
-                  into test automation, sharpen their CV and interview skills,
-                  and grow toward international opportunities — at their own
-                  pace.
+                  Personalized support for engineers aiming to break into QA,
+                  transition into test automation, strengthen CV and interview
+                  performance, and grow toward international opportunities at a
+                  sustainable pace.
                 </HeroLead>
                 <HeroCta href='#contact'>Get in touch</HeroCta>
               </HeroSection>

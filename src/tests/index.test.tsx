@@ -146,7 +146,7 @@ describe('IndexPage Component', () => {
 
       const title = document.querySelector('title');
       expect(title).toHaveTextContent(
-        'QA Leader | Senior SDET | ISTQB® CTAL-TM, CTAL-TAE & CTFL PSD I | 13+ Years in Quality Engineering'
+        'Lead QA Automation Engineer | AI-Driven Quality Engineering | ISTQB® CTAL-TM, CTAL-TAE & CTFL | 13+ Years'
       );
     });
 
@@ -156,7 +156,7 @@ describe('IndexPage Component', () => {
       const description = document.querySelector('meta[name="description"]');
       expect(description).toHaveAttribute(
         'content',
-        'Experienced QA Automation Engineer with 10+ years in software testing, delivering comprehensive and efficient testing solutions'
+        'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks, integrating CI/CD quality gates, and driving AI-assisted testing.'
       );
     });
 
@@ -174,9 +174,9 @@ describe('IndexPage Component', () => {
       // Verify each expected text exists
       expect(combinedText).toContain('Download Resume');
       expect(combinedText).toContain('Recommendations');
-      expect(combinedText).toContain('QA Mentorship');
+      expect(combinedText).toContain('Mentorship & Knowledge Sharing');
       expect(combinedText).toContain(
-        'Official U.S. List Recommendations QA Mentorship Practice Page CTAL-TAE Sample Exam CTAL-TM Sample Exam'
+        'Official U.S. List Recommendations Mentorship & Knowledge Sharing Practice Page CTAL-TAE Sample Exam CTAL-TM Sample Exam'
       );
       expect(combinedText).toContain('Practice Page');
       expect(combinedText).toContain('CTAL-TAE Sample Exam');
@@ -229,7 +229,7 @@ describe('IndexPage Component', () => {
       const ogTitle = document.querySelector('meta[property="og:title"]');
       expect(ogTitle).toHaveAttribute(
         'content',
-        'Mehmet Serhat Özdursun - QA Automation Engineer'
+        'Mehmet Serhat Özdursun - Lead QA Automation Engineer'
       );
     });
 
@@ -329,6 +329,153 @@ describe('IndexPage Component', () => {
       // Check that HTML content is rendered
       const container = document.querySelector('div');
       expect(container).toBeInTheDocument();
+    });
+
+    it('renders Engineering Projects cards with repository links', () => {
+      render(<IndexPage />);
+
+      expect(
+        screen.getByRole('heading', { name: 'Real Engineering Work' })
+      ).toBeInTheDocument();
+      expect(screen.getByText('AI Visual Compare')).toBeInTheDocument();
+      expect(
+        screen.getByText('QA Engineering CI/CD Playground')
+      ).toBeInTheDocument();
+
+      expect(
+        screen.getByRole('link', { name: 'AI Visual Compare repository' })
+      ).toHaveAttribute(
+        'href',
+        'https://github.com/serhatozdursun/AI.VisualCompare'
+      );
+      expect(
+        screen.getByRole('link', {
+          name: 'QA Engineering CI/CD Playground repository',
+        })
+      ).toHaveAttribute('href', 'https://github.com/serhatozdursun/resume');
+    });
+
+    it('renders Open Source Contributions cards with external links', () => {
+      render(<IndexPage />);
+
+      expect(
+        screen.getByRole('heading', { name: 'Ecosystem Contributions' })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { level: 3, name: 'WebdriverIO' })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { level: 3, name: 'Gauge' })
+      ).toBeInTheDocument();
+
+      expect(
+        screen.getByRole('link', { name: 'WebdriverIO repository' })
+      ).toHaveAttribute('href', 'https://github.com/webdriverio/webdriverio');
+      expect(
+        screen.getByRole('link', { name: 'Gauge repository' })
+      ).toHaveAttribute('href', 'https://github.com/getgauge/gauge');
+      expect(
+        screen.getByRole('link', { name: 'Gauge contribution graph' })
+      ).toHaveAttribute(
+        'href',
+        'https://github.com/getgauge/gauge/graphs/contributors'
+      );
+    });
+
+    it('renders Articles & Knowledge Sharing card with topic tags and article link', () => {
+      render(<IndexPage />);
+
+      expect(
+        screen.getByRole('heading', { name: 'Thought Leadership in QA and AI' })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', {
+          level: 3,
+          name: 'What If AI Could Tell QA What Your Pull Request Might Break?',
+        })
+      ).toBeInTheDocument();
+
+      expect(screen.getByText('AI in QA')).toBeInTheDocument();
+      expect(
+        screen.getByText('Pull Request Impact Analysis')
+      ).toBeInTheDocument();
+      expect(screen.getByText('Test Coverage Awareness')).toBeInTheDocument();
+
+      expect(
+        screen.getByRole('link', {
+          name: 'What If AI Could Tell QA What Your Pull Request Might Break? article link',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://medium.com/dev-genius/what-if-ai-could-tell-qa-what-your-pull-request-might-break-b39842c94360'
+      );
+
+      expect(
+        screen.getByRole('heading', {
+          level: 3,
+          name: 'Self-Healing Locators That Report Themselves',
+        })
+      ).toBeInTheDocument();
+      expect(screen.getByText('UI Test Automation')).toBeInTheDocument();
+      expect(screen.getByText('Self-Healing Locators')).toBeInTheDocument();
+      expect(screen.getByText('Test Stability')).toBeInTheDocument();
+      expect(
+        screen.getByRole('link', {
+          name: 'Self-Healing Locators That Report Themselves article link',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://medium.com/dev-genius/self-healing-locators-that-report-themselves-a-smarter-way-to-avoid-ui-test-failures-8649b0723196'
+      );
+    });
+
+    it('renders QA advisory CTA card linking to /qa-advisory', () => {
+      render(<IndexPage />);
+
+      const advisoryLink = screen.getByRole('link', {
+        name: /Quality Engineering Advisory/i,
+      });
+      expect(advisoryLink).toHaveAttribute('href', '/qa-advisory');
+    });
+
+    it('renders compact current exploration list items', () => {
+      render(<IndexPage />);
+
+      expect(
+        screen.getByRole('heading', { name: "What I'm Currently Exploring" })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Applying AI-assisted automation workflows for PR impact analysis and intelligent test selection.'
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Designing AI-assisted visual regression pipelines to detect meaningful UI risk with lower review overhead.'
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Building Maestro-based mobile automation flows and validating them on real devices for production-like confidence.'
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Designing an AI orchestration layer that converts natural-language test intent into executable, maintainable test flows.'
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          'Leveraging open-source contribution work in WebdriverIO to strengthen reusable automation patterns and execution reliability.'
+        )
+      ).toBeInTheDocument();
+    });
+
+    it('renders a clear Professional Experience section heading before cards', () => {
+      render(<IndexPage />);
+      expect(
+        screen.getByText('Professional Experience', { selector: 'p' })
+      ).toBeInTheDocument();
     });
   });
 

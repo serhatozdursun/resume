@@ -67,20 +67,18 @@ describe('ExperiencesComponents', () => {
       );
       expect(seniorQATitles.length).toBeGreaterThan(0);
 
-      expect(
-        screen.getByText(/Lead QA Automation Engineer/)
-      ).toBeInTheDocument();
+      const leadQAEngineerTitles = screen.getAllByText(
+        /Lead QA Automation Engineer/
+      );
+      expect(leadQAEngineerTitles.length).toBeGreaterThan(0);
       expect(
         screen.getByText(/Senior Test Solutions Consultant/)
       ).toBeInTheDocument();
       expect(
         screen.getByText('Software Quality Assurance Team Lead')
       ).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          'Lead QA Automation Engineer (Self-Employed Contractor)'
-        )
-      ).toBeInTheDocument();
+      const leadQATitles = screen.getAllByText(/Lead QA Automation Engineer/);
+      expect(leadQATitles.length).toBeGreaterThan(0);
 
       // Use getAllByText for duplicate titles
       const softwareTestEngineerTitles = screen.getAllByText(
@@ -208,9 +206,8 @@ describe('ExperiencesComponents', () => {
       );
       expect(seniorQATitles.length).toBeGreaterThan(0);
 
-      expect(
-        screen.getByText(/Lead QA Automation Engineer/)
-      ).toBeInTheDocument();
+      const leadTitles = screen.getAllByText(/Lead QA Automation Engineer/);
+      expect(leadTitles.length).toBeGreaterThan(0);
       expect(
         screen.getByText(/Senior Test Solutions Consultant/)
       ).toBeInTheDocument();

@@ -31,7 +31,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ onTrackEvent }) => {
     }
     onTrackEvent?.(event, eventCategory, eventLabel);
   };
-
   return (
     <Header>
       <IdentityTag>Professional QA Portfolio</IdentityTag>

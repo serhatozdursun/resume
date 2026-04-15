@@ -30,6 +30,10 @@ import ProfileHeader from '../components/ProfileHeader';
 import ProfileSummary from '../components/ProfileSummary';
 import SidebarLinks from '../components/SidebarLinks';
 import MotionReveal from '../components/MotionReveal';
+import EngineeringProjects from '../components/EngineeringProjects';
+import OpenSourceContributions from '../components/OpenSourceContributions';
+import ArticlesKnowledgeSharing from '../components/ArticlesKnowledgeSharing';
+import CurrentExplorations from '../components/CurrentExplorations';
 import {
   SkillsPinBoundary,
   SkillsPinProvider,
@@ -159,10 +163,10 @@ const IndexPage: React.FC = () => {
                         </CtaText>
                       </CtaCard>
                       <CtaCard href='/mentorship'>
-                        <CtaTitle>QA Mentorship</CtaTitle>
+                        <CtaTitle>Mentorship &amp; Knowledge Sharing</CtaTitle>
                         <CtaText>
-                          1-on-1 career guidance, automation roadmap, and
-                          interview prep.
+                          Career direction, automation roadmap, and interview
+                          preparation for QA engineers.
                         </CtaText>
                       </CtaCard>
                       <CtaCard href='/practice'>
@@ -171,17 +175,33 @@ const IndexPage: React.FC = () => {
                           Interactive UI automation playground for QA workflows.
                         </CtaText>
                       </CtaCard>
-                      <CtaCard href='/ctal-tae-exam'>
-                        <CtaTitle>Sample Exam Resources</CtaTitle>
+                      <CtaCard href='/qa-advisory'>
+                        <CtaTitle>
+                          Quality Engineering Advisory (Occasional)
+                        </CtaTitle>
                         <CtaText>
-                          Start CTAL-TAE and CTAL-TM practice from here.
+                          Occasional support for teams on automation strategy,
+                          CI/CD quality engineering, and QA mentorship.
                         </CtaText>
                       </CtaCard>
                     </CtaGrid>
                   </SectionFrame>
                 </MotionReveal>
+                <MotionReveal delayMs={108}>
+                  <EngineeringProjects />
+                </MotionReveal>
+                <MotionReveal delayMs={115}>
+                  <OpenSourceContributions />
+                </MotionReveal>
+                <MotionReveal delayMs={118}>
+                  <ArticlesKnowledgeSharing />
+                </MotionReveal>
+                <MotionReveal delayMs={119}>
+                  <CurrentExplorations />
+                </MotionReveal>
                 <MotionReveal delayMs={120}>
                   <div id='experience_container'>
+                    <SectionEyebrow>Professional Experience</SectionEyebrow>
                     <ExperienceList />
                   </div>
                 </MotionReveal>
