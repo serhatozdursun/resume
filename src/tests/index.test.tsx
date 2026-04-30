@@ -455,13 +455,16 @@ describe('IndexPage Component', () => {
       );
     });
 
-    it('renders QA advisory CTA card linking to /qa-advisory', () => {
+    it('renders AT*SQA advisory board CTA card with external link', () => {
       render(<IndexPage />);
 
-      const advisoryLink = screen.getByRole('link', {
-        name: /Quality Engineering Advisory/i,
+      const advisoryBoardLink = screen.getByRole('link', {
+        name: /AT\*SQA Advisory Board 2026/i,
       });
-      expect(advisoryLink).toHaveAttribute('href', '/qa-advisory');
+      expect(advisoryBoardLink).toHaveAttribute(
+        'href',
+        'https://atsqa.org/atsqa-advisory-board-members-2026'
+      );
     });
 
     it('renders compact current exploration list items', () => {

@@ -29,7 +29,7 @@ describe('QaAdvisoryPage', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'Quality Engineering Advisory (Occasional)',
+        name: 'Quality Engineering Advisory',
         level: 1,
       })
     ).toBeInTheDocument();
