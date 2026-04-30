@@ -175,13 +175,14 @@ const IndexPage: React.FC = () => {
                           Interactive UI automation playground for QA workflows.
                         </CtaText>
                       </CtaCard>
-                      <CtaCard href='/qa-advisory'>
-                        <CtaTitle>
-                          Quality Engineering Advisory (Occasional)
-                        </CtaTitle>
+                      <CtaCard
+                        href='https://atsqa.org/atsqa-advisory-board-members-2026'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <CtaTitle>AT*SQA Advisory Board 2026</CtaTitle>
                         <CtaText>
-                          Occasional support for teams on automation strategy,
-                          CI/CD quality engineering, and QA mentorship.
+                          View advisory board recognition and public listing.
                         </CtaText>
                       </CtaCard>
                     </CtaGrid>

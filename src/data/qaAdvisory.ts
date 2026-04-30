@@ -3,14 +3,14 @@
  */
 
 export const qaAdvisoryMeta = {
-  title: 'Quality Engineering Advisory (Occasional) | Serhat Ozdursun',
+  title: 'Quality Engineering Advisory | Serhat Ozdursun',
   description:
     'Occasional advisory support on automation strategy, CI/CD quality engineering, and QA mentorship for software teams across web, mobile, API, performance, and AI-assisted workflows.',
 } as const;
 
 export const qaAdvisoryHero = {
   eyebrow: 'Occasional advisory support for teams',
-  title: 'Quality Engineering Advisory (Occasional)',
+  title: 'Quality Engineering Advisory',
   subtitle:
     'Occasionally supporting teams with QA mentorship, automation strategy, and practical quality engineering improvements.',
   supporting:
@@ -80,7 +80,6 @@ export const qaAdvisoryCredibility: readonly string[] = [
   '13+ years in QA and test automation across international product teams',
   'Hands-on experience across web, mobile, API, and performance testing',
   'CI/CD integration — GitHub Actions, Azure DevOps, Jenkins, and related pipelines',
-  'Consulting and delivery with distributed and international engineering organizations',
   'AI-assisted QA workflows integrated into real pipelines and review processes',
   'Framework architecture, process improvement, and measurable quality outcomes',
 ];
