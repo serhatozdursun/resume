@@ -30,6 +30,7 @@ export default [
       'jest.config.js',
       'next-sitemap.config.js',
       'next.config.js',
+      'next-env.d.ts',
       'scripts/',
       '.lintstagedrc.js',
     ],

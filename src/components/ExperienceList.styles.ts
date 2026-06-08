@@ -107,7 +107,7 @@ export const ToggleButton = styled.button`
   }
 `;
 
-export const ExperienceTitle = styled.h3`
+export const ExperienceTitle = styled.h2`
   font-family: ${props => props.theme.font.heading};
   text-align: left;
   font-size: 1.16rem;
@@ -124,12 +124,13 @@ export const ExperienceTitle = styled.h3`
   }
 `;
 
-export const ExperienceCompany = styled.h3`
+export const ExperienceCompany = styled.p`
   font-family: ${props => props.theme.font.main};
   text-align: left;
   font-size: 0.92rem;
   color: #4b5563;
   text-decoration: none;
+  margin: 0;
 
   @media (max-width: 768px) {
     font-size: 0.4em;
@@ -140,12 +141,13 @@ export const ExperienceCompany = styled.h3`
   }
 `;
 
-export const ExperienceDateRange = styled.h3`
+export const ExperienceDateRange = styled.p`
   font-family: ${props => props.theme.font.main};
   text-align: left;
   font-size: 0.9rem;
   color: #6b7280;
   margin-left: 10px;
+  margin: 0 0 0 10px;
   letter-spacing: 0.01em;
 
   @media (max-width: 768px) {
