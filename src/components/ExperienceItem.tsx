@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import Image from 'next/image';
 import HtmlParser from 'html-react-parser';
 import type { ExperienceItem as ExperienceItemType } from '../data/experiences';
@@ -23,6 +23,7 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
   companyWebsite,
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const descriptionId = useId();
 
   const toggleDescription = () => {
     setShowFullDescription(prev => !prev);
@@ -85,6 +86,7 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
               type='button'
               onClick={toggleDescription}
               aria-expanded={showFullDescription}
+              aria-controls={descriptionId}
               aria-label={`${title} — toggle description`}
               className='experience-toggle'
             >
@@ -104,7 +106,7 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
           </div>
         </div>
       </ExperienceHeader>
-      <ExperienceContent className='experience-content'>
+      <ExperienceContent id={descriptionId} className='experience-content'>
         {HtmlParser(descriptionToShow)}
         {description.length > 300 && (
           <SeeMoreLink
@@ -112,6 +114,7 @@ const ExperienceItemComponent: React.FC<ExperienceItemType> = ({
             onClick={toggleDescription}
             className='see-more-link'
             aria-expanded={showFullDescription}
+            aria-controls={descriptionId}
           >
             {showFullDescription ? ' See less' : 'See more'}
           </SeeMoreLink>
