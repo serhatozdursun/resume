@@ -188,7 +188,9 @@ describe('ExperienceList', () => {
     it('experience container is rendered', () => {
       const { container } = renderWithTheme(<ExperienceList />);
       // Experience items should be in the container
-      const experienceItems = container.querySelectorAll('button[aria-expanded]');
+      const experienceItems = container.querySelectorAll(
+        'button[aria-expanded]'
+      );
       expect(experienceItems.length).toBeGreaterThan(0);
     });
 
