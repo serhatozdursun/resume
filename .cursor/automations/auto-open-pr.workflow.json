@@ -1,0 +1,30 @@
+{
+  "name": "Auto-open PR on push",
+  "description": "Opens a PR to main when work is pushed to a feature branch without an existing open PR.",
+  "workflow": {
+    "triggers": [
+      {
+        "git": {
+          "push": {
+            "repos": ["serhatozdursun/resume"]
+          }
+        }
+      }
+    ],
+    "actions": [{ "gitPr": {} }],
+    "prompts": [
+      {
+        "prompt": "You are automating PR creation for serhatozdursun/resume (personal portfolio site).\n\nTRIGGER: A push event fired on this repository.\n\nRULES:\n1. If the pushed branch is `main`, stop immediately — do nothing.\n2. Check whether an open PR already exists from this branch to `main`. If one exists, stop — do nothing.\n3. Otherwise, open a new PR targeting `main`.\n\nPR CONTENT:\n- Title: concise summary from branch name and latest commit message.\n- Body: 2–4 bullet points summarizing changes from commit messages.\n- Open as a ready PR (not draft).\n\nAfter opening, comment: \"PR opened by automation. CI babysit + auto-merge will run when checks complete.\"\n\nDo not modify code — only create the PR."
+      }
+    ],
+    "model": "",
+    "gitConfig": {
+      "repo": "serhatozdursun/resume",
+      "branch": "main"
+    },
+    "agentOptions": {
+      "skipInstall": false
+    },
+    "memoryEnabled": false
+  }
+}

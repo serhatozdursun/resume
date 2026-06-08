@@ -1,0 +1,30 @@
+{
+  "name": "CI fix loop + auto-merge",
+  "description": "On CI completion for a PR: fix failing checks (tests, SonarCloud, Danger, browser e2e), push fixes, and squash-merge when all required checks pass.",
+  "workflow": {
+    "triggers": [
+      {
+        "git": {
+          "ciCompleted": {
+            "repos": ["serhatozdursun/resume"]
+          }
+        }
+      }
+    ],
+    "actions": [{ "gitPr": {} }, { "prComment": {} }, { "manageCheckRun": {} }],
+    "prompts": [
+      {
+        "prompt": "You babysit PRs on serhatozdursun/resume until merge-ready, then auto-merge. Read and follow the project skill at `.cursor/skills/babysit-pr/SKILL.md`.\n\nTRIGGER: CI checks completed on a pull request.\n\nIF ALL REQUIRED CHECKS PASSED:\n- Required: test-and-analyze, Analyze (javascript), Analyze (typescript), browser_e2e_tests (chrome), browser_e2e_tests (firefox)\n- If the PR is mergeable and all five are green, run: `gh pr merge --squash --delete-branch`\n- Comment confirming auto-merge. Stop.\n\nIF ANY REQUIRED CHECK FAILED OR IS STILL PENDING:\n- Track fix attempt count (max 5 per PR). If at limit, comment with blockers and stop.\n- Read failed check logs only as needed.\n- Apply scoped fixes per the babysit-pr skill.\n- Run `yarn test --coverage`, `yarn lint`, `yarn build` before pushing.\n- Push and stop — the next CI completion will re-trigger this automation.\n\nNever weaken CI, skip tests, or merge with failing checks."
+      }
+    ],
+    "model": "",
+    "gitConfig": {
+      "repo": "serhatozdursun/resume",
+      "branch": "main"
+    },
+    "agentOptions": {
+      "skipInstall": false
+    },
+    "memoryEnabled": false
+  }
+}
