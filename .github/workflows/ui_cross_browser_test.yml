@@ -62,7 +62,8 @@ jobs:
       - name: Install Python dependencies
         working-directory: serhatozdursun-ui-tests
         run: |
-          pip install -r requirements.txt
+          pip install poetry
+          poetry install --without dev
 
       - name: Run tests on ${{ matrix.browser }}
         working-directory: serhatozdursun-ui-tests
