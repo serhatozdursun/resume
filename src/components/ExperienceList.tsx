@@ -1,13 +1,13 @@
 import React from 'react';
-import ExperienceList from './ExperienceList';
+import ExperiencesComponents from './ExperiencesComponents';
 
-const App: React.FC = () => {
+const ExperienceList: React.FC = () => {
   return (
     <div>
       <h1>My Experiences</h1>
-      <ExperienceList />
+      <ExperiencesComponents />
     </div>
   );
 };
 
-export default App;
+export default ExperienceList;
