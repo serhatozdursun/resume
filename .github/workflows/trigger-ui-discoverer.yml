@@ -1,0 +1,25 @@
+name: Trigger UI discoverer on labeled merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  trigger_discover:
+    if: >-
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'discover')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify serhatozdursun-ui-tests
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.UI_TESTS_DISPATCH_TOKEN }}
+          repository: serhatozdursun/serhatozdursun-ui-tests
+          event-type: resume-merged-discover
+          client-payload: |
+            {
+              "resume_pr": ${{ github.event.pull_request.number }},
+              "resume_sha": "${{ github.event.pull_request.merge_commit_sha }}",
+              "resume_url": "${{ github.event.pull_request.html_url }}"
+            }
