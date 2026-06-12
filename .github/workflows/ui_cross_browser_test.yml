@@ -88,7 +88,7 @@ jobs:
         id: run_tests
         env:
           WDM_LOCAL: '1'
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.UI_TEST_TOKEN }}
           HEALER_PUSH_PR: 'true'
         run: |
           mkdir -p reports/html reports/screenshots
