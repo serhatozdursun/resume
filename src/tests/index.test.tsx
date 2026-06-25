@@ -421,7 +421,7 @@ describe('IndexPage Component', () => {
         })
       ).toBeInTheDocument();
 
-      expect(screen.getByText('AI in QA')).toBeInTheDocument();
+      expect(screen.getAllByText('AI in QA')).toHaveLength(2);
       expect(
         screen.getByText('Pull Request Impact Analysis')
       ).toBeInTheDocument();
@@ -452,6 +452,39 @@ describe('IndexPage Component', () => {
       ).toHaveAttribute(
         'href',
         'https://medium.com/dev-genius/self-healing-locators-that-report-themselves-a-smarter-way-to-avoid-ui-test-failures-8649b0723196'
+      );
+
+      expect(
+        screen.getByRole('heading', {
+          level: 3,
+          name: 'The Self-Healing Pipeline: Balancing the Magic of AI Agents with Engineering Discipline',
+        })
+      ).toBeInTheDocument();
+      expect(screen.getByText('CI/CD Quality Gates')).toBeInTheDocument();
+      expect(screen.getByText('Engineering Guardrails')).toBeInTheDocument();
+      expect(
+        screen.getByRole('link', {
+          name: 'The Self-Healing Pipeline: Balancing the Magic of AI Agents with Engineering Discipline article link',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://www.linkedin.com/pulse/self-healing-pipeline-balancing-magic-ai-agents-%C3%B6zdursun-jourf/'
+      );
+
+      expect(
+        screen.getByRole('heading', {
+          level: 3,
+          name: 'The True Cost of "Autonomous" QA Agents (And What the Viral Diagrams Ignore)',
+        })
+      ).toBeInTheDocument();
+      expect(screen.getByText('Cost Awareness')).toBeInTheDocument();
+      expect(
+        screen.getByRole('link', {
+          name: 'The True Cost of "Autonomous" QA Agents (And What the Viral Diagrams Ignore) article link',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://www.linkedin.com/pulse/true-cost-autonomous-qa-agents-what-viral-diagrams-ignore-%C3%B6zdursun-tujyf/'
       );
     });
 
