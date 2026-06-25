@@ -28,4 +28,30 @@ export const knowledgeArticles: readonly KnowledgeArticle[] = [
       'Test Stability',
     ],
   },
+  {
+    title:
+      'The Self-Healing Pipeline: Balancing the Magic of AI Agents with Engineering Discipline',
+    link: 'https://www.linkedin.com/pulse/self-healing-pipeline-balancing-magic-ai-agents-%C3%B6zdursun-jourf/',
+    description:
+      'Documents an agentic QA workflow that intercepts failing CI gates, heals broken tests via MCP-backed debugging, and enforces linting and human review guardrails to prevent architectural decay.',
+    topicTags: [
+      'AI Agents',
+      'CI/CD Quality Gates',
+      'Test Automation',
+      'Engineering Guardrails',
+    ],
+  },
+  {
+    title:
+      'The True Cost of "Autonomous" QA Agents (And What the Viral Diagrams Ignore)',
+    link: 'https://www.linkedin.com/pulse/true-cost-autonomous-qa-agents-what-viral-diagrams-ignore-%C3%B6zdursun-tujyf/',
+    description:
+      'Contrasts ungated self-healing loops with scoped, MCP-validated repairs, and argues that locator discipline, PR guardrails, and static analysis must come before autonomous E2E agents.',
+    topicTags: [
+      'AI in QA',
+      'E2E Automation',
+      'Self-Healing Tests',
+      'Cost Awareness',
+    ],
+  },
 ] as const;
