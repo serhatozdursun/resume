@@ -79,6 +79,7 @@ const IndexPage: React.FC = () => {
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
+                      objectPosition: 'top center',
                     }}
                   />
                 </MobileProfileThumb>
@@ -122,6 +123,7 @@ const IndexPage: React.FC = () => {
                         width: '150px',
                         height: '200px',
                         objectFit: 'cover',
+                        objectPosition: 'top center',
                         borderRadius: '15px',
                       }}
                     />
