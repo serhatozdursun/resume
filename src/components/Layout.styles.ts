@@ -163,9 +163,8 @@ export const ProfileImageWrapper = styled.div`
   width: 150px;
   height: 200px;
   border-radius: 15px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
   border: 1px solid ${props => props.theme.colors.secondary};
-  margin-left: 20px;
   background-color: ${props => props.theme.colors.secondary};
   position: relative;
   z-index: 1;
@@ -179,9 +178,7 @@ export const ProfileImageWrapper = styled.div`
     display: none;
     width: 82px;
     height: 106px;
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
   }
 
   &:hover {
