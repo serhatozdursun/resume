@@ -1,12 +1,7 @@
 import { experienceRows } from './experiencesData';
+import type { ExperienceRow } from './experiencesData';
 
-export interface ExperienceItem {
-  title: string;
-  company: string;
-  companyLogo: string;
-  companyWebsite: string;
-  dateRange: string;
-  bullets: readonly string[];
+export interface ExperienceItem extends ExperienceRow {
   description: string;
 }
 
@@ -16,14 +11,7 @@ const formatInlineEmphasis = (text: string): string =>
 const toDescription = (bullets: readonly string[]): string =>
   bullets.map(item => `<p>• ${formatInlineEmphasis(item)}</p>`).join('');
 
-export const experiences: ExperienceItem[] = experienceRows.map(
-  ([title, company, companyLogo, companyWebsite, dateRange, bullets]) => ({
-    title,
-    company,
-    companyLogo,
-    companyWebsite,
-    dateRange,
-    bullets,
-    description: toDescription(bullets),
-  })
-);
+export const experiences: ExperienceItem[] = experienceRows.map(experience => ({
+  ...experience,
+  description: toDescription(experience.bullets),
+}));
