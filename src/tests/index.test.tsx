@@ -146,7 +146,7 @@ describe('IndexPage Component', () => {
 
       const title = document.querySelector('title');
       expect(title).toHaveTextContent(
-        'Lead QA Automation Engineer | AI-Driven Quality Engineering | ISTQB® CTAL-TM, CTAL-TAE & CTFL | 13+ Years'
+        'QA Manager & Lead QA Automation Engineer | AI-Driven Quality Engineering | AT*SQA Advisory Board 2026 | 13+ Years'
       );
     });
 
@@ -156,7 +156,7 @@ describe('IndexPage Component', () => {
       const description = document.querySelector('meta[name="description"]');
       expect(description).toHaveAttribute(
         'content',
-        'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks, integrating CI/CD quality gates, and driving AI-assisted testing.'
+        'QA Manager, AI & Testing Innovation at PulsePoint with 13+ years in quality engineering, leading distributed QA teams, automation architecture, and agentic AI workflows.'
       );
     });
 
@@ -229,7 +229,7 @@ describe('IndexPage Component', () => {
       const ogTitle = document.querySelector('meta[property="og:title"]');
       expect(ogTitle).toHaveAttribute(
         'content',
-        'Mehmet Serhat Özdursun - Lead QA Automation Engineer'
+        'Mehmet Serhat Özdursun - QA Manager & Lead QA Automation Engineer'
       );
     });
 

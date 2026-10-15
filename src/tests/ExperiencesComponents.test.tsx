@@ -40,7 +40,9 @@ describe('ExperiencesComponents', () => {
     it('renders all experience items', () => {
       renderWithTheme(<ExperiencesComponents />);
 
-      // Check for updated company names
+      expect(
+        screen.getByText('PulsePoint, New York City Metropolitan Area')
+      ).toBeInTheDocument();
       expect(
         screen.getByText('Poq (via Index.dev), London')
       ).toBeInTheDocument();
@@ -96,7 +98,8 @@ describe('ExperiencesComponents', () => {
     it('renders all date ranges', () => {
       renderWithTheme(<ExperiencesComponents />);
 
-      expect(screen.getByText('Aug 2023 - Present')).toBeInTheDocument();
+      expect(screen.getByText('Jul 2026 - Present')).toBeInTheDocument();
+      expect(screen.getByText('Aug 2023 - Jul 2026')).toBeInTheDocument();
       expect(screen.getByText('Jun 2022 - Aug 2023')).toBeInTheDocument();
       expect(screen.getByText('Mar 2021 - Jun 2022')).toBeInTheDocument();
       expect(screen.getByText('Nov 2019 - Mar 2021')).toBeInTheDocument();
@@ -111,14 +114,14 @@ describe('ExperiencesComponents', () => {
       renderWithTheme(<ExperiencesComponents />);
 
       const logos = screen.getAllByRole('img');
-      // There are 9 company logos (including one additional company)
+      // Each experience has a company logo.
       expect(logos.length).toBeGreaterThanOrEqual(8);
 
       // Check first few logos
-      // First logo belongs to Poq (via Index.dev)
+      // The current role is listed first.
       expect(logos[0]).toHaveAttribute(
         'alt',
-        'Poq (via Index.dev), London logo'
+        'PulsePoint, New York City Metropolitan Area logo'
       );
     });
 
@@ -133,6 +136,7 @@ describe('ExperiencesComponents', () => {
       const hrefs = links.map(l => l.getAttribute('href'));
       expect(hrefs).toEqual(
         expect.arrayContaining([
+          'https://www.pulsepoint.com/',
           'https://poqcommerce.com',
           'https://www.affirm.com/',
           'https://www.payflow.es/',
