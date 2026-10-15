@@ -5,8 +5,9 @@
 
 export const profile = {
   name: 'Mehmet Serhat Ozdursun',
-  title: `Lead QA Automation Engineer | AI-Driven Quality Engineering | Mobile, API & CI/CD`,
-  titleSubtitle: 'ISTQB® CTAL-TM, CTAL-TAE, CTFL | Scrum.org PSD I',
+  title: `QA Manager & Lead QA Automation Engineer | AI-Driven Quality Engineering | Mobile, Web & API | CI/CD`,
+  titleSubtitle:
+    'AT*SQA Advisory Board 2026 | ISTQB® CTAL-TM, CTAL-TAE, CTFL | Scrum.org PSD I',
   titleExperience: '13+ Years in Quality Engineering',
   email: 'serhat.ozdursun@gmail.com',
   phone: '+905368361407',
@@ -15,11 +16,11 @@ export const profile = {
 
 export const summary = `
   <p style="text-align: justify;">
-    <strong>Lead QA Automation Engineer</strong> with <strong>13+ years</strong> of experience delivering end-to-end quality engineering across mobile, web, and API platforms.
+    <strong>QA Manager & Lead QA Automation Engineer</strong> with <strong>13+ years</strong> of experience delivering end-to-end quality engineering across mobile, web, and API platforms.
   </p>
 
   <p style="text-align: justify;">
-    I specialize in building scalable automation frameworks, embedding quality across CI/CD pipelines, and defining automation strategy while staying hands-on.
+    I combine people management and QA strategy with hands-on technical leadership in automation architecture, performance testing, and CI/CD quality engineering.
   </p>
 
   <p style="text-align: justify;">
@@ -27,24 +28,24 @@ export const summary = `
   </p>
 
   <p style="text-align: justify;">
-    Recently, I have focused on <strong>AI-assisted testing</strong>, applying practical approaches to improve automation speed, reduce maintenance overhead, and support more scalable quality engineering practices.
+    I lead <strong>AI adoption in Quality Engineering</strong>, designing reusable agent and skill architectures for workflows spanning requirements analysis, test design, automation generation, failure analysis, and defect management, with a focus on security, maintainability, and governance.
   </p>
 
   <p style="text-align: justify;">
-    I currently work in <strong>full-time contract roles as a Lead QA Automation Engineer</strong>, partnering with distributed teams to lead quality initiatives across large-scale mobile commerce platforms.
+    Since <strong>July 2026</strong>, I have worked as <strong>QA Manager, AI & Testing Innovation at PulsePoint</strong>, leading a globally distributed QA engineering team and partnering with Engineering, Product, DevOps, and Architecture teams to align quality initiatives with business and technology objectives.
   </p>
 `;
 
 export const meta = {
   title:
-    'Lead QA Automation Engineer | AI-Driven Quality Engineering | ISTQB® CTAL-TM, CTAL-TAE & CTFL | 13+ Years',
+    'QA Manager & Lead QA Automation Engineer | AI-Driven Quality Engineering | AT*SQA Advisory Board 2026 | 13+ Years',
   description:
-    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks, integrating CI/CD quality gates, and driving AI-assisted testing.',
-  ogTitle: 'Mehmet Serhat Özdursun - Lead QA Automation Engineer',
+    'QA Manager, AI & Testing Innovation at PulsePoint with 13+ years in quality engineering, leading distributed QA teams, automation architecture, and agentic AI workflows.',
+  ogTitle: 'Mehmet Serhat Özdursun - QA Manager & Lead QA Automation Engineer',
   ogDescription:
-    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks and driving AI-assisted quality engineering.',
+    'QA Manager and hands-on automation leader at PulsePoint, driving AI-powered quality engineering, scalable test architecture, and globally distributed QA teams.',
   keywords:
-    'Lead QA Automation Engineer, QA Automation, Test Automation, AI-Driven Testing, Mehmet Serhat Özdursun',
+    'QA Manager, Lead QA Automation Engineer, QA Automation, Test Automation, AI-Driven Quality Engineering, PulsePoint, Mehmet Serhat Özdursun',
   author: 'Mehmet Serhat Özdursun',
 } as const;
 
@@ -195,7 +196,12 @@ export const getStructuredData = (siteUrl: string) => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Mehmet Serhat Özdursun',
-  jobTitle: 'Lead QA Automation Engineer',
+  jobTitle: 'QA Manager, AI & Testing Innovation',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'PulsePoint',
+    url: 'https://www.pulsepoint.com/',
+  },
   url: `${siteUrl}/`,
   sameAs: [
     'https://www.linkedin.com/in/serhat-ozdursun/',
@@ -203,14 +209,12 @@ export const getStructuredData = (siteUrl: string) => ({
     'https://medium.com/@serhat-ozdursun',
   ],
   image: `${siteUrl}/profile.png`,
-  description:
-    'Lead QA Automation Engineer with 13+ years of experience across mobile, web, and API platforms — building scalable test frameworks and driving AI-assisted quality engineering.',
+  description: meta.ogDescription,
   email: 'serhat.ozdursun@gmail.com',
   telephone: '+905368361407',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Rize',
-    addressRegion: 'Findikli',
+    addressLocality: 'Muğla',
     addressCountry: 'Turkey',
   },
 });

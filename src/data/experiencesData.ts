@@ -9,11 +9,28 @@ export type ExperienceRow = readonly [
 
 export const experienceRows: readonly ExperienceRow[] = [
   [
+    'QA Manager, AI & Testing Innovation',
+    'PulsePoint, New York City Metropolitan Area',
+    '/pulsepoint_logo.png',
+    'https://www.pulsepoint.com/',
+    'Jul 2026 - Present',
+    [
+      'Lead and mentor a **globally distributed QA engineering team**, coordinating priorities, ownership, delivery, and technical development across regions and time zones.',
+      'Partner with US-based leadership and **Engineering, Product, DevOps, and Architecture** teams to align quality initiatives with business and technology objectives.',
+      'Remain hands-on with **automation architecture**, prototyping, reference implementations, and complex technical challenges to remove engineering blockers.',
+      'Define QA engineering standards and scalable automation architecture, validating technical direction through working implementations.',
+      'Lead **AI adoption in Quality Engineering**, architecting agentic workflows for requirements analysis, test design, automation generation, failure analysis, defect management, and lifecycle follow-up.',
+      'Design reusable **agent and skill architectures** for orchestrated QA workflows, incorporating LLM APIs, security, CI/CD integration, maintainability, and governance.',
+      'Drive automation across **API, UI, and E2E** layers, alongside performance and load-testing strategies for high-volume systems.',
+      'Contribute to QA roadmaps, estimation, prioritization, resource coordination, architecture and code reviews, mentoring, and continuous engineering improvement.',
+    ],
+  ],
+  [
     'Lead QA Automation Engineer – Full-time Contract',
     'Poq (via Index.dev), London',
     '/poq.svg',
     'https://poqcommerce.com',
-    'Aug 2023 - Present',
+    'Aug 2023 - Jul 2026',
     [
       'Led improvements to a **Java + Appium** mobile automation framework on BrowserStack, reducing production defects by **20%**.',
       'Owned and optimized regression suites for **40+ enterprise retail brands**, aligning coverage with client-specific implementations.',
