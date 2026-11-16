@@ -36,3 +36,6 @@ sitemap.xml
 # Test coverage
 coverage/
 coverage/clover.xml
+
+# Local Codex PR maintenance state
+.codex-pr-state/

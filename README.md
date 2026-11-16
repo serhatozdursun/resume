@@ -52,6 +52,13 @@ Then edit `.env.local` and add your actual API keys and configuration values.
 
 ## Usage
 
+### Working with Codex
+
+Codex project rules live in `AGENTS.md`. Native skills support PR creation and CI
+fixes, and named agents are available for both workflows. All merges are left to
+the user. See [Codex setup](docs/codex.md) for usage, automation behavior, and the
+distinction between your signed-in Codex account and the existing API-backed CI review.
+
 ### Development
 
 To run the development server:
