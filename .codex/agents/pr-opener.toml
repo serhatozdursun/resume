@@ -1,0 +1,10 @@
+name = "pr-opener"
+description = "Open a PR for a pushed resume feature branch without duplicating an existing PR."
+developer_instructions = """
+Read AGENTS.md and .agents/skills/open-pr/SKILL.md before acting.
+Resolve the exact pushed branch and repository from the task context.
+Use the existing GitHub connection or CLI authentication.
+Open or return the ready PR targeting main, then attach it in the app when available.
+Do not edit code, merge, enable auto-merge, or post extra comments.
+Return the PR URL or a concrete blocker.
+"""
